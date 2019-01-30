@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
+
+<head>
+  <title>MeeSter SMART</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{-- <meta name="description" content="Meeting Register - Smart Meeting Action Register Tracker"> --}}
+  {{-- <meta name="author" content="Radityo Putra Paripurna">
+  <meta name="keywords" content="Smart Meeting Action Register Tracker"> --}}
+  <meta property="og:title" content="Seedscholarship" />
+  {{-- <meta property="og:url" content="https://meester.alterfingers.com" />
+  <meta property="og:description" content="Meeting Register - Smart Meeting Action Register Tracker">
+  <meta property="og:image" content="{{ asset('images/screenshoot.png') }}">
+  <meta property="og:type" content="website" /> --}}
+  <!-- Favicon -->
+  {{--
+  <link type="image/png" href="{{ asset('images/AF_Logo_Ungu.png') }}" rel="icon"> --}}
+  <!-- Fonts -->
+  {{-- <link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet"> --}}
+  {{--
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> --}}
+  {{--
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> --}}
+
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
+  <title>{{ config('app.name', 'Laravel') }}</title>
+  {{-- <style>
+    body {
+      font-family: 'Heebo', sans-serif !important;
+    }
+  </style> --}}
+
+</head>
+
+<body>
+
+  @yield('content')
+
+  @yield('script')
+
+</body>
+
+</html>
