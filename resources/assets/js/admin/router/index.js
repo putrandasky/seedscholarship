@@ -15,6 +15,8 @@ const AssignmentDetail = () => import('../views/assignment/AssignmentDetail.vue'
 
 const AppBlog = () => import('../views/blog/AppBlog.vue')
 const AppBlogNew = () => import('../views/blog/AppBlogNew.vue')
+const AppBlogTag = () => import('../views/blog/AppBlogTag.vue')
+const AppBlogCategory = () => import('../views/blog/AppBlogCategory.vue')
 const BlogDetail = () => import('../views/blog/BlogDetail.vue')
 
 const AppPage = () => import('../views/page/AppPage.vue')
@@ -64,7 +66,7 @@ export default new Router({
                     component: AppAssignment,
                 },
                 {
-                    path: ':assignmentId',
+                    path: 'detail/:assignmentId',
                     name: 'AssignmentDetail',
                     component: AssignmentDetail,
                 },
@@ -89,7 +91,7 @@ export default new Router({
                     component: AppBlog
                 },
                 {
-                    path: ':blogId',
+                    path: 'detail/:blogId',
                     name: 'BlogDetail',
                     component: BlogDetail
                 },
@@ -102,6 +104,24 @@ export default new Router({
                 path: '',
                 name: 'BlogNew',
                 component: AppBlogNew
+            }]
+        },
+        {
+            path: '/blog/edit-tag',
+            component: Full,
+            children: [{
+                path: '',
+                name: 'BlogTag',
+                component: AppBlogTag
+            }]
+        },
+        {
+            path: '/blog/edit-category',
+            component: Full,
+            children: [{
+                path: '',
+                name: 'BlogCategory',
+                component: AppBlogCategory
             }]
         },
         {

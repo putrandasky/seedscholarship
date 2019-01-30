@@ -36,7 +36,7 @@
 /******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 	// Promise = chunk loading, 0 = chunk loaded
 /******/ 	var installedChunks = {
-/******/ 		"/js/script-admin": 0
+/******/ 		"/js/admin/script-admin": 0
 /******/ 	};
 /******/
 /******/
@@ -2906,6 +2906,14 @@ __webpack_require__.r(__webpack_exports__);
           name: 'Add New',
           icon: 'fa fa-plus',
           url: "/blog/new"
+        }, {
+          name: 'Category',
+          icon: 'fa fa-list-alt',
+          url: "/blog/edit-category"
+        }, {
+          name: 'Tag',
+          icon: 'fa fa-tags',
+          url: "/blog/edit-tag"
         }]
       }, {
         name: 'Page',
@@ -19322,7 +19330,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  /* .ql-container,\n.ql-editor {\n  min-height: 25em\n} */\n.dropdown.v-select>.dropdown-toggle {\n      border-radius: unset\n}\n.pell-actionbar {\n      border-color: #c2cfd6;\n      border-style: solid;\n      border-width: 1px 1px 0px 1px;\n}\n.pell-content {\n      height: unset;\n      min-height: 100px;\n}\n\n  /*.fade-select-enter-active,\n.fade-select-leave-active {\n  transition: opacity .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n\n.fade-select-enter,\n.fade-select-leave-to {\n  opacity: 0;\n}*/\ntable.table-hover>tbody>tr {\n      cursor: pointer;\n}\n.customBox {\n      display: none;\n}\n.customBox+label {\n      cursor: pointer;\n      position: fixed;\n      right: 1em;\n      bottom: 1em;\n      background-color: tomato;\n      height: 3em;\n      width: 3em;\n      border-radius: 50%;\n      z-index: 2;\n}\n.customBox+label:before,\n  .customBox+label:after {\n      position: absolute;\n      content: '';\n      height: 2em;\n      width: .25em;\n      background-color: #fff;\n      top: 0;\n      bottom: 0;\n      left: 0;\n      right: 0;\n      margin: auto;\n      border-radius: .5em;\n      transition: all .25s;\n}\n.customBox+label:before {\n      height: 2em;\n      width: .25em;\n}\n.customBox+label:after {\n      width: 2em;\n      height: .25em;\n}\n.customBox:checked+label:before {\n      transform: rotatez(-45deg);\n}\n.customBox:checked+label:after {\n      transform: rotatez(-45deg);\n}\n.one,\n  .two,\n  .three {\n      cursor: pointer;\n      position: fixed;\n      right: 1em;\n      bottom: 1.5em;\n      padding: 1em;\n      width: 3em;\n      height: 3em;\n      border-radius: 50%;\n      opacity: 0;\n      z-index: 1;\n      transform: rotateZ(90deg);\n      font-size: 1em;\n      color: #fff;\n      transition-property: all;\n      transition-duration: .35s;\n      transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);\n      display: grid;\n      justify-content: center\n}\n.customBox:checked~.one,\n  .customBox:checked~.two,\n  .customBox:checked~.three {\n      opacity: 1;\n}\n.customBox:checked~.one {\n      background-color: purple;\n      transform: translateY(-15em);\n      transition-delay: .2s;\n}\n.customBox:checked~.two {\n      background-color: slateblue;\n      transform: translateY(-4em);\n      transition-delay: .1s;\n}\n.customBox:checked~.three {\n      background-color: mediumorchid;\n      transform: translateY(-8em);\n}\n.customBox:checked~.one:hover,\n  .customBox:checked~.two:hover,\n  .customBox:checked~.three:hover {\n      opacity: .9;\n}\n.float-button {\n      position: fixed;\n      width: 60px;\n      height: 60px;\n      bottom: 40px;\n      right: 40px;\n      background-color: tomato;\n      color: #FdFF;\n      border-radius: 50px;\n      text-align: center;\n      box-shadow: 2px 2px 3px #999;\n      cursor: pointer;\n      margin: 1px;\n      z-index: 100;\n}\n.float-button:hover {\n      opacity: .9;\n}\n.float-button>i {\n      margin-top: 18px;\n      font-size: 27px;\n}\n.btn--corner {\n      position: absolute;\n      top: 1px;\n      right: 1px;\n      padding: 0rem 0.2rem;\n}\n.btn--corner-3 {\n      position: absolute;\n      top: 3px;\n      right: 3px;\n      padding: 0rem 0.2rem;\n}\n.btn--xs {\n      padding: 0rem 0.2rem;\n}\n.dimmer {\n      position: absolute;\n      z-index: 100;\n      height: 100%;\n      width: 100%;\n      left: 0;\n      vertical-align: middle;\n      top: 0;\n      display: grid;\n      align-content: center;\n      background-color: rgba(255, 255, 255, .85);\n}\ndl {\n      margin-bottom: 1rem;\n      border: 1px solid #A4B7C1;\n      height: 100%;\n}\ndl dt {\n      /* background: #C2CFD6; */\n      padding-top: 0.5rem;\n      padding-bottom: 0.5rem;\n}\ndl dd {\n      /* border-left: 1px solid #A4B7C1; */\n      margin-bottom: 0.5rem;\n      margin-top: 0.5rem\n}\n.fade-leave-active {\n      transition: opacity ease-in;\n}\n.fade-enter-active,\n      {\n      transition: opacity ease-out;\n}\n.fade-enter,\n  .fade-leave-to {\n      opacity: 0;\n}\n.page-item.active .page-link,\n  .pagination-datatables li.active .page-link,\n  .pagination li.active .page-link,\n  .page-item.active .pagination-datatables li a,\n  .pagination-datatables li .page-item.active a,\n  .pagination-datatables li.active a,\n  .page-item.active .pagination li a,\n  .pagination li .page-item.active a,\n  .pagination li.active a {\n      z-index: 0;\n}\n@media (min-width: 1024px) {\n.modal-xl {\n          max-width: 1000px;\n}\n}\n@media (min-width: 576px) {\n.truncate-cell {\n          white-space: nowrap;\n          text-overflow: ellipsis;\n          overflow: hidden;\n          max-width: 1px;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n.ql-container,\n.ql-editor {\n  min-height: 25em\n}\n.dropdown.v-select>.dropdown-toggle {\n      border-radius: unset\n}\n.pell-actionbar {\n      border-color: #c2cfd6;\n      border-style: solid;\n      border-width: 1px 1px 0px 1px;\n}\n.pell-content {\n      height: unset;\n      min-height: 100px;\n}\n\n  /*.fade-select-enter-active,\n.fade-select-leave-active {\n  transition: opacity .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n\n.fade-select-enter,\n.fade-select-leave-to {\n  opacity: 0;\n}*/\ntable.table-hover>tbody>tr {\n      cursor: pointer;\n}\n.customBox {\n      display: none;\n}\n.customBox+label {\n      cursor: pointer;\n      position: fixed;\n      right: 1em;\n      bottom: 1em;\n      background-color: tomato;\n      height: 3em;\n      width: 3em;\n      border-radius: 50%;\n      z-index: 2;\n}\n.customBox+label:before,\n  .customBox+label:after {\n      position: absolute;\n      content: '';\n      height: 2em;\n      width: .25em;\n      background-color: #fff;\n      top: 0;\n      bottom: 0;\n      left: 0;\n      right: 0;\n      margin: auto;\n      border-radius: .5em;\n      transition: all .25s;\n}\n.customBox+label:before {\n      height: 2em;\n      width: .25em;\n}\n.customBox+label:after {\n      width: 2em;\n      height: .25em;\n}\n.customBox:checked+label:before {\n      transform: rotatez(-45deg);\n}\n.customBox:checked+label:after {\n      transform: rotatez(-45deg);\n}\n.one,\n  .two,\n  .three {\n      cursor: pointer;\n      position: fixed;\n      right: 1em;\n      bottom: 1.5em;\n      padding: 1em;\n      width: 3em;\n      height: 3em;\n      border-radius: 50%;\n      opacity: 0;\n      z-index: 1;\n      transform: rotateZ(90deg);\n      font-size: 1em;\n      color: #fff;\n      transition-property: all;\n      transition-duration: .35s;\n      transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);\n      display: grid;\n      justify-content: center\n}\n.customBox:checked~.one,\n  .customBox:checked~.two,\n  .customBox:checked~.three {\n      opacity: 1;\n}\n.customBox:checked~.one {\n      background-color: purple;\n      transform: translateY(-15em);\n      transition-delay: .2s;\n}\n.customBox:checked~.two {\n      background-color: slateblue;\n      transform: translateY(-4em);\n      transition-delay: .1s;\n}\n.customBox:checked~.three {\n      background-color: mediumorchid;\n      transform: translateY(-8em);\n}\n.customBox:checked~.one:hover,\n  .customBox:checked~.two:hover,\n  .customBox:checked~.three:hover {\n      opacity: .9;\n}\n.float-button {\n      position: fixed;\n      width: 60px;\n      height: 60px;\n      bottom: 40px;\n      right: 40px;\n      background-color: tomato;\n      color: #FdFF;\n      border-radius: 50px;\n      text-align: center;\n      box-shadow: 2px 2px 3px #999;\n      cursor: pointer;\n      margin: 1px;\n      z-index: 100;\n}\n.float-button:hover {\n      opacity: .9;\n}\n.float-button>i {\n      margin-top: 18px;\n      font-size: 27px;\n}\n.btn--corner {\n      position: absolute;\n      top: 1px;\n      right: 1px;\n      padding: 0rem 0.2rem;\n}\n.btn--corner-3 {\n      position: absolute;\n      top: 3px;\n      right: 3px;\n      padding: 0rem 0.2rem;\n}\n.btn--xs {\n      padding: 0rem 0.2rem;\n}\n.dimmer {\n      position: absolute;\n      z-index: 100;\n      height: 100%;\n      width: 100%;\n      left: 0;\n      vertical-align: middle;\n      top: 0;\n      display: grid;\n      align-content: center;\n      background-color: rgba(255, 255, 255, .85);\n}\ndl {\n      margin-bottom: 1rem;\n      border: 1px solid #A4B7C1;\n      height: 100%;\n}\ndl dt {\n      /* background: #C2CFD6; */\n      padding-top: 0.5rem;\n      padding-bottom: 0.5rem;\n}\ndl dd {\n      /* border-left: 1px solid #A4B7C1; */\n      margin-bottom: 0.5rem;\n      margin-top: 0.5rem\n}\n.fade-leave-active {\n      transition: opacity ease-in;\n}\n.fade-enter-active,\n      {\n      transition: opacity ease-out;\n}\n.fade-enter,\n  .fade-leave-to {\n      opacity: 0;\n}\n.page-item.active .page-link,\n  .pagination-datatables li.active .page-link,\n  .pagination li.active .page-link,\n  .page-item.active .pagination-datatables li a,\n  .pagination-datatables li .page-item.active a,\n  .pagination-datatables li.active a,\n  .page-item.active .pagination li a,\n  .pagination li .page-item.active a,\n  .pagination li.active a {\n      z-index: 0;\n}\n@media (min-width: 1024px) {\n.modal-xl {\n          max-width: 1000px;\n}\n}\n@media (min-width: 576px) {\n.truncate-cell {\n          white-space: nowrap;\n          text-overflow: ellipsis;\n          overflow: hidden;\n          max-width: 1px;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -65209,80 +65217,88 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppDashboard = function AppDashboard() {
-  return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/dashboard/AppDashboard.vue */ "./resources/assets/js/admin/views/dashboard/AppDashboard.vue"));
+  return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../views/dashboard/AppDashboard.vue */ "./resources/assets/js/admin/views/dashboard/AppDashboard.vue"));
 }; // const AppUserAdmin = () => import('../views/user/AppAdmin.vue')
 // const AppUserAwardee = () => import('../views/user/AppAwardee.vue')
 // const AppUserPatron = () => import('../views/user/AppPatron.vue')
 
 
 var AppAssignment = function AppAssignment() {
-  return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ../views/assignment/AppAssignment.vue */ "./resources/assets/js/admin/views/assignment/AppAssignment.vue"));
+  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../views/assignment/AppAssignment.vue */ "./resources/assets/js/admin/views/assignment/AppAssignment.vue"));
 };
 
 var AppAssignmentNew = function AppAssignmentNew() {
-  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../views/assignment/AppNewAssignment.vue */ "./resources/assets/js/admin/views/assignment/AppNewAssignment.vue"));
+  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../views/assignment/AppNewAssignment.vue */ "./resources/assets/js/admin/views/assignment/AppNewAssignment.vue"));
 };
 
 var AssignmentDetail = function AssignmentDetail() {
-  return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../views/assignment/AssignmentDetail.vue */ "./resources/assets/js/admin/views/assignment/AssignmentDetail.vue"));
+  return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ../views/assignment/AssignmentDetail.vue */ "./resources/assets/js/admin/views/assignment/AssignmentDetail.vue"));
 };
 
 var AppBlog = function AppBlog() {
-  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../views/blog/AppBlog.vue */ "./resources/assets/js/admin/views/blog/AppBlog.vue"));
+  return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/blog/AppBlog.vue */ "./resources/assets/js/admin/views/blog/AppBlog.vue"));
 };
 
 var AppBlogNew = function AppBlogNew() {
-  return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/blog/AppBlogNew.vue */ "./resources/assets/js/admin/views/blog/AppBlogNew.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, /*! ../views/blog/AppBlogNew.vue */ "./resources/assets/js/admin/views/blog/AppBlogNew.vue"));
+};
+
+var AppBlogTag = function AppBlogTag() {
+  return Promise.all(/*! import() */[__webpack_require__.e(19), __webpack_require__.e(22)]).then(__webpack_require__.bind(null, /*! ../views/blog/AppBlogTag.vue */ "./resources/assets/js/admin/views/blog/AppBlogTag.vue"));
+};
+
+var AppBlogCategory = function AppBlogCategory() {
+  return Promise.all(/*! import() */[__webpack_require__.e(19), __webpack_require__.e(21)]).then(__webpack_require__.bind(null, /*! ../views/blog/AppBlogCategory.vue */ "./resources/assets/js/admin/views/blog/AppBlogCategory.vue"));
 };
 
 var BlogDetail = function BlogDetail() {
-  return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../views/blog/BlogDetail.vue */ "./resources/assets/js/admin/views/blog/BlogDetail.vue"));
+  return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/blog/BlogDetail.vue */ "./resources/assets/js/admin/views/blog/BlogDetail.vue"));
 };
 
 var AppPage = function AppPage() {
-  return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../views/page/AppPage.vue */ "./resources/assets/js/admin/views/page/AppPage.vue"));
+  return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../views/page/AppPage.vue */ "./resources/assets/js/admin/views/page/AppPage.vue"));
 };
 
 var AppPageNew = function AppPageNew() {
-  return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../views/page/AppPageNew.vue */ "./resources/assets/js/admin/views/page/AppPageNew.vue"));
+  return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../views/page/AppPageNew.vue */ "./resources/assets/js/admin/views/page/AppPageNew.vue"));
 };
 
 var PageDetail = function PageDetail() {
-  return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../views/page/PageDetail.vue */ "./resources/assets/js/admin/views/page/PageDetail.vue"));
+  return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../views/page/PageDetail.vue */ "./resources/assets/js/admin/views/page/PageDetail.vue"));
 };
 
 var AppRequestAwardee = function AppRequestAwardee() {
-  return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../views/request/AppRequestAwardee.vue */ "./resources/assets/js/admin/views/request/AppRequestAwardee.vue"));
+  return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../views/request/AppRequestAwardee.vue */ "./resources/assets/js/admin/views/request/AppRequestAwardee.vue"));
 };
 
 var AppRequestPatron = function AppRequestPatron() {
-  return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../views/request/AppRequestPatron.vue */ "./resources/assets/js/admin/views/request/AppRequestPatron.vue"));
+  return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../views/request/AppRequestPatron.vue */ "./resources/assets/js/admin/views/request/AppRequestPatron.vue"));
 };
 
 var AppAccountAdmin = function AppAccountAdmin() {
-  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../views/account/AppAdmin.vue */ "./resources/assets/js/admin/views/account/AppAdmin.vue"));
+  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/account/AppAdmin.vue */ "./resources/assets/js/admin/views/account/AppAdmin.vue"));
 };
 
 var AppAccountAwardee = function AppAccountAwardee() {
-  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/account/AppAwardee.vue */ "./resources/assets/js/admin/views/account/AppAwardee.vue"));
+  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../views/account/AppAwardee.vue */ "./resources/assets/js/admin/views/account/AppAwardee.vue"));
 };
 
 var AppAccountPatron = function AppAccountPatron() {
-  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../views/account/AppPatron.vue */ "./resources/assets/js/admin/views/account/AppPatron.vue"));
+  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../views/account/AppPatron.vue */ "./resources/assets/js/admin/views/account/AppPatron.vue"));
 };
 
 
 
 var PasswordReset = function PasswordReset() {
-  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../views/auth/AuthPasswordReset */ "./resources/assets/js/admin/views/auth/AuthPasswordReset.vue"));
+  return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../views/auth/AuthPasswordReset */ "./resources/assets/js/admin/views/auth/AuthPasswordReset.vue"));
 };
 
 var ForgotPassword = function ForgotPassword() {
-  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../views/auth/AuthForgotPassword */ "./resources/assets/js/admin/views/auth/AuthForgotPassword.vue"));
+  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../views/auth/AuthForgotPassword */ "./resources/assets/js/admin/views/auth/AuthForgotPassword.vue"));
 };
 
 var Register = function Register() {
-  return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../views/auth/AuthRegister */ "./resources/assets/js/admin/views/auth/AuthRegister.vue"));
+  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../views/auth/AuthRegister */ "./resources/assets/js/admin/views/auth/AuthRegister.vue"));
 };
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -65311,7 +65327,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
       name: 'Assignment',
       component: AppAssignment
     }, {
-      path: ':assignmentId',
+      path: 'detail/:assignmentId',
       name: 'AssignmentDetail',
       component: AssignmentDetail
     }]
@@ -65332,7 +65348,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
       name: 'Blog',
       component: AppBlog
     }, {
-      path: ':blogId',
+      path: 'detail/:blogId',
       name: 'BlogDetail',
       component: BlogDetail
     }]
@@ -65343,6 +65359,22 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
       path: '',
       name: 'BlogNew',
       component: AppBlogNew
+    }]
+  }, {
+    path: '/blog/edit-tag',
+    component: _container_Full_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    children: [{
+      path: '',
+      name: 'BlogTag',
+      component: AppBlogTag
+    }]
+  }, {
+    path: '/blog/edit-category',
+    component: _container_Full_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    children: [{
+      path: '',
+      name: 'BlogCategory',
+      component: AppBlogCategory
     }]
   }, {
     path: '/page',

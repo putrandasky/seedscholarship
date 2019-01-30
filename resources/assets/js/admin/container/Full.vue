@@ -74,6 +74,16 @@
                                 name: 'Add New',
                                 icon: 'fa fa-plus',
                                 url: `/blog/new`
+                            },
+                            {
+                                name: 'Category',
+                                icon: 'fa fa-list-alt',
+                                url: `/blog/edit-category`
+                            },
+                            {
+                                name: 'Tag',
+                                icon: 'fa fa-tags',
+                                url: `/blog/edit-tag`
                             }
                         ]
                     },
@@ -175,10 +185,10 @@
 
 </script>
 <style>
-    /* .ql-container,
+    .ql-container,
   .ql-editor {
     min-height: 25em
-  } */
+  }
 
     .dropdown.v-select>.dropdown-toggle {
         border-radius: unset

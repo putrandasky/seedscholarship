@@ -45,7 +45,18 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
-    ],
+        'admin-api' => [
+            'driver' => 'jwt',
+            'provider' => 'admins',
+        ],
+        'awardee-api' => [
+            'driver' => 'jwt',
+            'provider' => 'awardees',
+        ],
+        'patron-api' => [
+            'driver' => 'jwt',
+            'provider' => 'patrons',
+        ],    ],
 
     /*
     |--------------------------------------------------------------------------
