@@ -1,39 +1,89 @@
 <?php
 
-namespace App\Http\Controllers\Auth\Blog;
+namespace App\Http\Controllers\Admin\Blog;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
 class BlogCategoryController extends Controller
 {
     public function index()
     {
-        $category = App\BlogCategory::all();
-        return $category;
+        $index = App\BlogCategory::withCount('blogs')->orderBy('order', 'ASC')->get();
+        return $index;
     }
-    public function create(Request $request)
+    public function store(Request $request)
     {
+        $checkExistCategory = App\BlogCategory::where(['category' => $request->category])->exists();
+        if ($checkExistCategory) {
+            return response()->json(['status' => 'This blog category already exist', 'error' => 'Unprocessable Entity'], 422);
+        }
+        $countBlogCategory = App\BlogCategory::count();
         $category = new App\BlogCategory;
-        $category->category = $request['category'];
+        $category->category = $request->category;
+        $category->description = $request->description;
+        $category->order = $countBlogCategory + 1;
         $category->save();
-        return "New Category Has Been Created Succesfully";
+        return response()->json(['status' => 'Successfully created new blog category'], 201);
     }
-    public function update(Request $request, $id)
+    public function update(Request $request, $categoryId)
     {
-        $category = App\BlogCategory::find($id);
-        $category->category = $request['category'];
+        $checkExistCategory = App\BlogCategory::where(['category' => $request->category])->where('id','<>',$categoryId)->exists();
+        if ($checkExistCategory) {
+            return response()->json(['status' => 'This blog category already exist', 'error' => 'Unprocessable Entity'], 422);
+        }
+        $category = App\BlogCategory::find($categoryId);
+        $category->category = $request->category;
+        $category->description = $request->description;
         $category->save();
-        return "The Category Has Been Edited Successfully";
+        return response()->json(['status' => 'Successfully update blog category'], 201);
     }
-    public function delete($id)
+    public function reorder(Request $request)
     {
-        $category = App\BlogCategory::find($id);
-
+        // dd(count($request['data']));
+        for ($i = 0; $i < count($request['data']); $i++) {
+            $category = App\BlogCategory::find($request['data'][$i]['id']);
+            $category->order = $i + 1;
+            $category->save();
+            # code...
+        }
+        return response()->json(['status' => 'Successfully reordered category document'], 200);
+    }
+    public function destroy($categoryId)
+    {
+        $category = App\BlogCategory::find($categoryId);
         $category->delete();
-        $blog = App\Blog::where('category_id','=',$id)->update(['category_id'=>0]);
-
-        return "The Category Has Been Deleted Successfully";
+        return response()->json(['status' => 'Successfully deleted category document'], 200);
     }
+
+    // public function index()
+    // {
+    //     $category = App\BlogCategory::all();
+    //     return $category;
+    // }
+    // public function store(Request $request)
+    // {
+    //     $category = new App\BlogCategory;
+    //     $category->category = $request['category'];
+    //     $category->save();
+    //     return "New Category Has Been Created Succesfully";
+    // }
+    // public function update(Request $request, $id)
+    // {
+    //     $category = App\BlogCategory::find($id);
+    //     $category->category = $request['category'];
+    //     $category->save();
+    //     return "The Category Has Been Edited Successfully";
+    // }
+    // public function destroy($id)
+    // {
+    //     $category = App\BlogCategory::find($id);
+
+    //     $category->delete();
+    //     $blog = App\Blog::where('category_id','=',$id)->update(['category_id'=>0]);
+
+    //     return "The Category Has Been Deleted Successfully";
+    // }
 
 }

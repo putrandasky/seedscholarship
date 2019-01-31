@@ -33,8 +33,8 @@ export const store = new Vuex.Store({
     user: {
       id: null,
       name: '',
-      superAdmin: false,
-      permissions: []
+    //   superAdmin: false,
+    //   permissions: []
     }
     // [{
     //   name:'Piling',
@@ -176,7 +176,7 @@ export const store = new Vuex.Store({
             ['claim']: response.data.claim
           }
           console.log(data);
-          
+
           commit(SIDEBARDATA, data);
 
         })
@@ -226,7 +226,7 @@ export const store = new Vuex.Store({
             commit(USER_INFO, user_info);
             // console.log(response.data);
             console.log(response.data);
-            
+
           })
           .catch((error) => {
             console.log(error);

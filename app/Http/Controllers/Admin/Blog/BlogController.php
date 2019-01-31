@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth\Blog;
+namespace App\Http\Controllers\Admin\Blog;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,12 +20,12 @@ class BlogController extends Controller
         // $blog = App\Blog::with('authorable','category')->get();
         // return $blog;
     }
-    public function content($id)
+    public function show($id)
     {
         return new BlogResource(App\Blog::whereId($id)->with('authorable','category','moderations','moderations.moderateable')->first());
 
     }
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $blog = new App\Blog;
         $blog->title = $request['title'];
@@ -63,7 +63,7 @@ class BlogController extends Controller
         return "Your Blog Has Been Edited Successfully";
         // return $request['category']['id'];
     }
-    public function delete($id)
+    public function destroy($id)
     {
         $blog = App\Blog::find($id);
         $mod = App\BlogModeration::whereBlog_id($blog->id);

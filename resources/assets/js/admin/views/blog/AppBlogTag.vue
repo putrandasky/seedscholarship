@@ -1,83 +1,102 @@
 <template>
-    <b-card>
+    <b-card v-show="loaded">
         <div slot="header" class="text-center">
-            <strong>BLOG TAG</strong>
+            <strong>BLOG TAGS</strong>
         </div>
         <b-row>
-            <!-- <b-row v-show="loaded"> -->
             <b-col sm="12">
                 <b-alert variant="info" :show="true">
                     <h6 class="text-center">
-                        This page supposed to create category that will used in blog.
+                        This page supposed to create tags that will used in blog.
                     </h6>
                 </b-alert>
             </b-col>
             <b-col xl="3">
-                <h6>Create New Blog Tag</h6>
-                <b-input-group class="mb-3">
-                    <b-form-input v-model="input" placeholder="Please Input..."></b-form-input>
-                    <b-input-group-append>
-                        <b-btn variant="success" @click="trigerConfirmModal(
-            'Add New Blog Tag',
-            'Are You Sure To Add New Blog Tag?',
+                <h6>Create New Blog Tags</h6>
+                <b-form-input id="category" v-model="input.tag" class="mb-2" placeholder="Tags"></b-form-input>
+                <b-form-input id="description" v-model="input.description" class="mb-2" placeholder="Description"></b-form-input>
+                <b-btn class="float-right" variant="success" @click="trigerConfirmModal(
+            'Add New Blog Tags',
+            'Are You Sure To Add New Blog Tags?',
             'post'
           )">Add</b-btn>
-                    </b-input-group-append>
-                </b-input-group>
             </b-col>
             <b-col xl="9">
-                <h6>Available Blog Tag</h6>
+                <h6>Available Blog Tags</h6>
                 <b-alert variant="warning" :show="data.length == 0">
                     <h1 class="lead text-center">
-                        THERE IS NO AVAILABLE Tag.
+                        THERE IS NO AVAILABLE TAGS.
                     </h1>
                 </b-alert>
-                <!-- <b-row v-if="data.length !== 0"> -->
-                <draggable v-model="data" :options="dragOptions" :move="onMove" @update="isChanged = true" @start="isDragging=true"
-                    @end="isDragging=false">
-                    <transition-group type="transition" :name="'flip-list'" tag="div" class="row">
-                        <b-col v-for="(v,i) in data" md="4" sm="6" :key="v.id">
-                            <b-form-group size="sm">
+                <!-- <table v-if="data.length !== 0"> -->
+                <div style="overflow-y:auto" v-show="data.length !== 0">
 
-                                <b-input-group size="sm">
-                                    <b-input-group-text slot="prepend">
-                                        {{i+1}}
-                                    </b-input-group-text>
-                                    <b-form-input v-model="v.name" size="sm"></b-form-input>
-                                    <b-input-group-append>
-                                        <b-btn variant="success" @click="trigerConfirmModal(
-                  'Edit Tag',
-                  'Are You Sure To Edit This Tag?',
-                  'update',
-                  {id:v.id,name:v.name}
-                )">
-                                            <i class="fa fa-edit" size="sm"></i></b-btn>
-                                        <b-btn variant="danger" @click="trigerConfirmModal(
-                  'Delete Tag',
-                  'Are You Sure To Delete This Tag ?',
-                  'delete',
-                  v.id
-                )">
-                                            <i class="fa fa-trash" size="sm"></i></b-btn>
-                                    </b-input-group-append>
-                                    <b-input-group-text slot="append" class="my-handle">
-                                        <i class="fa fa-arrows-alt "></i>
-                                    </b-input-group-text>
-                                </b-input-group>
-                            </b-form-group>
-                        </b-col>
-                    </transition-group>
-                </draggable>
-
-                <!-- </b-row> -->
-                <div class="text-right">
-                    <b-button variant="warning" size="sm" v-show="isChanged" @click="orderList">Cancel</b-button>
-                    <b-button variant="success" size="sm" v-show="isChanged" @click="trigerConfirmModal(
-          'Reorder Tag',
-          'Are You Sure to Reordering This Tag',
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="table-primary">
+                                <th style="width:50px;min-width:50px"><strong>No</strong></th>
+                                <th style="width:200px;min-width:200px"><strong>Tags</strong></th>
+                                <th style="min-width:200px"><strong>Description</strong></th>
+                                <th class="text-center" style="width:80px;min-width:80px">Count</th>
+                                <th style="width:100px;min-width:100px"></th>
+                                <th style="width:50px;min-width:50px"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <draggable v-model="data" :options="dragOptions" :move="onMove" @update="isChanged = true" @start="isDragging=true"
+                        @end="isDragging=false">
+                        <transition-group type="transition" :name="'flip-list'" tag="div">
+                            <table v-for="(v,i) in data" :key="v.id" class="table table-bordered table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center" style="width:50px;min-width:50px">
+                                            {{i+1}}
+                                        </td>
+                                        <td style="width:200px;min-width:200px">
+                                            <b-form-input v-model="v.name" size="sm"></b-form-input>
+                                        </td>
+                                        <td style="min-width:200px">
+                                            <b-form-input v-model="v.description" size="sm"></b-form-input>
+                                        </td>
+                                        <td class="text-center" style="width:80px;min-width:80px">
+                                            {{v.blogs_count}}
+                                        </td>
+                                        <td class="text-center" style="width:100px;min-width:100px">
+                                            <b-button-group>
+                                                <b-btn variant="success" @click="trigerConfirmModal(
+                                            'Edit Tags',
+                                            'Are You Sure To Edit This Tags?',
+                                            'update',
+                                            {id:v.id,tag:v.name,description:v.description}
+                                            )">
+                                                    <i class="fa fa-edit" size="sm"></i></b-btn>
+                                                <b-btn variant="danger" @click="trigerConfirmModal(
+                                            'Delete Tags',
+                                            'Are You Sure To Delete This Tags ?',
+                                            'delete',
+                                            v.id
+                                            )">
+                                                    <i class="fa fa-trash" size="sm"></i></b-btn>
+                                            </b-button-group>
+                                        </td>
+                                        <td style="width:50px;min-width:50px" class="my-handle text-center">
+                                            <i class="fa fa-arrows-alt "></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </transition-group>
+                    </draggable>
+                    <!-- </b-row> -->
+                    <div class="text-right">
+                        <b-button variant="warning" size="sm" v-show="isChanged" @click="orderList">Cancel</b-button>
+                        <b-button variant="success" size="sm" v-show="isChanged" @click="trigerConfirmModal(
+          'Reorder Tags',
+          'Are You Sure to Reordering This Tags',
           'reordering'
         )">ApplyThis
-                        Order</b-button>
+                            Order</b-button>
+                    </div>
                 </div>
             </b-col>
             <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" :title="confirmModalTitle"
@@ -97,54 +116,11 @@
         data: function () {
             return {
                 loaded: false,
-                data: [{
-                    id: 1,
-                    order: 1,
-                    name: 'test'
-
-                }, {
-                    id: 2,
-                    order: 2,
-                    name: 'lagi'
-
-                }, {
-                    id: 3,
-                    order: 3,
-                    name: 'lagi'
-
-                }, {
-                    id: 4,
-                    order: 4,
-                    name: 'lagi'
-
-                }, {
-                    id: 5,
-                    order: 5,
-                    name: 'lagi'
-
-                }, {
-                    id: 6,
-                    order: 6,
-                    name: 'lagi'
-
-                }, {
-                    id: 7,
-                    order: 7,
-                    name: 'lagi'
-
-                }, {
-                    id: 8,
-                    order: 8,
-                    name: 'lagi'
-
-                }, {
-                    id: 9,
-                    order: 9,
-                    name: 'lagi'
-
-
-                }],
-                input: '',
+                data: [],
+                input: {
+                    tag: '',
+                    description: ''
+                },
                 confirmModal: false,
                 confirmModalTitle: '',
                 confirmModalBody: '',
@@ -168,7 +144,7 @@
             }
         },
         created() {
-            //   this.getData()
+            this.getData()
         },
         computed: {
             dragOptions() {
@@ -233,12 +209,13 @@
             },
             getData() {
                 this.$store.dispatch('stateLoading', true)
-                axios.get(`api/project/${this.$route.params.projectId}/Tag/document`)
+                axios.get(`api/blog-tag`)
                     .then((response) => {
                         console.log(response.data)
                         this.data = response.data
                         this.loaded = true
                         this.$store.dispatch('stateLoading', false)
+                        this.loaded = true
                     })
                     .catch((error) => {
                         console.log(error);
@@ -246,7 +223,7 @@
             },
             reorderData() {
                 this.$store.dispatch('stateLoading', true)
-                axios.post(`api/project/${this.$route.params.projectId}/category/document/reordering`, {
+                axios.post(`api/blog-tag/reordering`, {
                         data: this.data
                     })
                     .then((response) => {
@@ -262,14 +239,16 @@
             },
             postData() {
                 this.$store.dispatch('stateLoading', true)
-                axios.post(`api/project/${this.$route.params.projectId}/category/document`, {
-                        name: this.input
+                axios.post(`api/blog-tag`, {
+                        tag: this.input.tag,
+                        description: this.input.description
                     })
                     .then((response) => {
                         console.log(response.data)
                         this.getData()
                         this.$snotify.success(response.data.status, "SUCCESS");
-                        this.input = ''
+                        this.input.description = ''
+                        this.input.tag = ''
                         this.$store.dispatch('stateLoading', false)
                     })
                     .catch((error) => {
@@ -279,16 +258,19 @@
             },
             updateData() {
                 this.$store.dispatch('stateLoading', true)
-                axios.patch(`api/project/${this.$route.params.projectId}/category/document`, {
-                        name: this.confirmModalTempValue.name,
-                        id: this.confirmModalTempValue.id
+                axios.patch(`api/blog-tag/${this.confirmModalTempValue.id}`, {
+                        tag: this.confirmModalTempValue.tag,
+                        description: this.confirmModalTempValue.description,
                     })
                     .then((response) => {
                         this.getData()
+                        this.confirmModalTempValue = ''
                         this.$snotify.success(response.data.status, "SUCCESS");
                         this.$store.dispatch('stateLoading', false)
                     })
                     .catch((error) => {
+                        this.getData()
+                        this.confirmModalTempValue = ''
                         this.$snotify.error(error.response.data.status, "ERROR");
                         this.$store.dispatch('stateLoading', false)
                     })
@@ -297,15 +279,19 @@
                 console.log(this.confirmModalTempValue);
                 this.$store.dispatch('stateLoading', true)
                 axios.delete(
-                        `api/project/${this.$route.params.projectId}/category/document/${this.confirmModalTempValue}`)
+                        `api/blog-tag/${this.confirmModalTempValue}`)
                     .then((response) => {
                         console.log(response.data)
                         this.getData()
+                        this.confirmModalTempValue = ''
                         this.$snotify.success(response.data.status, "SUCCESS");
                         this.$store.dispatch('stateLoading', false)
                     })
                     .catch((error) => {
                         console.log(error);
+                        this.confirmModalTempValue = ''
+                        this.$snotify.success(response.data.status, "ERROR");
+                        this.$store.dispatch('stateLoading', false)
                     })
             }
 

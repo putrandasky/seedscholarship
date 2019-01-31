@@ -4,11 +4,9 @@
       <b-row class="justify-content-center">
         <b-col md="8">
           <b-card-group>
-            <b-card no-body class="py-5 d-md-down-none" style="width:44%">
-              <b-card-body class="text-center">
-                <b-img class="mb-5" src="/images/rekind.png" fluid alt="Responsive image" />
-                <h1 class="border-bottom">MeeSter SMART</h1>
-                <h6>Meeting Register <br> Smart Meeting Action Register Tracker</h6>
+            <b-card no-body class=" d-md-down-none flex-row align-items-center" style="width:44%">
+              <b-card-body class="text-center ">
+                <b-img class="justify-content-center" src="/images/Seedlogo.png" fluid alt="Responsive image" />
               </b-card-body>
             </b-card>
             <b-card no-body class="p-4">
@@ -81,7 +79,7 @@
             this.$store.dispatch("checkToken")
             this.$snotify.info(`You're Logged In`, "WELCOME");
             setTimeout(() => {
-              this.$router.push('/project')
+              this.$router.push('/dashboard')
               // this.$store.dispatch('checkToken');
               // console.log('login success');
               // this.$store.commit('PENDING', false)

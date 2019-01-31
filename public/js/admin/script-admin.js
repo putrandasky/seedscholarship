@@ -2123,7 +2123,7 @@ __webpack_require__.r(__webpack_exports__);
       document.body.classList.toggle('aside-menu-hidden');
     },
     handleClickBrand: function handleClickBrand() {
-      this.$router.push('/project');
+      this.$router.push('/dashboard');
     }
   }
 });
@@ -2942,21 +2942,34 @@ __webpack_require__.r(__webpack_exports__);
           url: "/request/patron"
         }]
       }, {
+        name: 'Admin',
+        icon: 'fa fa-user-secret',
+        url: "/admin",
+        children: [{
+          name: 'All Admin',
+          icon: 'fa fa-list',
+          url: "/admin/all"
+        }, {
+          name: 'Department',
+          icon: 'fa fa-list',
+          url: "/admin/department"
+        }, {
+          name: 'Add New',
+          icon: 'fa fa-list',
+          url: "/admin/new"
+        }]
+      }, {
         name: 'Users',
         icon: 'fa fa-users',
-        url: "/account",
+        url: "/user",
         children: [{
-          name: 'Admin',
-          icon: 'fa fa-list',
-          url: "/account/admin"
-        }, {
           name: 'Awardee',
           icon: 'fa fa-list',
-          url: "/account/awardee"
+          url: "/user/awardee"
         }, {
           name: 'Patron',
           icon: 'fa fa-list',
-          url: "/account/patron"
+          url: "/user/patron"
         }]
       }]
     };
@@ -3084,8 +3097,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'AuthLogin',
   data: function data() {
@@ -3115,7 +3126,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.$snotify.info("You're Logged In", "WELCOME");
 
         setTimeout(function () {
-          _this.$router.push('/project'); // this.$store.dispatch('checkToken');
+          _this.$router.push('/dashboard'); // this.$store.dispatch('checkToken');
           // console.log('login success');
           // this.$store.commit('PENDING', false)
 
@@ -45532,7 +45543,7 @@ var render = function() {
         [
           _c("img", {
             staticStyle: { "max-height": "35px" },
-            attrs: { src: "/images/rekind.png", alt: "" }
+            attrs: { src: "/images/Seedlogo.png", alt: "" }
           })
         ]
       ),
@@ -46323,33 +46334,24 @@ var render = function() {
                     _c(
                       "b-card",
                       {
-                        staticClass: "py-5 d-md-down-none",
+                        staticClass:
+                          " d-md-down-none flex-row align-items-center",
                         staticStyle: { width: "44%" },
                         attrs: { "no-body": "" }
                       },
                       [
                         _c(
                           "b-card-body",
-                          { staticClass: "text-center" },
+                          { staticClass: "text-center " },
                           [
                             _c("b-img", {
-                              staticClass: "mb-5",
+                              staticClass: "justify-content-center",
                               attrs: {
-                                src: "/images/rekind.png",
+                                src: "/images/Seedlogo.png",
                                 fluid: "",
                                 alt: "Responsive image"
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("h1", { staticClass: "border-bottom" }, [
-                              _vm._v("MeeSter SMART")
-                            ]),
-                            _vm._v(" "),
-                            _c("h6", [
-                              _vm._v("Meeting Register "),
-                              _c("br"),
-                              _vm._v(" Smart Meeting Action Register Tracker")
-                            ])
+                            })
                           ],
                           1
                         )
@@ -65217,18 +65219,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppDashboard = function AppDashboard() {
-  return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../views/dashboard/AppDashboard.vue */ "./resources/assets/js/admin/views/dashboard/AppDashboard.vue"));
+  return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../views/dashboard/AppDashboard.vue */ "./resources/assets/js/admin/views/dashboard/AppDashboard.vue"));
 }; // const AppUserAdmin = () => import('../views/user/AppAdmin.vue')
 // const AppUserAwardee = () => import('../views/user/AppAwardee.vue')
 // const AppUserPatron = () => import('../views/user/AppPatron.vue')
 
 
 var AppAssignment = function AppAssignment() {
-  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../views/assignment/AppAssignment.vue */ "./resources/assets/js/admin/views/assignment/AppAssignment.vue"));
+  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/assignment/AppAssignment.vue */ "./resources/assets/js/admin/views/assignment/AppAssignment.vue"));
 };
 
 var AppAssignmentNew = function AppAssignmentNew() {
-  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../views/assignment/AppNewAssignment.vue */ "./resources/assets/js/admin/views/assignment/AppNewAssignment.vue"));
+  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../views/assignment/AppNewAssignment.vue */ "./resources/assets/js/admin/views/assignment/AppNewAssignment.vue"));
 };
 
 var AssignmentDetail = function AssignmentDetail() {
@@ -65236,69 +65238,77 @@ var AssignmentDetail = function AssignmentDetail() {
 };
 
 var AppBlog = function AppBlog() {
-  return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/blog/AppBlog.vue */ "./resources/assets/js/admin/views/blog/AppBlog.vue"));
+  return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../views/blog/AppBlog.vue */ "./resources/assets/js/admin/views/blog/AppBlog.vue"));
 };
 
 var AppBlogNew = function AppBlogNew() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, /*! ../views/blog/AppBlogNew.vue */ "./resources/assets/js/admin/views/blog/AppBlogNew.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, /*! ../views/blog/AppBlogNew.vue */ "./resources/assets/js/admin/views/blog/AppBlogNew.vue"));
 };
 
 var AppBlogTag = function AppBlogTag() {
-  return Promise.all(/*! import() */[__webpack_require__.e(19), __webpack_require__.e(22)]).then(__webpack_require__.bind(null, /*! ../views/blog/AppBlogTag.vue */ "./resources/assets/js/admin/views/blog/AppBlogTag.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../views/blog/AppBlogTag.vue */ "./resources/assets/js/admin/views/blog/AppBlogTag.vue"));
 };
 
 var AppBlogCategory = function AppBlogCategory() {
-  return Promise.all(/*! import() */[__webpack_require__.e(19), __webpack_require__.e(21)]).then(__webpack_require__.bind(null, /*! ../views/blog/AppBlogCategory.vue */ "./resources/assets/js/admin/views/blog/AppBlogCategory.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ../views/blog/AppBlogCategory.vue */ "./resources/assets/js/admin/views/blog/AppBlogCategory.vue"));
 };
 
 var BlogDetail = function BlogDetail() {
-  return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/blog/BlogDetail.vue */ "./resources/assets/js/admin/views/blog/BlogDetail.vue"));
+  return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../views/blog/BlogDetail.vue */ "./resources/assets/js/admin/views/blog/BlogDetail.vue"));
 };
 
 var AppPage = function AppPage() {
-  return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../views/page/AppPage.vue */ "./resources/assets/js/admin/views/page/AppPage.vue"));
+  return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../views/page/AppPage.vue */ "./resources/assets/js/admin/views/page/AppPage.vue"));
 };
 
 var AppPageNew = function AppPageNew() {
-  return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../views/page/AppPageNew.vue */ "./resources/assets/js/admin/views/page/AppPageNew.vue"));
+  return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../views/page/AppPageNew.vue */ "./resources/assets/js/admin/views/page/AppPageNew.vue"));
 };
 
 var PageDetail = function PageDetail() {
-  return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../views/page/PageDetail.vue */ "./resources/assets/js/admin/views/page/PageDetail.vue"));
+  return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(null, /*! ../views/page/PageDetail.vue */ "./resources/assets/js/admin/views/page/PageDetail.vue"));
 };
 
 var AppRequestAwardee = function AppRequestAwardee() {
-  return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../views/request/AppRequestAwardee.vue */ "./resources/assets/js/admin/views/request/AppRequestAwardee.vue"));
+  return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ../views/request/AppRequestAwardee.vue */ "./resources/assets/js/admin/views/request/AppRequestAwardee.vue"));
 };
 
 var AppRequestPatron = function AppRequestPatron() {
-  return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../views/request/AppRequestPatron.vue */ "./resources/assets/js/admin/views/request/AppRequestPatron.vue"));
+  return __webpack_require__.e(/*! import() */ 21).then(__webpack_require__.bind(null, /*! ../views/request/AppRequestPatron.vue */ "./resources/assets/js/admin/views/request/AppRequestPatron.vue"));
 };
 
 var AppAccountAdmin = function AppAccountAdmin() {
-  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/account/AppAdmin.vue */ "./resources/assets/js/admin/views/account/AppAdmin.vue"));
+  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../views/account/AppAdmin.vue */ "./resources/assets/js/admin/views/account/AppAdmin.vue"));
+};
+
+var AppAccountAdminDepartment = function AppAccountAdminDepartment() {
+  return __webpack_require__.e(/*! import() */ 22).then(__webpack_require__.bind(null, /*! ../views/account/AppAdminDepartment.vue */ "./resources/assets/js/admin/views/account/AppAdminDepartment.vue"));
+};
+
+var AppAccountAdminNew = function AppAccountAdminNew() {
+  return __webpack_require__.e(/*! import() */ 23).then(__webpack_require__.bind(null, /*! ../views/account/AppAdminNew.vue */ "./resources/assets/js/admin/views/account/AppAdminNew.vue"));
 };
 
 var AppAccountAwardee = function AppAccountAwardee() {
-  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../views/account/AppAwardee.vue */ "./resources/assets/js/admin/views/account/AppAwardee.vue"));
+  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../views/account/AppAwardee.vue */ "./resources/assets/js/admin/views/account/AppAwardee.vue"));
 };
 
 var AppAccountPatron = function AppAccountPatron() {
-  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../views/account/AppPatron.vue */ "./resources/assets/js/admin/views/account/AppPatron.vue"));
+  return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../views/account/AppPatron.vue */ "./resources/assets/js/admin/views/account/AppPatron.vue"));
 };
 
 
 
 var PasswordReset = function PasswordReset() {
-  return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../views/auth/AuthPasswordReset */ "./resources/assets/js/admin/views/auth/AuthPasswordReset.vue"));
+  return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../views/auth/AuthPasswordReset */ "./resources/assets/js/admin/views/auth/AuthPasswordReset.vue"));
 };
 
 var ForgotPassword = function ForgotPassword() {
-  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../views/auth/AuthForgotPassword */ "./resources/assets/js/admin/views/auth/AuthForgotPassword.vue"));
+  return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/auth/AuthForgotPassword */ "./resources/assets/js/admin/views/auth/AuthForgotPassword.vue"));
 };
 
 var Register = function Register() {
-  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../views/auth/AuthRegister */ "./resources/assets/js/admin/views/auth/AuthRegister.vue"));
+  return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/auth/AuthRegister */ "./resources/assets/js/admin/views/auth/AuthRegister.vue"));
 };
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -65411,14 +65421,27 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
       component: AppRequestPatron
     }]
   }, {
-    path: '/account',
-    redirect: 'account/admin',
+    path: '/admin',
+    redirect: 'admin/all',
     component: _container_Full_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     children: [{
-      path: 'admin',
+      path: 'all',
       name: 'AccountAdmin',
       component: AppAccountAdmin
     }, {
+      path: 'department',
+      name: 'Department',
+      component: AppAccountAdminDepartment
+    }, {
+      path: 'new',
+      name: 'NewAdmin',
+      component: AppAccountAdminNew
+    }]
+  }, {
+    path: '/user',
+    redirect: 'user/awardee',
+    component: _container_Full_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    children: [{
       path: 'awardee',
       name: 'AccountAwardee',
       component: AppAccountAwardee
@@ -65517,9 +65540,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     sidebarData: {},
     user: {
       id: null,
-      name: '',
-      superAdmin: false,
-      permissions: [] // [{
+      name: '' //   superAdmin: false,
+      //   permissions: []
+      // [{
       //   name:'Piling',
       //   url:'tags/piling'
       // }, {

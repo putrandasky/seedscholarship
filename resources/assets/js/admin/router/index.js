@@ -28,6 +28,8 @@ const AppRequestAwardee = () => import('../views/request/AppRequestAwardee.vue')
 const AppRequestPatron = () => import('../views/request/AppRequestPatron.vue')
 
 const AppAccountAdmin = () => import('../views/account/AppAdmin.vue')
+const AppAccountAdminDepartment = () => import('../views/account/AppAdminDepartment.vue')
+const AppAccountAdminNew = () => import('../views/account/AppAdminNew.vue')
 const AppAccountAwardee = () => import('../views/account/AppAwardee.vue')
 const AppAccountPatron = () => import('../views/account/AppPatron.vue')
 
@@ -50,11 +52,10 @@ export default new Router({
             redirect: 'dashboard',
             component: Full,
             children: [{
-                    path: 'dashboard',
-                    name: 'Dashboard',
-                    component: AppDashboard,
-                },
-            ]
+                path: 'dashboard',
+                name: 'Dashboard',
+                component: AppDashboard,
+            }, ]
         },
         {
             path: '/assignment',
@@ -84,7 +85,7 @@ export default new Router({
         {
             path: '/blog',
             component: Full,
-            redirect:'/blog/all',
+            redirect: '/blog/all',
             children: [{
                     path: 'all',
                     name: 'Blog',
@@ -125,63 +126,79 @@ export default new Router({
             }]
         },
         {
-            path:'/page',
+            path: '/page',
             redirect: '/page/all',
-            component:Full,
-            children:[{
+            component: Full,
+            children: [{
                     path: 'all',
-                    name:'Page',
-                    component:AppPage
+                    name: 'Page',
+                    component: AppPage
                 },
                 {
-                    path:':pageId',
-                    name:'PageDetail',
-                    component:PageDetail
+                    path: ':pageId',
+                    name: 'PageDetail',
+                    component: PageDetail
                 },
             ]
         },
         {
-            path:'/page/new',
-            component:Full,
-            children:[{
-                    path:'',
-                    name:'PageNew',
-                    component:AppPageNew
-                }]
+            path: '/page/new',
+            component: Full,
+            children: [{
+                path: '',
+                name: 'PageNew',
+                component: AppPageNew
+            }]
         },
         {
-            path:'/request',
-            redirect:'/request/awardee',
-            component:Full,
-            children:[{
-                    path:'awardee',
-                    name:'RequestAwardee',
-                    component:AppRequestAwardee
+            path: '/request',
+            redirect: '/request/awardee',
+            component: Full,
+            children: [{
+                    path: 'awardee',
+                    name: 'RequestAwardee',
+                    component: AppRequestAwardee
                 },
                 {
-                    path:'patron',
-                    name:'RequestPatron',
-                    component:AppRequestPatron
+                    path: 'patron',
+                    name: 'RequestPatron',
+                    component: AppRequestPatron
                 },
             ]
         },
         {
-            path:'/account',
-            redirect:'account/admin',
-            component:Full,
-            children:[{
-                    path:'admin',
-                    name:'AccountAdmin',
-                    component:AppAccountAdmin
+            path: '/admin',
+            redirect: 'admin/all',
+            component: Full,
+            children: [{
+                    path: 'all',
+                    name: 'AccountAdmin',
+                    component: AppAccountAdmin
                 },
                 {
-                    path:'awardee',
-                    name:'AccountAwardee',
+                    path: 'department',
+                    name: 'Department',
+                    component: AppAccountAdminDepartment
+                },
+                {
+                    path: 'new',
+                    name: 'NewAdmin',
+                    component: AppAccountAdminNew
+                },
+            ]
+        },
+        {
+            path: '/user',
+            redirect: 'user/awardee',
+            component: Full,
+            children: [{
+                    path: 'awardee',
+                    name: 'AccountAwardee',
                     component: AppAccountAwardee
                 },
                 {
-                    path:'patron',
-                    name:'AccountPatron',
+                    path: 'patron',
+                    name: 'AccountPatron',
                     component: AppAccountPatron
                 }
             ]

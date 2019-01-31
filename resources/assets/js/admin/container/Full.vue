@@ -120,23 +120,40 @@
                         ]
                     },
                     {
+                        name: 'Admin',
+                        icon: 'fa fa-user-secret',
+                        url: `/admin`,
+                        children: [{
+                                name: 'All Admin',
+                                icon: 'fa fa-list',
+                                url: `/admin/all`,
+                            },
+                            {
+                                name: 'Department',
+                                icon: 'fa fa-list',
+                                url: `/admin/department`,
+                            },
+                            {
+                                name: 'Add New',
+                                icon: 'fa fa-list',
+                                url: `/admin/new`,
+                            }
+                        ]
+                    },
+                    {
                         name: 'Users',
                         icon: 'fa fa-users',
-                        url: `/account`,
-                        children: [{
-                                name: 'Admin',
-                                icon: 'fa fa-list',
-                                url: `/account/admin`,
-                            },
+                        url: `/user`,
+                        children: [
                             {
                                 name: 'Awardee',
                                 icon: 'fa fa-list',
-                                url: `/account/awardee`,
+                                url: `/user/awardee`,
                             },
                             {
                                 name: 'Patron',
                                 icon: 'fa fa-list',
-                                url: `/account/patron`,
+                                url: `/user/patron`,
                             }
                         ]
                     },
