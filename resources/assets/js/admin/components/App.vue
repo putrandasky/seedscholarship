@@ -29,7 +29,7 @@
 </style>
 <style >
   /* @import "~vue-wysiwyg/dist/vueWysiwyg.css"; */
-  @import '~bootstrap-vue/dist/bootstrap-vue.css';
+  /* @import '~bootstrap-vue/dist/bootstrap-vue.css'; */
   /* @import '/css/vendor/vue2mediumeditor/medium-editor.min.css';
 @import '/css/vendor/vue2mediumeditor/themes/beagle.min.css'; */
   /* .fade-leave-active {
