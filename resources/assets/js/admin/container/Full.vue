@@ -68,7 +68,7 @@
                         children: [{
                                 name: 'All Blog',
                                 icon: 'fa fa-list',
-                                url: `/blog/all`,
+                                url: `/blog/list`,
                             },
                             {
                                 name: 'Add New',

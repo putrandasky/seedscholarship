@@ -9,16 +9,97 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AppBlogFieldTableData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AppBlogFieldTableData */ "./resources/assets/js/admin/views/blog/AppBlogFieldTableData.js");
+/* harmony import */ var _share_mixins_instantSearch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_share/mixins/instantSearch */ "./resources/assets/js/admin/views/_share/mixins/instantSearch.js");
+/* harmony import */ var _share_mixins_OperationPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_share/mixins/OperationPage */ "./resources/assets/js/admin/views/_share/mixins/OperationPage.js");
+var _name$mixins$name$dat;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'AppBlog',
-  data: function data() {
-    return {};
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (_name$mixins$name$dat = {
+  name: 'Assignment',
+  mixins: [_AppBlogFieldTableData__WEBPACK_IMPORTED_MODULE_0__["AppBlogFieldTableData"], _share_mixins_instantSearch__WEBPACK_IMPORTED_MODULE_1__["instantSearch"], _share_mixins_OperationPage__WEBPACK_IMPORTED_MODULE_2__["OperationPage"]]
+}, _defineProperty(_name$mixins$name$dat, "name", 'AppBlog'), _defineProperty(_name$mixins$name$dat, "data", function data() {
+  return {
+    routeName: 'Blog',
+    loaded: false
+  };
+}), _defineProperty(_name$mixins$name$dat, "created", function created() {}), _defineProperty(_name$mixins$name$dat, "methods", {
+  handleRowClicked: function handleRowClicked(record) {
+    this.$router.push({
+      name: 'BlogDetail',
+      params: {
+        blogId: record.id
+      }
+    });
   },
-  created: function created() {},
-  methods: {}
-});
+  getData: function getData() {
+    var _this = this;
+
+    axios.get("api/blog").then(function (response) {
+      console.log(response.data);
+
+      _this.checkPage();
+
+      var editData = function editData(data) {
+        return data.map(function (item) {
+          var temp = Object.assign({}, item);
+          temp['author'] = temp.authorable.name;
+          temp['category'] = temp.blog_category.category; // temp.name = 'my name '+temp.name;
+
+          return temp;
+        });
+      };
+
+      _this.itemsData = editData(response.data);
+      _this.loaded = true;
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
+}), _name$mixins$name$dat);
 
 /***/ }),
 
@@ -37,12 +118,380 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "b-card",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.loaded,
+          expression: "loaded"
+        }
+      ]
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "text-center",
+          attrs: { slot: "header" },
+          slot: "header"
+        },
+        [_c("strong", [_vm._v("All BLOG")])]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c(
+            "b-col",
+            { staticClass: "mb-3", attrs: { xl: "4", md: "6" } },
+            [
+              _c(
+                "b-input-group",
+                [
+                  _c(
+                    "b-input-group-prepend",
+                    [
+                      _c("b-form-select", {
+                        attrs: { plain: "", options: _vm.optionsInputSearch },
+                        model: {
+                          value: _vm.selectedInputSearch,
+                          callback: function($$v) {
+                            _vm.selectedInputSearch = $$v
+                          },
+                          expression: "selectedInputSearch"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("b-form-input", {
+                    attrs: {
+                      autofocus: "",
+                      type: "text",
+                      placeholder: "Instant Search"
+                    },
+                    on: { input: _vm.onInput },
+                    model: {
+                      value: _vm.search,
+                      callback: function($$v) {
+                        _vm.search = $$v
+                      },
+                      expression: "search"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "b-input-group-append",
+                    [
+                      _c(
+                        "b-btn",
+                        {
+                          attrs: { disabled: !_vm.search },
+                          on: {
+                            click: function($event) {
+                              _vm.search = ""
+                            }
+                          }
+                        },
+                        [_vm._v("Clear")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm.getTotalPages > 1
+            ? _c(
+                "b-col",
+                {
+                  staticStyle: { "overflow-y": "auto" },
+                  attrs: { xl: "8", md: "6" }
+                },
+                [
+                  _c("b-pagination-nav", {
+                    staticClass: "justify-content-end mb-0",
+                    attrs: {
+                      align: "right",
+                      "use-router": true,
+                      "link-gen": _vm.linkGen,
+                      "number-of-pages": _vm.getTotalPages
+                    },
+                    model: {
+                      value: _vm.currentPage,
+                      callback: function($$v) {
+                        _vm.currentPage = $$v
+                      },
+                      expression: "currentPage"
+                    }
+                  })
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticStyle: { "overflow-y": "auto" } },
+        [
+          _c("b-table", {
+            staticStyle: { "animation-duration": "1s" },
+            attrs: {
+              stacked: "sm",
+              stack: "",
+              hover: "",
+              fields: _vm.FieldTableItems,
+              items: _vm.filteredItemsData,
+              "thead-class": "thead-light",
+              "sort-by": _vm.querySortBy,
+              "sort-desc": _vm.querySortDesc,
+              "current-page": _vm.currentPage,
+              "per-page": _vm.perPage
+            },
+            on: {
+              "update:sortBy": function($event) {
+                _vm.querySortBy = $event
+              },
+              "update:sortDesc": function($event) {
+                _vm.querySortDesc = $event
+              },
+              "sort-changed": _vm.sortingChanged,
+              "row-clicked": _vm.handleRowClicked
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "no",
+                fn: function(data) {
+                  return [
+                    _vm._v(
+                      "\n        " +
+                        _vm._s(
+                          data.index + 1 + (_vm.currentPage - 1) * _vm.perPage
+                        ) +
+                        "\n      "
+                    )
+                  ]
+                }
+              },
+              {
+                key: "status",
+                fn: function(data) {
+                  return [
+                    _c(
+                      "b-badge",
+                      {
+                        attrs: {
+                          variant: _vm.getBadge(
+                            data.item.moderations[0].mod_status
+                          )
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(data.item.moderations[0].mod_status) +
+                            "\n        "
+                        )
+                      ]
+                    )
+                  ]
+                }
+              }
+            ])
+          })
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
 
 
+
+/***/ }),
+
+/***/ "./resources/assets/js/admin/views/_share/mixins/OperationPage.js":
+/*!************************************************************************!*\
+  !*** ./resources/assets/js/admin/views/_share/mixins/OperationPage.js ***!
+  \************************************************************************/
+/*! exports provided: OperationPage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OperationPage", function() { return OperationPage; });
+var OperationPage = {
+  data: function data() {
+    return {
+      isBusy: false,
+      routeName: '',
+      querySortDesc: '',
+      querySortBy: this.$route.query.sortBy,
+      currentPage: this.$route.query.page,
+      perPage: 10,
+      totalRows: 0
+    };
+  },
+  created: function created() {
+    this.getSort();
+    this.getData();
+  },
+  watch: {
+    '$route.query.sortDesc': 'getSort',
+    '$route.query.sortBy': 'getSort',
+    '$route.query.page': 'checkPage'
+  },
+  computed: {
+    checkNav: function checkNav() {
+      return this.$route.query.filterTarget ? this.$route.query.filterTarget : 'all';
+    },
+    getTotalPages: function getTotalPages() {
+      return Math.ceil(this.filteredItemsData.length / this.perPage);
+    }
+  },
+  methods: {
+    onInput: function onInput() {
+      if (this.currentPage !== 1) {
+        this.$router.replace({
+          name: this.routeName,
+          query: Object.assign({}, this.$route.query, {
+            page: 1,
+            search: this.search
+          })
+        });
+        this.currentPage = 1;
+      }
+    },
+    isActivePageButton: function isActivePageButton(page) {
+      return page == this.currentPage;
+    },
+    getRowCount: function getRowCount(items) {
+      return items.length;
+    },
+    checkPage: function checkPage() {
+      this.currentPage = Number(this.$route.query.page ? this.$route.query.page : 1);
+    },
+    linkGen: function linkGen(pageNum) {
+      return {
+        name: this.routeName,
+        query: Object.assign({}, this.$route.query, {
+          page: pageNum
+        })
+      };
+    },
+    changePage: function changePage(page) {
+      // let query = Object.assign({},this.$route.query,page)
+      // this.$router.push({page:query})
+      // this.get(query)
+      this.$router.replace({
+        name: this.routeName,
+        query: Object.assign({}, this.$route.query, {
+          page: page
+        })
+      });
+    },
+    sortingChanged: function sortingChanged(ctx) {
+      console.log(ctx); // console.log(ctx.sortBy);
+      // console.log(ctx.sortDesc);
+
+      this.$router.replace({
+        name: this.routeName,
+        query: Object.assign({}, this.$route.query, {
+          sortBy: ctx.sortBy,
+          sortDesc: ctx.sortDesc
+        })
+      });
+    },
+    getSort: function getSort() {
+      var getOrderingDesc = JSON.parse(typeof this.$route.query.sortDesc === 'undefined' ? false : this.$route.query.sortDesc);
+      var getOrderingBy = this.$route.query.sortBy ? this.$route.query.sortBy : ''; // let convertGeOrderingDesc = getOrderingDesc == "true"
+
+      this.querySortDesc = getOrderingDesc;
+      this.querySortBy = getOrderingBy; // console.log(this.orderDesc);
+    },
+    // handleHeadClicked(key){
+    //   console.log(key);
+    //   // console.log(this.orderDesc);
+    //     this.$router.replace({
+    //     name: this.routeName,
+    //     query: Object.assign({}, this.$route.query, {sortBy: key})
+    //   })
+    //   },
+    filterTarget: function filterTarget(target) {
+      // console.log(target);
+      if (target == this.$route.query.filterTarget || target == 'all' && typeof this.$route.query.filterTarget === 'undefined') {
+        return;
+      }
+
+      this.$router.replace({
+        name: this.routeName,
+        query: {
+          filterTarget: target,
+          page: 1
+        }
+      });
+      this.search = '';
+    },
+    getPriority: function getPriority(data) {
+      return data === 'high' ? 'text-danger' : data === 'medium' ? 'text-warning' : 'text-primary';
+    },
+    getBadge: function getBadge(status) {
+      return status === 'PUBLISH' ? 'primary' : status === 'DRAFT' ? 'secondary' : 'success';
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/assets/js/admin/views/_share/mixins/instantSearch.js":
+/*!************************************************************************!*\
+  !*** ./resources/assets/js/admin/views/_share/mixins/instantSearch.js ***!
+  \************************************************************************/
+/*! exports provided: instantSearch */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "instantSearch", function() { return instantSearch; });
+var instantSearch = {
+  data: function data() {
+    return {
+      search: this.$route.query.search || ''
+    };
+  },
+  watch: {
+    search: function search(newVal) {
+      var queryNewVal = Object.assign({}, this.$route.query, {
+        searchKey: this.selectedInputSearch,
+        search: newVal
+      });
+
+      if (newVal == '') {
+        delete queryNewVal.searchKey;
+        delete queryNewVal.search;
+      }
+
+      this.$router.replace({
+        query: queryNewVal
+      });
+    }
+  },
+  computed: {}
+};
 
 /***/ }),
 
@@ -112,6 +561,132 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppBlog_vue_vue_type_template_id_1f34816e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/assets/js/admin/views/blog/AppBlogFieldTableData.js":
+/*!***********************************************************************!*\
+  !*** ./resources/assets/js/admin/views/blog/AppBlogFieldTableData.js ***!
+  \***********************************************************************/
+/*! exports provided: AppBlogFieldTableData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppBlogFieldTableData", function() { return AppBlogFieldTableData; });
+var AppBlogFieldTableData = {
+  data: function data() {
+    return {
+      FieldTableItems: [{
+        key: 'no',
+        label: 'No',
+        'class': 'text-center',
+        thStyle: {
+          minWidth: '30px',
+          width: '30px'
+        }
+      }, {
+        key: 'title',
+        label: 'Title',
+        tdClass: 'truncate-cell',
+        sortable: true,
+        thStyle: {
+          minWidth: '175px'
+        }
+      }, {
+        key: 'author',
+        label: 'Author',
+        'class': 'text-center',
+        thStyle: {
+          minWidth: '150px',
+          width: '150px'
+        },
+        sortable: true
+      }, {
+        key: 'category',
+        label: 'Category',
+        'class': 'text-center',
+        thStyle: {
+          minWidth: '150px',
+          width: '150px'
+        },
+        sortable: true
+      }, {
+        key: 'status',
+        label: 'Status',
+        'class': 'text-center',
+        thStyle: {
+          minWidth: '25px',
+          width: '25px'
+        },
+        sortable: true
+      }, {
+        key: 'created_at',
+        label: 'Created',
+        'class': 'text-center',
+        thStyle: {
+          minWidth: '25px',
+          width: '25px'
+        },
+        sortable: true
+      }, {
+        key: 'updated_at',
+        label: 'Updated',
+        'class': 'text-center',
+        thStyle: {
+          minWidth: '25px',
+          width: '25px'
+        },
+        sortable: true
+      }],
+      itemsData: [],
+      selectedInputSearch: this.$route.query.searchKey || 'title',
+      optionsInputSearch: [{
+        value: 'title',
+        text: 'Title'
+      }, {
+        value: 'author',
+        text: 'Author'
+      }, {
+        value: 'category',
+        text: 'Category'
+      }, {
+        value: 'status',
+        text: 'Status'
+      }]
+    };
+  },
+  watch: {},
+  computed: {
+    filteredItemsData: function filteredItemsData() {
+      var _this = this;
+
+      if (this.selectedInputSearch == 'title') {
+        return this.itemsData.filter(function (result) {
+          return result.title.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+        });
+      }
+
+      if (this.selectedInputSearch == 'author') {
+        return this.itemsData.filter(function (result) {
+          return result.author.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+        });
+      }
+
+      if (this.selectedInputSearch == 'category') {
+        return this.itemsData.filter(function (result) {
+          return result.category.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+        });
+      }
+
+      if (this.selectedInputSearch == 'status') {
+        return this.itemsData.filter(function (result) {
+          return result.status.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+        });
+      }
+    }
+  }
+};
 
 /***/ })
 

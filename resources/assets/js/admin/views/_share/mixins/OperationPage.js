@@ -13,7 +13,7 @@ export const OperationPage = {
   },
   created() {
     this.getSort()
-    this.getdata()
+    this.getData()
   },
   watch: {
     '$route.query.sortDesc': 'getSort',
@@ -122,8 +122,8 @@ export const OperationPage = {
         data === 'medium' ? 'text-warning' : 'text-primary'
     },
     getBadge(status) {
-      return status === 'Active' ? 'success' :
-        status === 'Closed' ? 'secondary' :'primary'
+      return status === 'PUBLISH' ? 'primary' :
+        status === 'DRAFT' ? 'secondary' : 'success'
     },
   }
 }

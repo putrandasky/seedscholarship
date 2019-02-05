@@ -299,7 +299,7 @@ var OperationPage = {
   },
   created: function created() {
     this.getSort();
-    this.getdata();
+    this.getData();
   },
   watch: {
     '$route.query.sortDesc': 'getSort',
@@ -401,7 +401,7 @@ var OperationPage = {
       return data === 'high' ? 'text-danger' : data === 'medium' ? 'text-warning' : 'text-primary';
     },
     getBadge: function getBadge(status) {
-      return status === 'Active' ? 'success' : status === 'Closed' ? 'secondary' : 'primary';
+      return status === 'PUBLISH' ? 'primary' : status === 'DRAFT' ? 'secondary' : 'success';
     }
   }
 };

@@ -6,23 +6,27 @@ use App;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BlogResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
     public function index()
     {
-        // return BroadcastResource::collection(App\Broadcast::where('accountable_type','App\Awardee')
-        // ->where('period',$period)
-        // ->with('readers')->orderBy('created_at','desc')->paginate());
+        $data =  App\Blog::with(['authorable', 'blogCategory', 'tags',
+                'moderations' => function ($query) {
+                    $query->orderBy('created_at', 'desc');
+                },
+                'moderations.moderateable',
+            ])
+        ->orderBy('created_at', 'desc')
+        ->get();
 
-        return BlogResource::collection(App\Blog::with('authorable', 'category', 'moderations', 'moderations.moderateable')->orderBy('created_at', 'desc')->paginate(10));
-        // $blog = App\Blog::with('authorable','category')->get();
-        // return $blog;
+        return $data;
     }
     public function show($id)
     {
         $data['blog'] = App\Blog::where('id', $id)->with(
-            ['authorable', 'category', 'tags',
+            ['authorable', 'tags',
                 'moderations' => function ($query) {
                     $query->orderBy('created_at', 'desc');
                 },
@@ -99,8 +103,11 @@ class BlogController extends Controller
     {
         $blog = App\Blog::find($id);
         $mod = App\BlogModeration::whereBlog_id($blog->id);
+        $blog->tags()->detach();
         $blog->delete();
         $mod->delete();
+        $path = 'blog/' . $id ;
+        Storage::deleteDirectory('public/' . $path );
         return "Your Blog Has Been Deleted Successfully";
     }
     public function storeCoverPhoto(Request $request, $blogId)

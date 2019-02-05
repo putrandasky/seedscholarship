@@ -20,7 +20,7 @@ class Blog extends Model
     {
         return $this->morphTo();
     }
-    public function category()
+    public function blogCategory()
     {
       return $this->belongsTo('App\BlogCategory');
     }

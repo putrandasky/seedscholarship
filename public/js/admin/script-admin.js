@@ -2901,7 +2901,7 @@ __webpack_require__.r(__webpack_exports__);
         children: [{
           name: 'All Blog',
           icon: 'fa fa-list',
-          url: "/blog/all"
+          url: "/blog/list"
         }, {
           name: 'Add New',
           icon: 'fa fa-plus',
@@ -65333,13 +65333,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }, {
     path: '/blog',
     component: _container_Full_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    redirect: '/blog/all',
+    redirect: '/blog/list',
     children: [{
-      path: 'all',
+      path: 'list',
       name: 'Blog',
       component: AppBlog
     }, {
-      path: 'detail/:blogId',
+      path: 'list/detail/:blogId',
       name: 'BlogDetail',
       component: BlogDetail
     }]

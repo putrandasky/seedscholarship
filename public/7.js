@@ -132,6 +132,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
  // import 'quill/dist/quill.bubble.css'
 
@@ -228,6 +234,10 @@ __webpack_require__.r(__webpack_exports__);
     onConfirmModal: function onConfirmModal() {
       if (this.confirmModalState == 'postBlog') {
         this.postData();
+      }
+
+      if (this.confirmModalState == 'deleteBlog') {
+        this.deleteData(this.confirmModalTempValue);
       }
     },
     onCancelConfirmModal: function onCancelConfirmModal() {
@@ -406,6 +416,17 @@ __webpack_require__.r(__webpack_exports__);
         console.log(response.data);
         self.old_cover_image = null;
         self.getData();
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    deleteData: function deleteData() {
+      var self = this;
+      axios.delete("api/blog/".concat(this.confirmModalTempValue)).then(function (response) {
+        console.log(response.data);
+        self.$router.push({
+          name: 'Blog'
+        });
       }).catch(function (error) {
         console.log(error);
       });
@@ -693,6 +714,24 @@ var render = function() {
                 "div",
                 { staticClass: "text-center" },
                 [
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "danger", size: "sm" },
+                      on: {
+                        click: function($event) {
+                          _vm.trigerConfirmModal(
+                            "Delete This Blog",
+                            "Are you sure want to delete this blog? are related data to this blog will be deleted",
+                            "deleteBlog",
+                            _vm.data.id
+                          )
+                        }
+                      }
+                    },
+                    [_vm._v("Delete")]
+                  ),
+                  _vm._v(" "),
                   _c(
                     "b-button",
                     {

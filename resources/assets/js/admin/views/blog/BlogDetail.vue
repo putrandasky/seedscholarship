@@ -51,6 +51,12 @@
 
         <div slot="footer">
           <div class="text-center">
+            <b-button variant="danger" @click="trigerConfirmModal(
+              `Delete This Blog`,
+              `Are you sure want to delete this blog? are related data to this blog will be deleted`,
+              'deleteBlog',
+              data.id
+            )" size="sm">Delete</b-button>
             <b-button variant="secondary" @click="handlePublishButton('DRAFT')" size="sm">Save as Draft</b-button>
             <b-button variant="primary" @click="handlePublishButton('PUBLISH')" size="sm">Publish</b-button>
           </div>
@@ -215,6 +221,9 @@
       onConfirmModal() {
         if (this.confirmModalState == 'postBlog') {
           this.postData()
+        }
+        if (this.confirmModalState == 'deleteBlog') {
+          this.deleteData(this.confirmModalTempValue)
         }
       },
       onCancelConfirmModal() {
@@ -405,6 +414,17 @@
             console.log(error);
           })
       },
+      deleteData(){
+        let self = this
+        axios.delete(`api/blog/${this.confirmModalTempValue}`)
+        .then((response) => {
+        console.log(response.data)
+        self.$router.push({name:'Blog'})
+        })
+        .catch((error) => {
+        console.log(error);
+        })
+      }
     }
   }
 

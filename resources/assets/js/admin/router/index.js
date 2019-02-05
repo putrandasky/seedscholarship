@@ -85,14 +85,14 @@ export default new Router({
         {
             path: '/blog',
             component: Full,
-            redirect: '/blog/all',
+            redirect: '/blog/list',
             children: [{
-                    path: 'all',
+                    path: 'list',
                     name: 'Blog',
                     component: AppBlog
                 },
                 {
-                    path: 'detail/:blogId',
+                    path: 'list/detail/:blogId',
                     name: 'BlogDetail',
                     component: BlogDetail
                 },
