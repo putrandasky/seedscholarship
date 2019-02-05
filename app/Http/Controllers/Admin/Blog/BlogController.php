@@ -5,10 +5,7 @@ namespace App\Http\Controllers\Admin\Blog;
 use App;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BlogResource;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-
 
 class BlogController extends Controller
 {
@@ -24,7 +21,13 @@ class BlogController extends Controller
     }
     public function show($id)
     {
-        $data['blog'] = App\Blog::where('id', $id)->with('authorable', 'category', 'tags', 'moderations', 'moderations.moderateable')->first();
+        $data['blog'] = App\Blog::where('id', $id)->with(
+            ['authorable', 'category', 'tags',
+                'moderations' => function ($query) {
+                    $query->orderBy('created_at', 'desc');
+                },
+                'moderations.moderateable',
+            ])->first();
         $data['categories'] = App\BlogCategory::withCount('blogs')->orderBy('order', 'ASC')->get();
         $data['tags'] = App\Tag::withCount('blogs')->orderBy('order', 'ASC')->get();
 
@@ -34,20 +37,30 @@ class BlogController extends Controller
     }
     public function store(Request $request)
     {
-
+// dd($request['input']);
+        //$name = time() . '.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
         $blog = new App\Blog;
         $blog->title = $request['title'];
         $blog->slug = str_slug($request['title']);
         $blog->body = $request['body'];
-        $blog->blog_category_id = $request['category'];
-        $blog->cover_image = 'public/images/default-blog-cover.jpg';
+        $blog->blog_category_id = $request['blog_category_id'];
+// $blog->cover_image = NULL;
         $blog->authorable_id = auth('admin-api')->user()->id;
         $blog->authorable_type = 'App\Admin';
         $blog->save();
         $tags = collect($request['tags']);
         $tagsId = $tags->pluck('id');
-        $blog->save();
         $blog->tags()->sync($tagsId->all());
+        // $blog->save();
+
+        // $path = 'blog/' . $blog->id . '/cover';
+        // dd($path);
+        // $save = $request->file('file')->storeAs('public/' . $path, $request->file('file')->getClientOriginalName());
+
+        // $image->storeAs('public/' . $path, $request['cover_image']);
+        // $blog->cover_image = $request['cover_image'];
+        // $blog->cover_image = 'storage/' . $path . '/' . $request['cover_image'];
+        $blog->save();
 
         $mod = new App\BlogModeration;
         $mod->mod_status = $request['mod_status'];
@@ -56,25 +69,30 @@ class BlogController extends Controller
         $mod->moderateable_id = auth('admin-api')->user()->id;
         $mod->moderateable_type = 'App\Admin';
         $mod->save();
-        return response()->json(['status' => 'Successfully update department name', 'blog_id' => $blog->id], 200);
+        return response()->json(['status' => 'New Blog Created Successfully ', 'blog_id' => $blog->id], 200);
     }
     public function update(Request $request, $id)
     {
 
         $blog = App\Blog::find($id);
-        $blog->title = $request['title'];
-        $blog->body = $request['body'];
-        $blog->category_id = $request['category']['id'];
-        $blog->cover_image = $request['cover_image'];
+        $blog->title = $request['data']['title'];
+        $blog->slug = str_slug($request['data']['slug']);
+        $blog->body = $request['data']['body'];
+        $blog->blog_category_id = $request['data']['blog_category_id'];
+        $tags = collect($request['data']['tags']);
+        $tagsId = $tags->pluck('id');
+        $blog->tags()->sync($tagsId->all());
+        $blog->touch();
         $blog->save();
+
         $mod = new App\BlogModeration;
-        $mod->mod_status = $request['mod_status'];
-        $mod->mod_message = $request['mod_message'];
+        $mod->mod_status = $request['moderation']['status'];
+        $mod->mod_message = $request['moderation']['message'];
         $mod->blog_id = $blog->id;
         $mod->moderateable_id = auth('admin-api')->user()->id;
         $mod->moderateable_type = 'App\Admin';
         $mod->save();
-        return "Your Blog Has Been Edited Successfully";
+        return response()->json(['status' => 'Blog Edited Successfuly'], 200);
         // return $request['category']['id'];
     }
     public function destroy($id)

@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Common\Blog;
 
 use App;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
 
 class BlogCoverImageController extends Controller
 {
@@ -27,17 +25,18 @@ class BlogCoverImageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$blogId)
+    public function store(Request $request, $blogId)
     {
-      // );
-      $path  = 'blog/' . Carbon::now()->year . '/' . Carbon::now()->month . '/' . $blogId . '/cover';
-      // Storage::disk('public')->put($path, $request->file('file'));
-      $save = $request->file('file')->storeAs('public/'.$path, $request->file('file')->getClientOriginalName());
+        // );
+        $path = 'blog/' . $blogId . '/cover';
+        // $path  = 'blog/' . Carbon::now()->year . '/' . Carbon::now()->month . '/' . $blogId . '/cover';
+        // Storage::disk('public')->put($path, $request->file('file'));
+        $save = $request->file('file')->storeAs('public/' . $path, $request->file('file')->getClientOriginalName());
 
         $blog = App\Blog::find($blogId);
-        $blog->cover_image = $path.'/'.$request->file('file')->getClientOriginalName();
+        $blog->cover_image = $request->file('file')->getClientOriginalName();
         $blog->save();
-        return;
+        return response()->json(['status' => 'Blog Cover Image Added Successfuly'], 200);
     }
 
     /**
@@ -61,7 +60,14 @@ class BlogCoverImageController extends Controller
      */
     public function update(Request $request, $blogId)
     {
-        //
+      $path = 'blog/' . $blogId . '/cover';
+        $blog = App\Blog::find($blogId);
+        Storage::delete('public/' . $path . '/' . $blog->cover_image);
+        $save = $request->file('file')->storeAs('public/' . $path, $request->file('file')->getClientOriginalName());
+        $blog->cover_image = $request->file('file')->getClientOriginalName();
+        $blog->save();
+        return response()->json(['status' => 'Blog Cover Image Updated Successfuly'], 200);
+
     }
 
     /**
@@ -72,6 +78,11 @@ class BlogCoverImageController extends Controller
      */
     public function destroy($blogId)
     {
-        //
+        $path = 'blog/' . $blogId . '/cover';
+        $blog = App\Blog::find($blogId);
+        Storage::delete('public/' . $path . '/' . $blog->cover_image);
+        $blog->cover_image = null;
+        $blog->save();
+        return response()->json(['status' => 'Blog Cover Image Deleted Successfuly'], 200);
     }
 }

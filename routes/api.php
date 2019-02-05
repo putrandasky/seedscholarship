@@ -22,7 +22,8 @@ Route::group(['prefix' => 'auth'], function () {
 });
 Route::group(['prefix' => 'file'], function () {
     Route::post('blog-cover-image/{blogId}', 'Common\Blog\BlogCoverImageController@store');
-    Route::apiResource('blog-cover-image', 'Common\Blog\BlogCoverImageController');
+    Route::delete('blog-cover-image/{blogId}', 'Common\Blog\BlogCoverImageController@destroy');
+    Route::post('blog-cover-image/update/{blogId}', 'Common\Blog\BlogCoverImageController@update');
 });
 
 Route::apiResource('department', 'Admin\Auth\DepartmentController');

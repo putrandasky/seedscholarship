@@ -26,17 +26,32 @@
         </div>
         <div class="text-center">
 
-          <b-button variant="secondary"  @click="postData('DRAFT')">Save as Draft</b-button>
+          <b-button variant="secondary" @click="postData('DRAFT')">Save as Draft</b-button>
           <b-button variant="primary" @click="postData('PUBLISH')">Publish</b-button>
         </div>
       </b-card>
-
+      <b-card no-body>
+        <div slot="header" class="text-center">
+          <strong>Cover Image</strong>
+        </div>
+        <b-card-img :src="url" style="border-radius:unset">
+        </b-card-img>
+        <b-btn v-show="input.cover_image" class="btn--corner" variant="danger" size="sm" style="top:47px" @click="handleRemoveCoverImage">
+          <i class="fa fa-close"></i>
+        </b-btn>
+        <b-progress height="5px" :value="uploadPercentage" variant="primary"></b-progress>
+        <b-card-body v-show="!input.cover_image">
+          <b-form-file accept="image/jpeg, image/png, image/gif" ref="fileCoverImage" v-model="file" placeholder="Choose a file..."
+            @change="onFileChange"></b-form-file>
+        </b-card-body>
+        <!-- <upload-cover-image ref="upload" /> -->
+      </b-card>
       <b-card>
         <div slot="header" class="text-center">
           <strong>Categories</strong>
         </div>
-        <b-form-group :invalid-feedback="errors.category" :state="stateCategory">
-          <b-form-select plain v-model="input.category" :options="categoryOptions">
+        <b-form-group :invalid-feedback="errors.blog_category_id" :state="stateCategory">
+          <b-form-select plain v-model="input.blog_category_id" :options="categoryOptions">
             <template slot="first">
               <option :value="null" disabled>-- Please Select Category --</option>
             </template>
@@ -50,17 +65,7 @@
         <v-select plain placeholder="Select Tags (Optional)" :value="input.tags" :options="tagOptions" transition="fade-select"
           multiple label="name"></v-select>
       </b-card>
-      <b-card>
-        <div slot="header" class="text-center">
-          <strong>Cover Image</strong>
-        </div>
-        <div id="preview">
-          <img v-if="url" :src="url" />
-        </div>
-        <b-progress v-if="url" class="mb-3" height="5px" :value="uploadPercentage" variant="primary"></b-progress>
-        <b-form-file v-model="cover_image" placeholder="Choose a file..." @change="onFileChange"></b-form-file>
-        <!-- <upload-cover-image ref="upload" /> -->
-      </b-card>
+
     </b-col>
   </b-row>
 </template>
@@ -85,21 +90,23 @@
     },
     data: function () {
       return {
-        url: null,
-        cover_image: {},
+        // url: null,
+        file: null,
+        objectUrl: null,
         uploadPercentage: 0,
         input: {
           slug: '',
           title: '',
           body: '',
-          category: null,
+          blog_category_id: null,
           tags: [],
+          cover_image: null,
           mod_status: ''
         },
         errors: {
           title: '',
           body: '',
-          category: ''
+          blog_category_id: ''
         },
         categoryOptions: [],
         tagOptions: []
@@ -110,24 +117,46 @@
       this.getTags()
     },
     computed: {
+      url() {
+        return this.input.cover_image ? this.objectUrl : '/images/default-blog-cover.jpg'
+      },
       stateTitle() {
         return this.errors.title == 'no-error' ? true : this.errors.title ? false : null
       },
       stateCategory() {
-        return this.errors.category == 'no-error' ? true : this.errors.category ? false : null
+        return this.errors.blog_category_id == 'no-error' ? true : this.errors.blog_category_id ? false : null
       },
     },
     methods: {
+      handleRemoveCoverImage() {
+        this.input.cover_image = null
+        this.objectUrl = null;
+        this.$refs.fileCoverImage.reset()
+
+      },
       onFileChange(e) {
         const file = e.target.files[0];
-        this.url = URL.createObjectURL(file);
+        // console.log(file);
+        if (file.size > 1024 * 1024) {
+          e.preventDefault()
+          this.$refs.fileCoverImage.reset()
+          return
+        }
+        this.input.cover_image = file.name
+        this.objectUrl = URL.createObjectURL(file);
+        // let reader = new FileReader();
+        // let self = this;
+        // reader.onload = (e) => {
+        //   self.file = e.target.result;
+        // };
+        // reader.readAsDataURL(file);
       },
       getCategory() {
         this.$store.dispatch('stateLoading', true)
         axios.get(`api/blog-category`)
           .then((response) => {
             if (response.data.length !== 0) {
-              this.categoryDocuments = response.data
+              // this.categoryDocuments = response.data
               const editCategory = (category) => {
                 return category.map(item => {
                   var temp = Object.assign({}, item);
@@ -164,6 +193,7 @@
         axios.post(`api/blog`, this.input)
           .then((response) => {
             console.log(response.data)
+
             self.uploadCover(response.data.blog_id)
             // this.$refs.upload.start(response.data.blog_id)
           })
@@ -174,7 +204,7 @@
       uploadCover(blogId) {
         // console.log(this.url);
         let formData = new FormData();
-        formData.append('file', this.cover_image)
+        formData.append('file', this.file)
         axios.post(`api/file/blog-cover-image/${blogId}`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
@@ -185,12 +215,22 @@
           })
           .then((response) => {
             console.log(response.data)
-            this.$router.push({name:'BlogDetail',params:{blogId:blogId}})
+            this.$router.push({
+              name: 'BlogDetail',
+              params: {
+                blogId: blogId
+              }
+            })
 
           })
           .catch((error) => {
             console.log(error);
-            this.$router.push({name:'BlogDetail',params:{blogId:blogId}})
+            this.$router.push({
+              name: 'BlogDetail',
+              params: {
+                blogId: blogId
+              }
+            })
           })
 
       }

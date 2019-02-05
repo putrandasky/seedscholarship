@@ -1,7 +1,6 @@
 <template>
-  <b-row>
+  <b-row v-show="loaded">
     <b-col md="9">
-
       <b-card>
         <div slot="header" class="text-center">
           <strong>BLOG</strong>
@@ -18,24 +17,50 @@
           <quill-editor v-model="data.body"> </quill-editor>
         </b-form-group>
       </b-card>
+      <b-card>
+        <div slot="header" class="text-center">
+          <strong>Moderations</strong>
+        </div>
+        <b-card-body style="overflow-x: auto;max-height: 400px;">
+          <b-card v-for="(v,i) in data.moderations" :key="i">
+            <div class="card-title border-bottom">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{v.moderateable.name}}</h5>
+                <small class="text-muted">{{v.mod_status}}</small>
+              </div>
+            </div>
+            <p class="card-text">{{v.mod_message}}</p>
+            <small class="text-muted">Last updated {{v.created_at}}</small>
+          </b-card>
+        </b-card-body>
+      </b-card>
+      <b-card>
+        <div slot="header" class="text-center">
+          <strong>Comments</strong>
+        </div>
+      </b-card>
     </b-col>
     <b-col md="3">
       <b-card>
         <div slot="header" class="text-center">
           <strong>Publish</strong>
         </div>
-        <div class="text-center">
+        <strong>Status</strong> : {{data.moderations[0].mod_status}}<br />
+        <strong>Last Update</strong> : {{data.moderations[0].created_at}}<br />
+        <strong>Created</strong> : {{data.created_at}}
 
-          <b-button variant="secondary"  @click="postData('DRAFT')">Save as Draft</b-button>
-          <b-button variant="primary" @click="postData('PUBLISH')">Publish</b-button>
+        <div slot="footer">
+          <div class="text-center">
+            <b-button variant="secondary" @click="handlePublishButton('DRAFT')" size="sm">Save as Draft</b-button>
+            <b-button variant="primary" @click="handlePublishButton('PUBLISH')" size="sm">Publish</b-button>
+          </div>
         </div>
       </b-card>
-
       <b-card>
         <div slot="header" class="text-center">
           <strong>Categories</strong>
         </div>
-        <b-form-group :invalid-feedback="errors.category" :state="stateCategory">
+        <b-form-group :invalid-feedback="errors.blog_category_id" :state="stateCategory">
           <b-form-select plain v-model="data.blog_category_id" :options="categoryOptions">
             <template slot="first">
               <option :value="null" disabled>-- Please Select Category --</option>
@@ -50,18 +75,42 @@
         <v-select plain placeholder="Select Tags (Optional)" :value="data.tags" :options="tagOptions" transition="fade-select"
           multiple label="name"></v-select>
       </b-card>
-      <b-card>
+      <b-card no-body>
         <div slot="header" class="text-center">
           <strong>Cover Image</strong>
         </div>
-        <div id="preview">
-          <img v-if="data.cover_image" :src="`storage/${data.cover_image}`" />
-        </div>
-        <!-- <b-progress v-if="url" class="mb-3" height="5px" :value="uploadPercentage" variant="primary"></b-progress> -->
-        <!-- <b-form-file v-model="cover_image" placeholder="Choose a file..." @change="onFileChange"></b-form-file> -->
+        <b-card-img :src="url" style="border-radius:unset">
+        </b-card-img>
+        <b-btn v-show="data.cover_image || new_cover_image" class="btn--corner" variant="danger" size="sm" style="top:47px"
+          @click="handleRemoveCoverImage">
+          <i class="fa fa-close"></i>
+        </b-btn>
+        <b-btn v-show="old_cover_image && new_cover_image" class="btn--corner" variant="warning" size="sm" style="top:47px;right:22px"
+          @click="handleUndoCoverImage">
+          <i class="fa fa-undo"></i>
+        </b-btn>
+        <b-progress v-show="uploadPercentage>0" height="5px" :value="uploadPercentage" variant="primary"></b-progress>
+        <b-card-body v-show="!data.cover_image && !new_cover_image">
+          <b-form-file accept="image/jpeg, image/png, image/gif" ref="fileCoverImage" v-model="file" placeholder="Choose a file..."
+            @change="onFileChange"></b-form-file>
+        </b-card-body>
         <!-- <upload-cover-image ref="upload" /> -->
       </b-card>
     </b-col>
+    <b-modal title="Leave Moderation Message" v-model="moderationModal" @ok="trigerConfirmModal(
+      `${new_moderations.status} THIS BLOG`,
+      `Are you sure?`,
+      'postBlog'
+    )">
+      <b-form-group label-for="message" class="my-1">
+        <b-form-input id="message" type="text" name="message" placeholder="Please leave a message why change this blog"
+          v-model="new_moderations.message" />
+      </b-form-group>
+    </b-modal>
+    <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" :title="confirmModalTitle"
+      v-model="confirmModal" @ok="onConfirmModal" @cancel="onCancelConfirmModal">
+      {{confirmModalBody}}
+    </b-modal>
   </b-row>
 </template>
 <script>
@@ -85,17 +134,40 @@
     },
     data: function () {
       return {
-        url: null,
-        cover_image: {},
+        confirmModal: false,
+        confirmModalTitle: '',
+        confirmModalBody: '',
+        confirmModalState: '',
+        confirmModalTempValue: '',
+        file: null,
+        objectUrl: null,
         uploadPercentage: 0,
+        new_cover_image: null,
+        old_cover_image: null,
+        new_moderations: {
+          message: '',
+          status: ''
+        },
+        moderationModal: false,
         data: {
+          id: null,
           slug: '',
           title: '',
           body: '',
           blog_category_id: null,
           tags: [],
-          cover_image:''
-          // mod_status: ''
+          cover_image: null,
+          mod_status: '',
+          created_at: null,
+          moderations: [{
+            id: '',
+            mod_status: '',
+            mod_message: '',
+            created_at: null,
+            moderateable: {
+              name: ''
+            }
+          }]
         },
         errors: {
           slug: '',
@@ -104,7 +176,8 @@
           blog_category_id: ''
         },
         categoryOptions: [],
-        tagOptions: []
+        tagOptions: [],
+        loaded: false,
       }
     },
     created() {
@@ -113,6 +186,11 @@
       this.getData()
     },
     computed: {
+      url() {
+        return this.new_cover_image ? this.objectUrl :
+          this.data.cover_image ? `/storage/blog/${this.data.id}/cover/${this.data.cover_image}` :
+          '/images/default-blog-cover.jpg'
+      },
       stateTitle() {
         return this.errors.title == 'no-error' ? true : this.errors.title ? false : null
       },
@@ -121,9 +199,56 @@
       },
     },
     methods: {
+      handlePublishButton(mod_status) {
+        this.new_moderations.status = mod_status
+        this.new_moderations.message = ''
+        this.moderationModal = true
+      },
+      trigerConfirmModal(title, body, state, value = '') {
+        this.confirmModalTitle = title
+        this.confirmModalBody = body
+        this.confirmModal = true
+        this.confirmModalState = state
+        this.confirmModalTempValue = value
+
+      },
+      onConfirmModal() {
+        if (this.confirmModalState == 'postBlog') {
+          this.postData()
+        }
+      },
+      onCancelConfirmModal() {
+        this.confirmModalTitle = '',
+          this.confirmModalBody = '',
+          this.confirmModal = false,
+          this.confirmModalState = '',
+          this.confirmModalTempValue = ''
+      },
+      handleUndoCoverImage() {
+        this.data.cover_image = this.old_cover_image
+        this.objectUrl = null
+        this.new_cover_image = null
+        this.$refs.fileCoverImage.reset()
+      },
+      handleRemoveCoverImage() {
+        this.data.cover_image = null
+        this.objectUrl = null
+        this.new_cover_image = null
+        this.$refs.fileCoverImage.reset()
+
+      },
       onFileChange(e) {
         const file = e.target.files[0];
-        this.url = URL.createObjectURL(file);
+        // console.log(file);
+        if (file.size > 1024 * 1024) {
+          e.preventDefault()
+          this.$refs.fileCoverImage.reset()
+          return
+        }
+        // this.data.cover_image = file.name
+        this.new_cover_image = file.name
+        this.objectUrl = URL.createObjectURL(file);
+
       },
       getCategory() {
         this.$store.dispatch('stateLoading', true)
@@ -161,34 +286,55 @@
             console.log(error);
           })
       },
-      getData(){
+      getData() {
         axios.get(`api/blog/${this.$route.params.blogId}`)
-        .then((response) => {
-        console.log(response.data)
-              const editCategory = (category) => {
-                return category.map(item => {
-                  var temp = Object.assign({}, item);
-                  temp['value'] = temp.id,
-                    temp['text'] = temp.category
-                  // temp.name = 'my name '+temp.name;
-                  return temp;
-                });
-              }
-              this.data = response.data.blog
-this.categoryOptions = editCategory(response.data.categories)
-this.tagOptions = response.data.tags
-        })
-        .catch((error) => {
-        console.log(error);
-        })
-      },
-      postData(mod_status) {
-        this.input.mod_status = mod_status
-        let self = this
-        axios.post(`api/blog`, this.input)
           .then((response) => {
             console.log(response.data)
-            self.uploadCover(response.data.blog_id)
+            const editCategory = (category) => {
+              return category.map(item => {
+                var temp = Object.assign({}, item);
+                temp['value'] = temp.id,
+                  temp['text'] = temp.category
+                // temp.name = 'my name '+temp.name;
+                return temp;
+              });
+            }
+            this.data = response.data.blog
+            this.categoryOptions = editCategory(response.data.categories)
+            this.tagOptions = response.data.tags
+            this.old_cover_image = response.data.blog.cover_image
+            this.loaded = true
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      },
+      postData() {
+        let self = this
+        axios.patch(`api/blog/${this.data.id}`, {
+            data: this.data,
+            moderation: this.new_moderations
+          })
+          .then((response) => {
+            console.log(response.data)
+
+            if (self.old_cover_image && !self.data.cover_image && !self.new_cover_image) {
+              console.log('delete')
+              self.deleteCover(self.data.id)
+              return
+            }
+            if (self.old_cover_image && self.new_cover_image) {
+              console.log('update')
+              self.updateCover(self.data.id)
+              return
+            }
+            if (!self.old_cover_image && self.new_cover_image) {
+              console.log('upload')
+              self.uploadCover(self.data.id)
+              return
+            }
+            console.log('no action')
+            self.getData()
             // this.$refs.upload.start(response.data.blog_id)
           })
           .catch((error) => {
@@ -198,8 +344,9 @@ this.tagOptions = response.data.tags
       uploadCover(blogId) {
         // console.log(this.url);
         let formData = new FormData();
-        formData.append('file', this.cover_image)
-        axios.post(`api/file/blog/cover_photo/${blogId}`, formData, {
+        let self = this
+        formData.append('file', this.file)
+        axios.post(`api/file/blog-cover-image/${blogId}`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             },
@@ -209,14 +356,56 @@ this.tagOptions = response.data.tags
           })
           .then((response) => {
             console.log(response.data)
-
+            self.uploadPercentage = 0
+            self.old_cover_image = self.new_cover_image
+            self.data.cover_image = self.new_cover_image
+            self.new_cover_image = null
+            self.getData()
           })
           .catch((error) => {
             console.log(error);
           })
 
-      }
-    },
+      },
+      updateCover(blogId) {
+        // console.log(this.url);
+        let formData = new FormData();
+        let self = this
+        formData.append('file', this.file)
+        axios.post(`api/file/blog-cover-image/update/${blogId}`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            },
+            onUploadProgress: function (progressEvent) {
+              this.uploadPercentage = parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total));
+            }.bind(this)
+          })
+          .then((response) => {
+            console.log(response.data)
+            self.uploadPercentage = 0
+            self.old_cover_image = self.new_cover_image
+            self.data.cover_image = self.new_cover_image
+            self.new_cover_image = null
+            self.getData()
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+
+      },
+      deleteCover(blogId) {
+        let self = this
+        axios.delete(`api/file/blog-cover-image/${blogId}`)
+          .then((response) => {
+            console.log(response.data)
+            self.old_cover_image = null
+            self.getData()
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      },
+    }
   }
 
 </script>

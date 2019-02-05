@@ -83,6 +83,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
  // import 'quill/dist/quill.bubble.css'
 
@@ -100,21 +105,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      url: null,
-      cover_image: {},
+      // url: null,
+      file: null,
+      objectUrl: null,
       uploadPercentage: 0,
       input: {
         slug: '',
         title: '',
         body: '',
-        category: null,
+        blog_category_id: null,
         tags: [],
+        cover_image: null,
         mod_status: ''
       },
       errors: {
         title: '',
         body: '',
-        category: ''
+        blog_category_id: ''
       },
       categoryOptions: [],
       tagOptions: []
@@ -125,17 +132,38 @@ __webpack_require__.r(__webpack_exports__);
     this.getTags();
   },
   computed: {
+    url: function url() {
+      return this.input.cover_image ? this.objectUrl : '/images/default-blog-cover.jpg';
+    },
     stateTitle: function stateTitle() {
       return this.errors.title == 'no-error' ? true : this.errors.title ? false : null;
     },
     stateCategory: function stateCategory() {
-      return this.errors.category == 'no-error' ? true : this.errors.category ? false : null;
+      return this.errors.blog_category_id == 'no-error' ? true : this.errors.blog_category_id ? false : null;
     }
   },
   methods: {
+    handleRemoveCoverImage: function handleRemoveCoverImage() {
+      this.input.cover_image = null;
+      this.objectUrl = null;
+      this.$refs.fileCoverImage.reset();
+    },
     onFileChange: function onFileChange(e) {
-      var file = e.target.files[0];
-      this.url = URL.createObjectURL(file);
+      var file = e.target.files[0]; // console.log(file);
+
+      if (file.size > 1024 * 1024) {
+        e.preventDefault();
+        this.$refs.fileCoverImage.reset();
+        return;
+      }
+
+      this.input.cover_image = file.name;
+      this.objectUrl = URL.createObjectURL(file); // let reader = new FileReader();
+      // let self = this;
+      // reader.onload = (e) => {
+      //   self.file = e.target.result;
+      // };
+      // reader.readAsDataURL(file);
     },
     getCategory: function getCategory() {
       var _this = this;
@@ -143,8 +171,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch('stateLoading', true);
       axios.get("api/blog-category").then(function (response) {
         if (response.data.length !== 0) {
-          _this.categoryDocuments = response.data;
-
+          // this.categoryDocuments = response.data
           var editCategory = function editCategory(category) {
             return category.map(function (item) {
               var temp = Object.assign({}, item);
@@ -192,7 +219,7 @@ __webpack_require__.r(__webpack_exports__);
 
       // console.log(this.url);
       var formData = new FormData();
-      formData.append('file', this.cover_image);
+      formData.append('file', this.file);
       axios.post("api/file/blog-cover-image/".concat(blogId), formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -420,6 +447,87 @@ var render = function() {
           _vm._v(" "),
           _c(
             "b-card",
+            { attrs: { "no-body": "" } },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "text-center",
+                  attrs: { slot: "header" },
+                  slot: "header"
+                },
+                [_c("strong", [_vm._v("Cover Image")])]
+              ),
+              _vm._v(" "),
+              _c("b-card-img", {
+                staticStyle: { "border-radius": "unset" },
+                attrs: { src: _vm.url }
+              }),
+              _vm._v(" "),
+              _c(
+                "b-btn",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.input.cover_image,
+                      expression: "input.cover_image"
+                    }
+                  ],
+                  staticClass: "btn--corner",
+                  staticStyle: { top: "47px" },
+                  attrs: { variant: "danger", size: "sm" },
+                  on: { click: _vm.handleRemoveCoverImage }
+                },
+                [_c("i", { staticClass: "fa fa-close" })]
+              ),
+              _vm._v(" "),
+              _c("b-progress", {
+                attrs: {
+                  height: "5px",
+                  value: _vm.uploadPercentage,
+                  variant: "primary"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "b-card-body",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.input.cover_image,
+                      expression: "!input.cover_image"
+                    }
+                  ]
+                },
+                [
+                  _c("b-form-file", {
+                    ref: "fileCoverImage",
+                    attrs: {
+                      accept: "image/jpeg, image/png, image/gif",
+                      placeholder: "Choose a file..."
+                    },
+                    on: { change: _vm.onFileChange },
+                    model: {
+                      value: _vm.file,
+                      callback: function($$v) {
+                        _vm.file = $$v
+                      },
+                      expression: "file"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-card",
             [
               _c(
                 "div",
@@ -435,7 +543,7 @@ var render = function() {
                 "b-form-group",
                 {
                   attrs: {
-                    "invalid-feedback": _vm.errors.category,
+                    "invalid-feedback": _vm.errors.blog_category_id,
                     state: _vm.stateCategory
                   }
                 },
@@ -445,11 +553,11 @@ var render = function() {
                     {
                       attrs: { plain: "", options: _vm.categoryOptions },
                       model: {
-                        value: _vm.input.category,
+                        value: _vm.input.blog_category_id,
                         callback: function($$v) {
-                          _vm.$set(_vm.input, "category", $$v)
+                          _vm.$set(_vm.input, "blog_category_id", $$v)
                         },
-                        expression: "input.category"
+                        expression: "input.blog_category_id"
                       }
                     },
                     [
@@ -495,49 +603,6 @@ var render = function() {
                   transition: "fade-select",
                   multiple: "",
                   label: "name"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-card",
-            [
-              _c(
-                "div",
-                {
-                  staticClass: "text-center",
-                  attrs: { slot: "header" },
-                  slot: "header"
-                },
-                [_c("strong", [_vm._v("Cover Image")])]
-              ),
-              _vm._v(" "),
-              _c("div", { attrs: { id: "preview" } }, [
-                _vm.url ? _c("img", { attrs: { src: _vm.url } }) : _vm._e()
-              ]),
-              _vm._v(" "),
-              _vm.url
-                ? _c("b-progress", {
-                    staticClass: "mb-3",
-                    attrs: {
-                      height: "5px",
-                      value: _vm.uploadPercentage,
-                      variant: "primary"
-                    }
-                  })
-                : _vm._e(),
-              _vm._v(" "),
-              _c("b-form-file", {
-                attrs: { placeholder: "Choose a file..." },
-                on: { change: _vm.onFileChange },
-                model: {
-                  value: _vm.cover_image,
-                  callback: function($$v) {
-                    _vm.cover_image = $$v
-                  },
-                  expression: "cover_image"
                 }
               })
             ],

@@ -83,6 +83,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
  // import 'quill/dist/quill.bubble.css'
 
@@ -100,17 +149,40 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      url: null,
-      cover_image: {},
+      confirmModal: false,
+      confirmModalTitle: '',
+      confirmModalBody: '',
+      confirmModalState: '',
+      confirmModalTempValue: '',
+      file: null,
+      objectUrl: null,
       uploadPercentage: 0,
+      new_cover_image: null,
+      old_cover_image: null,
+      new_moderations: {
+        message: '',
+        status: ''
+      },
+      moderationModal: false,
       data: {
+        id: null,
         slug: '',
         title: '',
         body: '',
         blog_category_id: null,
         tags: [],
-        cover_image: '' // mod_status: ''
-
+        cover_image: null,
+        mod_status: '',
+        created_at: null,
+        moderations: [{
+          id: '',
+          mod_status: '',
+          mod_message: '',
+          created_at: null,
+          moderateable: {
+            name: ''
+          }
+        }]
       },
       errors: {
         slug: '',
@@ -119,7 +191,8 @@ __webpack_require__.r(__webpack_exports__);
         blog_category_id: ''
       },
       categoryOptions: [],
-      tagOptions: []
+      tagOptions: [],
+      loaded: false
     };
   },
   created: function created() {
@@ -128,6 +201,9 @@ __webpack_require__.r(__webpack_exports__);
     this.getData();
   },
   computed: {
+    url: function url() {
+      return this.new_cover_image ? this.objectUrl : this.data.cover_image ? "/storage/blog/".concat(this.data.id, "/cover/").concat(this.data.cover_image) : '/images/default-blog-cover.jpg';
+    },
     stateTitle: function stateTitle() {
       return this.errors.title == 'no-error' ? true : this.errors.title ? false : null;
     },
@@ -136,9 +212,51 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    handlePublishButton: function handlePublishButton(mod_status) {
+      this.new_moderations.status = mod_status;
+      this.new_moderations.message = '';
+      this.moderationModal = true;
+    },
+    trigerConfirmModal: function trigerConfirmModal(title, body, state) {
+      var value = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
+      this.confirmModalTitle = title;
+      this.confirmModalBody = body;
+      this.confirmModal = true;
+      this.confirmModalState = state;
+      this.confirmModalTempValue = value;
+    },
+    onConfirmModal: function onConfirmModal() {
+      if (this.confirmModalState == 'postBlog') {
+        this.postData();
+      }
+    },
+    onCancelConfirmModal: function onCancelConfirmModal() {
+      this.confirmModalTitle = '', this.confirmModalBody = '', this.confirmModal = false, this.confirmModalState = '', this.confirmModalTempValue = '';
+    },
+    handleUndoCoverImage: function handleUndoCoverImage() {
+      this.data.cover_image = this.old_cover_image;
+      this.objectUrl = null;
+      this.new_cover_image = null;
+      this.$refs.fileCoverImage.reset();
+    },
+    handleRemoveCoverImage: function handleRemoveCoverImage() {
+      this.data.cover_image = null;
+      this.objectUrl = null;
+      this.new_cover_image = null;
+      this.$refs.fileCoverImage.reset();
+    },
     onFileChange: function onFileChange(e) {
-      var file = e.target.files[0];
-      this.url = URL.createObjectURL(file);
+      var file = e.target.files[0]; // console.log(file);
+
+      if (file.size > 1024 * 1024) {
+        e.preventDefault();
+        this.$refs.fileCoverImage.reset();
+        return;
+      } // this.data.cover_image = file.name
+
+
+      this.new_cover_image = file.name;
+      this.objectUrl = URL.createObjectURL(file);
     },
     getCategory: function getCategory() {
       var _this = this;
@@ -198,16 +316,40 @@ __webpack_require__.r(__webpack_exports__);
         _this3.data = response.data.blog;
         _this3.categoryOptions = editCategory(response.data.categories);
         _this3.tagOptions = response.data.tags;
+        _this3.old_cover_image = response.data.blog.cover_image;
+        _this3.loaded = true;
       }).catch(function (error) {
         console.log(error);
       });
     },
-    postData: function postData(mod_status) {
-      this.input.mod_status = mod_status;
+    postData: function postData() {
       var self = this;
-      axios.post("api/blog", this.input).then(function (response) {
+      axios.patch("api/blog/".concat(this.data.id), {
+        data: this.data,
+        moderation: this.new_moderations
+      }).then(function (response) {
         console.log(response.data);
-        self.uploadCover(response.data.blog_id); // this.$refs.upload.start(response.data.blog_id)
+
+        if (self.old_cover_image && !self.data.cover_image && !self.new_cover_image) {
+          console.log('delete');
+          self.deleteCover(self.data.id);
+          return;
+        }
+
+        if (self.old_cover_image && self.new_cover_image) {
+          console.log('update');
+          self.updateCover(self.data.id);
+          return;
+        }
+
+        if (!self.old_cover_image && self.new_cover_image) {
+          console.log('upload');
+          self.uploadCover(self.data.id);
+          return;
+        }
+
+        console.log('no action');
+        self.getData(); // this.$refs.upload.start(response.data.blog_id)
       }).catch(function (error) {
         console.log(error);
       });
@@ -215,8 +357,9 @@ __webpack_require__.r(__webpack_exports__);
     uploadCover: function uploadCover(blogId) {
       // console.log(this.url);
       var formData = new FormData();
-      formData.append('file', this.cover_image);
-      axios.post("api/file/blog/cover_photo/".concat(blogId), formData, {
+      var self = this;
+      formData.append('file', this.file);
+      axios.post("api/file/blog-cover-image/".concat(blogId), formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
@@ -225,6 +368,44 @@ __webpack_require__.r(__webpack_exports__);
         }.bind(this)
       }).then(function (response) {
         console.log(response.data);
+        self.uploadPercentage = 0;
+        self.old_cover_image = self.new_cover_image;
+        self.data.cover_image = self.new_cover_image;
+        self.new_cover_image = null;
+        self.getData();
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    updateCover: function updateCover(blogId) {
+      // console.log(this.url);
+      var formData = new FormData();
+      var self = this;
+      formData.append('file', this.file);
+      axios.post("api/file/blog-cover-image/update/".concat(blogId), formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: function (progressEvent) {
+          this.uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+        }.bind(this)
+      }).then(function (response) {
+        console.log(response.data);
+        self.uploadPercentage = 0;
+        self.old_cover_image = self.new_cover_image;
+        self.data.cover_image = self.new_cover_image;
+        self.new_cover_image = null;
+        self.getData();
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    deleteCover: function deleteCover(blogId) {
+      var self = this;
+      axios.delete("api/file/blog-cover-image/".concat(blogId)).then(function (response) {
+        console.log(response.data);
+        self.old_cover_image = null;
+        self.getData();
       }).catch(function (error) {
         console.log(error);
       });
@@ -300,6 +481,16 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "b-row",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.loaded,
+          expression: "loaded"
+        }
+      ]
+    },
     [
       _c(
         "b-col",
@@ -404,7 +595,70 @@ var render = function() {
               )
             ],
             1
-          )
+          ),
+          _vm._v(" "),
+          _c(
+            "b-card",
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "text-center",
+                  attrs: { slot: "header" },
+                  slot: "header"
+                },
+                [_c("strong", [_vm._v("Moderations")])]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-card-body",
+                {
+                  staticStyle: { "overflow-x": "auto", "max-height": "400px" }
+                },
+                _vm._l(_vm.data.moderations, function(v, i) {
+                  return _c("b-card", { key: i }, [
+                    _c("div", { staticClass: "card-title border-bottom" }, [
+                      _c(
+                        "div",
+                        { staticClass: "d-flex w-100 justify-content-between" },
+                        [
+                          _c("h5", { staticClass: "mb-1" }, [
+                            _vm._v(_vm._s(v.moderateable.name))
+                          ]),
+                          _vm._v(" "),
+                          _c("small", { staticClass: "text-muted" }, [
+                            _vm._v(_vm._s(v.mod_status))
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "card-text" }, [
+                      _vm._v(_vm._s(v.mod_message))
+                    ]),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "text-muted" }, [
+                      _vm._v("Last updated " + _vm._s(v.created_at))
+                    ])
+                  ])
+                }),
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("b-card", [
+            _c(
+              "div",
+              {
+                staticClass: "text-center",
+                attrs: { slot: "header" },
+                slot: "header"
+              },
+              [_c("strong", [_vm._v("Comments")])]
+            )
+          ])
         ],
         1
       ),
@@ -424,38 +678,50 @@ var render = function() {
               [_c("strong", [_vm._v("Publish")])]
             ),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "text-center" },
-              [
-                _c(
-                  "b-button",
-                  {
-                    attrs: { variant: "secondary" },
-                    on: {
-                      click: function($event) {
-                        _vm.postData("DRAFT")
+            _c("strong", [_vm._v("Status")]),
+            _vm._v(" : " + _vm._s(_vm.data.moderations[0].mod_status)),
+            _c("br"),
+            _vm._v(" "),
+            _c("strong", [_vm._v("Last Update")]),
+            _vm._v(" : " + _vm._s(_vm.data.moderations[0].created_at)),
+            _c("br"),
+            _vm._v(" "),
+            _c("strong", [_vm._v("Created")]),
+            _vm._v(" : " + _vm._s(_vm.data.created_at) + "\n\n      "),
+            _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
+              _c(
+                "div",
+                { staticClass: "text-center" },
+                [
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "secondary", size: "sm" },
+                      on: {
+                        click: function($event) {
+                          _vm.handlePublishButton("DRAFT")
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("Save as Draft")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-button",
-                  {
-                    attrs: { variant: "primary" },
-                    on: {
-                      click: function($event) {
-                        _vm.postData("PUBLISH")
+                    },
+                    [_vm._v("Save as Draft")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { variant: "primary", size: "sm" },
+                      on: {
+                        click: function($event) {
+                          _vm.handlePublishButton("PUBLISH")
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("Publish")]
-                )
-              ],
-              1
-            )
+                    },
+                    [_vm._v("Publish")]
+                  )
+                ],
+                1
+              )
+            ])
           ]),
           _vm._v(" "),
           _c(
@@ -475,7 +741,7 @@ var render = function() {
                 "b-form-group",
                 {
                   attrs: {
-                    "invalid-feedback": _vm.errors.category,
+                    "invalid-feedback": _vm.errors.blog_category_id,
                     state: _vm.stateCategory
                   }
                 },
@@ -541,27 +807,184 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("b-card", [
-            _c(
-              "div",
-              {
-                staticClass: "text-center",
-                attrs: { slot: "header" },
-                slot: "header"
-              },
-              [_c("strong", [_vm._v("Cover Image")])]
-            ),
-            _vm._v(" "),
-            _c("div", { attrs: { id: "preview" } }, [
-              _vm.data.cover_image
-                ? _c("img", {
-                    attrs: { src: "storage/" + _vm.data.cover_image }
+          _c(
+            "b-card",
+            { attrs: { "no-body": "" } },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "text-center",
+                  attrs: { slot: "header" },
+                  slot: "header"
+                },
+                [_c("strong", [_vm._v("Cover Image")])]
+              ),
+              _vm._v(" "),
+              _c("b-card-img", {
+                staticStyle: { "border-radius": "unset" },
+                attrs: { src: _vm.url }
+              }),
+              _vm._v(" "),
+              _c(
+                "b-btn",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.data.cover_image || _vm.new_cover_image,
+                      expression: "data.cover_image || new_cover_image"
+                    }
+                  ],
+                  staticClass: "btn--corner",
+                  staticStyle: { top: "47px" },
+                  attrs: { variant: "danger", size: "sm" },
+                  on: { click: _vm.handleRemoveCoverImage }
+                },
+                [_c("i", { staticClass: "fa fa-close" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-btn",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.old_cover_image && _vm.new_cover_image,
+                      expression: "old_cover_image && new_cover_image"
+                    }
+                  ],
+                  staticClass: "btn--corner",
+                  staticStyle: { top: "47px", right: "22px" },
+                  attrs: { variant: "warning", size: "sm" },
+                  on: { click: _vm.handleUndoCoverImage }
+                },
+                [_c("i", { staticClass: "fa fa-undo" })]
+              ),
+              _vm._v(" "),
+              _c("b-progress", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.uploadPercentage > 0,
+                    expression: "uploadPercentage>0"
+                  }
+                ],
+                attrs: {
+                  height: "5px",
+                  value: _vm.uploadPercentage,
+                  variant: "primary"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "b-card-body",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.data.cover_image && !_vm.new_cover_image,
+                      expression: "!data.cover_image && !new_cover_image"
+                    }
+                  ]
+                },
+                [
+                  _c("b-form-file", {
+                    ref: "fileCoverImage",
+                    attrs: {
+                      accept: "image/jpeg, image/png, image/gif",
+                      placeholder: "Choose a file..."
+                    },
+                    on: { change: _vm.onFileChange },
+                    model: {
+                      value: _vm.file,
+                      callback: function($$v) {
+                        _vm.file = $$v
+                      },
+                      expression: "file"
+                    }
                   })
-                : _vm._e()
-            ])
-          ])
+                ],
+                1
+              )
+            ],
+            1
+          )
         ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: { title: "Leave Moderation Message" },
+          on: {
+            ok: function($event) {
+              _vm.trigerConfirmModal(
+                _vm.new_moderations.status + " THIS BLOG",
+                "Are you sure?",
+                "postBlog"
+              )
+            }
+          },
+          model: {
+            value: _vm.moderationModal,
+            callback: function($$v) {
+              _vm.moderationModal = $$v
+            },
+            expression: "moderationModal"
+          }
+        },
+        [
+          _c(
+            "b-form-group",
+            { staticClass: "my-1", attrs: { "label-for": "message" } },
+            [
+              _c("b-form-input", {
+                attrs: {
+                  id: "message",
+                  type: "text",
+                  name: "message",
+                  placeholder: "Please leave a message why change this blog"
+                },
+                model: {
+                  value: _vm.new_moderations.message,
+                  callback: function($$v) {
+                    _vm.$set(_vm.new_moderations, "message", $$v)
+                  },
+                  expression: "new_moderations.message"
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            "no-close-on-esc": true,
+            "hide-header-close": true,
+            "no-close-on-backdrop": true,
+            title: _vm.confirmModalTitle
+          },
+          on: { ok: _vm.onConfirmModal, cancel: _vm.onCancelConfirmModal },
+          model: {
+            value: _vm.confirmModal,
+            callback: function($$v) {
+              _vm.confirmModal = $$v
+            },
+            expression: "confirmModal"
+          }
+        },
+        [_vm._v("\n    " + _vm._s(_vm.confirmModalBody) + "\n  ")]
       )
     ],
     1
