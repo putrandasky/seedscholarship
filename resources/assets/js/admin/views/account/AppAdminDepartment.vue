@@ -1,6 +1,6 @@
 <template>
 
-    <div>
+    <div v-show="loaded">
       <b-row>
         <b-col lg="4" md="5">
           <b-card>

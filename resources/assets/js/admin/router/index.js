@@ -29,6 +29,7 @@ const AppRequestPatron = () => import('../views/request/AppRequestPatron.vue')
 
 const AppAccountAdmin = () => import('../views/account/AppAdmin.vue')
 const AppAccountAdminDepartment = () => import('../views/account/AppAdminDepartment.vue')
+const AccountAdminDetail = () => import('../views/account/AdminDetail.vue')
 const AppAccountAdminNew = () => import('../views/account/AppAdminNew.vue')
 const AppAccountAwardee = () => import('../views/account/AppAwardee.vue')
 const AppAccountPatron = () => import('../views/account/AppPatron.vue')
@@ -174,6 +175,11 @@ export default new Router({
                     path: 'all',
                     name: 'AccountAdmin',
                     component: AppAccountAdmin
+                },
+                {
+                  path:'all/detail/:userId',
+                  name:'AccountAdminDetail',
+                  component:AccountAdminDetail
                 },
                 {
                     path: 'department',

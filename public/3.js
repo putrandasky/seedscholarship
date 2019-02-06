@@ -1,18 +1,17 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[3],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/assignment/AppAssignment.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/admin/views/assignment/AppAssignment.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AssignmentFieldTableData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AssignmentFieldTableData */ "./resources/assets/js/admin/views/assignment/AssignmentFieldTableData.js");
+/* harmony import */ var _AppAdminFieldTableData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AppAdminFieldTableData */ "./resources/assets/js/admin/views/account/AppAdminFieldTableData.js");
 /* harmony import */ var _share_mixins_instantSearch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_share/mixins/instantSearch */ "./resources/assets/js/admin/views/_share/mixins/instantSearch.js");
 /* harmony import */ var _share_mixins_OperationPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_share/mixins/OperationPage */ "./resources/assets/js/admin/views/_share/mixins/OperationPage.js");
-//
 //
 //
 //
@@ -56,23 +55,56 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Assignment',
-  mixins: [_AssignmentFieldTableData__WEBPACK_IMPORTED_MODULE_0__["AssignmentFieldTableData"], _share_mixins_instantSearch__WEBPACK_IMPORTED_MODULE_1__["instantSearch"], _share_mixins_OperationPage__WEBPACK_IMPORTED_MODULE_2__["OperationPage"]],
+  name: 'AppAdmin',
+  mixins: [_AppAdminFieldTableData__WEBPACK_IMPORTED_MODULE_0__["AppAdminFieldTableData"], _share_mixins_instantSearch__WEBPACK_IMPORTED_MODULE_1__["instantSearch"], _share_mixins_OperationPage__WEBPACK_IMPORTED_MODULE_2__["OperationPage"]],
   data: function data() {
-    return {};
+    return {
+      routeName: 'AccountAdmin',
+      loaded: false
+    };
   },
   created: function created() {},
   methods: {
-    handleRowClicked: function handleRowClicked() {}
+    handleRowClicked: function handleRowClicked(record) {
+      this.$router.push({
+        name: 'AccountAdminDetail',
+        params: {
+          userId: record.id
+        }
+      });
+    },
+    getData: function getData() {
+      var _this = this;
+
+      axios.get("api/auth/admin").then(function (response) {
+        console.log(response.data);
+
+        _this.checkPage();
+
+        var editData = function editData(data) {
+          return data.map(function (item) {
+            var temp = Object.assign({}, item);
+            temp['department'] = temp.department.department; // temp.name = 'my name '+temp.name;
+
+            return temp;
+          });
+        };
+
+        _this.itemsData = editData(response.data);
+        _this.loaded = true;
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/assignment/AppAssignment.vue?vue&type=template&id=8aa1b842&":
-/*!***********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/admin/views/assignment/AppAssignment.vue?vue&type=template&id=8aa1b842& ***!
-  \***********************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a& ***!
+  \***************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -86,6 +118,16 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "b-card",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.loaded,
+          expression: "loaded"
+        }
+      ]
+    },
     [
       _c(
         "div",
@@ -94,7 +136,7 @@ var render = function() {
           attrs: { slot: "header" },
           slot: "header"
         },
-        [_c("strong", [_vm._v("ASSIGNNEMT")])]
+        [_c("strong", [_vm._v("All ADMIN USER")])]
       ),
       _vm._v(" "),
       _c(
@@ -206,7 +248,6 @@ var render = function() {
             attrs: {
               stacked: "sm",
               stack: "",
-              small: "",
               hover: "",
               fields: _vm.FieldTableItems,
               items: _vm.filteredItemsData,
@@ -232,11 +273,11 @@ var render = function() {
                 fn: function(data) {
                   return [
                     _vm._v(
-                      "\n                " +
+                      "\n        " +
                         _vm._s(
                           data.index + 1 + (_vm.currentPage - 1) * _vm.perPage
                         ) +
-                        "\n            "
+                        "\n      "
                     )
                   ]
                 }
@@ -247,12 +288,18 @@ var render = function() {
                   return [
                     _c(
                       "b-badge",
-                      { attrs: { variant: _vm.getBadge(data.item.status) } },
+                      {
+                        attrs: {
+                          variant: _vm.getBadge(
+                            data.item.moderations[0].mod_status
+                          )
+                        }
+                      },
                       [
                         _vm._v(
-                          "\n                    " +
-                            _vm._s(data.item.status) +
-                            "\n                "
+                          "\n          " +
+                            _vm._s(data.item.moderations[0].mod_status) +
+                            "\n        "
                         )
                       ]
                     )
@@ -446,17 +493,17 @@ var instantSearch = {
 
 /***/ }),
 
-/***/ "./resources/assets/js/admin/views/assignment/AppAssignment.vue":
-/*!**********************************************************************!*\
-  !*** ./resources/assets/js/admin/views/assignment/AppAssignment.vue ***!
-  \**********************************************************************/
+/***/ "./resources/assets/js/admin/views/account/AppAdmin.vue":
+/*!**************************************************************!*\
+  !*** ./resources/assets/js/admin/views/account/AppAdmin.vue ***!
+  \**************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AppAssignment_vue_vue_type_template_id_8aa1b842___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AppAssignment.vue?vue&type=template&id=8aa1b842& */ "./resources/assets/js/admin/views/assignment/AppAssignment.vue?vue&type=template&id=8aa1b842&");
-/* harmony import */ var _AppAssignment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AppAssignment.vue?vue&type=script&lang=js& */ "./resources/assets/js/admin/views/assignment/AppAssignment.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AppAdmin.vue?vue&type=template&id=db108f3a& */ "./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a&");
+/* harmony import */ var _AppAdmin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AppAdmin.vue?vue&type=script&lang=js& */ "./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -466,9 +513,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AppAssignment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AppAssignment_vue_vue_type_template_id_8aa1b842___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AppAssignment_vue_vue_type_template_id_8aa1b842___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AppAdmin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -478,54 +525,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/assets/js/admin/views/assignment/AppAssignment.vue"
+component.options.__file = "resources/assets/js/admin/views/account/AppAdmin.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/assets/js/admin/views/assignment/AppAssignment.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************!*\
-  !*** ./resources/assets/js/admin/views/assignment/AppAssignment.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************/
+/***/ "./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAssignment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AppAssignment.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/assignment/AppAssignment.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAssignment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdmin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AppAdmin.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdmin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/assets/js/admin/views/assignment/AppAssignment.vue?vue&type=template&id=8aa1b842&":
-/*!*****************************************************************************************************!*\
-  !*** ./resources/assets/js/admin/views/assignment/AppAssignment.vue?vue&type=template&id=8aa1b842& ***!
-  \*****************************************************************************************************/
+/***/ "./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a& ***!
+  \*********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAssignment_vue_vue_type_template_id_8aa1b842___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AppAssignment.vue?vue&type=template&id=8aa1b842& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/assignment/AppAssignment.vue?vue&type=template&id=8aa1b842&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAssignment_vue_vue_type_template_id_8aa1b842___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AppAdmin.vue?vue&type=template&id=db108f3a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAssignment_vue_vue_type_template_id_8aa1b842___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/assets/js/admin/views/assignment/AssignmentFieldTableData.js":
-/*!********************************************************************************!*\
-  !*** ./resources/assets/js/admin/views/assignment/AssignmentFieldTableData.js ***!
-  \********************************************************************************/
-/*! exports provided: AssignmentFieldTableData */
+/***/ "./resources/assets/js/admin/views/account/AppAdminFieldTableData.js":
+/*!***************************************************************************!*\
+  !*** ./resources/assets/js/admin/views/account/AppAdminFieldTableData.js ***!
+  \***************************************************************************/
+/*! exports provided: AppAdminFieldTableData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AssignmentFieldTableData", function() { return AssignmentFieldTableData; });
-var AssignmentFieldTableData = {
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppAdminFieldTableData", function() { return AppAdminFieldTableData; });
+var AppAdminFieldTableData = {
   data: function data() {
     return {
       FieldTableItems: [{
@@ -537,67 +584,50 @@ var AssignmentFieldTableData = {
           width: '30px'
         }
       }, {
-        key: 'assignment',
-        label: 'Assignment Name',
+        key: 'name',
+        label: 'Name',
         tdClass: 'truncate-cell',
         sortable: true,
         thStyle: {
           minWidth: '175px'
         }
       }, {
-        key: 'closed_date',
-        label: 'Closed Date',
-        'class': 'text-center',
+        key: 'email',
+        label: 'Email',
         thStyle: {
           minWidth: '150px',
           width: '150px'
+        },
+        sortable: true
+      }, {
+        key: 'department',
+        label: 'Department',
+        thStyle: {
+          minWidth: '250px',
+          width: '250px'
         },
         sortable: true
       }, {
         key: 'created_at',
-        label: 'Created Date',
+        label: 'Registered',
         'class': 'text-center',
         thStyle: {
           minWidth: '150px',
           width: '150px'
         },
         sortable: true
-      }, {
-        key: 'status',
-        label: 'Status',
-        'class': 'text-center',
-        thStyle: {
-          minWidth: '25px',
-          width: '25px'
-        },
-        sortable: true
       }],
-      itemsData: [{
-        id: 1,
-        assignment: 'lorem ipsum',
-        closed_date: "2015-03-25",
-        created_at: "2015-03-25",
-        status: 'Active'
-      }, {
-        id: 2,
-        assignment: 'Dolor Sit amet',
-        closed_date: "2015-03-25",
-        created_at: "2015-03-25",
-        status: 'Closed'
-      }],
-      selectedInputSearch: this.$route.query.searchKey || 'assignment',
+      itemsData: [],
+      selectedInputSearch: this.$route.query.searchKey || 'name',
       optionsInputSearch: [{
-        value: 'assignment',
-        text: 'Assignment'
+        value: 'name',
+        text: 'Name'
       }, {
-        value: 'closed_date',
-        text: 'Closed Date'
+        value: 'email',
+        text: 'Email'
       }, {
-        value: 'created_at',
-        text: 'Created Date'
-      }, {
-        value: 'status',
-        text: 'Status'
+        value: 'department',
+        text: 'Department'
       }]
     };
   },
@@ -606,27 +636,21 @@ var AssignmentFieldTableData = {
     filteredItemsData: function filteredItemsData() {
       var _this = this;
 
-      if (this.selectedInputSearch == 'assignment') {
+      if (this.selectedInputSearch == 'name') {
         return this.itemsData.filter(function (result) {
-          return result.assignment.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+          return result.name.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
         });
       }
 
-      if (this.selectedInputSearch == 'closed_date') {
+      if (this.selectedInputSearch == 'email') {
         return this.itemsData.filter(function (result) {
-          return result.closed_date.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+          return result.email.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
         });
       }
 
-      if (this.selectedInputSearch == 'created_at') {
+      if (this.selectedInputSearch == 'department') {
         return this.itemsData.filter(function (result) {
-          return result.created_at.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
-        });
-      }
-
-      if (this.selectedInputSearch == 'status') {
-        return this.itemsData.filter(function (result) {
-          return result.status.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+          return result.department.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
         });
       }
     }

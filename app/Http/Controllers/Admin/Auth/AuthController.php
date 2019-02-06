@@ -26,6 +26,11 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+    public function index()
+    {
+      $user = App\Admin::with('department')->get();
+      return $user;
+    }
     public function register(Request $request)
     {
         $this->validate($request, [

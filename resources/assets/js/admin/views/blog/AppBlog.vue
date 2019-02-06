@@ -48,7 +48,6 @@
     OperationPage
   } from "../_share/mixins/OperationPage";
   export default {
-    name: 'Assignment',
     mixins: [AppBlogFieldTableData, instantSearch, OperationPage],
     name: 'AppBlog',
     data: function () {

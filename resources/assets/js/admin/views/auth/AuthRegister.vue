@@ -1,5 +1,5 @@
 <template>
-  <div class="app flex-row align-items-center">
+  <div class="app flex-row align-items-center" v-show="loaded">
     <div class="container">
       <b-row class="justify-content-center">
         <b-col md="6" sm="8">
@@ -74,6 +74,7 @@
     name: 'AuthRegister',
     data: function () {
       return {
+        loaded:false,
         departmentOptions: [],
         errors: {
           name: '',
@@ -123,6 +124,7 @@
               delete obj.department
             });
             this.departmentOptions = response.data;
+            this.loaded = true
 
           })
           .catch((error) => {
