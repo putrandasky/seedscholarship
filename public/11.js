@@ -1,15 +1,22 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[11],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/account/AppAdminDepartment.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/admin/views/account/AppAdminDepartment.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+/* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js");
+/* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es6_array_map__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.array.map */ "./node_modules/core-js/modules/es6.array.map.js");
+/* harmony import */ var core_js_modules_es6_array_map__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_array_map__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _AppAdminFieldTableData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AppAdminFieldTableData */ "./resources/assets/js/admin/views/account/AppAdminFieldTableData.js");
+/* harmony import */ var _share_mixins_instantSearch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_share/mixins/instantSearch */ "./resources/assets/js/admin/views/_share/mixins/instantSearch.js");
+/* harmony import */ var _share_mixins_OperationPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../_share/mixins/OperationPage */ "./resources/assets/js/admin/views/_share/mixins/OperationPage.js");
+
 
 //
 //
@@ -50,150 +57,48 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'AppAdminDepartment',
+  name: 'AppAdmin',
+  mixins: [_AppAdminFieldTableData__WEBPACK_IMPORTED_MODULE_2__["AppAdminFieldTableData"], _share_mixins_instantSearch__WEBPACK_IMPORTED_MODULE_3__["instantSearch"], _share_mixins_OperationPage__WEBPACK_IMPORTED_MODULE_4__["OperationPage"]],
   data: function data() {
-    var _ref;
-
-    return _ref = {
-      confirmModal: false,
-      editModal: false,
+    return {
+      routeName: 'AccountAdmin',
       loaded: false
-    }, _defineProperty(_ref, "confirmModal", false), _defineProperty(_ref, "confirmModalTitle", ''), _defineProperty(_ref, "confirmModalBody", ''), _defineProperty(_ref, "confirmModalState", ''), _defineProperty(_ref, "confirmModalTempValue", ''), _defineProperty(_ref, "items", []), _defineProperty(_ref, "input", ''), _defineProperty(_ref, "selected", {
-      department: '',
-      id: null
-    }), _defineProperty(_ref, "fieldsDocuments", [{
-      key: 'no',
-      label: 'No',
-      'class': 'text-center',
-      thStyle: {
-        minWidth: '30px',
-        width: '30px'
-      }
-    }, {
-      key: 'department',
-      label: 'Department',
-      'class': 'truncate-cell',
-      thStyle: {
-        minWidth: '175px'
-      }
-    }, {
-      key: 'users_count',
-      label: 'Users',
-      'class': 'text-right',
-      thStyle: {
-        minWidth: '75px',
-        width: '75px'
-      }
-    }, {
-      key: 'action',
-      label: '',
-      'class': 'text-center',
-      thStyle: {
-        minWidth: '150px',
-        width: '150px'
-      }
-    }]), _ref;
+    };
   },
-  created: function created() {
-    this.getData();
-  },
+  created: function created() {},
   methods: {
-    onConfirmModal: function onConfirmModal() {
-      if (this.confirmModalState == 'deleteDepartment') {
-        this.onDeleteDepartment();
-      }
-
-      if (this.confirmModalState == 'editDepartment') {
-        this.onUpdateDepartment();
-      }
-    },
-    onEditDepartmentModal: function onEditDepartmentModal(id, department) {
-      this.selected.id = id;
-      this.selected.department = department;
-      this.editModal = true;
-    },
-    trigerConfirmModal: function trigerConfirmModal(title, body, state) {
-      var value = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
-      this.confirmModalTitle = title;
-      this.confirmModalBody = body;
-      this.confirmModal = true;
-      this.confirmModalState = state;
-      this.confirmModalTempValue = value;
-    },
-    onAddDepartment: function onAddDepartment() {
-      var _this = this;
-
-      axios.post('api/department', {
-        department: this.input
-      }).then(function (response) {
-        _this.getData();
-
-        _this.input = null;
-
-        _this.$snotify.success("New Department Added", "SUCCESS");
-      }).catch(function (error) {
-        console.log(error);
-
-        _this.$snotify.error("Ooops, There's Something Error, Try Again Later", "ERROR");
+    handleRowClicked: function handleRowClicked(record) {
+      this.$router.push({
+        name: 'AccountAdminDetail',
+        params: {
+          userId: record.id
+        }
       });
-    },
-    onUpdateDepartment: function onUpdateDepartment() {
-      var _this2 = this;
-
-      axios.patch("api/department/".concat(this.selected.id), {
-        department: this.selected.department
-      }).then(function (response) {
-        _this2.getData();
-
-        _this2.input = null;
-
-        _this2.$snotify.success("New Department Added", "SUCCESS");
-      }).catch(function (error) {
-        console.log(error);
-
-        _this2.$snotify.error("Ooops, There's Something Error, Try Again Later", "ERROR");
-      });
-    },
-    onDeleteDepartment: function onDeleteDepartment() {
-      var _this3 = this;
-
-      axios.delete("api/department/".concat(this.confirmModalTempValue)).then(function (response) {
-        _this3.confirmModalTempValue = null;
-
-        _this3.getData();
-
-        _this3.$snotify.success("Department Deleted", "SUCCESS");
-      }).catch(function (error) {
-        _this3.confirmModalTempValue = null;
-        console.log(error);
-
-        _this3.$snotify.error("Ooops, There's Something Error, Try Again Later", "ERROR");
-      });
-    },
-    onClickBack: function onClickBack() {
-      this.$router.push('/project');
     },
     getData: function getData() {
-      var _this4 = this;
+      var _this = this;
 
-      axios.get('api/department').then(function (response) {
+      axios.get("api/auth/admin").then(function (response) {
         console.log(response.data);
-        _this4.items = response.data;
-        _this4.loaded = true;
+
+        _this.checkPage();
+
+        var editData = function editData(data) {
+          return data.map(function (item) {
+            var temp = C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default()({}, item);
+
+            temp['department'] = temp.department.department; // temp.name = 'my name '+temp.name;
+
+            return temp;
+          });
+        };
+
+        _this.itemsData = editData(response.data);
+        _this.loaded = true;
       }).catch(function (error) {
         console.log(error);
       });
@@ -203,10 +108,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/account/AppAdminDepartment.vue?vue&type=template&id=0a8e4d15&":
-/*!*************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/admin/views/account/AppAdminDepartment.vue?vue&type=template&id=0a8e4d15& ***!
-  \*************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a& ***!
+  \***************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -219,7 +124,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "b-card",
     {
       directives: [
         {
@@ -232,50 +137,72 @@ var render = function() {
     },
     [
       _c(
+        "div",
+        {
+          staticClass: "text-center",
+          attrs: { slot: "header" },
+          slot: "header"
+        },
+        [_c("strong", [_vm._v("All ADMIN USER")])]
+      ),
+      _vm._v(" "),
+      _c(
         "b-row",
         [
           _c(
             "b-col",
-            { attrs: { lg: "4", md: "5" } },
+            { staticClass: "mb-3", attrs: { xl: "4", md: "6" } },
             [
               _c(
-                "b-card",
+                "b-input-group",
                 [
-                  _c("header", { attrs: { slot: "header" }, slot: "header" }, [
-                    _c("strong", [_vm._v("Add New Department")])
-                  ]),
+                  _c(
+                    "b-input-group-prepend",
+                    [
+                      _c("b-form-select", {
+                        attrs: { plain: "", options: _vm.optionsInputSearch },
+                        model: {
+                          value: _vm.selectedInputSearch,
+                          callback: function($$v) {
+                            _vm.selectedInputSearch = $$v
+                          },
+                          expression: "selectedInputSearch"
+                        }
+                      })
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
                   _c("b-form-input", {
-                    attrs: { type: "text" },
+                    attrs: {
+                      autofocus: "",
+                      type: "text",
+                      placeholder: "Instant Search"
+                    },
+                    on: { input: _vm.onInput },
                     model: {
-                      value: _vm.input,
+                      value: _vm.search,
                       callback: function($$v) {
-                        _vm.input = $$v
+                        _vm.search = $$v
                       },
-                      expression: "input"
+                      expression: "search"
                     }
                   }),
                   _vm._v(" "),
                   _c(
-                    "div",
-                    { staticClass: "mt-2" },
+                    "b-input-group-append",
                     [
                       _c(
-                        "b-button",
+                        "b-btn",
                         {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.input,
-                              expression: "input"
+                          attrs: { disabled: !_vm.search },
+                          on: {
+                            click: function($event) {
+                              _vm.search = ""
                             }
-                          ],
-                          staticClass: "float-right",
-                          attrs: { variant: "success", size: "sm" },
-                          on: { click: _vm.onAddDepartment }
+                          }
                         },
-                        [_vm._v("Add")]
+                        [_vm._v("Clear")]
                       )
                     ],
                     1
@@ -287,155 +214,109 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c(
-            "b-col",
-            { attrs: { lg: "8", md: "7" } },
-            [
-              _c("b-card", [
-                _c("header", { attrs: { slot: "header" }, slot: "header" }, [
-                  _c("strong", [_vm._v("List of Available Department")])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticStyle: { "overflow-y": "auto" } },
-                  [
-                    _vm.items.length !== 0
-                      ? _c("b-table", {
-                          attrs: {
-                            stacked: "sm",
-                            small: "",
-                            fields: _vm.fieldsDocuments,
-                            items: _vm.items,
-                            "thead-class": "thead-light"
-                          },
-                          scopedSlots: _vm._u([
-                            {
-                              key: "no",
-                              fn: function(data) {
-                                return [
-                                  _vm._v(
-                                    "\n              " +
-                                      _vm._s(data.index + 1) +
-                                      "\n            "
-                                  )
-                                ]
-                              }
-                            },
-                            {
-                              key: "action",
-                              fn: function(data) {
-                                return [
-                                  _c(
-                                    "b-button",
-                                    {
-                                      attrs: { variant: "success", size: "sm" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.onEditDepartmentModal(
-                                            data.item.id,
-                                            data.item.department
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Edit")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-button",
-                                    {
-                                      attrs: { variant: "danger", size: "sm" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.trigerConfirmModal(
-                                            "Confirm Remove Department",
-                                            "Are You Sure To Remove This Department From This User?",
-                                            "deleteDepartment",
-                                            data.item.id
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Remove")]
-                                  )
-                                ]
-                              }
-                            }
-                          ])
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                )
-              ])
-            ],
-            1
-          )
+          _vm.getTotalPages > 1
+            ? _c(
+                "b-col",
+                {
+                  staticStyle: { "overflow-y": "auto" },
+                  attrs: { xl: "8", md: "6" }
+                },
+                [
+                  _c("b-pagination-nav", {
+                    staticClass: "justify-content-end mb-0",
+                    attrs: {
+                      align: "right",
+                      "use-router": true,
+                      "link-gen": _vm.linkGen,
+                      "number-of-pages": _vm.getTotalPages
+                    },
+                    model: {
+                      value: _vm.currentPage,
+                      callback: function($$v) {
+                        _vm.currentPage = $$v
+                      },
+                      expression: "currentPage"
+                    }
+                  })
+                ],
+                1
+              )
+            : _vm._e()
         ],
         1
       ),
       _vm._v(" "),
       _c(
-        "b-modal",
-        {
-          attrs: {
-            "no-close-on-esc": true,
-            "hide-header-close": true,
-            "no-close-on-backdrop": true,
-            title: "Edit Depatment"
-          },
-          on: {
-            ok: function($event) {
-              _vm.trigerConfirmModal(
-                "Confirm Edit Department",
-                "Are You Sure To Edit This Department From This User?",
-                "editDepartment"
-              )
-            }
-          },
-          model: {
-            value: _vm.editModal,
-            callback: function($$v) {
-              _vm.editModal = $$v
-            },
-            expression: "editModal"
-          }
-        },
+        "div",
+        { staticStyle: { "overflow-y": "auto" } },
         [
-          _c("b-form-input", {
-            attrs: { type: "text" },
-            model: {
-              value: _vm.selected.department,
-              callback: function($$v) {
-                _vm.$set(_vm.selected, "department", $$v)
+          _c("b-table", {
+            staticStyle: { "animation-duration": "1s" },
+            attrs: {
+              stacked: "sm",
+              stack: "",
+              hover: "",
+              fields: _vm.FieldTableItems,
+              items: _vm.filteredItemsData,
+              "thead-class": "thead-light",
+              "sort-by": _vm.querySortBy,
+              "sort-desc": _vm.querySortDesc,
+              "current-page": _vm.currentPage,
+              "per-page": _vm.perPage
+            },
+            on: {
+              "update:sortBy": function($event) {
+                _vm.querySortBy = $event
               },
-              expression: "selected.department"
-            }
+              "update:sortDesc": function($event) {
+                _vm.querySortDesc = $event
+              },
+              "sort-changed": _vm.sortingChanged,
+              "row-clicked": _vm.handleRowClicked
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "no",
+                fn: function(data) {
+                  return [
+                    _vm._v(
+                      "\n        " +
+                        _vm._s(
+                          data.index + 1 + (_vm.currentPage - 1) * _vm.perPage
+                        ) +
+                        "\n      "
+                    )
+                  ]
+                }
+              },
+              {
+                key: "status",
+                fn: function(data) {
+                  return [
+                    _c(
+                      "b-badge",
+                      {
+                        attrs: {
+                          variant: _vm.getBadge(
+                            data.item.moderations[0].mod_status
+                          )
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(data.item.moderations[0].mod_status) +
+                            "\n        "
+                        )
+                      ]
+                    )
+                  ]
+                }
+              }
+            ])
           })
         ],
         1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-modal",
-        {
-          attrs: {
-            "no-close-on-esc": true,
-            "hide-header-close": true,
-            "no-close-on-backdrop": true,
-            title: _vm.confirmModalTitle
-          },
-          on: { ok: _vm.onConfirmModal },
-          model: {
-            value: _vm.confirmModal,
-            callback: function($$v) {
-              _vm.confirmModal = $$v
-            },
-            expression: "confirmModal"
-          }
-        },
-        [_vm._v("\n  " + _vm._s(_vm.confirmModalBody) + "\n")]
       )
     ],
     1
@@ -448,17 +329,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/assets/js/admin/views/account/AppAdminDepartment.vue":
-/*!************************************************************************!*\
-  !*** ./resources/assets/js/admin/views/account/AppAdminDepartment.vue ***!
-  \************************************************************************/
+/***/ "./resources/assets/js/admin/views/account/AppAdmin.vue":
+/*!**************************************************************!*\
+  !*** ./resources/assets/js/admin/views/account/AppAdmin.vue ***!
+  \**************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AppAdminDepartment_vue_vue_type_template_id_0a8e4d15___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AppAdminDepartment.vue?vue&type=template&id=0a8e4d15& */ "./resources/assets/js/admin/views/account/AppAdminDepartment.vue?vue&type=template&id=0a8e4d15&");
-/* harmony import */ var _AppAdminDepartment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AppAdminDepartment.vue?vue&type=script&lang=js& */ "./resources/assets/js/admin/views/account/AppAdminDepartment.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AppAdmin.vue?vue&type=template&id=db108f3a& */ "./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a&");
+/* harmony import */ var _AppAdmin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AppAdmin.vue?vue&type=script&lang=js& */ "./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -468,9 +349,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AppAdminDepartment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AppAdminDepartment_vue_vue_type_template_id_0a8e4d15___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AppAdminDepartment_vue_vue_type_template_id_0a8e4d15___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AppAdmin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -480,40 +361,149 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/assets/js/admin/views/account/AppAdminDepartment.vue"
+component.options.__file = "resources/assets/js/admin/views/account/AppAdmin.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/assets/js/admin/views/account/AppAdminDepartment.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************!*\
-  !*** ./resources/assets/js/admin/views/account/AppAdminDepartment.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************/
+/***/ "./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdminDepartment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AppAdminDepartment.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/account/AppAdminDepartment.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdminDepartment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdmin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AppAdmin.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdmin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/assets/js/admin/views/account/AppAdminDepartment.vue?vue&type=template&id=0a8e4d15&":
-/*!*******************************************************************************************************!*\
-  !*** ./resources/assets/js/admin/views/account/AppAdminDepartment.vue?vue&type=template&id=0a8e4d15& ***!
-  \*******************************************************************************************************/
+/***/ "./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a& ***!
+  \*********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdminDepartment_vue_vue_type_template_id_0a8e4d15___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AppAdminDepartment.vue?vue&type=template&id=0a8e4d15& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/account/AppAdminDepartment.vue?vue&type=template&id=0a8e4d15&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdminDepartment_vue_vue_type_template_id_0a8e4d15___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AppAdmin.vue?vue&type=template&id=db108f3a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdminDepartment_vue_vue_type_template_id_0a8e4d15___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/assets/js/admin/views/account/AppAdminFieldTableData.js":
+/*!***************************************************************************!*\
+  !*** ./resources/assets/js/admin/views/account/AppAdminFieldTableData.js ***!
+  \***************************************************************************/
+/*! exports provided: AppAdminFieldTableData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppAdminFieldTableData", function() { return AppAdminFieldTableData; });
+/* harmony import */ var core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es6.regexp.search */ "./node_modules/core-js/modules/es6.regexp.search.js");
+/* harmony import */ var core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
+/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es6_array_index_of__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es6.array.index-of */ "./node_modules/core-js/modules/es6.array.index-of.js");
+/* harmony import */ var core_js_modules_es6_array_index_of__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_array_index_of__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es6_array_filter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es6.array.filter */ "./node_modules/core-js/modules/es6.array.filter.js");
+/* harmony import */ var core_js_modules_es6_array_filter__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_array_filter__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+var AppAdminFieldTableData = {
+  data: function data() {
+    return {
+      FieldTableItems: [{
+        key: 'no',
+        label: 'No',
+        'class': 'text-center',
+        thStyle: {
+          minWidth: '30px',
+          width: '30px'
+        }
+      }, {
+        key: 'name',
+        label: 'Name',
+        tdClass: 'truncate-cell',
+        sortable: true,
+        thStyle: {
+          minWidth: '175px'
+        }
+      }, {
+        key: 'email',
+        label: 'Email',
+        thStyle: {
+          minWidth: '150px',
+          width: '150px'
+        },
+        sortable: true
+      }, {
+        key: 'department',
+        label: 'Department',
+        thStyle: {
+          minWidth: '250px',
+          width: '250px'
+        },
+        sortable: true
+      }, {
+        key: 'created_at',
+        label: 'Registered',
+        'class': 'text-center',
+        thStyle: {
+          minWidth: '150px',
+          width: '150px'
+        },
+        sortable: true
+      }],
+      itemsData: [],
+      selectedInputSearch: this.$route.query.searchKey || 'name',
+      optionsInputSearch: [{
+        value: 'name',
+        text: 'Name'
+      }, {
+        value: 'email',
+        text: 'Email'
+      }, {
+        value: 'department',
+        text: 'Department'
+      }]
+    };
+  },
+  watch: {},
+  computed: {
+    filteredItemsData: function filteredItemsData() {
+      var _this = this;
+
+      if (this.selectedInputSearch == 'name') {
+        return this.itemsData.filter(function (result) {
+          return result.name.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+        });
+      }
+
+      if (this.selectedInputSearch == 'email') {
+        return this.itemsData.filter(function (result) {
+          return result.email.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+        });
+      }
+
+      if (this.selectedInputSearch == 'department') {
+        return this.itemsData.filter(function (result) {
+          return result.department.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+        });
+      }
+    }
+  }
+};
 
 /***/ })
 
