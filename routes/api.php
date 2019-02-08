@@ -26,6 +26,14 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('awardee/register', 'Awardee\Auth\AuthController@register');
     Route::post('awardee/update', 'Awardee\Auth\AuthController@Update');
     Route::get('awardee', 'Awardee\Auth\AuthController@index');
+
+    Route::post('nonreg/login', 'AwardeeNonreg\Auth\AuthController@login');
+    Route::post('nonreg/logout', 'AwardeeNonreg\Auth\AuthController@logout');
+    Route::post('nonreg/register', 'AwardeeNonreg\Auth\AuthController@register');
+    Route::post('nonreg/update', 'AwardeeNonreg\Auth\AuthController@Update');
+    Route::get('nonreg', 'AwardeeNonreg\Auth\AuthController@index');
+
+
 });
 Route::group(['prefix' => 'file'], function () {
     Route::post('blog-cover-image/{blogId}', 'Common\Blog\BlogCoverImageController@store');
@@ -45,8 +53,11 @@ Route::apiResource('blog-category', 'Admin\Blog\BlogCategoryController');
 Route::apiResource('blog-tag', 'Admin\Blog\BlogTagController');
 Route::apiResource('blog', 'Admin\Blog\BlogController');
 Route::apiResource('period', 'Common\PeriodController');
+Route::apiResource('scholarship', 'Common\ScholarshipController');
 Route::apiResource('user-admin', 'Admin\Auth\UserController');
 Route::get('registration-awardee/upload/authorized', 'Awardee\Registration\RegistrationUploadController@authorized');
 Route::apiResource('registration-awardee/upload', 'Awardee\Registration\RegistrationUploadController');
+Route::get('registration-awardee-nonreg/upload/authorized', 'AwardeeNonreg\Registration\RegistrationUploadController@authorized');
+Route::apiResource('registration-awardee-nonreg/upload', 'AwardeeNonreg\Registration\RegistrationUploadController');
 Route::post('blog-category/reordering', 'Admin\Blog\BlogCategoryController@reorder');
 Route::post('blog-tag/reordering', 'Admin\Blog\BlogTagController@reorder');

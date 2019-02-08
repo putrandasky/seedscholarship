@@ -53,6 +53,10 @@ return [
             'driver' => 'jwt',
             'provider' => 'awardees',
         ],
+        'nonreg-api' => [
+            'driver' => 'jwt',
+            'provider' => 'awardee_nonregs',
+        ],
         'patron-api' => [
             'driver' => 'jwt',
             'provider' => 'patrons',
@@ -87,6 +91,10 @@ return [
         'awardees' => [
             'driver' => 'eloquent',
             'model' => App\Awardee::class,
+        ],
+        'awardee_nonregs' => [
+            'driver' => 'eloquent',
+            'model' => App\AwardeeNonreg::class,
         ],
         'patrons' => [
             'driver' => 'eloquent',

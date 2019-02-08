@@ -1,7 +1,7 @@
 <template>
   <b-card no-body>
     <div slot="header" class="text-center">
-      <strong>{{title}}</strong>
+      <strong>{{title}}  <i class="fa fa-info-circle" v-b-tooltip.hover="information"></i></strong>
     </div>
     <!-- <b-card-img src="/images/default-file.png" style="border-radius:unset" /> -->
     <!-- <b-card-body class="" style="height:30vh;display:grid;align-content:center;align-self:center">
@@ -95,6 +95,14 @@
     },
     created() {
       this.checkFile()
+    },
+    computed:{
+      information(){
+        return this.folder == 'cv'? 'Riwayat hidup dengan format bebas dengan informasi wajib berupa data diri dan riwayat pendidikan':
+        this.folder == 'essay'? 'Esai dengan topik : Mengapa saya pantas mendapatkan beasiswa SEED (300-500 kata)':
+        this.folder == 'slip'? 'Salinan slip gaji orangtua dan/atau rekening listrik':
+        this.folder == 'siakng'? 'Print Out Ringkasan / Riwayat Akademis  SIAK NG': ''
+      }
     },
     methods: {
       trigerConfirmModal(title, body, state, value = '') {

@@ -1,12 +1,15 @@
 <template>
   <div class="app flex-row align-items-center" v-show="loaded">
-    <b-container  v-if="!authorized">
+    <b-container v-if="!authorized">
       <b-alert show variant="danger">YOU ARE NOT ALLOWED TO ACCESS THIS PAGE.
       </b-alert>
     </b-container>
     <div class="container" v-if="authorized">
       <b-alert show variant="info">Please upload this file below in <strong>pdf/jpeg/png</strong> file with max size
-        <strong>3mb</strong>.</b-alert>
+        <strong>3mb</strong>.
+        <hr>
+        <small>Nb : Make sure you bookmark this page, if you need to update the file, you can back to this page later.</small>
+      </b-alert>
       <b-row>
         <b-col lg="3" sm="6">
           <upload-card title="Curriculum Vitae" folder="cv" />
@@ -37,7 +40,7 @@
     },
     data: function () {
       return {
-        loaded:false,
+        loaded: false,
         authorized: false
       }
     },

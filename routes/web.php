@@ -20,6 +20,11 @@ Route::group(['prefix' => 'admin'], function () {
         return View::make('apps.admin');
     })->where('vue_capture', '[\/\w\.-]*');
 });
+Route::group(['prefix' => 'nonreg'], function () {
+    Route::get('/{vue_capture?}', function () {
+        return View::make('apps.nonreg');
+    })->where('vue_capture', '[\/\w\.-]*');
+});
 Route::get('/', function () {
     return View::make('apps.website');
 });

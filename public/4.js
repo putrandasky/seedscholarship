@@ -1,1236 +1,891 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[4],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/auth/AuthRegister.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/awardee/views/auth/AuthRegister.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/core-js/modules/_an-instance.js":
+/*!******************************************************!*\
+  !*** ./node_modules/core-js/modules/_an-instance.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
-/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es6_array_for_each__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.array.for-each */ "./node_modules/core-js/modules/es6.array.for-each.js");
-/* harmony import */ var core_js_modules_es6_array_for_each__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_array_for_each__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
-/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _AuthRegisterFaq_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AuthRegisterFaq.vue */ "./resources/assets/js/awardee/views/auth/AuthRegisterFaq.vue");
+module.exports = function (it, Constructor, name, forbiddenField) {
+  if (!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)) {
+    throw TypeError(name + ': incorrect invocation!');
+  } return it;
+};
 
 
+/***/ }),
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/***/ "./node_modules/core-js/modules/_for-of.js":
+/*!*************************************************!*\
+  !*** ./node_modules/core-js/modules/_for-of.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'AuthRegister',
-  components: {
-    FaqModal: _AuthRegisterFaq_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
-  },
-  data: function data() {
-    return {
-      periodOptions: [],
-      departmentOptions: [],
-      errors: {
-        name: '',
-        year: '',
-        phone: '',
-        email: '',
-        period_id: '',
-        department_id: '',
-        initial: '',
-        password: ''
-      },
-      input: {
-        name: '',
-        year: '',
-        phone: '',
-        period_id: null,
-        department_id: null,
-        email: '',
-        password: '',
-        password_confirmation: ''
-      }
-    };
-  },
-  created: function created() {
-    this.getPeriod();
-    this.getDepartment();
-  },
-  computed: {
-    loaded: function loaded() {
-      return this.periodOptions && this.departmentOptions ? true : false;
-    },
-    stateName: function stateName() {
-      return this.errors.name == 'no-error' ? true : this.errors.name ? false : null;
-    },
-    stateEmail: function stateEmail() {
-      return this.errors.email == 'no-error' ? true : this.errors.email ? false : null;
-    },
-    statePhone: function statePhone() {
-      return this.errors.phone == 'no-error' ? true : this.errors.phone ? false : null;
-    },
-    statePeriod: function statePeriod() {
-      return this.errors.period_id == 'no-error' ? true : this.errors.period_id ? false : null;
-    },
-    stateYear: function stateYear() {
-      return this.errors.year == 'no-error' ? true : this.errors.year ? false : null;
-    },
-    stateInitial: function stateInitial() {
-      return this.errors.initial == 'no-error' ? true : this.errors.initial ? false : null;
-    },
-    statePassword: function statePassword() {
-      return this.errors.password == 'no-error' ? true : this.errors.password ? false : null;
-    },
-    stateDepartment: function stateDepartment() {
-      return this.errors.department_id == 'no-error' ? true : this.errors.department_id ? false : null;
-    }
-  },
-  methods: {
-    getPeriod: function getPeriod() {
-      var _this = this;
-
-      axios.get("api/period").then(function (response) {
-        response.data.forEach(function (obj) {
-          obj.value = obj.id;
-          obj.text = "Seedscholarship #".concat(obj.period, " - Year ").concat(obj.year);
-          delete obj.id;
-          delete obj.period;
-          delete obj.year;
-        });
-        _this.periodOptions = response.data;
-        console.log(_this.periodOptions);
-      }).catch(function (error) {
-        console.log(error);
-      });
-    },
-    getDepartment: function getDepartment() {
-      var _this2 = this;
-
-      axios.get("api/awardee-department").then(function (response) {
-        response.data.forEach(function (obj) {
-          obj.value = obj.id;
-          obj.text = obj.department;
-          delete obj.id;
-          delete obj.department;
-          delete obj.awardees_count;
-        });
-        _this2.departmentOptions = response.data;
-      }).catch(function (error) {
-        console.log(error);
-      });
-    },
-    register: function register() {
-      var _this3 = this;
-
-      axios.post('api/auth/awardee/register', this.input).then(function (response) {
-        _this3.$snotify.success("New Awardee Registered", "SUCCESS");
-
-        _this3.input.name = '', _this3.input.period_id = null, _this3.input.department_id = null, _this3.input.email = '', _this3.input.password = '', _this3.input.password_confirmation = '';
-      }).catch(function (error) {
-        // console.log(error.response.data);
-        var errors = error.response.data.errors; // console.log(errors.name);
-
-        _this3.errors.name = errors.name ? errors.name[0] : 'no-error';
-        _this3.errors.email = errors.email ? errors.email[0] : 'no-error';
-        _this3.errors.phone = errors.phone ? errors.phone[0] : 'no-error';
-        _this3.errors.year = errors.year ? errors.year[0] : 'no-error';
-        _this3.errors.period_id = errors.period_id ? errors.period_id[0] : 'no-error';
-        _this3.errors.department_id = errors.department_id ? errors.department_id[0] : 'no-error';
-        _this3.errors.password = errors.password ? errors.password[0] : 'no-error';
-
-        _this3.$snotify.error(error.response.data.message, "ERROR");
-      });
-    }
+var ctx = __webpack_require__(/*! ./_ctx */ "./node_modules/core-js/modules/_ctx.js");
+var call = __webpack_require__(/*! ./_iter-call */ "./node_modules/core-js/modules/_iter-call.js");
+var isArrayIter = __webpack_require__(/*! ./_is-array-iter */ "./node_modules/core-js/modules/_is-array-iter.js");
+var anObject = __webpack_require__(/*! ./_an-object */ "./node_modules/core-js/modules/_an-object.js");
+var toLength = __webpack_require__(/*! ./_to-length */ "./node_modules/core-js/modules/_to-length.js");
+var getIterFn = __webpack_require__(/*! ./core.get-iterator-method */ "./node_modules/core-js/modules/core.get-iterator-method.js");
+var BREAK = {};
+var RETURN = {};
+var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
+  var iterFn = ITERATOR ? function () { return iterable; } : getIterFn(iterable);
+  var f = ctx(fn, that, entries ? 2 : 1);
+  var index = 0;
+  var length, step, iterator, result;
+  if (typeof iterFn != 'function') throw TypeError(iterable + ' is not iterable!');
+  // fast case for arrays with default iterator
+  if (isArrayIter(iterFn)) for (length = toLength(iterable.length); length > index; index++) {
+    result = entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
+    if (result === BREAK || result === RETURN) return result;
+  } else for (iterator = iterFn.call(iterable); !(step = iterator.next()).done;) {
+    result = call(iterator, f, step.value, entries);
+    if (result === BREAK || result === RETURN) return result;
   }
-});
+};
+exports.BREAK = BREAK;
+exports.RETURN = RETURN;
+
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/auth/AuthRegisterFaq.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/awardee/views/auth/AuthRegisterFaq.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/core-js/modules/_invoke.js":
+/*!*************************************************!*\
+  !*** ./node_modules/core-js/modules/_invoke.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'AuthRegisterFaq',
-  data: function data() {
-    return {
-      faqModal: false
+// fast apply, http://jsperf.lnkit.com/fast-apply/5
+module.exports = function (fn, args, that) {
+  var un = that === undefined;
+  switch (args.length) {
+    case 0: return un ? fn()
+                      : fn.call(that);
+    case 1: return un ? fn(args[0])
+                      : fn.call(that, args[0]);
+    case 2: return un ? fn(args[0], args[1])
+                      : fn.call(that, args[0], args[1]);
+    case 3: return un ? fn(args[0], args[1], args[2])
+                      : fn.call(that, args[0], args[1], args[2]);
+    case 4: return un ? fn(args[0], args[1], args[2], args[3])
+                      : fn.call(that, args[0], args[1], args[2], args[3]);
+  } return fn.apply(that, args);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/_is-array-iter.js":
+/*!********************************************************!*\
+  !*** ./node_modules/core-js/modules/_is-array-iter.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// check on default Array iterator
+var Iterators = __webpack_require__(/*! ./_iterators */ "./node_modules/core-js/modules/_iterators.js");
+var ITERATOR = __webpack_require__(/*! ./_wks */ "./node_modules/core-js/modules/_wks.js")('iterator');
+var ArrayProto = Array.prototype;
+
+module.exports = function (it) {
+  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/_iter-call.js":
+/*!****************************************************!*\
+  !*** ./node_modules/core-js/modules/_iter-call.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// call something on iterator step with safe closing on error
+var anObject = __webpack_require__(/*! ./_an-object */ "./node_modules/core-js/modules/_an-object.js");
+module.exports = function (iterator, fn, value, entries) {
+  try {
+    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
+  // 7.4.6 IteratorClose(iterator, completion)
+  } catch (e) {
+    var ret = iterator['return'];
+    if (ret !== undefined) anObject(ret.call(iterator));
+    throw e;
+  }
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/_iter-detect.js":
+/*!******************************************************!*\
+  !*** ./node_modules/core-js/modules/_iter-detect.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ITERATOR = __webpack_require__(/*! ./_wks */ "./node_modules/core-js/modules/_wks.js")('iterator');
+var SAFE_CLOSING = false;
+
+try {
+  var riter = [7][ITERATOR]();
+  riter['return'] = function () { SAFE_CLOSING = true; };
+  // eslint-disable-next-line no-throw-literal
+  Array.from(riter, function () { throw 2; });
+} catch (e) { /* empty */ }
+
+module.exports = function (exec, skipClosing) {
+  if (!skipClosing && !SAFE_CLOSING) return false;
+  var safe = false;
+  try {
+    var arr = [7];
+    var iter = arr[ITERATOR]();
+    iter.next = function () { return { done: safe = true }; };
+    arr[ITERATOR] = function () { return iter; };
+    exec(arr);
+  } catch (e) { /* empty */ }
+  return safe;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/_microtask.js":
+/*!****************************************************!*\
+  !*** ./node_modules/core-js/modules/_microtask.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ./_global */ "./node_modules/core-js/modules/_global.js");
+var macrotask = __webpack_require__(/*! ./_task */ "./node_modules/core-js/modules/_task.js").set;
+var Observer = global.MutationObserver || global.WebKitMutationObserver;
+var process = global.process;
+var Promise = global.Promise;
+var isNode = __webpack_require__(/*! ./_cof */ "./node_modules/core-js/modules/_cof.js")(process) == 'process';
+
+module.exports = function () {
+  var head, last, notify;
+
+  var flush = function () {
+    var parent, fn;
+    if (isNode && (parent = process.domain)) parent.exit();
+    while (head) {
+      fn = head.fn;
+      head = head.next;
+      try {
+        fn();
+      } catch (e) {
+        if (head) notify();
+        else last = undefined;
+        throw e;
+      }
+    } last = undefined;
+    if (parent) parent.enter();
+  };
+
+  // Node.js
+  if (isNode) {
+    notify = function () {
+      process.nextTick(flush);
     };
-  },
-  created: function created() {},
-  methods: {}
-});
+  // browsers with MutationObserver, except iOS Safari - https://github.com/zloirock/core-js/issues/339
+  } else if (Observer && !(global.navigator && global.navigator.standalone)) {
+    var toggle = true;
+    var node = document.createTextNode('');
+    new Observer(flush).observe(node, { characterData: true }); // eslint-disable-line no-new
+    notify = function () {
+      node.data = toggle = !toggle;
+    };
+  // environments with maybe non-completely correct, but existent Promise
+  } else if (Promise && Promise.resolve) {
+    // Promise.resolve without an argument throws an error in LG WebOS 2
+    var promise = Promise.resolve(undefined);
+    notify = function () {
+      promise.then(flush);
+    };
+  // for other environments - macrotask based on:
+  // - setImmediate
+  // - MessageChannel
+  // - window.postMessag
+  // - onreadystatechange
+  // - setTimeout
+  } else {
+    notify = function () {
+      // strange IE + webpack dev server bug - use .call(global)
+      macrotask.call(global, flush);
+    };
+  }
+
+  return function (fn) {
+    var task = { fn: fn, next: undefined };
+    if (last) last.next = task;
+    if (!head) {
+      head = task;
+      notify();
+    } last = task;
+  };
+};
+
 
 /***/ }),
 
-/***/ "./node_modules/core-js/modules/es6.array.for-each.js":
-/*!************************************************************!*\
-  !*** ./node_modules/core-js/modules/es6.array.for-each.js ***!
-  \************************************************************/
+/***/ "./node_modules/core-js/modules/_new-promise-capability.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/core-js/modules/_new-promise-capability.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var $export = __webpack_require__(/*! ./_export */ "./node_modules/core-js/modules/_export.js");
-var $forEach = __webpack_require__(/*! ./_array-methods */ "./node_modules/core-js/modules/_array-methods.js")(0);
-var STRICT = __webpack_require__(/*! ./_strict-method */ "./node_modules/core-js/modules/_strict-method.js")([].forEach, true);
+// 25.4.1.5 NewPromiseCapability(C)
+var aFunction = __webpack_require__(/*! ./_a-function */ "./node_modules/core-js/modules/_a-function.js");
 
-$export($export.P + $export.F * !STRICT, 'Array', {
-  // 22.1.3.10 / 15.4.4.18 Array.prototype.forEach(callbackfn [, thisArg])
-  forEach: function forEach(callbackfn /* , thisArg */) {
-    return $forEach(this, callbackfn, arguments[1]);
-  }
-});
+function PromiseCapability(C) {
+  var resolve, reject;
+  this.promise = new C(function ($$resolve, $$reject) {
+    if (resolve !== undefined || reject !== undefined) throw TypeError('Bad Promise constructor');
+    resolve = $$resolve;
+    reject = $$reject;
+  });
+  this.resolve = aFunction(resolve);
+  this.reject = aFunction(reject);
+}
+
+module.exports.f = function (C) {
+  return new PromiseCapability(C);
+};
 
 
 /***/ }),
 
-/***/ "./node_modules/core-js/modules/web.dom.iterable.js":
+/***/ "./node_modules/core-js/modules/_object-assign.js":
+/*!********************************************************!*\
+  !*** ./node_modules/core-js/modules/_object-assign.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 19.1.2.1 Object.assign(target, source, ...)
+var getKeys = __webpack_require__(/*! ./_object-keys */ "./node_modules/core-js/modules/_object-keys.js");
+var gOPS = __webpack_require__(/*! ./_object-gops */ "./node_modules/core-js/modules/_object-gops.js");
+var pIE = __webpack_require__(/*! ./_object-pie */ "./node_modules/core-js/modules/_object-pie.js");
+var toObject = __webpack_require__(/*! ./_to-object */ "./node_modules/core-js/modules/_to-object.js");
+var IObject = __webpack_require__(/*! ./_iobject */ "./node_modules/core-js/modules/_iobject.js");
+var $assign = Object.assign;
+
+// should work with symbols and should have deterministic property order (V8 bug)
+module.exports = !$assign || __webpack_require__(/*! ./_fails */ "./node_modules/core-js/modules/_fails.js")(function () {
+  var A = {};
+  var B = {};
+  // eslint-disable-next-line no-undef
+  var S = Symbol();
+  var K = 'abcdefghijklmnopqrst';
+  A[S] = 7;
+  K.split('').forEach(function (k) { B[k] = k; });
+  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
+}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
+  var T = toObject(target);
+  var aLen = arguments.length;
+  var index = 1;
+  var getSymbols = gOPS.f;
+  var isEnum = pIE.f;
+  while (aLen > index) {
+    var S = IObject(arguments[index++]);
+    var keys = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S);
+    var length = keys.length;
+    var j = 0;
+    var key;
+    while (length > j) if (isEnum.call(S, key = keys[j++])) T[key] = S[key];
+  } return T;
+} : $assign;
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/_object-gops.js":
+/*!******************************************************!*\
+  !*** ./node_modules/core-js/modules/_object-gops.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+exports.f = Object.getOwnPropertySymbols;
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/_object-pie.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/core-js/modules/_object-pie.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+exports.f = {}.propertyIsEnumerable;
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/_perform.js":
+/*!**************************************************!*\
+  !*** ./node_modules/core-js/modules/_perform.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function (exec) {
+  try {
+    return { e: false, v: exec() };
+  } catch (e) {
+    return { e: true, v: e };
+  }
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/_promise-resolve.js":
 /*!**********************************************************!*\
-  !*** ./node_modules/core-js/modules/web.dom.iterable.js ***!
+  !*** ./node_modules/core-js/modules/_promise-resolve.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $iterators = __webpack_require__(/*! ./es6.array.iterator */ "./node_modules/core-js/modules/es6.array.iterator.js");
-var getKeys = __webpack_require__(/*! ./_object-keys */ "./node_modules/core-js/modules/_object-keys.js");
-var redefine = __webpack_require__(/*! ./_redefine */ "./node_modules/core-js/modules/_redefine.js");
-var global = __webpack_require__(/*! ./_global */ "./node_modules/core-js/modules/_global.js");
-var hide = __webpack_require__(/*! ./_hide */ "./node_modules/core-js/modules/_hide.js");
-var Iterators = __webpack_require__(/*! ./_iterators */ "./node_modules/core-js/modules/_iterators.js");
-var wks = __webpack_require__(/*! ./_wks */ "./node_modules/core-js/modules/_wks.js");
-var ITERATOR = wks('iterator');
-var TO_STRING_TAG = wks('toStringTag');
-var ArrayValues = Iterators.Array;
+var anObject = __webpack_require__(/*! ./_an-object */ "./node_modules/core-js/modules/_an-object.js");
+var isObject = __webpack_require__(/*! ./_is-object */ "./node_modules/core-js/modules/_is-object.js");
+var newPromiseCapability = __webpack_require__(/*! ./_new-promise-capability */ "./node_modules/core-js/modules/_new-promise-capability.js");
 
-var DOMIterables = {
-  CSSRuleList: true, // TODO: Not spec compliant, should be false.
-  CSSStyleDeclaration: false,
-  CSSValueList: false,
-  ClientRectList: false,
-  DOMRectList: false,
-  DOMStringList: false,
-  DOMTokenList: true,
-  DataTransferItemList: false,
-  FileList: false,
-  HTMLAllCollection: false,
-  HTMLCollection: false,
-  HTMLFormElement: false,
-  HTMLSelectElement: false,
-  MediaList: true, // TODO: Not spec compliant, should be false.
-  MimeTypeArray: false,
-  NamedNodeMap: false,
-  NodeList: true,
-  PaintRequestList: false,
-  Plugin: false,
-  PluginArray: false,
-  SVGLengthList: false,
-  SVGNumberList: false,
-  SVGPathSegList: false,
-  SVGPointList: false,
-  SVGStringList: false,
-  SVGTransformList: false,
-  SourceBufferList: false,
-  StyleSheetList: true, // TODO: Not spec compliant, should be false.
-  TextTrackCueList: false,
-  TextTrackList: false,
-  TouchList: false
+module.exports = function (C, x) {
+  anObject(C);
+  if (isObject(x) && x.constructor === C) return x;
+  var promiseCapability = newPromiseCapability.f(C);
+  var resolve = promiseCapability.resolve;
+  resolve(x);
+  return promiseCapability.promise;
 };
 
-for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++) {
-  var NAME = collections[i];
-  var explicit = DOMIterables[NAME];
-  var Collection = global[NAME];
-  var proto = Collection && Collection.prototype;
-  var key;
-  if (proto) {
-    if (!proto[ITERATOR]) hide(proto, ITERATOR, ArrayValues);
-    if (!proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
-    Iterators[NAME] = ArrayValues;
-    if (explicit) for (key in $iterators) if (!proto[key]) redefine(proto, key, $iterators[key], true);
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/_redefine-all.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/core-js/modules/_redefine-all.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var redefine = __webpack_require__(/*! ./_redefine */ "./node_modules/core-js/modules/_redefine.js");
+module.exports = function (target, src, safe) {
+  for (var key in src) redefine(target, key, src[key], safe);
+  return target;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/_set-species.js":
+/*!******************************************************!*\
+  !*** ./node_modules/core-js/modules/_set-species.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var global = __webpack_require__(/*! ./_global */ "./node_modules/core-js/modules/_global.js");
+var dP = __webpack_require__(/*! ./_object-dp */ "./node_modules/core-js/modules/_object-dp.js");
+var DESCRIPTORS = __webpack_require__(/*! ./_descriptors */ "./node_modules/core-js/modules/_descriptors.js");
+var SPECIES = __webpack_require__(/*! ./_wks */ "./node_modules/core-js/modules/_wks.js")('species');
+
+module.exports = function (KEY) {
+  var C = global[KEY];
+  if (DESCRIPTORS && C && !C[SPECIES]) dP.f(C, SPECIES, {
+    configurable: true,
+    get: function () { return this; }
+  });
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/_task.js":
+/*!***********************************************!*\
+  !*** ./node_modules/core-js/modules/_task.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ctx = __webpack_require__(/*! ./_ctx */ "./node_modules/core-js/modules/_ctx.js");
+var invoke = __webpack_require__(/*! ./_invoke */ "./node_modules/core-js/modules/_invoke.js");
+var html = __webpack_require__(/*! ./_html */ "./node_modules/core-js/modules/_html.js");
+var cel = __webpack_require__(/*! ./_dom-create */ "./node_modules/core-js/modules/_dom-create.js");
+var global = __webpack_require__(/*! ./_global */ "./node_modules/core-js/modules/_global.js");
+var process = global.process;
+var setTask = global.setImmediate;
+var clearTask = global.clearImmediate;
+var MessageChannel = global.MessageChannel;
+var Dispatch = global.Dispatch;
+var counter = 0;
+var queue = {};
+var ONREADYSTATECHANGE = 'onreadystatechange';
+var defer, channel, port;
+var run = function () {
+  var id = +this;
+  // eslint-disable-next-line no-prototype-builtins
+  if (queue.hasOwnProperty(id)) {
+    var fn = queue[id];
+    delete queue[id];
+    fn();
+  }
+};
+var listener = function (event) {
+  run.call(event.data);
+};
+// Node.js 0.9+ & IE10+ has setImmediate, otherwise:
+if (!setTask || !clearTask) {
+  setTask = function setImmediate(fn) {
+    var args = [];
+    var i = 1;
+    while (arguments.length > i) args.push(arguments[i++]);
+    queue[++counter] = function () {
+      // eslint-disable-next-line no-new-func
+      invoke(typeof fn == 'function' ? fn : Function(fn), args);
+    };
+    defer(counter);
+    return counter;
+  };
+  clearTask = function clearImmediate(id) {
+    delete queue[id];
+  };
+  // Node.js 0.8-
+  if (__webpack_require__(/*! ./_cof */ "./node_modules/core-js/modules/_cof.js")(process) == 'process') {
+    defer = function (id) {
+      process.nextTick(ctx(run, id, 1));
+    };
+  // Sphere (JS game engine) Dispatch API
+  } else if (Dispatch && Dispatch.now) {
+    defer = function (id) {
+      Dispatch.now(ctx(run, id, 1));
+    };
+  // Browsers with MessageChannel, includes WebWorkers
+  } else if (MessageChannel) {
+    channel = new MessageChannel();
+    port = channel.port2;
+    channel.port1.onmessage = listener;
+    defer = ctx(port.postMessage, port, 1);
+  // Browsers with postMessage, skip WebWorkers
+  // IE8 has postMessage, but it's sync & typeof its postMessage is 'object'
+  } else if (global.addEventListener && typeof postMessage == 'function' && !global.importScripts) {
+    defer = function (id) {
+      global.postMessage(id + '', '*');
+    };
+    global.addEventListener('message', listener, false);
+  // IE8-
+  } else if (ONREADYSTATECHANGE in cel('script')) {
+    defer = function (id) {
+      html.appendChild(cel('script'))[ONREADYSTATECHANGE] = function () {
+        html.removeChild(this);
+        run.call(id);
+      };
+    };
+  // Rest old browsers
+  } else {
+    defer = function (id) {
+      setTimeout(ctx(run, id, 1), 0);
+    };
   }
 }
+module.exports = {
+  set: setTask,
+  clear: clearTask
+};
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/auth/AuthRegister.vue?vue&type=template&id=682f2a1d&":
-/*!******************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/awardee/views/auth/AuthRegister.vue?vue&type=template&id=682f2a1d& ***!
-  \******************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/core-js/modules/_user-agent.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/core-js/modules/_user-agent.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ./_global */ "./node_modules/core-js/modules/_global.js");
+var navigator = global.navigator;
+
+module.exports = navigator && navigator.userAgent || '';
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/core.get-iterator-method.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/core-js/modules/core.get-iterator-method.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var classof = __webpack_require__(/*! ./_classof */ "./node_modules/core-js/modules/_classof.js");
+var ITERATOR = __webpack_require__(/*! ./_wks */ "./node_modules/core-js/modules/_wks.js")('iterator');
+var Iterators = __webpack_require__(/*! ./_iterators */ "./node_modules/core-js/modules/_iterators.js");
+module.exports = __webpack_require__(/*! ./_core */ "./node_modules/core-js/modules/_core.js").getIteratorMethod = function (it) {
+  if (it != undefined) return it[ITERATOR]
+    || it['@@iterator']
+    || Iterators[classof(it)];
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es6.object.assign.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/core-js/modules/es6.object.assign.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.3.1 Object.assign(target, source)
+var $export = __webpack_require__(/*! ./_export */ "./node_modules/core-js/modules/_export.js");
+
+$export($export.S + $export.F, 'Object', { assign: __webpack_require__(/*! ./_object-assign */ "./node_modules/core-js/modules/_object-assign.js") });
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es6.promise.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/core-js/modules/es6.promise.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      directives: [
-        {
-          name: "show",
-          rawName: "v-show",
-          value: _vm.loaded,
-          expression: "loaded"
+
+var LIBRARY = __webpack_require__(/*! ./_library */ "./node_modules/core-js/modules/_library.js");
+var global = __webpack_require__(/*! ./_global */ "./node_modules/core-js/modules/_global.js");
+var ctx = __webpack_require__(/*! ./_ctx */ "./node_modules/core-js/modules/_ctx.js");
+var classof = __webpack_require__(/*! ./_classof */ "./node_modules/core-js/modules/_classof.js");
+var $export = __webpack_require__(/*! ./_export */ "./node_modules/core-js/modules/_export.js");
+var isObject = __webpack_require__(/*! ./_is-object */ "./node_modules/core-js/modules/_is-object.js");
+var aFunction = __webpack_require__(/*! ./_a-function */ "./node_modules/core-js/modules/_a-function.js");
+var anInstance = __webpack_require__(/*! ./_an-instance */ "./node_modules/core-js/modules/_an-instance.js");
+var forOf = __webpack_require__(/*! ./_for-of */ "./node_modules/core-js/modules/_for-of.js");
+var speciesConstructor = __webpack_require__(/*! ./_species-constructor */ "./node_modules/core-js/modules/_species-constructor.js");
+var task = __webpack_require__(/*! ./_task */ "./node_modules/core-js/modules/_task.js").set;
+var microtask = __webpack_require__(/*! ./_microtask */ "./node_modules/core-js/modules/_microtask.js")();
+var newPromiseCapabilityModule = __webpack_require__(/*! ./_new-promise-capability */ "./node_modules/core-js/modules/_new-promise-capability.js");
+var perform = __webpack_require__(/*! ./_perform */ "./node_modules/core-js/modules/_perform.js");
+var userAgent = __webpack_require__(/*! ./_user-agent */ "./node_modules/core-js/modules/_user-agent.js");
+var promiseResolve = __webpack_require__(/*! ./_promise-resolve */ "./node_modules/core-js/modules/_promise-resolve.js");
+var PROMISE = 'Promise';
+var TypeError = global.TypeError;
+var process = global.process;
+var versions = process && process.versions;
+var v8 = versions && versions.v8 || '';
+var $Promise = global[PROMISE];
+var isNode = classof(process) == 'process';
+var empty = function () { /* empty */ };
+var Internal, newGenericPromiseCapability, OwnPromiseCapability, Wrapper;
+var newPromiseCapability = newGenericPromiseCapability = newPromiseCapabilityModule.f;
+
+var USE_NATIVE = !!function () {
+  try {
+    // correct subclassing with @@species support
+    var promise = $Promise.resolve(1);
+    var FakePromise = (promise.constructor = {})[__webpack_require__(/*! ./_wks */ "./node_modules/core-js/modules/_wks.js")('species')] = function (exec) {
+      exec(empty, empty);
+    };
+    // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
+    return (isNode || typeof PromiseRejectionEvent == 'function')
+      && promise.then(empty) instanceof FakePromise
+      // v8 6.6 (Node 10 and Chrome 66) have a bug with resolving custom thenables
+      // https://bugs.chromium.org/p/chromium/issues/detail?id=830565
+      // we can't detect it synchronously, so just check versions
+      && v8.indexOf('6.6') !== 0
+      && userAgent.indexOf('Chrome/66') === -1;
+  } catch (e) { /* empty */ }
+}();
+
+// helpers
+var isThenable = function (it) {
+  var then;
+  return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
+};
+var notify = function (promise, isReject) {
+  if (promise._n) return;
+  promise._n = true;
+  var chain = promise._c;
+  microtask(function () {
+    var value = promise._v;
+    var ok = promise._s == 1;
+    var i = 0;
+    var run = function (reaction) {
+      var handler = ok ? reaction.ok : reaction.fail;
+      var resolve = reaction.resolve;
+      var reject = reaction.reject;
+      var domain = reaction.domain;
+      var result, then, exited;
+      try {
+        if (handler) {
+          if (!ok) {
+            if (promise._h == 2) onHandleUnhandled(promise);
+            promise._h = 1;
+          }
+          if (handler === true) result = value;
+          else {
+            if (domain) domain.enter();
+            result = handler(value); // may throw
+            if (domain) {
+              domain.exit();
+              exited = true;
+            }
+          }
+          if (result === reaction.promise) {
+            reject(TypeError('Promise-chain cycle'));
+          } else if (then = isThenable(result)) {
+            then.call(result, resolve, reject);
+          } else resolve(result);
+        } else reject(value);
+      } catch (e) {
+        if (domain && !exited) domain.exit();
+        reject(e);
+      }
+    };
+    while (chain.length > i) run(chain[i++]); // variable length - can't use forEach
+    promise._c = [];
+    promise._n = false;
+    if (isReject && !promise._h) onUnhandled(promise);
+  });
+};
+var onUnhandled = function (promise) {
+  task.call(global, function () {
+    var value = promise._v;
+    var unhandled = isUnhandled(promise);
+    var result, handler, console;
+    if (unhandled) {
+      result = perform(function () {
+        if (isNode) {
+          process.emit('unhandledRejection', value, promise);
+        } else if (handler = global.onunhandledrejection) {
+          handler({ promise: promise, reason: value });
+        } else if ((console = global.console) && console.error) {
+          console.error('Unhandled promise rejection', value);
         }
-      ],
-      staticClass: "app flex-row align-items-center"
+      });
+      // Browsers should not trigger `rejectionHandled` event if it was handled here, NodeJS - should
+      promise._h = isNode || isUnhandled(promise) ? 2 : 1;
+    } promise._a = undefined;
+    if (unhandled && result.e) throw result.v;
+  });
+};
+var isUnhandled = function (promise) {
+  return promise._h !== 1 && (promise._a || promise._c).length === 0;
+};
+var onHandleUnhandled = function (promise) {
+  task.call(global, function () {
+    var handler;
+    if (isNode) {
+      process.emit('rejectionHandled', promise);
+    } else if (handler = global.onrejectionhandled) {
+      handler({ promise: promise, reason: promise._v });
+    }
+  });
+};
+var $reject = function (value) {
+  var promise = this;
+  if (promise._d) return;
+  promise._d = true;
+  promise = promise._w || promise; // unwrap
+  promise._v = value;
+  promise._s = 2;
+  if (!promise._a) promise._a = promise._c.slice();
+  notify(promise, true);
+};
+var $resolve = function (value) {
+  var promise = this;
+  var then;
+  if (promise._d) return;
+  promise._d = true;
+  promise = promise._w || promise; // unwrap
+  try {
+    if (promise === value) throw TypeError("Promise can't be resolved itself");
+    if (then = isThenable(value)) {
+      microtask(function () {
+        var wrapper = { _w: promise, _d: false }; // wrap
+        try {
+          then.call(value, ctx($resolve, wrapper, 1), ctx($reject, wrapper, 1));
+        } catch (e) {
+          $reject.call(wrapper, e);
+        }
+      });
+    } else {
+      promise._v = value;
+      promise._s = 1;
+      notify(promise, false);
+    }
+  } catch (e) {
+    $reject.call({ _w: promise, _d: false }, e); // wrap
+  }
+};
+
+// constructor polyfill
+if (!USE_NATIVE) {
+  // 25.4.3.1 Promise(executor)
+  $Promise = function Promise(executor) {
+    anInstance(this, $Promise, PROMISE, '_h');
+    aFunction(executor);
+    Internal.call(this);
+    try {
+      executor(ctx($resolve, this, 1), ctx($reject, this, 1));
+    } catch (err) {
+      $reject.call(this, err);
+    }
+  };
+  // eslint-disable-next-line no-unused-vars
+  Internal = function Promise(executor) {
+    this._c = [];             // <- awaiting reactions
+    this._a = undefined;      // <- checked in isUnhandled reactions
+    this._s = 0;              // <- state
+    this._d = false;          // <- done
+    this._v = undefined;      // <- value
+    this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
+    this._n = false;          // <- notify
+  };
+  Internal.prototype = __webpack_require__(/*! ./_redefine-all */ "./node_modules/core-js/modules/_redefine-all.js")($Promise.prototype, {
+    // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
+    then: function then(onFulfilled, onRejected) {
+      var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
+      reaction.ok = typeof onFulfilled == 'function' ? onFulfilled : true;
+      reaction.fail = typeof onRejected == 'function' && onRejected;
+      reaction.domain = isNode ? process.domain : undefined;
+      this._c.push(reaction);
+      if (this._a) this._a.push(reaction);
+      if (this._s) notify(this, false);
+      return reaction.promise;
     },
-    [
-      _c(
-        "div",
-        { staticClass: "container" },
-        [
-          _c(
-            "b-row",
-            { staticClass: "justify-content-center" },
-            [
-              _c(
-                "b-col",
-                { attrs: { lg: "6", md: "8" } },
-                [
-                  _c(
-                    "b-card",
-                    { staticClass: "mx-4", attrs: { "no-body": "" } },
-                    [
-                      _c(
-                        "form",
-                        {
-                          staticClass: "card-body p-4",
-                          attrs: { autocomplete: "off" },
-                          on: {
-                            submit: function($event) {
-                              $event.preventDefault()
-                              return _vm.register($event)
-                            }
-                          }
-                        },
-                        [
-                          _c("h1", [_vm._v("Awardee Registration")]),
-                          _vm._v(" "),
-                          _c(
-                            "b-row",
-                            { staticClass: "form-group" },
-                            [
-                              _c(
-                                "b-col",
-                                { attrs: { sm: "12" } },
-                                [
-                                  _c(
-                                    "b-form-group",
-                                    {
-                                      attrs: {
-                                        "invalid-feedback": _vm.errors.name,
-                                        state: _vm.stateName
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "b-input-group",
-                                        [
-                                          _c(
-                                            "b-input-group-prepend",
-                                            [
-                                              _c("b-input-group-text", [
-                                                _c("i", {
-                                                  staticClass: "icon-user"
-                                                })
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c("b-input", {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              autocomplete: "off",
-                                              type: "text",
-                                              placeholder: "Full Name",
-                                              state: _vm.stateName
-                                            },
-                                            model: {
-                                              value: _vm.input.name,
-                                              callback: function($$v) {
-                                                _vm.$set(_vm.input, "name", $$v)
-                                              },
-                                              expression: "input.name"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-col",
-                                { attrs: { sm: "8" } },
-                                [
-                                  _c(
-                                    "b-form-group",
-                                    {
-                                      attrs: {
-                                        "invalid-feedback": _vm.errors.email,
-                                        state: _vm.stateEmail
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "b-input-group",
-                                        {},
-                                        [
-                                          _c(
-                                            "b-input-group-prepend",
-                                            [
-                                              _c("b-input-group-text", [
-                                                _vm._v("@")
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c("b-input", {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              autocomplete: "off",
-                                              type: "text",
-                                              placeholder: "Email",
-                                              state: _vm.stateEmail
-                                            },
-                                            model: {
-                                              value: _vm.input.email,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  _vm.input,
-                                                  "email",
-                                                  $$v
-                                                )
-                                              },
-                                              expression: "input.email"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-col",
-                                { attrs: { sm: "4" } },
-                                [
-                                  _c(
-                                    "b-form-group",
-                                    {
-                                      attrs: {
-                                        "invalid-feedback": _vm.errors.year,
-                                        state: _vm.stateYear
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "b-input-group",
-                                        {},
-                                        [
-                                          _c(
-                                            "b-input-group-prepend",
-                                            [
-                                              _c("b-input-group-text", [
-                                                _c("i", {
-                                                  staticClass: "icon-calendar"
-                                                })
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c("b-input", {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              autocomplete: "off",
-                                              type: "number",
-                                              min: "2015",
-                                              max: "3000",
-                                              placeholder: "Year",
-                                              state: _vm.stateYear
-                                            },
-                                            model: {
-                                              value: _vm.input.year,
-                                              callback: function($$v) {
-                                                _vm.$set(_vm.input, "year", $$v)
-                                              },
-                                              expression: "input.year"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-col",
-                                { attrs: { sm: "6" } },
-                                [
-                                  _c(
-                                    "b-form-group",
-                                    {
-                                      attrs: {
-                                        "invalid-feedback":
-                                          _vm.errors.department_id,
-                                        state: _vm.stateDepartment
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "b-input-group",
-                                        {},
-                                        [
-                                          _c(
-                                            "b-input-group-prepend",
-                                            [
-                                              _c("b-input-group-text", [
-                                                _c("i", {
-                                                  staticClass: "icon-list"
-                                                })
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "b-form-select",
-                                            {
-                                              attrs: {
-                                                plain: "",
-                                                id: "department",
-                                                options: _vm.departmentOptions,
-                                                state: _vm.stateDepartment
-                                              },
-                                              model: {
-                                                value: _vm.input.department_id,
-                                                callback: function($$v) {
-                                                  _vm.$set(
-                                                    _vm.input,
-                                                    "department_id",
-                                                    $$v
-                                                  )
-                                                },
-                                                expression:
-                                                  "input.department_id"
-                                              }
-                                            },
-                                            [
-                                              _c(
-                                                "template",
-                                                { slot: "first" },
-                                                [
-                                                  _c(
-                                                    "option",
-                                                    {
-                                                      attrs: { disabled: "" },
-                                                      domProps: { value: null }
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        "-- Please select department --"
-                                                      )
-                                                    ]
-                                                  )
-                                                ]
-                                              )
-                                            ],
-                                            2
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-col",
-                                { attrs: { sm: "6" } },
-                                [
-                                  _c(
-                                    "b-form-group",
-                                    {
-                                      attrs: {
-                                        "invalid-feedback": _vm.errors.phone,
-                                        state: _vm.statePhone
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "b-input-group",
-                                        {},
-                                        [
-                                          _c(
-                                            "b-input-group-prepend",
-                                            [
-                                              _c("b-input-group-text", [
-                                                _c("i", {
-                                                  staticClass: "icon-phone"
-                                                })
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c("b-input", {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              autocomplete: "off",
-                                              type: "text",
-                                              placeholder: "Phone",
-                                              state: _vm.statePhone
-                                            },
-                                            model: {
-                                              value: _vm.input.phone,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  _vm.input,
-                                                  "phone",
-                                                  $$v
-                                                )
-                                              },
-                                              expression: "input.phone"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-col",
-                                { attrs: { sm: "12" } },
-                                [
-                                  _c(
-                                    "b-form-group",
-                                    {
-                                      attrs: {
-                                        "invalid-feedback":
-                                          _vm.errors.period_id,
-                                        state: _vm.statePeriod
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "b-input-group",
-                                        {},
-                                        [
-                                          _c(
-                                            "b-input-group-prepend",
-                                            [
-                                              _c("b-input-group-text", [
-                                                _c("i", {
-                                                  staticClass: "icon-list"
-                                                })
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "b-form-select",
-                                            {
-                                              attrs: {
-                                                plain: "",
-                                                id: "period",
-                                                options: _vm.periodOptions,
-                                                state: _vm.statePeriod
-                                              },
-                                              model: {
-                                                value: _vm.input.period_id,
-                                                callback: function($$v) {
-                                                  _vm.$set(
-                                                    _vm.input,
-                                                    "period_id",
-                                                    $$v
-                                                  )
-                                                },
-                                                expression: "input.period_id"
-                                              }
-                                            },
-                                            [
-                                              _c(
-                                                "template",
-                                                { slot: "first" },
-                                                [
-                                                  _c(
-                                                    "option",
-                                                    {
-                                                      attrs: { disabled: "" },
-                                                      domProps: { value: null }
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        "-- Please select period --"
-                                                      )
-                                                    ]
-                                                  )
-                                                ]
-                                              )
-                                            ],
-                                            2
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                type: "submit",
-                                variant: "success",
-                                block: ""
-                              }
-                            },
-                            [_vm._v("Submit")]
-                          )
-                        ],
-                        1
-                      )
-                    ]
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("faq-modal")
-    ],
-    1
-  )
+    // 25.4.5.1 Promise.prototype.catch(onRejected)
+    'catch': function (onRejected) {
+      return this.then(undefined, onRejected);
+    }
+  });
+  OwnPromiseCapability = function () {
+    var promise = new Internal();
+    this.promise = promise;
+    this.resolve = ctx($resolve, promise, 1);
+    this.reject = ctx($reject, promise, 1);
+  };
+  newPromiseCapabilityModule.f = newPromiseCapability = function (C) {
+    return C === $Promise || C === Wrapper
+      ? new OwnPromiseCapability(C)
+      : newGenericPromiseCapability(C);
+  };
 }
-var staticRenderFns = []
-render._withStripped = true
 
+$export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
+__webpack_require__(/*! ./_set-to-string-tag */ "./node_modules/core-js/modules/_set-to-string-tag.js")($Promise, PROMISE);
+__webpack_require__(/*! ./_set-species */ "./node_modules/core-js/modules/_set-species.js")(PROMISE);
+Wrapper = __webpack_require__(/*! ./_core */ "./node_modules/core-js/modules/_core.js")[PROMISE];
 
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/auth/AuthRegisterFaq.vue?vue&type=template&id=4bf40e2e&":
-/*!*********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/awardee/views/auth/AuthRegisterFaq.vue?vue&type=template&id=4bf40e2e& ***!
-  \*********************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "div",
-        {
-          directives: [
-            {
-              name: "b-tooltip",
-              rawName: "v-b-tooltip.hover.left",
-              value: "Term Conditions & FAQ",
-              expression: "'Term Conditions & FAQ'",
-              modifiers: { hover: true, left: true }
-            }
-          ],
-          staticClass: "float-button",
-          on: {
-            click: function($event) {
-              _vm.faqModal = true
-            }
-          }
-        },
-        [_c("i", { staticClass: "fa fa-question" })]
-      ),
-      _vm._v(" "),
-      _c(
-        "b-modal",
-        {
-          attrs: {
-            "hide-footer": true,
-            "no-close-on-esc": true,
-            "hide-header-close": false,
-            "no-close-on-backdrop": false,
-            size: "xl",
-            title: "Term, Conditions, & Frequently Asked Question"
-          },
-          model: {
-            value: _vm.faqModal,
-            callback: function($$v) {
-              _vm.faqModal = $$v
-            },
-            expression: "faqModal"
-          }
-        },
-        [
-          _c("strong", [
-            _vm._v("Pastikan kamu memenuhi persyaratan dibawah ini")
-          ]),
-          _vm._v(" "),
-          _c("ol", [
-            _c("li", [
-              _vm._v(
-                "Mahasiswa tahun pertama Departemen Teknik Sipil, Universitas Indonesia."
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _vm._v(
-                "Memiliki keterbatasan finansial dan berkeinginan tinggi untuk belajar."
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _vm._v(
-                "Bersedia mengikuti program pengembangan diri selama menerima beasiswa."
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("strong", [_vm._v("Kemudian, siapkan berkas pendaftaran")]),
-          _vm._v(" "),
-          _c("ol", [
-            _c("li", [
-              _vm._v(
-                "CV (format bebas dengan informasi yang wajib ada yaitu: data diri, riwayat pendidikan, kemampuan bahasa, pengalaman kerja, status pekerjaan/pendidikan anggota keluarga)"
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _vm._v(
-                "Esai dengan topik : Mengapa saya pantas mendapatkan beasiswa SEED (300-500 kata)"
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _vm._v("Salinan slip gaji orangtua dan/atau rekening listrik")
-            ]),
-            _vm._v(" "),
-            _c("li", [_vm._v("Print out halaman ringkasan dan riwayat SIAKNG")])
-          ]),
-          _vm._v(" "),
-          _c("strong", [_vm._v("Tunggu konfirmasi dari Tim Recruitment SEED")]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "Kandidat terpilih untuk mendapatkan beasiswa akan kami hubungi untuk mengikuti wawancara"
-            )
-          ]),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c("strong", [
-            _vm._v("Q : Kapan pembukaan pendaftaran penerima beasiswa?")
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v("A : Pendaftaran akan dibuka pada akhir semester 1")
-          ]),
-          _vm._v(" "),
-          _c("strong", [
-            _vm._v("Q : Apa saja tahap seleksi Calon Penerima Beasiswa?")
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "A : Seleksi terdiri dari 2 tahapan yaitu seleksi administrasi dan interview."
-            )
-          ]),
-          _vm._v(" "),
-          _c("strong", [
-            _vm._v(
-              "Q : Apa saja tahap syarat administrasi untuk seleksi Calon Penerima Beasiswa?"
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "A : Team Recruitment akan melakukan screening dari CV, Essay, Transkrip Nilai dan data kondisi finansial keluarga yang didukung dengan data berupa slip gaji orang tua dan atau rekening listrik. Apabila tidak ada slip gaji maka dilengkapi juga essay mengenai kondisi finansial keluarga."
-            )
-          ]),
-          _vm._v(" "),
-          _c("strong", [_vm._v("Q : Berapa jumlah Penerima Beasiswa ?")]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "A : Jumlah penerima beasiswa untuk periode 1 adalah 5 orang dari angkatan 2014. Untuk Periode 2, 7 orang angkatan 2015, untuk periode 3 adalah 10 orang (disesuaikan dengan hasil akhir rekrutmen)"
-            )
-          ]),
-          _vm._v(" "),
-          _c("strong", [
-            _vm._v("Q : Berapa jumlah besaran beasiswa untuk Periode 4?")
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "A : Besaran beasiswa untuk periode 4 adalah Rp 3.600.000,- untuk satu semester. Para penerima beasiswa akan mendapatkan beasiswa selama satu tahun sehingga total beasiswa yang akan didapatkan adalah Rp 7.200.000,-"
-            )
-          ]),
-          _vm._v(" "),
-          _c("strong", [
-            _vm._v("Q : Kapan beasiswa diberikan kepada Penerima Beasiswa?")
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "A : Beasiswa akan diberikan pada bulan pertama atau paling lambat bulan kedua dari awal semester berjalan"
-            )
-          ])
-        ]
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
+// statics
+$export($export.S + $export.F * !USE_NATIVE, PROMISE, {
+  // 25.4.4.5 Promise.reject(r)
+  reject: function reject(r) {
+    var capability = newPromiseCapability(this);
+    var $$reject = capability.reject;
+    $$reject(r);
+    return capability.promise;
+  }
+});
+$export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
+  // 25.4.4.6 Promise.resolve(x)
+  resolve: function resolve(x) {
+    return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
+  }
+});
+$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(/*! ./_iter-detect */ "./node_modules/core-js/modules/_iter-detect.js")(function (iter) {
+  $Promise.all(iter)['catch'](empty);
+})), PROMISE, {
+  // 25.4.4.1 Promise.all(iterable)
+  all: function all(iterable) {
+    var C = this;
+    var capability = newPromiseCapability(C);
+    var resolve = capability.resolve;
+    var reject = capability.reject;
+    var result = perform(function () {
+      var values = [];
+      var index = 0;
+      var remaining = 1;
+      forOf(iterable, false, function (promise) {
+        var $index = index++;
+        var alreadyCalled = false;
+        values.push(undefined);
+        remaining++;
+        C.resolve(promise).then(function (value) {
+          if (alreadyCalled) return;
+          alreadyCalled = true;
+          values[$index] = value;
+          --remaining || resolve(values);
+        }, reject);
+      });
+      --remaining || resolve(values);
+    });
+    if (result.e) reject(result.v);
+    return capability.promise;
+  },
+  // 25.4.4.4 Promise.race(iterable)
+  race: function race(iterable) {
+    var C = this;
+    var capability = newPromiseCapability(C);
+    var reject = capability.reject;
+    var result = perform(function () {
+      forOf(iterable, false, function (promise) {
+        C.resolve(promise).then(capability.resolve, reject);
+      });
+    });
+    if (result.e) reject(result.v);
+    return capability.promise;
+  }
+});
 
 
 /***/ }),
 
-/***/ "./resources/assets/js/awardee/views/auth/AuthRegister.vue":
-/*!*****************************************************************!*\
-  !*** ./resources/assets/js/awardee/views/auth/AuthRegister.vue ***!
-  \*****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/core-js/modules/es7.promise.finally.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/core-js/modules/es7.promise.finally.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AuthRegister_vue_vue_type_template_id_682f2a1d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AuthRegister.vue?vue&type=template&id=682f2a1d& */ "./resources/assets/js/awardee/views/auth/AuthRegister.vue?vue&type=template&id=682f2a1d&");
-/* harmony import */ var _AuthRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AuthRegister.vue?vue&type=script&lang=js& */ "./resources/assets/js/awardee/views/auth/AuthRegister.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+// https://github.com/tc39/proposal-promise-finally
 
+var $export = __webpack_require__(/*! ./_export */ "./node_modules/core-js/modules/_export.js");
+var core = __webpack_require__(/*! ./_core */ "./node_modules/core-js/modules/_core.js");
+var global = __webpack_require__(/*! ./_global */ "./node_modules/core-js/modules/_global.js");
+var speciesConstructor = __webpack_require__(/*! ./_species-constructor */ "./node_modules/core-js/modules/_species-constructor.js");
+var promiseResolve = __webpack_require__(/*! ./_promise-resolve */ "./node_modules/core-js/modules/_promise-resolve.js");
 
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AuthRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AuthRegister_vue_vue_type_template_id_682f2a1d___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AuthRegister_vue_vue_type_template_id_682f2a1d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/assets/js/awardee/views/auth/AuthRegister.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/assets/js/awardee/views/auth/AuthRegister.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************!*\
-  !*** ./resources/assets/js/awardee/views/auth/AuthRegister.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AuthRegister.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/auth/AuthRegister.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/assets/js/awardee/views/auth/AuthRegister.vue?vue&type=template&id=682f2a1d&":
-/*!************************************************************************************************!*\
-  !*** ./resources/assets/js/awardee/views/auth/AuthRegister.vue?vue&type=template&id=682f2a1d& ***!
-  \************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegister_vue_vue_type_template_id_682f2a1d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AuthRegister.vue?vue&type=template&id=682f2a1d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/auth/AuthRegister.vue?vue&type=template&id=682f2a1d&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegister_vue_vue_type_template_id_682f2a1d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegister_vue_vue_type_template_id_682f2a1d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/awardee/views/auth/AuthRegisterFaq.vue":
-/*!********************************************************************!*\
-  !*** ./resources/assets/js/awardee/views/auth/AuthRegisterFaq.vue ***!
-  \********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AuthRegisterFaq_vue_vue_type_template_id_4bf40e2e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AuthRegisterFaq.vue?vue&type=template&id=4bf40e2e& */ "./resources/assets/js/awardee/views/auth/AuthRegisterFaq.vue?vue&type=template&id=4bf40e2e&");
-/* harmony import */ var _AuthRegisterFaq_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AuthRegisterFaq.vue?vue&type=script&lang=js& */ "./resources/assets/js/awardee/views/auth/AuthRegisterFaq.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AuthRegisterFaq_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AuthRegisterFaq_vue_vue_type_template_id_4bf40e2e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AuthRegisterFaq_vue_vue_type_template_id_4bf40e2e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/assets/js/awardee/views/auth/AuthRegisterFaq.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/assets/js/awardee/views/auth/AuthRegisterFaq.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************!*\
-  !*** ./resources/assets/js/awardee/views/auth/AuthRegisterFaq.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegisterFaq_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AuthRegisterFaq.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/auth/AuthRegisterFaq.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegisterFaq_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/assets/js/awardee/views/auth/AuthRegisterFaq.vue?vue&type=template&id=4bf40e2e&":
-/*!***************************************************************************************************!*\
-  !*** ./resources/assets/js/awardee/views/auth/AuthRegisterFaq.vue?vue&type=template&id=4bf40e2e& ***!
-  \***************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegisterFaq_vue_vue_type_template_id_4bf40e2e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AuthRegisterFaq.vue?vue&type=template&id=4bf40e2e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/auth/AuthRegisterFaq.vue?vue&type=template&id=4bf40e2e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegisterFaq_vue_vue_type_template_id_4bf40e2e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegisterFaq_vue_vue_type_template_id_4bf40e2e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
+$export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
+  var C = speciesConstructor(this, core.Promise || global.Promise);
+  var isFunction = typeof onFinally == 'function';
+  return this.then(
+    isFunction ? function (x) {
+      return promiseResolve(C, onFinally()).then(function () { return x; });
+    } : onFinally,
+    isFunction ? function (e) {
+      return promiseResolve(C, onFinally()).then(function () { throw e; });
+    } : onFinally
+  );
+} });
 
 
 /***/ })
