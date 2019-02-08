@@ -9,7 +9,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Awardee extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-M-y');
+    }
 
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-M-y');
+    }
     // protected $guard = ['admin'];
 
 
@@ -33,6 +41,14 @@ class Awardee extends Authenticatable implements JWTSubject
     public function blogs()
     {
         return $this->morphMany('App\Blog', 'authorable');
+    }
+    public function periods()
+    {
+        return $this->morphToMany('App\Period', 'periodable');
+    }
+    public function department()
+    {
+      return $this->belongsTo('App\AwardeeDepartment');
     }
     public function getJWTIdentifier()
     {

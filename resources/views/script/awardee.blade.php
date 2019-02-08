@@ -1,1 +1,1 @@
-<script src="{{ asset('js/scriptAwardee.js') }}"></script>
+<script src="{{ asset('js/awardee/script-awardee.js') }}"></script>

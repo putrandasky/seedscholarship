@@ -47,6 +47,10 @@ class Admin extends Authenticatable implements JWTSubject
     {
         return $this->belongsTo('App\Department');
     }
+        public function periods()
+    {
+        return $this->morphToMany('App\Period', 'periodable');
+    }
     public function getJWTIdentifier()
     {
         return $this->getKey();

@@ -1,49 +1,91 @@
 <template>
-  <div class="app flex-row align-items-center">
+  <div class="app flex-row align-items-center" v-show="loaded">
     <div class="container">
       <b-row class="justify-content-center">
-        <b-col md="6" sm="8">
+        <b-col lg="6" md="8">
           <b-card no-body class="mx-4">
-            <form class="card-body p-4" @submit.prevent="register">
-              <h1>Register</h1>
-              <p class="text-muted">Create your account</p>
-              <b-form-group :invalid-feedback="errors.name" :state="stateName">
-                <b-input-group>
-                  <b-input-group-prepend>
-                    <b-input-group-text><i class="icon-user"></i></b-input-group-text>
-                  </b-input-group-prepend>
-                  <b-input type="text" class="form-control" placeholder="Full Name" v-model="input.name" :state="stateName" />
-                </b-input-group>
-              </b-form-group>
-              <b-form-group :invalid-feedback="errors.initial" :state="stateInitial">
-                <b-input-group class="">
-                  <b-input-group-prepend>
-                    <b-input-group-text><i class="icon-user"></i></b-input-group-text>
-                  </b-input-group-prepend>
-                  <b-input type="text" class="form-control" placeholder="Initial" v-model="input.initial" :state="stateInitial" />
-                </b-input-group>
-              </b-form-group>
-              <b-form-group :invalid-feedback="errors.department" :state="stateDepartment">
-                <b-input-group class="">
-                  <b-input-group-prepend>
-                    <b-input-group-text><i class="icon-list"></i></b-input-group-text>
-                  </b-input-group-prepend>
-                  <b-form-select plain id="department" :options="departmentOptions" v-model="input.department_id" :state="stateDepartment">
-                    <template slot="first">
-                      <option :value="null" disabled>-- Please select department --</option>
-                    </template>
-                  </b-form-select>
-                </b-input-group>
-              </b-form-group>
-              <b-form-group :invalid-feedback="errors.email" :state="stateEmail">
-                <b-input-group class="">
-                  <b-input-group-prepend>
-                    <b-input-group-text>@</b-input-group-text>
-                  </b-input-group-prepend>
-                  <b-input type="text" class="form-control" placeholder="Email" v-model="input.email" :state="stateEmail" />
-                </b-input-group>
-              </b-form-group>
-              <b-form-group :invalid-feedback="errors.password" :state="statePassword">
+            <form class="card-body p-4" @submit.prevent="register" autocomplete="off">
+              <h1>Awardee Registration</h1>
+              <!-- <p class="text-muted">Create your first account</p> -->
+              <b-row class="form-group">
+                <b-col sm="12">
+                  <b-form-group :invalid-feedback="errors.name" :state="stateName">
+                    <b-input-group>
+                      <b-input-group-prepend>
+                        <b-input-group-text><i class="icon-user"></i></b-input-group-text>
+                      </b-input-group-prepend>
+                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Full Name" v-model="input.name"
+                        :state="stateName" />
+                    </b-input-group>
+                  </b-form-group>
+                </b-col>
+                <b-col sm="12">
+                  <b-form-group :invalid-feedback="errors.email" :state="stateEmail">
+                    <b-input-group class="">
+                      <b-input-group-prepend>
+                        <b-input-group-text>@</b-input-group-text>
+                      </b-input-group-prepend>
+                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Email" v-model="input.email"
+                        :state="stateEmail" />
+                    </b-input-group>
+                  </b-form-group>
+                </b-col>
+                <b-col sm="6">
+                  <b-form-group :invalid-feedback="errors.year" :state="stateYear">
+                    <b-input-group class="">
+                      <b-input-group-prepend>
+                        <b-input-group-text><i class="icon-calendar"></i></b-input-group-text>
+                      </b-input-group-prepend>
+                      <b-input autocomplete="off" type="number" min="2015" max="3000" class="form-control" placeholder="Year"
+                        v-model="input.year" :state="stateYear" />
+                    </b-input-group>
+                  </b-form-group>
+                </b-col>
+
+                <b-col sm="6">
+                  <b-form-group :invalid-feedback="errors.phone" :state="statePhone">
+                    <b-input-group class="">
+                      <b-input-group-prepend>
+                        <b-input-group-text><i class="icon-phone"></i></b-input-group-text>
+                      </b-input-group-prepend>
+                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Phone" v-model="input.phone"
+                        :state="statePhone" />
+                    </b-input-group>
+                  </b-form-group>
+                </b-col>
+                <b-col sm="12">
+                  <b-form-group :invalid-feedback="errors.department_id" :state="stateDepartment">
+                    <b-input-group class="">
+                      <b-input-group-prepend>
+                        <b-input-group-text><i class="icon-list"></i></b-input-group-text>
+                      </b-input-group-prepend>
+                      <b-form-select plain id="department" :options="departmentOptions" v-model="input.department_id"
+                        :state="stateDepartment">
+                        <template slot="first">
+                          <option :value="null" disabled>-- Please select department --</option>
+                        </template>
+                      </b-form-select>
+                    </b-input-group>
+                  </b-form-group>
+                </b-col>
+                <b-col sm="12">
+                  <b-form-group :invalid-feedback="errors.period_id" :state="statePeriod">
+                    <b-input-group class="">
+                      <b-input-group-prepend>
+                        <b-input-group-text><i class="icon-list"></i></b-input-group-text>
+                      </b-input-group-prepend>
+                      <b-form-select plain id="period" :options="periodOptions" v-model="input.period_id" :state="statePeriod">
+                        <template slot="first">
+                          <option :value="null" disabled>-- Please select period --</option>
+                        </template>
+                      </b-form-select>
+                    </b-input-group>
+                  </b-form-group>
+                </b-col>
+                <!-- <b-col sm="12">
+                  <b-form-file v-model="file" placeholder="Choose a file..."></b-form-file>
+                </b-col> -->
+                <!-- <b-form-group :invalid-feedback="errors.password" :state="statePassword">
                 <b-input-group class="">
                   <b-input-group-prepend>
                     <b-input-group-text><i class="icon-lock"></i></b-input-group-text>
@@ -59,32 +101,45 @@
                   <b-input type="password" class="form-control" placeholder="Repeat password" v-model="input.password_confirmation"
                     :state="statePassword" />
                 </b-input-group>
-              </b-form-group>
-              <b-button type="submit" variant="success" block>Create Account</b-button>
+              </b-form-group> -->
+
+              </b-row>
+              <b-button type="submit" variant="success" block>Submit</b-button>
             </form>
 
           </b-card>
         </b-col>
       </b-row>
     </div>
+    <faq-modal/>
   </div>
 </template>
 <script>
+import FaqModal from './AuthRegisterFaq.vue'
   export default {
     name: 'AuthRegister',
+    components:{
+      FaqModal
+    },
     data: function () {
       return {
+        periodOptions: [],
         departmentOptions: [],
         errors: {
           name: '',
+          year: '',
+          phone: '',
           email: '',
+          period_id: '',
           department_id: '',
           initial: '',
           password: '',
         },
         input: {
           name: '',
-          initial: '',
+          year: '',
+          phone: '',
+          period_id: null,
           department_id: null,
           email: '',
           password: '',
@@ -93,17 +148,27 @@
       }
     },
     created() {
+      this.getPeriod()
       this.getDepartment()
     },
     computed: {
+      loaded() {
+        return this.periodOptions && this.departmentOptions ? true : false
+      },
       stateName() {
         return this.errors.name == 'no-error' ? true : this.errors.name ? false : null
       },
       stateEmail() {
         return this.errors.email == 'no-error' ? true : this.errors.email ? false : null
       },
-      stateDepartment() {
-        return this.errors.department == 'no-error' ? true : this.errors.department ? false : null
+      statePhone() {
+        return this.errors.phone == 'no-error' ? true : this.errors.phone ? false : null
+      },
+      statePeriod() {
+        return this.errors.period_id == 'no-error' ? true : this.errors.period_id ? false : null
+      },
+      stateYear() {
+        return this.errors.year == 'no-error' ? true : this.errors.year ? false : null
       },
       stateInitial() {
         return this.errors.initial == 'no-error' ? true : this.errors.initial ? false : null
@@ -111,16 +176,39 @@
       statePassword() {
         return this.errors.password == 'no-error' ? true : this.errors.password ? false : null
       },
+      stateDepartment() {
+        return this.errors.department_id == 'no-error' ? true : this.errors.department_id ? false : null
+      },
     },
     methods: {
+      getPeriod() {
+        axios.get(`api/period`)
+          .then((response) => {
+            response.data.forEach(function (obj) {
+              obj.value = obj.id
+              obj.text = `Seedscholarship #${obj.period} - Year ${obj.year}`
+              delete obj.id
+              delete obj.period
+              delete obj.year
+            });
+            this.periodOptions = response.data;
+            console.log(this.periodOptions);
+
+
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      },
       getDepartment() {
-        axios.get(`api/department`)
+        axios.get(`api/awardee-department`)
           .then((response) => {
             response.data.forEach(function (obj) {
               obj.value = obj.id
               obj.text = obj.department
               delete obj.id
               delete obj.department
+              delete obj.awardees_count
             });
             this.departmentOptions = response.data;
 
@@ -130,15 +218,23 @@
           })
       },
       register() {
-        axios.post('api/auth/register', this.input)
+        axios.post('api/auth/awardee/register', this.input)
           .then((response) => {
-            this.$snotify.success(`New User Registered`, "SUCCESS");
+            this.$snotify.success(`New Awardee Registered`, "SUCCESS");
             this.input.name = '',
-              this.input.initial = '',
-              this.input.department = null,
+              this.input.period_id = null,
+              this.input.department_id = null,
               this.input.email = '',
               this.input.password = '',
               this.input.password_confirmation = ''
+              this.$router.replace({
+                name:'RegistrationUpload',
+                query:{
+                  id:response.data.id,
+                  email:response.data.email,
+                  registration_code:response.data.registration_code
+                }
+                })
           })
           .catch((error) => {
             // console.log(error.response.data);
@@ -146,14 +242,17 @@
             // console.log(errors.name);
             this.errors.name = errors.name ? errors.name[0] : 'no-error';
             this.errors.email = errors.email ? errors.email[0] : 'no-error';
-            this.errors.department = errors.department ? errors.department[0] : 'no-error';
-            this.errors.initial = errors.initial ? errors.initial[0] : 'no-error';
+            this.errors.phone = errors.phone ? errors.phone[0] : 'no-error';
+            this.errors.year = errors.year ? errors.year[0] : 'no-error';
+            this.errors.period_id = errors.period_id ? errors.period_id[0] : 'no-error';
+            this.errors.department_id = errors.department_id ? errors.department_id[0] : 'no-error';
             this.errors.password = errors.password ? errors.password[0] : 'no-error';
             this.$snotify.error(error.response.data.message, "ERROR");
           })
       }
     },
   }
+
 </script>
 <style>
 </style>

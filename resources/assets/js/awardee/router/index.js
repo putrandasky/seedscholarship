@@ -13,115 +13,121 @@ import Login from "../views/auth/AuthLogin";
 const PasswordReset = () => import('../views/auth/AuthPasswordReset')
 const ForgotPassword = () => import('../views/auth/AuthForgotPassword')
 const Register = () => import('../views/auth/AuthRegister')
+const RegistrationUpload = () => import('../views/registration/RegistrationUpload')
 Vue.use(Router)
 
 export default new Router({
-    // mode: 'history',
-    base: '/awardee',
-    linkActiveClass: 'open active',
-    // scrollBehavior: () => ({
-    //   y: 0
-    // }),
-    routes: [{
+  // mode: 'history',
+  base: '/awardee',
+  linkActiveClass: 'open active',
+  // scrollBehavior: () => ({
+  //   y: 0
+  // }),
+  routes: [{
+      path: '',
+      redirect: 'dashboard',
+      component: Full,
+      children: [{
+          path: 'dashboard',
+          name: 'Dashboard',
+          component: Dashboard,
+          //   meta: {
+          //     auth: true
+          //   },
+        },
+        {
+          path: 'user',
+          children: [{
             path: '',
-            redirect: 'dashboard',
-            component: Full,
-            children: [{
-                    path: 'dashboard',
-                    name: 'Dashboard',
-                    component: Dashboard,
-                    //   meta: {
-                    //     auth: true
-                    //   },
-                },
-                {
-                    path: 'user',
-                    children: [{
-                        path: '',
-                        name: 'UserProfile',
-                        component: UserProfile,
-                        // meta: {
-                        //   auth: true
-                        // },
-                    }, ]
-                }
-            ]
+            name: 'UserProfile',
+            component: UserProfile,
+            // meta: {
+            //   auth: true
+            // },
+          }, ]
+        }
+      ]
+    },
+    {
+      path: '/assignment',
+      component: Full,
+      children: [{
+          path: '',
+          name: 'Assignment',
+          component: Assignment,
+          // meta: {
+          //   auth: true
+          // },
         },
         {
-            path: '/assignment',
-            component: Full,
-            children: [{
-                    path: '',
-                    name: 'Assignment',
-                    component: Assignment,
-                    // meta: {
-                    //   auth: true
-                    // },
-                },
-                {
-                    path: ':assignmentId',
-                    name: 'AssignmentDetail',
-                    component: AssignmentDetail,
-                    // meta: {
-                    //   auth: true
-                    // },
-                },
-                {
-                    path: ':assignmentId/submission/create',
-                    name: 'SubmissionNew',
-                    component: SubmissionNew,
-                    // meta: {
-                    //   auth: true
-                    // },
-                },
-            ]
+          path: ':assignmentId',
+          name: 'AssignmentDetail',
+          component: AssignmentDetail,
+          // meta: {
+          //   auth: true
+          // },
         },
         {
-            path: '/login',
-            name: 'Login',
-            component: Plain,
-            children: [{
-                path: '',
-                component: Login,
-                meta: {
-                    guest: true
-                },
-
-            }]
+          path: ':assignmentId/submission/create',
+          name: 'SubmissionNew',
+          component: SubmissionNew,
+          // meta: {
+          //   auth: true
+          // },
         },
-        {
-            path: '/register',
-            name: 'Register',
-            component: Plain,
-            children: [{
-                path: '',
-                component: Register,
-
-            }]
-        },
-        {
-            path: '/password-reset',
-            component: Plain,
-            children: [{
-                path: '',
-                name: 'PasswordReset',
-                component: PasswordReset,
-            }]
-        },
-        {
-            path: '/forgot-password',
-            component: Plain,
-            children: [{
-                path: '',
-                name: 'ForgotPassword',
-                component: ForgotPassword,
-            }]
+      ]
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Plain,
+      children: [{
+        path: '',
+        component: Login,
+        meta: {
+          guest: true
         },
 
-        // {
-        //   path: '/test/autocomplete',
-        //   name: 'Autocomplete',
-        //   component: Autocomplete
-        // }
-    ]
+      }]
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Plain,
+      children: [{
+          path: '',
+          component: Register,
+        },
+        {
+          path: 'upload',
+          name: 'RegistrationUpload',
+          component: RegistrationUpload
+        }
+      ]
+    },
+    {
+      path: '/password-reset',
+      component: Plain,
+      children: [{
+        path: '',
+        name: 'PasswordReset',
+        component: PasswordReset,
+      }]
+    },
+    {
+      path: '/forgot-password',
+      component: Plain,
+      children: [{
+        path: '',
+        name: 'ForgotPassword',
+        component: ForgotPassword,
+      }]
+    },
+
+    // {
+    //   path: '/test/autocomplete',
+    //   name: 'Autocomplete',
+    //   component: Autocomplete
+    // }
+  ]
 })

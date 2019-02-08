@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePatronsTable extends Migration
+class CreatePeriodsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreatePatronsTable extends Migration
      */
     public function up()
     {
-        Schema::create('patrons', function (Blueprint $table) {
+        Schema::create('periods', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('period');
+            $table->year('year');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreatePatronsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('patrons');
+        Schema::dropIfExists('periods');
     }
 }
