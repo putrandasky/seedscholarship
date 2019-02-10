@@ -1,24 +1,21 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[19],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/blog/AppBlog.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/admin/views/blog/AppBlog.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
-/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js");
-/* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es6_array_map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es6.array.map */ "./node_modules/core-js/modules/es6.array.map.js");
-/* harmony import */ var core_js_modules_es6_array_map__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_array_map__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _AppBlogFieldTableData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AppBlogFieldTableData */ "./resources/assets/js/admin/views/blog/AppBlogFieldTableData.js");
-/* harmony import */ var _share_mixins_instantSearch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../_share/mixins/instantSearch */ "./resources/assets/js/admin/views/_share/mixins/instantSearch.js");
-/* harmony import */ var _share_mixins_OperationPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../_share/mixins/OperationPage */ "./resources/assets/js/admin/views/_share/mixins/OperationPage.js");
-
+/* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js");
+/* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es6_array_map__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.array.map */ "./node_modules/core-js/modules/es6.array.map.js");
+/* harmony import */ var core_js_modules_es6_array_map__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_array_map__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _AppAdminFieldTableData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AppAdminFieldTableData */ "./resources/assets/js/admin/views/account/AppAdminFieldTableData.js");
+/* harmony import */ var _share_mixins_instantSearch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_share/mixins/instantSearch */ "./resources/assets/js/admin/views/_share/mixins/instantSearch.js");
+/* harmony import */ var _share_mixins_OperationPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../_share/mixins/OperationPage */ "./resources/assets/js/admin/views/_share/mixins/OperationPage.js");
 
 
 //
@@ -64,11 +61,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_AppBlogFieldTableData__WEBPACK_IMPORTED_MODULE_3__["AppBlogFieldTableData"], _share_mixins_instantSearch__WEBPACK_IMPORTED_MODULE_4__["instantSearch"], _share_mixins_OperationPage__WEBPACK_IMPORTED_MODULE_5__["OperationPage"]],
-  name: 'AppBlog',
+  name: 'AppAdmin',
+  mixins: [_AppAdminFieldTableData__WEBPACK_IMPORTED_MODULE_2__["AppAdminFieldTableData"], _share_mixins_instantSearch__WEBPACK_IMPORTED_MODULE_3__["instantSearch"], _share_mixins_OperationPage__WEBPACK_IMPORTED_MODULE_4__["OperationPage"]],
   data: function data() {
     return {
-      routeName: 'Blog',
+      routeName: 'AccountAdmin',
       loaded: false
     };
   },
@@ -76,26 +73,25 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     handleRowClicked: function handleRowClicked(record) {
       this.$router.push({
-        name: 'BlogDetail',
+        name: 'AccountAdminDetail',
         params: {
-          blogId: record.id
+          userId: record.id
         }
       });
     },
     getData: function getData() {
       var _this = this;
 
-      axios.get("api/blog").then(function (response) {
+      axios.get("api/auth/admin").then(function (response) {
         console.log(response.data);
 
         _this.checkPage();
 
         var editData = function editData(data) {
           return data.map(function (item) {
-            var temp = C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_1___default()({}, item);
+            var temp = C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default()({}, item);
 
-            temp['author'] = temp.authorable.name;
-            temp['category'] = temp.blog_category.category; // temp.name = 'my name '+temp.name;
+            temp['department'] = temp.department.department; // temp.name = 'my name '+temp.name;
 
             return temp;
           });
@@ -112,10 +108,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/blog/AppBlog.vue?vue&type=template&id=1f34816e&":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/admin/views/blog/AppBlog.vue?vue&type=template&id=1f34816e& ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a& ***!
+  \***************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -147,7 +143,7 @@ var render = function() {
           attrs: { slot: "header" },
           slot: "header"
         },
-        [_c("strong", [_vm._v("All BLOG")])]
+        [_c("strong", [_vm._v("All ADMIN USER")])]
       ),
       _vm._v(" "),
       _c(
@@ -430,7 +426,7 @@ var OperationPage = {
       // console.log(ctx.sortDesc);
 
       this.$router.replace({
-        name: this.routeName,
+        // name: this.routeName,
         query: C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_2___default()({}, this.$route.query, {
           sortBy: ctx.sortBy,
           sortDesc: ctx.sortDesc
@@ -472,6 +468,9 @@ var OperationPage = {
     },
     getBadge: function getBadge(status) {
       return status === 'PUBLISH' ? 'primary' : status === 'DRAFT' ? 'secondary' : 'success';
+    },
+    getBadgeApproval: function getBadgeApproval(status) {
+      return status === 'approved' ? 'success' : status === 'in progress' ? 'primary' : status === 'not approved' ? 'danger' : 'secondary';
     }
   }
 };
@@ -525,17 +524,17 @@ var instantSearch = {
 
 /***/ }),
 
-/***/ "./resources/assets/js/admin/views/blog/AppBlog.vue":
-/*!**********************************************************!*\
-  !*** ./resources/assets/js/admin/views/blog/AppBlog.vue ***!
-  \**********************************************************/
+/***/ "./resources/assets/js/admin/views/account/AppAdmin.vue":
+/*!**************************************************************!*\
+  !*** ./resources/assets/js/admin/views/account/AppAdmin.vue ***!
+  \**************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AppBlog_vue_vue_type_template_id_1f34816e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AppBlog.vue?vue&type=template&id=1f34816e& */ "./resources/assets/js/admin/views/blog/AppBlog.vue?vue&type=template&id=1f34816e&");
-/* harmony import */ var _AppBlog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AppBlog.vue?vue&type=script&lang=js& */ "./resources/assets/js/admin/views/blog/AppBlog.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AppAdmin.vue?vue&type=template&id=db108f3a& */ "./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a&");
+/* harmony import */ var _AppAdmin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AppAdmin.vue?vue&type=script&lang=js& */ "./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -545,9 +544,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AppBlog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AppBlog_vue_vue_type_template_id_1f34816e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AppBlog_vue_vue_type_template_id_1f34816e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AppAdmin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -557,63 +556,66 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/assets/js/admin/views/blog/AppBlog.vue"
+component.options.__file = "resources/assets/js/admin/views/account/AppAdmin.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/assets/js/admin/views/blog/AppBlog.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************!*\
-  !*** ./resources/assets/js/admin/views/blog/AppBlog.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************/
+/***/ "./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppBlog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AppBlog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/blog/AppBlog.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppBlog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdmin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AppAdmin.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdmin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/assets/js/admin/views/blog/AppBlog.vue?vue&type=template&id=1f34816e&":
-/*!*****************************************************************************************!*\
-  !*** ./resources/assets/js/admin/views/blog/AppBlog.vue?vue&type=template&id=1f34816e& ***!
-  \*****************************************************************************************/
+/***/ "./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a& ***!
+  \*********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppBlog_vue_vue_type_template_id_1f34816e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AppBlog.vue?vue&type=template&id=1f34816e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/blog/AppBlog.vue?vue&type=template&id=1f34816e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppBlog_vue_vue_type_template_id_1f34816e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AppAdmin.vue?vue&type=template&id=db108f3a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/account/AppAdmin.vue?vue&type=template&id=db108f3a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppBlog_vue_vue_type_template_id_1f34816e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppAdmin_vue_vue_type_template_id_db108f3a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/assets/js/admin/views/blog/AppBlogFieldTableData.js":
-/*!***********************************************************************!*\
-  !*** ./resources/assets/js/admin/views/blog/AppBlogFieldTableData.js ***!
-  \***********************************************************************/
-/*! exports provided: AppBlogFieldTableData */
+/***/ "./resources/assets/js/admin/views/account/AppAdminFieldTableData.js":
+/*!***************************************************************************!*\
+  !*** ./resources/assets/js/admin/views/account/AppAdminFieldTableData.js ***!
+  \***************************************************************************/
+/*! exports provided: AppAdminFieldTableData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppBlogFieldTableData", function() { return AppBlogFieldTableData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppAdminFieldTableData", function() { return AppAdminFieldTableData; });
 /* harmony import */ var core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es6.regexp.search */ "./node_modules/core-js/modules/es6.regexp.search.js");
 /* harmony import */ var core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es6_array_index_of__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.array.index-of */ "./node_modules/core-js/modules/es6.array.index-of.js");
-/* harmony import */ var core_js_modules_es6_array_index_of__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_array_index_of__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es6_array_filter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es6.array.filter */ "./node_modules/core-js/modules/es6.array.filter.js");
-/* harmony import */ var core_js_modules_es6_array_filter__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_array_filter__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
+/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es6_array_index_of__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es6.array.index-of */ "./node_modules/core-js/modules/es6.array.index-of.js");
+/* harmony import */ var core_js_modules_es6_array_index_of__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_array_index_of__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es6_array_filter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es6.array.filter */ "./node_modules/core-js/modules/es6.array.filter.js");
+/* harmony import */ var core_js_modules_es6_array_filter__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_array_filter__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
-var AppBlogFieldTableData = {
+
+var AppAdminFieldTableData = {
   data: function data() {
     return {
       FieldTableItems: [{
@@ -625,73 +627,50 @@ var AppBlogFieldTableData = {
           width: '30px'
         }
       }, {
-        key: 'title',
-        label: 'Title',
+        key: 'name',
+        label: 'Name',
         tdClass: 'truncate-cell',
         sortable: true,
         thStyle: {
           minWidth: '175px'
         }
       }, {
-        key: 'author',
-        label: 'Author',
-        'class': 'text-center',
+        key: 'email',
+        label: 'Email',
         thStyle: {
           minWidth: '150px',
           width: '150px'
         },
         sortable: true
       }, {
-        key: 'category',
-        label: 'Category',
-        'class': 'text-center',
+        key: 'department',
+        label: 'Department',
         thStyle: {
-          minWidth: '150px',
-          width: '150px'
-        },
-        sortable: true
-      }, {
-        key: 'status',
-        label: 'Status',
-        'class': 'text-center',
-        thStyle: {
-          minWidth: '25px',
-          width: '25px'
+          minWidth: '250px',
+          width: '250px'
         },
         sortable: true
       }, {
         key: 'created_at',
-        label: 'Created',
+        label: 'Registered',
         'class': 'text-center',
         thStyle: {
-          minWidth: '25px',
-          width: '25px'
-        },
-        sortable: true
-      }, {
-        key: 'updated_at',
-        label: 'Updated',
-        'class': 'text-center',
-        thStyle: {
-          minWidth: '25px',
-          width: '25px'
+          minWidth: '150px',
+          width: '150px'
         },
         sortable: true
       }],
       itemsData: [],
-      selectedInputSearch: this.$route.query.searchKey || 'title',
+      selectedInputSearch: this.$route.query.searchKey || 'name',
       optionsInputSearch: [{
-        value: 'title',
-        text: 'Title'
+        value: 'name',
+        text: 'Name'
       }, {
-        value: 'author',
-        text: 'Author'
+        value: 'email',
+        text: 'Email'
       }, {
-        value: 'category',
-        text: 'Category'
-      }, {
-        value: 'status',
-        text: 'Status'
+        value: 'department',
+        text: 'Department'
       }]
     };
   },
@@ -700,27 +679,21 @@ var AppBlogFieldTableData = {
     filteredItemsData: function filteredItemsData() {
       var _this = this;
 
-      if (this.selectedInputSearch == 'title') {
+      if (this.selectedInputSearch == 'name') {
         return this.itemsData.filter(function (result) {
-          return result.title.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+          return result.name.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
         });
       }
 
-      if (this.selectedInputSearch == 'author') {
+      if (this.selectedInputSearch == 'email') {
         return this.itemsData.filter(function (result) {
-          return result.author.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+          return result.email.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
         });
       }
 
-      if (this.selectedInputSearch == 'category') {
+      if (this.selectedInputSearch == 'department') {
         return this.itemsData.filter(function (result) {
-          return result.category.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
-        });
-      }
-
-      if (this.selectedInputSearch == 'status') {
-        return this.itemsData.filter(function (result) {
-          return result.status.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+          return result.department.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
         });
       }
     }

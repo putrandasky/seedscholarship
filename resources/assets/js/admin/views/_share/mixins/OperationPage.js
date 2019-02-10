@@ -35,7 +35,7 @@ export const OperationPage = {
           name: this.routeName,
           query: Object.assign({}, this.$route.query, {
             page: 1,
-            search:this.search
+            search: this.search
           })
         })
         this.currentPage = 1
@@ -78,7 +78,7 @@ export const OperationPage = {
       // console.log(ctx.sortBy);
       // console.log(ctx.sortDesc);
       this.$router.replace({
-        name: this.routeName,
+        // name: this.routeName,
         query: Object.assign({}, this.$route.query, {
           sortBy: ctx.sortBy,
           sortDesc: ctx.sortDesc
@@ -125,5 +125,10 @@ export const OperationPage = {
       return status === 'PUBLISH' ? 'primary' :
         status === 'DRAFT' ? 'secondary' : 'success'
     },
+    getBadgeApproval(status) {
+      return status === 'approved' ? 'success' :
+        status === 'in progress' ? 'primary' :
+        status === 'not approved' ? 'danger' : 'secondary'
+      },
   }
 }

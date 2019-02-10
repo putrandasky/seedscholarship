@@ -23,9 +23,14 @@ const AppPage = () => import('../views/page/AppPage.vue')
 const AppPageNew = () => import('../views/page/AppPageNew.vue')
 const PageDetail = () => import('../views/page/PageDetail.vue')
 
-const AppRequestAwardee = () => import('../views/request/AppRequestAwardee.vue')
+const AppRequestAwardee = () => import('../views/request/awardee/AppRequestAwardee.vue')
+const RequestAwardeeIndex = () => import('../views/request/awardee/AppRequestAwardeeIndex.vue')
+const RequestAwardeeDefault = () => import('../views/request/awardee/AppRequestAwardeeDefault.vue')
+const DetailRequestAwardee = () => import('../views/request/awardee/DetailRequestAwardee.vue')
 
-const AppRequestPatron = () => import('../views/request/AppRequestPatron.vue')
+const AppRequestDonor = () => import('../views/request/Donor/AppRequestDonor.vue')
+
+const AppRequestNonreg = () => import('../views/request/nonreg/AppRequestNonreg.vue')
 
 const AppAccountAdmin = () => import('../views/account/AppAdmin.vue')
 const AppAccountAdminDepartment = () => import('../views/account/AppAdminDepartment.vue')
@@ -42,219 +47,236 @@ const Register = () => import('../views/auth/AuthRegister')
 Vue.use(Router)
 
 export default new Router({
-    // mode: 'history',
-    base: '/admin',
-    linkActiveClass: 'open active',
-    // scrollBehavior: () => ({
-    //   y: 0
-    // }),
-    routes: [{
-            path: '',
-            redirect: 'dashboard',
-            component: Full,
-            children: [{
-                path: 'dashboard',
-                name: 'Dashboard',
-                component: AppDashboard,
-            }, ]
+  // mode: 'history',
+  base: '/admin',
+  linkActiveClass: 'open active',
+  // scrollBehavior: () => ({
+  //   y: 0
+  // }),
+  routes: [{
+      path: '',
+      redirect: 'dashboard',
+      component: Full,
+      children: [{
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: AppDashboard,
+      }, ]
+    },
+    {
+      path: '/assignment',
+      redirect: '/assignment/all',
+      component: Full,
+      children: [{
+          path: 'all',
+          name: 'Assignment',
+          component: AppAssignment,
         },
         {
-            path: '/assignment',
-            redirect: '/assignment/all',
-            component: Full,
-            children: [{
-                    path: 'all',
-                    name: 'Assignment',
-                    component: AppAssignment,
-                },
-                {
-                    path: 'detail/:assignmentId',
-                    name: 'AssignmentDetail',
-                    component: AssignmentDetail,
-                },
-            ]
+          path: 'detail/:assignmentId',
+          name: 'AssignmentDetail',
+          component: AssignmentDetail,
+        },
+      ]
+    },
+    {
+      path: '/assignment/new',
+      component: Full,
+      children: [{
+        path: '',
+        name: 'AssignmentNew',
+        component: AppAssignmentNew
+      }]
+    },
+    {
+      path: '/blog',
+      component: Full,
+      redirect: '/blog/list',
+      children: [{
+          path: 'list',
+          name: 'Blog',
+          component: AppBlog
         },
         {
-            path: '/assignment/new',
-            component: Full,
-            children: [{
-                path: '',
-                name: 'AssignmentNew',
-                component: AppAssignmentNew
-            }]
+          path: 'list/detail/:blogId',
+          name: 'BlogDetail',
+          component: BlogDetail
+        },
+      ]
+    },
+    {
+      path: '/blog/new',
+      component: Full,
+      children: [{
+        path: '',
+        name: 'BlogNew',
+        component: AppBlogNew
+      }]
+    },
+    {
+      path: '/blog/edit-tag',
+      component: Full,
+      children: [{
+        path: '',
+        name: 'BlogTag',
+        component: AppBlogTag
+      }]
+    },
+    {
+      path: '/blog/edit-category',
+      component: Full,
+      children: [{
+        path: '',
+        name: 'BlogCategory',
+        component: AppBlogCategory
+      }]
+    },
+    {
+      path: '/page',
+      redirect: '/page/all',
+      component: Full,
+      children: [{
+          path: 'all',
+          name: 'Page',
+          component: AppPage
         },
         {
-            path: '/blog',
-            component: Full,
-            redirect: '/blog/list',
-            children: [{
-                    path: 'list',
-                    name: 'Blog',
-                    component: AppBlog
-                },
-                {
-                    path: 'list/detail/:blogId',
-                    name: 'BlogDetail',
-                    component: BlogDetail
-                },
-            ]
+          path: ':pageId',
+          name: 'PageDetail',
+          component: PageDetail
         },
-        {
-            path: '/blog/new',
-            component: Full,
-            children: [{
-                path: '',
-                name: 'BlogNew',
-                component: AppBlogNew
-            }]
-        },
-        {
-            path: '/blog/edit-tag',
-            component: Full,
-            children: [{
-                path: '',
-                name: 'BlogTag',
-                component: AppBlogTag
-            }]
-        },
-        {
-            path: '/blog/edit-category',
-            component: Full,
-            children: [{
-                path: '',
-                name: 'BlogCategory',
-                component: AppBlogCategory
-            }]
-        },
-        {
-            path: '/page',
-            redirect: '/page/all',
-            component: Full,
-            children: [{
-                    path: 'all',
-                    name: 'Page',
-                    component: AppPage
-                },
-                {
-                    path: ':pageId',
-                    name: 'PageDetail',
-                    component: PageDetail
-                },
-            ]
-        },
-        {
-            path: '/page/new',
-            component: Full,
-            children: [{
-                path: '',
-                name: 'PageNew',
-                component: AppPageNew
-            }]
-        },
-        {
-            path: '/request',
-            redirect: '/request/awardee',
-            component: Full,
-            children: [{
-                    path: 'awardee',
-                    name: 'RequestAwardee',
-                    component: AppRequestAwardee
-                },
-                {
-                    path: 'patron',
-                    name: 'RequestPatron',
-                    component: AppRequestPatron
-                },
-            ]
-        },
-        {
-            path: '/admin',
-            redirect: 'admin/all',
-            component: Full,
-            children: [{
-                    path: 'all',
-                    name: 'AccountAdmin',
-                    component: AppAccountAdmin
-                },
-                {
-                  path:'all/detail/:userId',
-                  name:'AccountAdminDetail',
-                  component:AccountAdminDetail
-                },
-                {
-                    path: 'department',
-                    name: 'Department',
-                    component: AppAccountAdminDepartment
-                },
-                {
-                    path: 'new',
-                    name: 'NewAdmin',
-                    component: AppAccountAdminNew
-                },
-            ]
-        },
-        {
-            path: '/user',
-            redirect: 'user/awardee',
-            component: Full,
-            children: [{
-                    path: 'awardee',
-                    name: 'AccountAwardee',
-                    component: AppAccountAwardee
-                },
-                {
-                    path: 'patron',
-                    name: 'AccountPatron',
-                    component: AppAccountPatron
-                }
-            ]
-        },
-        {
-            path: '/login',
-            name: 'Login',
-            component: Plain,
-            children: [{
-                path: '',
-                component: Login,
-                meta: {
-                    guest: true
-                },
+      ]
+    },
+    {
+      path: '/page/new',
+      component: Full,
+      children: [{
+        path: '',
+        name: 'PageNew',
+        component: AppPageNew
+      }]
+    },
+    {
+      path: '/request',
+      redirect: '/request/awardee',
+      component: Full,
+      children: [{
+          path: 'awardee',
+          name: 'RequestAwardee',
+          component: AppRequestAwardee,
+          children: [{
+              path: '',
+              name: 'RequestAwardeeDefault',
+              component: RequestAwardeeDefault
+            },
+            {
+              path: ':periodYear',
+              name: 'RequestAwardeeIndex',
+              component: RequestAwardeeIndex,
+            },
 
-            }]
+          ]
+        },
+               {
+                 path: 'awardee/:periodYear/:userId',
+                 name: 'DetailRequestAwardee',
+                 component: DetailRequestAwardee
+               },
+        {
+          path: 'donor',
+          name: 'RequestDonor',
+          component: AppRequestDonor
+        },
+      ],
+    },
+    {
+      path: '/admin',
+      redirect: 'admin/all',
+      component: Full,
+      children: [{
+          path: 'all',
+          name: 'AccountAdmin',
+          component: AppAccountAdmin
         },
         {
-            path: '/register',
-            name: 'Register',
-            component: Plain,
-            children: [{
-                path: '',
-                component: Register,
-
-            }]
+          path: 'all/detail/:userId',
+          name: 'AccountAdminDetail',
+          component: AccountAdminDetail
         },
         {
-            path: '/password-reset',
-            component: Plain,
-            children: [{
-                path: '',
-                name: 'PasswordReset',
-                component: PasswordReset,
-            }]
+          path: 'department',
+          name: 'Department',
+          component: AppAccountAdminDepartment
         },
         {
-            path: '/forgot-password',
-            component: Plain,
-            children: [{
-                path: '',
-                name: 'ForgotPassword',
-                component: ForgotPassword,
-            }]
+          path: 'new',
+          name: 'NewAdmin',
+          component: AppAccountAdminNew
+        },
+      ]
+    },
+    {
+      path: '/user',
+      redirect: 'user/awardee',
+      component: Full,
+      children: [{
+          path: 'awardee',
+          name: 'AccountAwardee',
+          component: AppAccountAwardee
+        },
+        {
+          path: 'patron',
+          name: 'AccountPatron',
+          component: AppAccountPatron
+        }
+      ]
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Plain,
+      children: [{
+        path: '',
+        component: Login,
+        meta: {
+          guest: true
         },
 
-        // {
-        //   path: '/test/autocomplete',
-        //   name: 'Autocomplete',
-        //   component: Autocomplete
-        // }
-    ]
+      }]
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Plain,
+      children: [{
+        path: '',
+        component: Register,
+
+      }]
+    },
+    {
+      path: '/password-reset',
+      component: Plain,
+      children: [{
+        path: '',
+        name: 'PasswordReset',
+        component: PasswordReset,
+      }]
+    },
+    {
+      path: '/forgot-password',
+      component: Plain,
+      children: [{
+        path: '',
+        name: 'ForgotPassword',
+        component: ForgotPassword,
+      }]
+    },
+
+    // {
+    //   path: '/test/autocomplete',
+    //   name: 'Autocomplete',
+    //   component: Autocomplete
+    // }
+  ]
 })

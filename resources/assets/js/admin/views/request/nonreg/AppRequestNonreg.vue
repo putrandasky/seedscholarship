@@ -2,7 +2,7 @@
 </template>
 <script>
     export default {
-        name: 'AppRequestAwardee',
+        name: 'AppRequestNonreg',
         data: function () {
             return {
             }

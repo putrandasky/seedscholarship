@@ -50,7 +50,6 @@ Route::group(['prefix' => 'file'], function () {
     Route::delete('admin-cover-image/{userId}', 'Admin\User\UserProfilePictureController@destroy');
     Route::post('admin-cover-image/update/{userId}', 'Admin\User\UserProfilePictureController@update');
 
-
 });
 
 Route::apiResource('department', 'Admin\Auth\DepartmentController');
@@ -63,6 +62,7 @@ Route::apiResource('scholarship', 'Common\ScholarshipController');
 Route::apiResource('user-admin', 'Admin\Auth\UserController');
 Route::get('registration-awardee/upload/authorized', 'Awardee\Registration\RegistrationUploadController@authorized');
 Route::apiResource('registration-awardee/upload', 'Awardee\Registration\RegistrationUploadController');
+Route::apiResource('registration-awardee', 'Awardee\Registration\UserController');
 Route::get('registration-awardee-nonreg/upload/authorized', 'AwardeeNonreg\Registration\RegistrationUploadController@authorized');
 Route::apiResource('registration-awardee-nonreg/upload', 'AwardeeNonreg\Registration\RegistrationUploadController');
 Route::post('blog-category/reordering', 'Admin\Blog\BlogCategoryController@reorder');

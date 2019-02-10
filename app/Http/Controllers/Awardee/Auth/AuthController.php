@@ -28,9 +28,13 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = App\Awardee::with('department')->get();
+        $user = App\Awardee::whereHas('periods', function ($query) use ($request) {
+            $query->where('year', '=', $request->year);
+
+        })
+        ->with('awardeeDepartment','periods')->get();
         return $user;
     }
     public function register(Request $request)
@@ -52,9 +56,9 @@ class AuthController extends Controller
         $user->phone = $request->phone;
         $user->awardee_department_id = $request->department_id;
         // $user->password = Hash::make($request->password);
-        $user->registration_code = Str::random(60);
         $user->save();
-        $user->periods()->attach($request->period_id);
+        $registration_code = Str::random(100);
+        $user->periods()->attach($request->period_id,['status'=>'In Progress','registration_code' => $registration_code]);
         Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/cv");
         Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/essay");
         Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/slip");
@@ -65,7 +69,7 @@ class AuthController extends Controller
 
         return response()->json([
             'status' => 'Successfully register new awardee',
-            'registration_code' => $user->registration_code,
+            'registration_code' => $registration_code,
             'email' => $user->email,
             'period_id' => $request->period_id,
             'id' => $user->id,

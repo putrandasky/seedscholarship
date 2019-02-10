@@ -46,26 +46,26 @@
   } from "../_share/mixins/instantSearch";
   import {
     OperationPage
-  } from "../_share/mixins/OperationPage";    export default {
-        name: 'AppAdmin',
+  } from "../_share/mixins/OperationPage";
+  export default {
+    name: 'AppAdmin',
     mixins: [AppAdminFieldTableData, instantSearch, OperationPage],
-        data: function () {
-            return {
-      routeName: 'AccountAdmin',
-      loaded:false,
-            }
-        },
-        created(){
-        },
-        methods:{
-          handleRowClicked(record){
+    data: function () {
+      return {
+        routeName: 'AccountAdmin',
+        loaded: false,
+      }
+    },
+    created() {},
+    methods: {
+      handleRowClicked(record) {
         this.$router.push({
-          name:'AccountAdminDetail',
-          params:{
-            userId:record.id
+          name: 'AccountAdminDetail',
+          params: {
+            userId: record.id
           }
         })
-          },
+      },
       getData() {
         axios.get(`api/auth/admin`)
           .then((response) => {
@@ -86,8 +86,9 @@
             console.log(error);
           })
       }
-              },
-    }
+    },
+  }
+
 </script>
 <style>
 </style>

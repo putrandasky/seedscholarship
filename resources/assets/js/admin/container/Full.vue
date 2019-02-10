@@ -113,9 +113,9 @@
                                 url: `/request/awardee`,
                             },
                             {
-                                name: 'patron',
+                                name: 'donor',
                                 icon: 'fa fa-list',
-                                url: `/request/patron`,
+                                url: `/request/donor`,
                             }
                         ]
                     },

@@ -12,8 +12,10 @@ class RegistrationUploadController extends Controller
 {
     public function authorized(Request $request)
     {
-        $RegisterExist = App\Awardee::where([
-          'registration_code'=>$request->registration_code,
+        $RegisterExist = App\Awardee::whereHas('periods', function ($query) use ($request) {
+            $query->where('registration_code', '=', $request->registration_code);
+        })
+        ->where([
           'email'=>$request->email,
           'id'=>$request->id
         ])->exists();
@@ -37,7 +39,7 @@ class RegistrationUploadController extends Controller
             return $file;
 
         }
-        return response()->json(['status' => 'File not found'], 404);
+        return response()->json(['status' => 'File not found'], 200);
 
     }
     public function show(Request $request, $id)
