@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Awardee\Auth;
 
 use App;
 use App\Http\Controllers\Controller;
+use App\Notifications\Awardee\PostRegistered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
@@ -55,17 +55,20 @@ class AuthController extends Controller
         $user->registration_code = Str::random(60);
         $user->save();
         $user->periods()->attach($request->period_id);
-        Storage::makeDirectory("registration/awardee/{$user->id}/cv");
-        Storage::makeDirectory("registration/awardee/{$user->id}/essay");
-        Storage::makeDirectory("registration/awardee/{$user->id}/slip");
-        Storage::makeDirectory("registration/awardee/{$user->id}/siakng");
+        Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/cv");
+        Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/essay");
+        Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/slip");
+        Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/siakng");
 
+        $data = App\Awardee::where('id', $user->id)->with('awardeeDepartment', 'periods')->first();
+        $user->notify(new PostRegistered($data));
 
         return response()->json([
-          'status' => 'Successfully register new awardee',
-          'registration_code' => $user->registration_code,
-          'email'=>$user->email,
-          'id'=>$user->id,
+            'status' => 'Successfully register new awardee',
+            'registration_code' => $user->registration_code,
+            'email' => $user->email,
+            'period_id' => $request->period_id,
+            'id' => $user->id,
         ], 200);
     }
     public function login()
@@ -151,4 +154,3 @@ class AuthController extends Controller
         ]);
     }
 }
-

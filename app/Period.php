@@ -14,4 +14,8 @@ class Period extends Model
     {
         return $this->morphedByMany('App\Awardee', 'periodable');
     }
+        public function donors()
+    {
+        return $this->belongsToMany('App\Donor')->withPivot('donation_category', 'amount')->withTimestamps();
+    }
 }

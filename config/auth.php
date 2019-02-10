@@ -59,7 +59,7 @@ return [
         ],
         'patron-api' => [
             'driver' => 'jwt',
-            'provider' => 'patrons',
+            'provider' => 'donors',
         ],    ],
 
     /*
@@ -96,9 +96,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\AwardeeNonreg::class,
         ],
-        'patrons' => [
+        'donors' => [
             'driver' => 'eloquent',
-            'model' => App\Patron::class,
+            'model' => App\Donor::class,
         ],
 
         // 'users' => [

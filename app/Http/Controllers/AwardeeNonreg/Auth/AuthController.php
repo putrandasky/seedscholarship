@@ -5,10 +5,12 @@ namespace App\Http\Controllers\AwardeeNonreg\Auth;
 use App;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Notifications\Nonreg\PostRegistered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+
 
 class AuthController extends Controller
 {
@@ -39,7 +41,7 @@ class AuthController extends Controller
             'email' => 'required|email',
             // 'password' => 'required|confirmed|min:6',
             'phone' => 'required|numeric|min:6',
-            'year' => 'required|numeric|min:4',
+            'year' => 'required|digits:4',
             'scholarship_id' => 'required',
             'department_id' => 'required',
         ]);
@@ -57,6 +59,9 @@ class AuthController extends Controller
         Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/proposal");
         Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/sktmb");
         Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/siakng");
+
+        $data = App\AwardeeNonreg::where('id', $user->id)->with('awardeeDepartment', 'scholarships')->first();
+        $user->notify(new PostRegistered($data));
 
         return response()->json([
             'status' => 'Successfully register new awardee',

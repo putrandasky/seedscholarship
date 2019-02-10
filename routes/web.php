@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Mail\Markdown;
+use Illuminate\Notifications\Messages\MailMessage;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +27,21 @@ Route::group(['prefix' => 'nonreg'], function () {
         return View::make('apps.nonreg');
     })->where('vue_capture', '[\/\w\.-]*');
 });
+Route::group(['prefix' => 'donor'], function () {
+    Route::get('/{vue_capture?}', function () {
+        return View::make('apps.donor');
+    })->where('vue_capture', '[\/\w\.-]*');
+});
 Route::get('/', function () {
     return View::make('apps.website');
 });
+Route::get('mail', function () {
+
+    $markdown = new Markdown(view(), config('mail.markdown'));
+
+    return $markdown->render('email.DonorPostRegistered');
+});
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });

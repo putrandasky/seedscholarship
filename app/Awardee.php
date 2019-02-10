@@ -47,7 +47,7 @@ class Awardee extends Authenticatable implements JWTSubject
     {
         return $this->morphToMany('App\Period', 'periodable');
     }
-    public function department()
+    public function awardeeDepartment()
     {
       return $this->belongsTo('App\AwardeeDepartment');
     }

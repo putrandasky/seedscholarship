@@ -29,6 +29,10 @@ class AwardeeNonreg extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany('App\Scholarship')->withPivot('is_approved', 'registration_code')->withTimestamps();
     }
+        public function awardeeDepartment()
+    {
+      return $this->belongsTo('App\AwardeeDepartment');
+    }
     public function getJWTIdentifier()
     {
         return $this->getKey();

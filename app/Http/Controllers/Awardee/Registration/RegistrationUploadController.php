@@ -25,7 +25,7 @@ class RegistrationUploadController extends Controller
     {
 
         $file = null;
-        $filesInFolder = Storage::files("registration/awardee/{$request->id}/{$request->folder}");
+        $filesInFolder = Storage::files("registration/awardee/{$request->period_id}/{$request->id}/{$request->folder}");
         if (count($filesInFolder) > 0) {
             # code...
             $files = pathinfo($filesInFolder[0]);
@@ -46,20 +46,20 @@ class RegistrationUploadController extends Controller
 //         $newpathToFile = Storage::files("registration/{$id}/{$request->folder}/{$request->filename}");
 // return response()->file($newpathToFile[0]);
 
-    $newpathToFile = Storage::disk('local')->getDriver()->getAdapter()->applyPathPrefix("registration/awardee/{$id}/{$request->folder}/{$request->filename}");
+    $newpathToFile = Storage::disk('local')->getDriver()->getAdapter()->applyPathPrefix("registration/awardee/{$request->period_id}/{$id}/{$request->folder}/{$request->filename}");
         return response()->file($newpathToFile);
 
     }
     public function store(Request $request)
     {
-        $save = $request->file('file')->storeAs("registration/awardee/{$request->id}/{$request->folder}", $request->file('file')->getClientOriginalName());
+        $save = $request->file('file')->storeAs("registration/awardee/{$request->period_id}/{$request->id}/{$request->folder}", $request->file('file')->getClientOriginalName());
         return response()->json(['status' => 'File Succesfuly Uploaded'], 200);
 
     }
     public function destroy(Request $request, $id)
     {
       // dd("registration/{$id}/{$request->folder}/{$request->filename}");
-        if (Storage::delete("registration/awardee/{$id}/{$request->folder}/{$request->filename}")) {
+        if (Storage::delete("registration/awardee/{$request->period_id}/{$id}/{$request->folder}/{$request->filename}")) {
           # code...
           return response()->json(['status' => 'File Deleted Successfuly'], 200);
         }

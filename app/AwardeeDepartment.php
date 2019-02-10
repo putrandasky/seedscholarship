@@ -10,4 +10,8 @@ class AwardeeDepartment extends Model
     {
       return $this->hasMany('App\Awardee');
     }
+    public function donors()
+    {
+      return $this->hasMany('App\Donor');
+    }
 }

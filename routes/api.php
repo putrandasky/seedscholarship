@@ -33,6 +33,12 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('nonreg/update', 'AwardeeNonreg\Auth\AuthController@Update');
     Route::get('nonreg', 'AwardeeNonreg\Auth\AuthController@index');
 
+    Route::post('donor/login', 'Donor\Auth\AuthController@login');
+    Route::post('donor/logout', 'Donor\Auth\AuthController@logout');
+    Route::post('donor/register', 'Donor\Auth\AuthController@register');
+    Route::post('donor/update', 'Donor\Auth\AuthController@Update');
+    Route::get('donor', 'Donor\Auth\AuthController@index');
+
 
 });
 Route::group(['prefix' => 'file'], function () {

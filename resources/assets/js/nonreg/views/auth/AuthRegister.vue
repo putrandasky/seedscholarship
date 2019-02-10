@@ -74,7 +74,8 @@
                       <b-input-group-prepend>
                         <b-input-group-text><i class="icon-list"></i></b-input-group-text>
                       </b-input-group-prepend>
-                      <b-form-select plain id="scholarship" :options="scholarshipOptions" v-model="input.scholarship_id" :state="stateScholarship">
+                      <b-form-select plain id="scholarship" :options="scholarshipOptions" v-model="input.scholarship_id"
+                        :state="stateScholarship">
                         <template slot="first">
                           <option :value="null" disabled>-- Please select scholarship --</option>
                         </template>
@@ -104,25 +105,27 @@
               </b-form-group> -->
 
               </b-row>
-              <b-button type="submit" variant="success" block>Submit</b-button>
+              <b-button :disabled="isDisabled" type="submit" variant="success" block><i v-show="isDisabled" class="fa fa-spinner fa-spin"></i>
+                Submit</b-button>
             </form>
 
           </b-card>
         </b-col>
       </b-row>
     </div>
-    <faq-modal/>
+    <faq-modal />
   </div>
 </template>
 <script>
-import FaqModal from './AuthRegisterFaq.vue'
+  import FaqModal from './AuthRegisterFaq.vue'
   export default {
     name: 'AuthRegister',
-    components:{
+    components: {
       FaqModal
     },
     data: function () {
       return {
+        isDisabled: false,
         scholarshipOptions: [],
         departmentOptions: [],
         errors: {
@@ -218,6 +221,7 @@ import FaqModal from './AuthRegisterFaq.vue'
           })
       },
       register() {
+        this.isDisabled = true
         axios.post('api/auth/nonreg/register', this.input)
           .then((response) => {
             this.$snotify.success(`You Are Registered Successfully`, "SUCCESS");
@@ -227,18 +231,20 @@ import FaqModal from './AuthRegisterFaq.vue'
               this.input.email = '',
               this.input.password = '',
               this.input.password_confirmation = ''
-              this.$router.replace({
-                name:'RegistrationUpload',
-                query:{
-                  id:response.data.id,
-                  email:response.data.email,
-                  scholarship_id:response.data.scholarship_id,
-                  registration_code:response.data.registration_code
-                }
-                })
+            this.isDisabled = false
+            this.$router.replace({
+              name: 'RegistrationUpload',
+              query: {
+                id: response.data.id,
+                email: response.data.email,
+                scholarship_id: response.data.scholarship_id,
+                registration_code: response.data.registration_code
+              }
+            })
           })
           .catch((error) => {
             // console.log(error.response.data);
+            this.isDisabled = false
             let errors = error.response.data.errors
             // console.log(errors.name);
             this.errors.name = errors.name ? errors.name[0] : 'no-error';

@@ -6,7 +6,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Patron extends Authenticatable implements JWTSubject
+class Donor extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
@@ -33,6 +33,14 @@ class Patron extends Authenticatable implements JWTSubject
     public function blogs()
     {
         return $this->morphMany('App\Blog', 'authorable');
+    }
+        public function awardeeDepartment()
+    {
+      return $this->belongsTo('App\AwardeeDepartment');
+    }
+        public function periods()
+    {
+        return $this->belongsToMany('App\Period')->withPivot('donation_category', 'amount')->withTimestamps();
     }
     public function getJWTIdentifier()
     {

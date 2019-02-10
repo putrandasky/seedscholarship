@@ -127,7 +127,7 @@
 
       },
       checkFile() {
-        axios.get(`api/registration-awardee/upload?folder=${this.folder}&id=${this.$route.query.id}&registration_code=${this.$route.query.registration_code}`)
+        axios.get(`api/registration-awardee/upload?folder=${this.folder}&id=${this.$route.query.id}&period_id=${this.$route.query.period_id}&registration_code=${this.$route.query.registration_code}`)
           .then((response) => {
             console.log(response.data)
             this.data = response.data
@@ -140,7 +140,7 @@
       openFile() {
         let self = this
         window.open(
-          `/api/registration-awardee/upload/${this.$route.query.id}?folder=${this.folder}&filename=${this.data.name}&registration_code=${this.$route.query.registration_code}`,
+          `/api/registration-awardee/upload/${this.$route.query.id}?folder=${this.folder}&period_id=${this.$route.query.period_id}&filename=${this.data.name}&registration_code=${this.$route.query.registration_code}`,
           self.data.name,
           `window,width=${screen.availWidth},height=${screen.availHeight},resizeable,left=200,top=100,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0`
         );
@@ -154,7 +154,8 @@
             params: {
               id: this.$route.query.id,
               folder: this.folder,
-              registration_code:this.$route.query.registration_code
+              registration_code:this.$route.query.registration_code,
+              period_id:this.$route.query.period_id
             },
             headers: {
               'Content-Type': 'multipart/form-data'
@@ -182,7 +183,7 @@
 
         let self = this
         axios.delete(
-            `api/registration-awardee/upload/${this.$route.query.id}?folder=${this.folder}&filename=${this.data.name}&registration_code=${this.$route.query.registration_code}`)
+            `api/registration-awardee/upload/${this.$route.query.id}?folder=${this.folder}&filename=${this.data.name}&period_id=${this.$route.query.period_id}&registration_code=${this.$route.query.registration_code}`)
           .then((response) => {
             console.log(response.data)
             self.old_file = null

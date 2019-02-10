@@ -3,6 +3,8 @@
     "/js/admin/script-admin.js.map": "/js/admin/script-admin.js.map",
     "/js/awardee/script-awardee.js": "/js/awardee/script-awardee.js",
     "/js/awardee/script-awardee.js.map": "/js/awardee/script-awardee.js.map",
+    "/js/donor/script-donor.js": "/js/donor/script-donor.js",
+    "/js/donor/script-donor.js.map": "/js/donor/script-donor.js.map",
     "/js/nonreg/script-nonreg.js": "/js/nonreg/script-nonreg.js",
     "/js/nonreg/script-nonreg.js.map": "/js/nonreg/script-nonreg.js.map",
     "/js/website/script.js": "/js/website/script.js",

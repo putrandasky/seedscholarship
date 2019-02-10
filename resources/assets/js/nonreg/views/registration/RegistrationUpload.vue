@@ -5,9 +5,9 @@
       </b-alert>
     </b-container>
     <div class="container" v-if="authorized">
-      <b-alert show variant="info">Please upload this file below in <strong>pdf/jpeg/png</strong> file with max size
+      <b-alert show variant="primary">Please upload this file below in <strong>pdf/jpeg/png</strong> file with max size
         <strong>3mb</strong>.<br/>
-        Download  <a download href="files/BEASISWA PENELITIAN SEEDS 2019 - II.docx" class="alert-link">here</a> for format "Proposal" & "Surat Keterangan"
+        Download  <a download href="files/BEASISWA PENELITIAN SEEDS 2019 - II - FORMAT PROPOSAL.docx" class="alert-link">here</a> for format "Proposal" &  <a download href="files/BEASISWA PENELITIAN SEEDS 2019 - II - SK Tidak Menerima Beasiswa.docx" class="alert-link">here</a> for "Surat Keterangan"
         <hr>
         <small>Nb : Make sure you bookmark this page, if you need to update the file, you can back to this page later.</small>
         </b-alert>

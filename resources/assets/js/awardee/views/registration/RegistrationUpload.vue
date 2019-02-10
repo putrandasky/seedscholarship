@@ -5,7 +5,7 @@
       </b-alert>
     </b-container>
     <div class="container" v-if="authorized">
-      <b-alert show variant="info">Please upload this file below in <strong>pdf/jpeg/png</strong> file with max size
+      <b-alert show variant="primary">Please upload this file below in <strong>pdf/jpeg/png</strong> file with max size
         <strong>3mb</strong>.
         <hr>
         <small>Nb : Make sure you bookmark this page, if you need to update the file, you can back to this page later.</small>
@@ -50,7 +50,7 @@
     methods: {
       checkAuthorization() {
         axios.get(
-            `api/registration-awardee/upload/authorized?id=${this.$route.query.id}&registration_code=${this.$route.query.registration_code}&email=${this.$route.query.email}`
+            `api/registration-awardee/upload/authorized?id=${this.$route.query.id}&registration_code=${this.$route.query.registration_code}&email=${this.$route.query.email}&period_id=${this.$route.query.period_id}`
           )
           .then((response) => {
             this.loaded = true

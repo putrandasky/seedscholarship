@@ -104,25 +104,26 @@
               </b-form-group> -->
 
               </b-row>
-              <b-button type="submit" variant="success" block>Submit</b-button>
+              <b-button :disabled="isDisabled" type="submit" variant="success" block><i v-show="isDisabled" class="fa fa-spinner fa-spin"></i> Submit</b-button>
             </form>
 
           </b-card>
         </b-col>
       </b-row>
     </div>
-    <faq-modal/>
+    <faq-modal />
   </div>
 </template>
 <script>
-import FaqModal from './AuthRegisterFaq.vue'
+  import FaqModal from './AuthRegisterFaq.vue'
   export default {
     name: 'AuthRegister',
-    components:{
+    components: {
       FaqModal
     },
     data: function () {
       return {
+        isDisabled: false,
         periodOptions: [],
         departmentOptions: [],
         errors: {
@@ -218,6 +219,7 @@ import FaqModal from './AuthRegisterFaq.vue'
           })
       },
       register() {
+        this.isDisabled = true
         axios.post('api/auth/awardee/register', this.input)
           .then((response) => {
             this.$snotify.success(`New Awardee Registered`, "SUCCESS");
@@ -227,17 +229,21 @@ import FaqModal from './AuthRegisterFaq.vue'
               this.input.email = '',
               this.input.password = '',
               this.input.password_confirmation = ''
-              this.$router.replace({
-                name:'RegistrationUpload',
-                query:{
-                  id:response.data.id,
-                  email:response.data.email,
-                  registration_code:response.data.registration_code
-                }
-                })
+            this.isDisabled = false
+
+            this.$router.replace({
+              name: 'RegistrationUpload',
+              query: {
+                id: response.data.id,
+                email: response.data.email,
+                registration_code: response.data.registration_code,
+                period_id:response.data.period_id
+              }
+            })
           })
           .catch((error) => {
             // console.log(error.response.data);
+            this.isDisabled = false
             let errors = error.response.data.errors
             // console.log(errors.name);
             this.errors.name = errors.name ? errors.name[0] : 'no-error';
