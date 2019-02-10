@@ -69,6 +69,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'DetailRequestAwardee',
@@ -228,124 +257,146 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "b-row",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.loaded,
-                      expression: "loaded"
-                    }
-                  ],
-                  staticClass: "mt-3"
-                },
                 [
-                  _c(
-                    "b-col",
-                    { attrs: { cols: "12" } },
-                    [
-                      _c(
-                        "b-row",
-                        [
-                          _c("b-col", { attrs: { sm: "3" } }, [
-                            _c("strong", [_vm._v("Name")])
-                          ]),
-                          _vm._v(" "),
-                          _c("b-col", { attrs: { sm: "9" } }, [
-                            _vm._v(_vm._s(_vm.data.name))
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-row",
-                        [
-                          _c("b-col", { attrs: { sm: "3" } }, [
-                            _c("strong", [_vm._v("Email")])
-                          ]),
-                          _vm._v(" "),
-                          _c("b-col", { attrs: { sm: "9" } }, [
-                            _vm._v(_vm._s(_vm.data.email))
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-row",
-                        [
-                          _c("b-col", { attrs: { sm: "3" } }, [
-                            _c("strong", [_vm._v("Year")])
-                          ]),
-                          _vm._v(" "),
-                          _c("b-col", { attrs: { sm: "9" } }, [
-                            _vm._v(_vm._s(_vm.data.year))
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-row",
-                        [
-                          _c("b-col", { attrs: { sm: "3" } }, [
-                            _c("strong", [_vm._v("Phone")])
-                          ]),
-                          _vm._v(" "),
-                          _c("b-col", { attrs: { sm: "9" } }, [
-                            _vm._v(_vm._s(_vm.data.phone))
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-row",
-                        [
-                          _c("b-col", { attrs: { sm: "3" } }, [
-                            _c("strong", [_vm._v("Department")])
-                          ]),
-                          _vm._v(" "),
-                          _c("b-col", { attrs: { sm: "9" } }, [
-                            _vm._v(
-                              _vm._s(_vm.data.awardee_department.department)
-                            )
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-row",
-                        [
-                          _c("b-col", { attrs: { sm: "3" } }, [
-                            _c("strong", [_vm._v("Status")])
-                          ]),
-                          _vm._v(" "),
-                          _c("b-col", { attrs: { sm: "9" } }, [
-                            _vm._v(_vm._s(_vm.data.periods[0].pivot.status))
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-row",
-                        [
-                          _c("b-col", { attrs: { sm: "3" } }, [
-                            _c("strong", [_vm._v("Date Registered")])
-                          ]),
-                          _vm._v(" "),
-                          _c("b-col", { attrs: { sm: "9" } }, [
-                            _vm._v(_vm._s(_vm.data.created_at))
-                          ])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
+                  _c("b-col", { attrs: { md: "3", sm: "6" } }, [
+                    _c("div", { staticClass: "border-bottom" }, [
+                      _c("h5", [
+                        _c("i", { staticClass: "fa fa-user" }),
+                        _vm._v(" Full Name")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticStyle: {
+                          "font-size": "large",
+                          "padding-left": "20px"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.data.name))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { md: "3", sm: "6" } }, [
+                    _c("div", { staticClass: "border-bottom" }, [
+                      _c("h5", [
+                        _c("i", { staticClass: "fa fa-envelope" }),
+                        _vm._v(" Email Address")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticStyle: {
+                          "font-size": "large",
+                          "padding-left": "20px"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.data.email))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { md: "3", sm: "6" } }, [
+                    _c("div", { staticClass: "border-bottom" }, [
+                      _c("h5", [
+                        _c("i", { staticClass: "fa fa-calendar" }),
+                        _vm._v(" Year of Period")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticStyle: {
+                          "font-size": "large",
+                          "padding-left": "20px"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.data.year))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { md: "3", sm: "6" } }, [
+                    _c("div", { staticClass: "border-bottom" }, [
+                      _c("h5", [
+                        _c("i", { staticClass: "fa fa-phone" }),
+                        _vm._v(" Phone Number")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticStyle: {
+                          "font-size": "large",
+                          "padding-left": "20px"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.data.phone))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { md: "3", sm: "6" } }, [
+                    _c("div", { staticClass: "border-bottom" }, [
+                      _c("h5", [
+                        _c("i", { staticClass: "fa fa-list" }),
+                        _vm._v(" Department")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticStyle: {
+                          "font-size": "large",
+                          "padding-left": "20px"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.data.awardee_department.department))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { md: "3", sm: "6" } }, [
+                    _c("div", { staticClass: "border-bottom" }, [
+                      _c("h5", [
+                        _c("i", { staticClass: "fa fa-check" }),
+                        _vm._v(" Status Approval")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticStyle: {
+                          "font-size": "large",
+                          "padding-left": "20px"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.data.periods[0].pivot.status))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { md: "3", sm: "6" } }, [
+                    _c("div", { staticClass: "border-bottom" }, [
+                      _c("h5", [
+                        _c("i", { staticClass: "fa fa-calendar-check-o" }),
+                        _vm._v(" Date Registered")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticStyle: {
+                          "font-size": "large",
+                          "padding-left": "20px"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.data.created_at))]
+                    )
+                  ])
                 ],
                 1
               )

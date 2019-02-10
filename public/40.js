@@ -25,6 +25,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'AppRequestAwardee',
   data: function data() {
@@ -75,31 +76,37 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      _vm._l(_vm.periods, function(v) {
-        return _c(
-          "router-link",
-          {
-            key: v.id,
-            staticClass: "btn btn-primary",
-            attrs: {
-              tag: "button",
-              to: {
-                name: "RequestAwardeeIndex",
-                params: { periodYear: v.year }
-              }
-            }
-          },
-          [
-            _vm._v(
-              "\n              Seedscholarship #" +
-                _vm._s(v.period) +
-                " - year " +
-                _vm._s(v.year) +
-                "\n            "
+      [
+        _c(
+          "b-button-group",
+          _vm._l(_vm.periods, function(v) {
+            return _c(
+              "router-link",
+              {
+                key: v.id,
+                staticClass: "btn btn-outline-primary btn-sm",
+                attrs: {
+                  tag: "button",
+                  to: {
+                    name: "RequestAwardeeIndex",
+                    params: { periodYear: v.year }
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\n        Seedscholarship #" +
+                    _vm._s(v.period) +
+                    " - year " +
+                    _vm._s(v.year) +
+                    "\n      "
+                )
+              ]
             )
-          ]
+          }),
+          1
         )
-      }),
+      ],
       1
     ),
     _vm._v(" "),

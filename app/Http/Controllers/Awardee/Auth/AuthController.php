@@ -34,7 +34,7 @@ class AuthController extends Controller
             $query->where('year', '=', $request->year);
 
         })
-        ->with('awardeeDepartment','periods')->get();
+        ->with('awardeeDepartment','periods')->orderBy('created_at','desc')->get();
         return $user;
     }
     public function register(Request $request)
