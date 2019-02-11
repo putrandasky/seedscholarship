@@ -60,6 +60,7 @@ Route::apiResource('blog', 'Admin\Blog\BlogController');
 Route::apiResource('period', 'Common\PeriodController');
 Route::apiResource('scholarship', 'Common\ScholarshipController');
 Route::apiResource('user-admin', 'Admin\Auth\UserController');
+Route::apiResource('user-donor', 'Donor\Auth\UserController');
 Route::get('registration-awardee/upload/authorized', 'Awardee\Registration\RegistrationUploadController@authorized');
 Route::apiResource('registration-awardee/upload', 'Awardee\Registration\RegistrationUploadController');
 Route::apiResource('registration-awardee', 'Awardee\Registration\UserController');

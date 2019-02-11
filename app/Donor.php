@@ -5,13 +5,22 @@ namespace App;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Carbon\Carbon;
 
 class Donor extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
     // protected $guard = ['admin'];
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-M-y');
+    }
 
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-M-y');
+    }
 
     /**
      * The attributes that are mass assignable.

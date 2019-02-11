@@ -118,11 +118,11 @@
                                 icon: 'fa fa-list',
                                 url: `/request/nonreg`,
                             },
-                            {
-                                name: 'donor',
-                                icon: 'fa fa-list',
-                                url: `/request/donor`,
-                            }
+                            // {
+                            //     name: 'donor',
+                            //     icon: 'fa fa-list',
+                            //     url: `/request/donor`,
+                            // }
                         ]
                     },
                     {
@@ -147,19 +147,19 @@
                         ]
                     },
                     {
-                        name: 'Users',
+                        name: 'Account',
                         icon: 'fa fa-users',
-                        url: `/user`,
+                        url: `/account`,
                         children: [
                             {
                                 name: 'Awardee',
                                 icon: 'fa fa-list',
-                                url: `/user/awardee`,
+                                url: `/account/awardee`,
                             },
                             {
-                                name: 'Patron',
+                                name: 'Donor',
                                 icon: 'fa fa-list',
-                                url: `/user/patron`,
+                                url: `/account/donor`,
                             }
                         ]
                     },

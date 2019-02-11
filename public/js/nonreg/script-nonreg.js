@@ -71003,15 +71003,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Dashboard = function Dashboard() {
-  return __webpack_require__.e(/*! import() */ 59).then(__webpack_require__.bind(null, /*! ../views/dashboard/Dashboard.vue */ "./resources/assets/js/nonreg/views/dashboard/Dashboard.vue"));
+  return __webpack_require__.e(/*! import() */ 61).then(__webpack_require__.bind(null, /*! ../views/dashboard/Dashboard.vue */ "./resources/assets/js/nonreg/views/dashboard/Dashboard.vue"));
 };
 
 var UserProfile = function UserProfile() {
-  return __webpack_require__.e(/*! import() */ 60).then(__webpack_require__.bind(null, /*! ../views/user/UserProfile.vue */ "./resources/assets/js/nonreg/views/user/UserProfile.vue"));
+  return __webpack_require__.e(/*! import() */ 62).then(__webpack_require__.bind(null, /*! ../views/user/UserProfile.vue */ "./resources/assets/js/nonreg/views/user/UserProfile.vue"));
 };
 
 var Assignment = function Assignment() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(31)]).then(__webpack_require__.bind(null, /*! ../views/assignment/Assignment.vue */ "./resources/assets/js/nonreg/views/assignment/Assignment.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(32)]).then(__webpack_require__.bind(null, /*! ../views/assignment/Assignment.vue */ "./resources/assets/js/nonreg/views/assignment/Assignment.vue"));
 };
 
 var AssignmentDetail = function AssignmentDetail() {
@@ -71025,11 +71025,11 @@ var SubmissionNew = function SubmissionNew() {
 
 
 var PasswordReset = function PasswordReset() {
-  return __webpack_require__.e(/*! import() */ 58).then(__webpack_require__.bind(null, /*! ../views/auth/AuthPasswordReset */ "./resources/assets/js/nonreg/views/auth/AuthPasswordReset.vue"));
+  return __webpack_require__.e(/*! import() */ 60).then(__webpack_require__.bind(null, /*! ../views/auth/AuthPasswordReset */ "./resources/assets/js/nonreg/views/auth/AuthPasswordReset.vue"));
 };
 
 var ForgotPassword = function ForgotPassword() {
-  return __webpack_require__.e(/*! import() */ 57).then(__webpack_require__.bind(null, /*! ../views/auth/AuthForgotPassword */ "./resources/assets/js/nonreg/views/auth/AuthForgotPassword.vue"));
+  return __webpack_require__.e(/*! import() */ 59).then(__webpack_require__.bind(null, /*! ../views/auth/AuthForgotPassword */ "./resources/assets/js/nonreg/views/auth/AuthForgotPassword.vue"));
 };
 
 var Register = function Register() {

@@ -28,19 +28,21 @@ const RequestAwardeeIndex = () => import('../views/request/awardee/AppRequestAwa
 const RequestAwardeeDefault = () => import('../views/request/awardee/AppRequestAwardeeDefault.vue')
 const DetailRequestAwardee = () => import('../views/request/awardee/DetailRequestAwardee.vue')
 
-const AppRequestDonor = () => import('../views/request/Donor/AppRequestDonor.vue')
-
 const AppRequestNonreg = () => import('../views/request/nonreg/AppRequestNonreg.vue')
 const RequestNonregIndex = () => import('../views/request/nonreg/AppRequestNonregIndex.vue')
 const RequestNonregDefault = () => import('../views/request/nonreg/AppRequestNonregDefault.vue')
 const DetailRequestNonreg = () => import('../views/request/nonreg/DetailRequestNonreg.vue')
 
-const AppAccountAdmin = () => import('../views/account/AppAdmin.vue')
-const AppAccountAdminDepartment = () => import('../views/account/AppAdminDepartment.vue')
-const AccountAdminDetail = () => import('../views/account/AdminDetail.vue')
-const AppAccountAdminNew = () => import('../views/account/AppAdminNew.vue')
-const AppAccountAwardee = () => import('../views/account/AppAwardee.vue')
-const AppAccountPatron = () => import('../views/account/AppPatron.vue')
+const AppAccountAdmin = () => import('../views/admin/AppAdmin.vue')
+const AppAccountAdminDepartment = () => import('../views/admin/AppAdminDepartment.vue')
+const AccountAdminDetail = () => import('../views/admin/AdminDetail.vue')
+const AppAccountAdminNew = () => import('../views/admin/AppAdminNew.vue')
+const AppAccountAwardee = () => import('../views/admin/AppAwardee.vue')
+
+const AppAccountDonor = () => import('../views/account/donor/AppDonor.vue')
+const AccountDonorIndex = () => import('../views/account/donor/AppDonorIndex.vue')
+const AccountDonorDefault = () => import('../views/account/donor/AppDonorDefault.vue')
+const DetailAccountDonor = () => import('../views/account/donor/DetailDonor.vue')
 
 
 import Login from "../views/auth/AuthLogin";
@@ -206,11 +208,6 @@ export default new Router({
           name: 'DetailRequestNonreg',
           component: DetailRequestNonreg
         },
-        {
-          path: 'donor',
-          name: 'RequestDonor',
-          component: AppRequestDonor
-        },
       ],
     },
     {
@@ -240,8 +237,8 @@ export default new Router({
       ]
     },
     {
-      path: '/user',
-      redirect: 'user/awardee',
+      path: '/account',
+      redirect: 'account/awardee',
       component: Full,
       children: [{
           path: 'awardee',
@@ -249,10 +246,24 @@ export default new Router({
           component: AppAccountAwardee
         },
         {
-          path: 'patron',
-          name: 'AccountPatron',
-          component: AppAccountPatron
-        }
+          path: 'donor',
+          name: 'AccountDonor',
+          component: AppAccountDonor,
+          children:[{
+            path:'',
+            name:'AccountDonorDefault',
+            component:AccountDonorDefault
+          },{
+            path:':periodYear',
+            name:'AccountDonorIndex',
+            component:AccountDonorIndex
+          }]
+        },
+        {
+          path: 'donor/:periodYear/:userId',
+          name:'DetailAccountDonor',
+          component: DetailAccountDonor
+        },
       ]
     },
     {

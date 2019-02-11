@@ -1,21 +1,21 @@
 <template>
-  <b-card>
-    <div slot="header" class="text-center">
-      <strong>Awardee Request</strong>
-    </div>
-    <div>
-      <slide-y-up-transition>
+  <slide-y-up-transition>
+    <b-card v-show="loaded">
+      <div slot="header" class="text-center">
+        <strong>Awardee Request</strong>
+      </div>
+      <div>
         <b-button-group v-show="loaded">
           <router-link v-for="(v) in periods" :key="v.id" tag="button" class="btn btn-outline-primary btn-sm" :to="{name:'RequestAwardeeIndex', params:{periodYear: v.year}}">
             Seedscholarship #{{v.period}} - year {{v.year}}
           </router-link>
         </b-button-group>
-      </slide-y-up-transition>
-    </div>
-    <div>
-      <router-view></router-view>
-    </div>
-  </b-card>
+      </div>
+      <div>
+        <router-view></router-view>
+      </div>
+    </b-card>
+  </slide-y-up-transition>
 </template>
 <script>
   export default {

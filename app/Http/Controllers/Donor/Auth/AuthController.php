@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Donor\Auth;
 
 use App;
 use App\Http\Controllers\Controller;
+use App\Notifications\Donor\PostRegistered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use App\Notifications\Donor\PostRegistered;
-
 
 class AuthController extends Controller
 {
@@ -29,11 +27,16 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = App\Donor::with('department','periods')->get();
+        $user = App\Donor::whereHas('periods', function ($query) use ($request) {
+            $query->where('year', '=', $request->year);
+
+        })
+            ->with('awardeeDepartment', 'periods')->orderBy('created_at', 'desc')->get();
         return $user;
     }
+
     public function register(Request $request)
     {
         $this->validate($request, [
@@ -46,7 +49,7 @@ class AuthController extends Controller
             'department' => 'required',
             'donation_category' => 'required',
             'address' => 'required',
-            'accept_term_condition'=>'required',
+            'accept_term_condition' => 'required',
             'period' => 'required',
             // 'amount' => 'required'
         ]);
@@ -63,14 +66,13 @@ class AuthController extends Controller
         // $registration_code = Str::random(60);
         $user->save();
         $user->periods()->attach($request->period, [
-          'donation_category' => $request->donation_category,
-          'amount' => $request->amount,
-          'is_term_condition_agreed' =>$request->accept_term_condition,
-          'is_contract_agreed'=> false,
-          ]);
-$data = App\Donor::where('id',$user->id)->with('awardeeDepartment','periods')->first();
-          $user->notify(new PostRegistered($data));
-
+            'donation_category' => $request->donation_category,
+            'amount' => $request->amount,
+            'is_term_condition_agreed' => $request->accept_term_condition,
+            'is_contract_agreed' => false,
+        ]);
+        $data = App\Donor::where('id', $user->id)->with('awardeeDepartment', 'periods')->first();
+        $user->notify(new PostRegistered($data));
 
         return response()->json([
             'status' => 'Successfully register new donor',

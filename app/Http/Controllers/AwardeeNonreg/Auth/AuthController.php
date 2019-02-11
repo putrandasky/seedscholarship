@@ -57,7 +57,7 @@ class AuthController extends Controller
         $user->awardee_department_id = $request->department_id;
         // $user->password = Hash::make($request->password);
         $user->save();
-        $registration_code = Str::random(60);
+        $registration_code = Str::random(100);
         $user->scholarships()->attach($request->scholarship_id,[
           'status'=>'in progress',
           'registration_code'=>$registration_code

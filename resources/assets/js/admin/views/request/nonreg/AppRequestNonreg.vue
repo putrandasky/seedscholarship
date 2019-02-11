@@ -1,21 +1,21 @@
 <template>
-  <b-card>
-    <div slot="header" class="text-center">
-      <strong>Awardee Non Reguler Request</strong>
-    </div>
-    <div>
   <slide-y-up-transition>
-      <b-button-group v-show="loaded">
-        <router-link v-for="(v) in scholarships" :key="v.id" tag="button" class="btn btn-outline-primary btn-sm" :to="{name:'RequestNonregIndex', params:{scholarshipId: v.id}}">
-          {{v.name}} - Year {{v.year}}
-        </router-link>
-      </b-button-group>
+    <b-card v-show="loaded">
+      <div slot="header" class="text-center">
+        <strong>Awardee Non Reguler Request</strong>
+      </div>
+      <div>
+        <b-button-group>
+          <router-link v-for="(v) in scholarships" :key="v.id" tag="button" class="btn btn-outline-primary btn-sm" :to="{name:'RequestNonregIndex', params:{scholarshipId: v.id}}">
+            {{v.name}} - Year {{v.year}}
+          </router-link>
+        </b-button-group>
+      </div>
+      <div>
+        <router-view></router-view>
+      </div>
+    </b-card>
   </slide-y-up-transition>
-    </div>
-    <div>
-      <router-view></router-view>
-    </div>
-  </b-card>
 </template>
 <script>
   export default {
@@ -23,7 +23,7 @@
     data: function () {
       return {
         scholarships: [],
-        loaded:false,
+        loaded: false,
       }
     },
     created() {

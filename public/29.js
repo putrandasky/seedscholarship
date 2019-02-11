@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[29],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/request/nonreg/AppRequestNonregIndex.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/admin/views/request/nonreg/AppRequestNonregIndex.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeIndex.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeIndex.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_es6_array_map__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.array.map */ "./node_modules/core-js/modules/es6.array.map.js");
 /* harmony import */ var core_js_modules_es6_array_map__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_array_map__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _AppRequestNonregFieldTableData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AppRequestNonregFieldTableData */ "./resources/assets/js/admin/views/request/nonreg/AppRequestNonregFieldTableData.js");
+/* harmony import */ var _AppRequestAwardeeFieldTableData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AppRequestAwardeeFieldTableData */ "./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeFieldTableData.js");
 /* harmony import */ var _share_mixins_instantSearch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../_share/mixins/instantSearch */ "./resources/assets/js/admin/views/_share/mixins/instantSearch.js");
 /* harmony import */ var _share_mixins_OperationPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../_share/mixins/OperationPage */ "./resources/assets/js/admin/views/_share/mixins/OperationPage.js");
 
@@ -61,24 +61,24 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'AppAdmin',
-  mixins: [_AppRequestNonregFieldTableData__WEBPACK_IMPORTED_MODULE_2__["AppRequestNonregFieldTableData"], _share_mixins_instantSearch__WEBPACK_IMPORTED_MODULE_3__["instantSearch"], _share_mixins_OperationPage__WEBPACK_IMPORTED_MODULE_4__["OperationPage"]],
+  mixins: [_AppRequestAwardeeFieldTableData__WEBPACK_IMPORTED_MODULE_2__["AppRequestAwardeeFieldTableData"], _share_mixins_instantSearch__WEBPACK_IMPORTED_MODULE_3__["instantSearch"], _share_mixins_OperationPage__WEBPACK_IMPORTED_MODULE_4__["OperationPage"]],
   data: function data() {
     return {
-      routeName: 'AppRequestNonregIndex',
+      routeName: 'AppRequestAwardeeIndex',
       loaded: false
     };
   },
   created: function created() {},
   watch: {
-    '$route.params.scholarshipId': 'getData'
+    '$route.params.periodYear': 'getData'
   },
   methods: {
     handleRowClicked: function handleRowClicked(record) {
       this.$router.push({
-        name: 'DetailRequestNonreg',
+        name: 'DetailRequestAwardee',
         params: {
           userId: record.id,
-          scholarshipId: this.$route.params.scholarshipId
+          periodYear: this.$route.params.periodYear
         }
       });
     },
@@ -86,7 +86,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.loaded = false;
-      axios.get("api/auth/nonreg?id=".concat(this.$route.params.scholarshipId)).then(function (response) {
+      axios.get("api/auth/awardee?year=".concat(this.$route.params.periodYear)).then(function (response) {
         console.log(response.data);
 
         _this.checkPage();
@@ -96,7 +96,7 @@ __webpack_require__.r(__webpack_exports__);
             var temp = C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default()({}, item);
 
             temp['department'] = temp.awardee_department.department;
-            temp['status'] = temp.scholarships[0].pivot.status;
+            temp['status'] = temp.periods[0].pivot.status;
             temp['registered'] = temp.created_at; // temp.name = 'my name '+temp.name;
 
             return temp;
@@ -114,257 +114,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/core-js/modules/_array-includes.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/core-js/modules/_array-includes.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// false -> Array#indexOf
-// true  -> Array#includes
-var toIObject = __webpack_require__(/*! ./_to-iobject */ "./node_modules/core-js/modules/_to-iobject.js");
-var toLength = __webpack_require__(/*! ./_to-length */ "./node_modules/core-js/modules/_to-length.js");
-var toAbsoluteIndex = __webpack_require__(/*! ./_to-absolute-index */ "./node_modules/core-js/modules/_to-absolute-index.js");
-module.exports = function (IS_INCLUDES) {
-  return function ($this, el, fromIndex) {
-    var O = toIObject($this);
-    var length = toLength(O.length);
-    var index = toAbsoluteIndex(fromIndex, length);
-    var value;
-    // Array#includes uses SameValueZero equality algorithm
-    // eslint-disable-next-line no-self-compare
-    if (IS_INCLUDES && el != el) while (length > index) {
-      value = O[index++];
-      // eslint-disable-next-line no-self-compare
-      if (value != value) return true;
-    // Array#indexOf ignores holes, Array#includes - not
-    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
-      if (O[index] === el) return IS_INCLUDES || index || 0;
-    } return !IS_INCLUDES && -1;
-  };
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/_enum-bug-keys.js":
-/*!********************************************************!*\
-  !*** ./node_modules/core-js/modules/_enum-bug-keys.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// IE 8- don't enum bug keys
-module.exports = (
-  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
-).split(',');
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/_html.js":
-/*!***********************************************!*\
-  !*** ./node_modules/core-js/modules/_html.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var document = __webpack_require__(/*! ./_global */ "./node_modules/core-js/modules/_global.js").document;
-module.exports = document && document.documentElement;
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/_object-create.js":
-/*!********************************************************!*\
-  !*** ./node_modules/core-js/modules/_object-create.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = __webpack_require__(/*! ./_an-object */ "./node_modules/core-js/modules/_an-object.js");
-var dPs = __webpack_require__(/*! ./_object-dps */ "./node_modules/core-js/modules/_object-dps.js");
-var enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ "./node_modules/core-js/modules/_enum-bug-keys.js");
-var IE_PROTO = __webpack_require__(/*! ./_shared-key */ "./node_modules/core-js/modules/_shared-key.js")('IE_PROTO');
-var Empty = function () { /* empty */ };
-var PROTOTYPE = 'prototype';
-
-// Create object with fake `null` prototype: use iframe Object with cleared prototype
-var createDict = function () {
-  // Thrash, waste and sodomy: IE GC bug
-  var iframe = __webpack_require__(/*! ./_dom-create */ "./node_modules/core-js/modules/_dom-create.js")('iframe');
-  var i = enumBugKeys.length;
-  var lt = '<';
-  var gt = '>';
-  var iframeDocument;
-  iframe.style.display = 'none';
-  __webpack_require__(/*! ./_html */ "./node_modules/core-js/modules/_html.js").appendChild(iframe);
-  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
-  // createDict = iframe.contentWindow.Object;
-  // html.removeChild(iframe);
-  iframeDocument = iframe.contentWindow.document;
-  iframeDocument.open();
-  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
-  iframeDocument.close();
-  createDict = iframeDocument.F;
-  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
-  return createDict();
-};
-
-module.exports = Object.create || function create(O, Properties) {
-  var result;
-  if (O !== null) {
-    Empty[PROTOTYPE] = anObject(O);
-    result = new Empty();
-    Empty[PROTOTYPE] = null;
-    // add "__proto__" for Object.getPrototypeOf polyfill
-    result[IE_PROTO] = O;
-  } else result = createDict();
-  return Properties === undefined ? result : dPs(result, Properties);
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/_object-dps.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/core-js/modules/_object-dps.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var dP = __webpack_require__(/*! ./_object-dp */ "./node_modules/core-js/modules/_object-dp.js");
-var anObject = __webpack_require__(/*! ./_an-object */ "./node_modules/core-js/modules/_an-object.js");
-var getKeys = __webpack_require__(/*! ./_object-keys */ "./node_modules/core-js/modules/_object-keys.js");
-
-module.exports = __webpack_require__(/*! ./_descriptors */ "./node_modules/core-js/modules/_descriptors.js") ? Object.defineProperties : function defineProperties(O, Properties) {
-  anObject(O);
-  var keys = getKeys(Properties);
-  var length = keys.length;
-  var i = 0;
-  var P;
-  while (length > i) dP.f(O, P = keys[i++], Properties[P]);
-  return O;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/_object-keys-internal.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/core-js/modules/_object-keys-internal.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var has = __webpack_require__(/*! ./_has */ "./node_modules/core-js/modules/_has.js");
-var toIObject = __webpack_require__(/*! ./_to-iobject */ "./node_modules/core-js/modules/_to-iobject.js");
-var arrayIndexOf = __webpack_require__(/*! ./_array-includes */ "./node_modules/core-js/modules/_array-includes.js")(false);
-var IE_PROTO = __webpack_require__(/*! ./_shared-key */ "./node_modules/core-js/modules/_shared-key.js")('IE_PROTO');
-
-module.exports = function (object, names) {
-  var O = toIObject(object);
-  var i = 0;
-  var result = [];
-  var key;
-  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
-  // Don't enum bug & hidden keys
-  while (names.length > i) if (has(O, key = names[i++])) {
-    ~arrayIndexOf(result, key) || result.push(key);
-  }
-  return result;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/_object-keys.js":
-/*!******************************************************!*\
-  !*** ./node_modules/core-js/modules/_object-keys.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = __webpack_require__(/*! ./_object-keys-internal */ "./node_modules/core-js/modules/_object-keys-internal.js");
-var enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ "./node_modules/core-js/modules/_enum-bug-keys.js");
-
-module.exports = Object.keys || function keys(O) {
-  return $keys(O, enumBugKeys);
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/_object-pie.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/core-js/modules/_object-pie.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-exports.f = {}.propertyIsEnumerable;
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/_shared-key.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/core-js/modules/_shared-key.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var shared = __webpack_require__(/*! ./_shared */ "./node_modules/core-js/modules/_shared.js")('keys');
-var uid = __webpack_require__(/*! ./_uid */ "./node_modules/core-js/modules/_uid.js");
-module.exports = function (key) {
-  return shared[key] || (shared[key] = uid(key));
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/_to-absolute-index.js":
-/*!************************************************************!*\
-  !*** ./node_modules/core-js/modules/_to-absolute-index.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var toInteger = __webpack_require__(/*! ./_to-integer */ "./node_modules/core-js/modules/_to-integer.js");
-var max = Math.max;
-var min = Math.min;
-module.exports = function (index, length) {
-  index = toInteger(index);
-  return index < 0 ? max(index + length, 0) : min(index, length);
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/modules/_to-iobject.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/core-js/modules/_to-iobject.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(/*! ./_iobject */ "./node_modules/core-js/modules/_iobject.js");
-var defined = __webpack_require__(/*! ./_defined */ "./node_modules/core-js/modules/_defined.js");
-module.exports = function (it) {
-  return IObject(defined(it));
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/request/nonreg/AppRequestNonregIndex.vue?vue&type=template&id=9aa50d70&":
-/*!***********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/admin/views/request/nonreg/AppRequestNonregIndex.vue?vue&type=template&id=9aa50d70& ***!
-  \***********************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeIndex.vue?vue&type=template&id=4eb0f5c8&":
+/*!*************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeIndex.vue?vue&type=template&id=4eb0f5c8& ***!
+  \*************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -525,11 +278,11 @@ var render = function() {
                   fn: function(data) {
                     return [
                       _vm._v(
-                        "\n        " +
+                        "\n          " +
                           _vm._s(
                             data.index + 1 + (_vm.currentPage - 1) * _vm.perPage
                           ) +
-                          "\n      "
+                          "\n        "
                       )
                     ]
                   }
@@ -543,15 +296,15 @@ var render = function() {
                         {
                           attrs: {
                             variant: _vm.getBadgeApproval(
-                              data.item.scholarships[0].pivot.status
+                              data.item.periods[0].pivot.status
                             )
                           }
                         },
                         [
                           _vm._v(
-                            "\n          " +
+                            "\n            " +
                               _vm._s(data.item.status) +
-                              "\n        "
+                              "\n          "
                           )
                         ]
                       )
@@ -770,16 +523,16 @@ var instantSearch = {
 
 /***/ }),
 
-/***/ "./resources/assets/js/admin/views/request/nonreg/AppRequestNonregFieldTableData.js":
-/*!******************************************************************************************!*\
-  !*** ./resources/assets/js/admin/views/request/nonreg/AppRequestNonregFieldTableData.js ***!
-  \******************************************************************************************/
-/*! exports provided: AppRequestNonregFieldTableData */
+/***/ "./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeFieldTableData.js":
+/*!********************************************************************************************!*\
+  !*** ./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeFieldTableData.js ***!
+  \********************************************************************************************/
+/*! exports provided: AppRequestAwardeeFieldTableData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRequestNonregFieldTableData", function() { return AppRequestNonregFieldTableData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRequestAwardeeFieldTableData", function() { return AppRequestAwardeeFieldTableData; });
 /* harmony import */ var core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es6.regexp.search */ "./node_modules/core-js/modules/es6.regexp.search.js");
 /* harmony import */ var core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
@@ -792,7 +545,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var AppRequestNonregFieldTableData = {
+var AppRequestAwardeeFieldTableData = {
   data: function data() {
     return {
       FieldTableItems: [{
@@ -888,17 +641,17 @@ var AppRequestNonregFieldTableData = {
 
 /***/ }),
 
-/***/ "./resources/assets/js/admin/views/request/nonreg/AppRequestNonregIndex.vue":
-/*!**********************************************************************************!*\
-  !*** ./resources/assets/js/admin/views/request/nonreg/AppRequestNonregIndex.vue ***!
-  \**********************************************************************************/
+/***/ "./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeIndex.vue":
+/*!************************************************************************************!*\
+  !*** ./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeIndex.vue ***!
+  \************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AppRequestNonregIndex_vue_vue_type_template_id_9aa50d70___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AppRequestNonregIndex.vue?vue&type=template&id=9aa50d70& */ "./resources/assets/js/admin/views/request/nonreg/AppRequestNonregIndex.vue?vue&type=template&id=9aa50d70&");
-/* harmony import */ var _AppRequestNonregIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AppRequestNonregIndex.vue?vue&type=script&lang=js& */ "./resources/assets/js/admin/views/request/nonreg/AppRequestNonregIndex.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AppRequestAwardeeIndex_vue_vue_type_template_id_4eb0f5c8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AppRequestAwardeeIndex.vue?vue&type=template&id=4eb0f5c8& */ "./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeIndex.vue?vue&type=template&id=4eb0f5c8&");
+/* harmony import */ var _AppRequestAwardeeIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AppRequestAwardeeIndex.vue?vue&type=script&lang=js& */ "./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeIndex.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -908,9 +661,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AppRequestNonregIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AppRequestNonregIndex_vue_vue_type_template_id_9aa50d70___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AppRequestNonregIndex_vue_vue_type_template_id_9aa50d70___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AppRequestAwardeeIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AppRequestAwardeeIndex_vue_vue_type_template_id_4eb0f5c8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AppRequestAwardeeIndex_vue_vue_type_template_id_4eb0f5c8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -920,38 +673,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/assets/js/admin/views/request/nonreg/AppRequestNonregIndex.vue"
+component.options.__file = "resources/assets/js/admin/views/request/awardee/AppRequestAwardeeIndex.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/assets/js/admin/views/request/nonreg/AppRequestNonregIndex.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************!*\
-  !*** ./resources/assets/js/admin/views/request/nonreg/AppRequestNonregIndex.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************/
+/***/ "./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeIndex.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeIndex.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppRequestNonregIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AppRequestNonregIndex.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/request/nonreg/AppRequestNonregIndex.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppRequestNonregIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppRequestAwardeeIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AppRequestAwardeeIndex.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeIndex.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppRequestAwardeeIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/assets/js/admin/views/request/nonreg/AppRequestNonregIndex.vue?vue&type=template&id=9aa50d70&":
-/*!*****************************************************************************************************************!*\
-  !*** ./resources/assets/js/admin/views/request/nonreg/AppRequestNonregIndex.vue?vue&type=template&id=9aa50d70& ***!
-  \*****************************************************************************************************************/
+/***/ "./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeIndex.vue?vue&type=template&id=4eb0f5c8&":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeIndex.vue?vue&type=template&id=4eb0f5c8& ***!
+  \*******************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppRequestNonregIndex_vue_vue_type_template_id_9aa50d70___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AppRequestNonregIndex.vue?vue&type=template&id=9aa50d70& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/request/nonreg/AppRequestNonregIndex.vue?vue&type=template&id=9aa50d70&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppRequestNonregIndex_vue_vue_type_template_id_9aa50d70___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppRequestAwardeeIndex_vue_vue_type_template_id_4eb0f5c8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AppRequestAwardeeIndex.vue?vue&type=template&id=4eb0f5c8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/admin/views/request/awardee/AppRequestAwardeeIndex.vue?vue&type=template&id=4eb0f5c8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppRequestAwardeeIndex_vue_vue_type_template_id_4eb0f5c8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppRequestNonregIndex_vue_vue_type_template_id_9aa50d70___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppRequestAwardeeIndex_vue_vue_type_template_id_4eb0f5c8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
