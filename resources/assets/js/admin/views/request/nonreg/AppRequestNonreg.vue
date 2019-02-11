@@ -1,17 +1,51 @@
 <template>
+  <b-card>
+    <div slot="header" class="text-center">
+      <strong>Awardee Non Reguler Request</strong>
+    </div>
+    <div>
+  <slide-y-up-transition>
+      <b-button-group v-show="loaded">
+        <router-link v-for="(v) in scholarships" :key="v.id" tag="button" class="btn btn-outline-primary btn-sm" :to="{name:'RequestNonregIndex', params:{scholarshipId: v.id}}">
+          {{v.name}} - Year {{v.year}}
+        </router-link>
+      </b-button-group>
+  </slide-y-up-transition>
+    </div>
+    <div>
+      <router-view></router-view>
+    </div>
+  </b-card>
 </template>
 <script>
-    export default {
-        name: 'AppRequestNonreg',
-        data: function () {
-            return {
-            }
-        },
-        created(){
-        },
-        methods:{
-        },
-    }
+  export default {
+    name: 'AppRequestNonreg',
+    data: function () {
+      return {
+        scholarships: [],
+        loaded:false,
+      }
+    },
+    created() {
+      this.getPeriods()
+
+    },
+    methods: {
+      getPeriods() {
+        axios.get(`api/scholarship`)
+          .then((response) => {
+            console.log(response.data)
+            this.scholarships = response.data
+            this.loaded = true
+
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      }
+    },
+  }
+
 </script>
 <style>
 </style>

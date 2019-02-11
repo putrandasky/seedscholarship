@@ -71003,33 +71003,33 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Dashboard = function Dashboard() {
-  return __webpack_require__.e(/*! import() */ 52).then(__webpack_require__.bind(null, /*! ../views/dashboard/Dashboard.vue */ "./resources/assets/js/nonreg/views/dashboard/Dashboard.vue"));
+  return __webpack_require__.e(/*! import() */ 59).then(__webpack_require__.bind(null, /*! ../views/dashboard/Dashboard.vue */ "./resources/assets/js/nonreg/views/dashboard/Dashboard.vue"));
 };
 
 var UserProfile = function UserProfile() {
-  return __webpack_require__.e(/*! import() */ 53).then(__webpack_require__.bind(null, /*! ../views/user/UserProfile.vue */ "./resources/assets/js/nonreg/views/user/UserProfile.vue"));
+  return __webpack_require__.e(/*! import() */ 60).then(__webpack_require__.bind(null, /*! ../views/user/UserProfile.vue */ "./resources/assets/js/nonreg/views/user/UserProfile.vue"));
 };
 
 var Assignment = function Assignment() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(27)]).then(__webpack_require__.bind(null, /*! ../views/assignment/Assignment.vue */ "./resources/assets/js/nonreg/views/assignment/Assignment.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(31)]).then(__webpack_require__.bind(null, /*! ../views/assignment/Assignment.vue */ "./resources/assets/js/nonreg/views/assignment/Assignment.vue"));
 };
 
 var AssignmentDetail = function AssignmentDetail() {
-  return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../views/assignment/AssignmentDetail.vue */ "./resources/assets/js/nonreg/views/assignment/AssignmentDetail.vue"));
+  return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../views/assignment/AssignmentDetail.vue */ "./resources/assets/js/nonreg/views/assignment/AssignmentDetail.vue"));
 };
 
 var SubmissionNew = function SubmissionNew() {
-  return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../views/assignment/SubmissionNew.vue */ "./resources/assets/js/nonreg/views/assignment/SubmissionNew.vue"));
+  return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ../views/assignment/SubmissionNew.vue */ "./resources/assets/js/nonreg/views/assignment/SubmissionNew.vue"));
 };
 
 
 
 var PasswordReset = function PasswordReset() {
-  return __webpack_require__.e(/*! import() */ 51).then(__webpack_require__.bind(null, /*! ../views/auth/AuthPasswordReset */ "./resources/assets/js/nonreg/views/auth/AuthPasswordReset.vue"));
+  return __webpack_require__.e(/*! import() */ 58).then(__webpack_require__.bind(null, /*! ../views/auth/AuthPasswordReset */ "./resources/assets/js/nonreg/views/auth/AuthPasswordReset.vue"));
 };
 
 var ForgotPassword = function ForgotPassword() {
-  return __webpack_require__.e(/*! import() */ 50).then(__webpack_require__.bind(null, /*! ../views/auth/AuthForgotPassword */ "./resources/assets/js/nonreg/views/auth/AuthForgotPassword.vue"));
+  return __webpack_require__.e(/*! import() */ 57).then(__webpack_require__.bind(null, /*! ../views/auth/AuthForgotPassword */ "./resources/assets/js/nonreg/views/auth/AuthForgotPassword.vue"));
 };
 
 var Register = function Register() {

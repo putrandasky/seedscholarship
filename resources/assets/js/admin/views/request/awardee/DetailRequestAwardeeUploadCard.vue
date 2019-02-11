@@ -53,7 +53,6 @@
       }
     },
     created() {
-      this.checkFile()
     },
     computed:{
       information(){

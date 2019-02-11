@@ -12,19 +12,24 @@
       </b-alert>
       <b-row>
         <b-col lg="3" sm="6">
+          <slide-y-up-transition>
           <upload-card title="Curriculum Vitae" folder="cv" />
+          </slide-y-up-transition>
         </b-col>
         <b-col lg="3" sm="6">
+          <slide-y-up-transition>
           <upload-card title="Essay" folder="essay" />
-
+          </slide-y-up-transition>
         </b-col>
         <b-col lg="3" sm="6">
+          <slide-y-up-transition>
           <upload-card title="Slip Gaji/Rekening Listrik" folder="slip" />
-
+          </slide-y-up-transition>
         </b-col>
         <b-col lg="3" sm="6">
+          <slide-y-up-transition>
           <upload-card title="SiakNG" folder="siakng" />
-
+          </slide-y-up-transition>
         </b-col>
       </b-row>
     </div>

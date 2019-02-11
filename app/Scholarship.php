@@ -8,6 +8,6 @@ class Scholarship extends Model
 {
     public function awardee_nonregs()
     {
-        return $this->belongsToMany('App\AwardeeNonreg')->withPivot('is_approved', 'registration_code')->withTimestamps();
+        return $this->belongsToMany('App\AwardeeNonreg')->withPivot('status', 'registration_code')->withTimestamps();
     }
 }

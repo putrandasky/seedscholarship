@@ -69627,11 +69627,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Dashboard = function Dashboard() {
-  return __webpack_require__.e(/*! import() */ 44).then(__webpack_require__.bind(null, /*! ../views/dashboard/Dashboard.vue */ "./resources/assets/js/awardee/views/dashboard/Dashboard.vue"));
+  return __webpack_require__.e(/*! import() */ 51).then(__webpack_require__.bind(null, /*! ../views/dashboard/Dashboard.vue */ "./resources/assets/js/awardee/views/dashboard/Dashboard.vue"));
 };
 
 var UserProfile = function UserProfile() {
-  return __webpack_require__.e(/*! import() */ 45).then(__webpack_require__.bind(null, /*! ../views/user/UserProfile.vue */ "./resources/assets/js/awardee/views/user/UserProfile.vue"));
+  return __webpack_require__.e(/*! import() */ 52).then(__webpack_require__.bind(null, /*! ../views/user/UserProfile.vue */ "./resources/assets/js/awardee/views/user/UserProfile.vue"));
 };
 
 var Assignment = function Assignment() {
@@ -69639,25 +69639,25 @@ var Assignment = function Assignment() {
 };
 
 var AssignmentDetail = function AssignmentDetail() {
-  return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/assignment/AssignmentDetail.vue */ "./resources/assets/js/awardee/views/assignment/AssignmentDetail.vue"));
+  return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../views/assignment/AssignmentDetail.vue */ "./resources/assets/js/awardee/views/assignment/AssignmentDetail.vue"));
 };
 
 var SubmissionNew = function SubmissionNew() {
-  return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../views/assignment/SubmissionNew.vue */ "./resources/assets/js/awardee/views/assignment/SubmissionNew.vue"));
+  return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../views/assignment/SubmissionNew.vue */ "./resources/assets/js/awardee/views/assignment/SubmissionNew.vue"));
 };
 
 
 
 var PasswordReset = function PasswordReset() {
-  return __webpack_require__.e(/*! import() */ 43).then(__webpack_require__.bind(null, /*! ../views/auth/AuthPasswordReset */ "./resources/assets/js/awardee/views/auth/AuthPasswordReset.vue"));
+  return __webpack_require__.e(/*! import() */ 50).then(__webpack_require__.bind(null, /*! ../views/auth/AuthPasswordReset */ "./resources/assets/js/awardee/views/auth/AuthPasswordReset.vue"));
 };
 
 var ForgotPassword = function ForgotPassword() {
-  return __webpack_require__.e(/*! import() */ 42).then(__webpack_require__.bind(null, /*! ../views/auth/AuthForgotPassword */ "./resources/assets/js/awardee/views/auth/AuthForgotPassword.vue"));
+  return __webpack_require__.e(/*! import() */ 49).then(__webpack_require__.bind(null, /*! ../views/auth/AuthForgotPassword */ "./resources/assets/js/awardee/views/auth/AuthForgotPassword.vue"));
 };
 
 var Register = function Register() {
-  return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, /*! ../views/auth/AuthRegister */ "./resources/assets/js/awardee/views/auth/AuthRegister.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(15)]).then(__webpack_require__.bind(null, /*! ../views/auth/AuthRegister */ "./resources/assets/js/awardee/views/auth/AuthRegister.vue"));
 };
 
 var RegistrationUpload = function RegistrationUpload() {

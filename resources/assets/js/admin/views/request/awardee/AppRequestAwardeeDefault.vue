@@ -1,6 +1,6 @@
 <template>
 <div class="mt-3">
-  <b-alert show variant="info">Please Select Seedscholarship period above</b-alert>
+  <b-alert show variant="info">Please select Seedscholarship period above</b-alert>
 </div>
 </template>
 <script>

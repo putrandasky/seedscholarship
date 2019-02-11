@@ -65,5 +65,6 @@ Route::apiResource('registration-awardee/upload', 'Awardee\Registration\Registra
 Route::apiResource('registration-awardee', 'Awardee\Registration\UserController');
 Route::get('registration-awardee-nonreg/upload/authorized', 'AwardeeNonreg\Registration\RegistrationUploadController@authorized');
 Route::apiResource('registration-awardee-nonreg/upload', 'AwardeeNonreg\Registration\RegistrationUploadController');
+Route::apiResource('registration-awardee-nonreg', 'AwardeeNonreg\Registration\UserController');
 Route::post('blog-category/reordering', 'Admin\Blog\BlogCategoryController@reorder');
 Route::post('blog-tag/reordering', 'Admin\Blog\BlogTagController@reorder');

@@ -58,7 +58,7 @@ class AuthController extends Controller
         // $user->password = Hash::make($request->password);
         $user->save();
         $registration_code = Str::random(100);
-        $user->periods()->attach($request->period_id,['status'=>'In Progress','registration_code' => $registration_code]);
+        $user->periods()->attach($request->period_id,['status'=>'in progress','registration_code' => $registration_code]);
         Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/cv");
         Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/essay");
         Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/slip");

@@ -54,6 +54,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'RegistrationUpload',
@@ -546,9 +551,15 @@ var render = function() {
                     "b-col",
                     { attrs: { lg: "3", sm: "6" } },
                     [
-                      _c("upload-card", {
-                        attrs: { title: "Curriculum Vitae", folder: "cv" }
-                      })
+                      _c(
+                        "slide-y-up-transition",
+                        [
+                          _c("upload-card", {
+                            attrs: { title: "Curriculum Vitae", folder: "cv" }
+                          })
+                        ],
+                        1
+                      )
                     ],
                     1
                   ),
@@ -557,9 +568,15 @@ var render = function() {
                     "b-col",
                     { attrs: { lg: "3", sm: "6" } },
                     [
-                      _c("upload-card", {
-                        attrs: { title: "Essay", folder: "essay" }
-                      })
+                      _c(
+                        "slide-y-up-transition",
+                        [
+                          _c("upload-card", {
+                            attrs: { title: "Essay", folder: "essay" }
+                          })
+                        ],
+                        1
+                      )
                     ],
                     1
                   ),
@@ -568,12 +585,18 @@ var render = function() {
                     "b-col",
                     { attrs: { lg: "3", sm: "6" } },
                     [
-                      _c("upload-card", {
-                        attrs: {
-                          title: "Slip Gaji/Rekening Listrik",
-                          folder: "slip"
-                        }
-                      })
+                      _c(
+                        "slide-y-up-transition",
+                        [
+                          _c("upload-card", {
+                            attrs: {
+                              title: "Slip Gaji/Rekening Listrik",
+                              folder: "slip"
+                            }
+                          })
+                        ],
+                        1
+                      )
                     ],
                     1
                   ),
@@ -582,9 +605,15 @@ var render = function() {
                     "b-col",
                     { attrs: { lg: "3", sm: "6" } },
                     [
-                      _c("upload-card", {
-                        attrs: { title: "SiakNG", folder: "siakng" }
-                      })
+                      _c(
+                        "slide-y-up-transition",
+                        [
+                          _c("upload-card", {
+                            attrs: { title: "SiakNG", folder: "siakng" }
+                          })
+                        ],
+                        1
+                      )
                     ],
                     1
                   )

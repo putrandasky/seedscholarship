@@ -29,6 +29,7 @@ import Loading from 'vue-loading-overlay';
 import VuePellEditor from 'vue-pell-editor'
 import 'vue-loading-overlay/dist/vue-loading.css';
 import VueMq from 'vue-mq'
+import Transitions from 'vue2-transitions'
 require('./bootstrap');
 require('vue2-animate/dist/vue2-animate.min.css')
 window.Vue = require('vue');
@@ -39,6 +40,7 @@ Vue.use(VueRouter);
 Vue.use(FileSaver);
 Vue.use(VuePellEditor)
 Vue.use(routerHistory)
+Vue.use(Transitions)
 Vue.component('loading', Loading);
 const options = {
     toast: {

@@ -29,9 +29,13 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = App\AwardeeNonreg::with('department')->get();
+        $user = App\AwardeeNonreg::whereHas('scholarships', function ($query) use ($request) {
+            $query->where('scholarships.id', '=', $request->id);
+
+        })
+        ->with('awardeeDepartment','scholarships')->orderBy('created_at','desc')->get();
         return $user;
     }
     public function register(Request $request)
@@ -54,7 +58,10 @@ class AuthController extends Controller
         // $user->password = Hash::make($request->password);
         $user->save();
         $registration_code = Str::random(60);
-        $user->scholarships()->attach($request->scholarship_id,['is_approved'=>0,'registration_code'=>$registration_code]);
+        $user->scholarships()->attach($request->scholarship_id,[
+          'status'=>'in progress',
+          'registration_code'=>$registration_code
+          ]);
         Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/cv");
         Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/proposal");
         Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/sktmb");

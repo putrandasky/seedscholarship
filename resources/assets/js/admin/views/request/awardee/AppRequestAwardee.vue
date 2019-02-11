@@ -4,11 +4,13 @@
       <strong>Awardee Request</strong>
     </div>
     <div>
-      <b-button-group>
-        <router-link v-for="(v) in periods" :key="v.id" tag="button" class="btn btn-outline-primary btn-sm" :to="{name:'RequestAwardeeIndex', params:{periodYear: v.year}}">
-          Seedscholarship #{{v.period}} - year {{v.year}}
-        </router-link>
-      </b-button-group>
+      <slide-y-up-transition>
+        <b-button-group v-show="loaded">
+          <router-link v-for="(v) in periods" :key="v.id" tag="button" class="btn btn-outline-primary btn-sm" :to="{name:'RequestAwardeeIndex', params:{periodYear: v.year}}">
+            Seedscholarship #{{v.period}} - year {{v.year}}
+          </router-link>
+        </b-button-group>
+      </slide-y-up-transition>
     </div>
     <div>
       <router-view></router-view>
@@ -20,7 +22,8 @@
     name: 'AppRequestAwardee',
     data: function () {
       return {
-        periods: []
+        periods: [],
+        loaded: false,
       }
     },
     created() {
@@ -33,6 +36,7 @@
           .then((response) => {
             console.log(response.data)
             this.periods = response.data
+            this.loaded = true
 
           })
           .catch((error) => {

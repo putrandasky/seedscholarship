@@ -31,6 +31,9 @@ const DetailRequestAwardee = () => import('../views/request/awardee/DetailReques
 const AppRequestDonor = () => import('../views/request/Donor/AppRequestDonor.vue')
 
 const AppRequestNonreg = () => import('../views/request/nonreg/AppRequestNonreg.vue')
+const RequestNonregIndex = () => import('../views/request/nonreg/AppRequestNonregIndex.vue')
+const RequestNonregDefault = () => import('../views/request/nonreg/AppRequestNonregDefault.vue')
+const DetailRequestNonreg = () => import('../views/request/nonreg/DetailRequestNonreg.vue')
 
 const AppAccountAdmin = () => import('../views/account/AppAdmin.vue')
 const AppAccountAdminDepartment = () => import('../views/account/AppAdminDepartment.vue')
@@ -177,11 +180,32 @@ export default new Router({
 
           ]
         },
-               {
-                 path: 'awardee/:periodYear/:userId',
-                 name: 'DetailRequestAwardee',
-                 component: DetailRequestAwardee
-               },
+        {
+          path: 'awardee/:periodYear/:userId',
+          name: 'DetailRequestAwardee',
+          component: DetailRequestAwardee
+        },
+        {
+          path: 'nonreg',
+          name: 'RequestNonreg',
+          component: AppRequestNonreg,
+          children: [{
+              path: '',
+              name: 'RequestNonregDefault',
+              component: RequestNonregDefault
+            },
+            {
+              path: ':scholarshipId',
+              name: 'RequestNonregIndex',
+              component: RequestNonregIndex,
+            },
+
+          ]
+        }, {
+          path: 'nonreg/:scholarshipId/:userId',
+          name: 'DetailRequestNonreg',
+          component: DetailRequestNonreg
+        },
         {
           path: 'donor',
           name: 'RequestDonor',

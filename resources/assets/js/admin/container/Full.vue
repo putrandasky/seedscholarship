@@ -104,13 +104,19 @@
                         ]
                     },
                     {
-                        name: 'Account Request',
+                        name: 'Request',
                         icon: 'fa fa-user-plus',
                         url: `/request`,
-                        children: [{
+                        children: [
+                          {
                                 name: 'Awardee',
                                 icon: 'fa fa-list',
                                 url: `/request/awardee`,
+                            },
+                          {
+                                name: 'Nonreg',
+                                icon: 'fa fa-list',
+                                url: `/request/nonreg`,
                             },
                             {
                                 name: 'donor',
