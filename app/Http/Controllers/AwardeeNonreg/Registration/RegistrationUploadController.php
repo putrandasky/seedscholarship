@@ -40,9 +40,10 @@ class RegistrationUploadController extends Controller
     }
     public function show(Request $request, $id)
     {
-        // return 'test';
-        //         $newpathToFile = Storage::files("registration/{$id}/{$request->folder}/{$request->filename}");
-        // return response()->file($newpathToFile[0]);
+
+        if (!($this->registrantAuthenticate($id, $request->registration_code, $request->scholarship_id))) {
+            return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
+        }
 
         $newpathToFile = Storage::disk('local')->getDriver()->getAdapter()->applyPathPrefix("registration/nonreg/$request->scholarship_id/{$id}/{$request->folder}/{$request->filename}");
         return response()->file($newpathToFile);
@@ -50,17 +51,32 @@ class RegistrationUploadController extends Controller
     }
     public function store(Request $request)
     {
+        if (!($this->registrantAuthenticate($request->id, $request->registration_code, $request->scholarship_id))) {
+            return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
+        }
+
         $save = $request->file('file')->storeAs("registration/nonreg/$request->scholarship_id/{$request->id}/{$request->folder}", $request->file('file')->getClientOriginalName());
         return response()->json(['status' => 'File Succesfuly Uploaded'], 200);
 
     }
     public function destroy(Request $request, $id)
     {
-        // dd("registration/{$id}/{$request->folder}/{$request->filename}");
+        if (!($this->registrantAuthenticate($id, $request->registration_code, $request->scholarship_id))) {
+            return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
+        }
+
         if (Storage::delete("registration/nonreg/$request->scholarship_id/{$id}/{$request->folder}/{$request->filename}")) {
             # code...
             return response()->json(['status' => 'File Deleted Successfuly'], 200);
         }
-        // return response()->json(['error' => 'File not deleted'], 401);
+    }
+
+    public function registrantAuthenticate($id, $registration_code, $scholarship_id)
+    {
+        $user = App\AwardeeNonreg::find($id);
+        $RegisterExist = $user->scholarships()->where(
+            ['registration_code' => $registration_code, 'scholarship_id' => $scholarship_id]
+        )->exists();
+        return $RegisterExist;
     }
 }

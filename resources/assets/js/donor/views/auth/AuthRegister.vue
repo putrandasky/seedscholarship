@@ -324,6 +324,7 @@
           })
           .catch((error) => {
             // console.log(error.response.data);
+            this.$snotify.error(error.response.data.message, "ERROR");
             this.isDisabled = false
             let errors = error.response.data.errors
             // console.log(errors.name);
@@ -338,7 +339,6 @@
             this.errors.period = errors.period ? errors.period[0] : 'no-error';
             this.errors.accept_term_condition = errors.accept_term_condition ? errors.accept_term_condition[0] :
               'no-error';
-            this.$snotify.error(error.response.data.message, "ERROR");
           })
       }
     },

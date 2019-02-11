@@ -57,6 +57,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -124,197 +126,208 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "b-card",
-    {
-      directives: [
-        {
-          name: "show",
-          rawName: "v-show",
-          value: _vm.loaded,
-          expression: "loaded"
-        }
-      ]
-    },
+    "slide-y-up-transition",
     [
       _c(
-        "div",
+        "b-card",
         {
-          staticClass: "text-center",
-          attrs: { slot: "header" },
-          slot: "header"
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.loaded,
+              expression: "loaded"
+            }
+          ]
         },
-        [_c("strong", [_vm._v("All ADMIN USER")])]
-      ),
-      _vm._v(" "),
-      _c(
-        "b-row",
         [
           _c(
-            "b-col",
-            { staticClass: "mb-3", attrs: { xl: "4", md: "6" } },
+            "div",
+            {
+              staticClass: "text-center",
+              attrs: { slot: "header" },
+              slot: "header"
+            },
+            [_c("strong", [_vm._v("All ADMIN USER")])]
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
             [
               _c(
-                "b-input-group",
+                "b-col",
+                { staticClass: "mb-3", attrs: { xl: "4", md: "6" } },
                 [
                   _c(
-                    "b-input-group-prepend",
-                    [
-                      _c("b-form-select", {
-                        attrs: { plain: "", options: _vm.optionsInputSearch },
-                        model: {
-                          value: _vm.selectedInputSearch,
-                          callback: function($$v) {
-                            _vm.selectedInputSearch = $$v
-                          },
-                          expression: "selectedInputSearch"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("b-form-input", {
-                    attrs: {
-                      autofocus: "",
-                      type: "text",
-                      placeholder: "Instant Search"
-                    },
-                    on: { input: _vm.onInput },
-                    model: {
-                      value: _vm.search,
-                      callback: function($$v) {
-                        _vm.search = $$v
-                      },
-                      expression: "search"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "b-input-group-append",
+                    "b-input-group",
                     [
                       _c(
-                        "b-btn",
-                        {
-                          attrs: { disabled: !_vm.search },
-                          on: {
-                            click: function($event) {
-                              _vm.search = ""
+                        "b-input-group-prepend",
+                        [
+                          _c("b-form-select", {
+                            attrs: {
+                              plain: "",
+                              options: _vm.optionsInputSearch
+                            },
+                            model: {
+                              value: _vm.selectedInputSearch,
+                              callback: function($$v) {
+                                _vm.selectedInputSearch = $$v
+                              },
+                              expression: "selectedInputSearch"
                             }
-                          }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-form-input", {
+                        attrs: {
+                          autofocus: "",
+                          type: "text",
+                          placeholder: "Instant Search"
                         },
-                        [_vm._v("Clear")]
+                        on: { input: _vm.onInput },
+                        model: {
+                          value: _vm.search,
+                          callback: function($$v) {
+                            _vm.search = $$v
+                          },
+                          expression: "search"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "b-input-group-append",
+                        [
+                          _c(
+                            "b-btn",
+                            {
+                              attrs: { disabled: !_vm.search },
+                              on: {
+                                click: function($event) {
+                                  _vm.search = ""
+                                }
+                              }
+                            },
+                            [_vm._v("Clear")]
+                          )
+                        ],
+                        1
                       )
                     ],
                     1
                   )
                 ],
                 1
-              )
+              ),
+              _vm._v(" "),
+              _vm.getTotalPages > 1
+                ? _c(
+                    "b-col",
+                    {
+                      staticStyle: { "overflow-y": "auto" },
+                      attrs: { xl: "8", md: "6" }
+                    },
+                    [
+                      _c("b-pagination-nav", {
+                        staticClass: "justify-content-end mb-0",
+                        attrs: {
+                          align: "right",
+                          "use-router": true,
+                          "link-gen": _vm.linkGen,
+                          "number-of-pages": _vm.getTotalPages
+                        },
+                        model: {
+                          value: _vm.currentPage,
+                          callback: function($$v) {
+                            _vm.currentPage = $$v
+                          },
+                          expression: "currentPage"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                : _vm._e()
             ],
             1
           ),
           _vm._v(" "),
-          _vm.getTotalPages > 1
-            ? _c(
-                "b-col",
-                {
-                  staticStyle: { "overflow-y": "auto" },
-                  attrs: { xl: "8", md: "6" }
+          _c(
+            "div",
+            { staticStyle: { "overflow-y": "auto" } },
+            [
+              _c("b-table", {
+                staticStyle: { "animation-duration": "1s" },
+                attrs: {
+                  stacked: "sm",
+                  stack: "",
+                  hover: "",
+                  fields: _vm.FieldTableItems,
+                  items: _vm.filteredItemsData,
+                  "thead-class": "thead-light",
+                  "sort-by": _vm.querySortBy,
+                  "sort-desc": _vm.querySortDesc,
+                  "current-page": _vm.currentPage,
+                  "per-page": _vm.perPage
                 },
-                [
-                  _c("b-pagination-nav", {
-                    staticClass: "justify-content-end mb-0",
-                    attrs: {
-                      align: "right",
-                      "use-router": true,
-                      "link-gen": _vm.linkGen,
-                      "number-of-pages": _vm.getTotalPages
-                    },
-                    model: {
-                      value: _vm.currentPage,
-                      callback: function($$v) {
-                        _vm.currentPage = $$v
-                      },
-                      expression: "currentPage"
-                    }
-                  })
-                ],
-                1
-              )
-            : _vm._e()
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticStyle: { "overflow-y": "auto" } },
-        [
-          _c("b-table", {
-            staticStyle: { "animation-duration": "1s" },
-            attrs: {
-              stacked: "sm",
-              stack: "",
-              hover: "",
-              fields: _vm.FieldTableItems,
-              items: _vm.filteredItemsData,
-              "thead-class": "thead-light",
-              "sort-by": _vm.querySortBy,
-              "sort-desc": _vm.querySortDesc,
-              "current-page": _vm.currentPage,
-              "per-page": _vm.perPage
-            },
-            on: {
-              "update:sortBy": function($event) {
-                _vm.querySortBy = $event
-              },
-              "update:sortDesc": function($event) {
-                _vm.querySortDesc = $event
-              },
-              "sort-changed": _vm.sortingChanged,
-              "row-clicked": _vm.handleRowClicked
-            },
-            scopedSlots: _vm._u([
-              {
-                key: "no",
-                fn: function(data) {
-                  return [
-                    _vm._v(
-                      "\n        " +
-                        _vm._s(
-                          data.index + 1 + (_vm.currentPage - 1) * _vm.perPage
-                        ) +
-                        "\n      "
-                    )
-                  ]
-                }
-              },
-              {
-                key: "status",
-                fn: function(data) {
-                  return [
-                    _c(
-                      "b-badge",
-                      {
-                        attrs: {
-                          variant: _vm.getBadge(
-                            data.item.moderations[0].mod_status
-                          )
-                        }
-                      },
-                      [
+                on: {
+                  "update:sortBy": function($event) {
+                    _vm.querySortBy = $event
+                  },
+                  "update:sortDesc": function($event) {
+                    _vm.querySortDesc = $event
+                  },
+                  "sort-changed": _vm.sortingChanged,
+                  "row-clicked": _vm.handleRowClicked
+                },
+                scopedSlots: _vm._u([
+                  {
+                    key: "no",
+                    fn: function(data) {
+                      return [
                         _vm._v(
                           "\n          " +
-                            _vm._s(data.item.moderations[0].mod_status) +
+                            _vm._s(
+                              data.index +
+                                1 +
+                                (_vm.currentPage - 1) * _vm.perPage
+                            ) +
                             "\n        "
                         )
                       ]
-                    )
-                  ]
-                }
-              }
-            ])
-          })
+                    }
+                  },
+                  {
+                    key: "status",
+                    fn: function(data) {
+                      return [
+                        _c(
+                          "b-badge",
+                          {
+                            attrs: {
+                              variant: _vm.getBadge(
+                                data.item.moderations[0].mod_status
+                              )
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(data.item.moderations[0].mod_status) +
+                                "\n          "
+                            )
+                          ]
+                        )
+                      ]
+                    }
+                  }
+                ])
+              })
+            ],
+            1
+          )
         ],
         1
       )

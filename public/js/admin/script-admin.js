@@ -3053,65 +3053,90 @@ __webpack_require__.r(__webpack_exports__);
         name: 'Dashboard',
         url: "/dashboard",
         icon: 'fa fa-bar-chart'
-      }, {
-        name: 'Assignment',
-        icon: 'fa fa-book',
-        url: "/assignment",
-        children: [{
-          name: 'All Assignment',
-          icon: 'fa fa-list',
-          url: "/assignment/all"
-        }, {
-          name: 'Add New',
-          icon: 'fa fa-plus',
-          url: "/assignment/new"
-        }]
-      }, {
-        name: 'Blog',
-        icon: 'fa fa-pencil-square-o',
-        url: "/blog",
-        children: [{
-          name: 'All Blog',
-          icon: 'fa fa-list',
-          url: "/blog/list"
-        }, {
-          name: 'Add New',
-          icon: 'fa fa-plus',
-          url: "/blog/new"
-        }, {
-          name: 'Category',
-          icon: 'fa fa-list-alt',
-          url: "/blog/edit-category"
-        }, {
-          name: 'Tag',
-          icon: 'fa fa-tags',
-          url: "/blog/edit-tag"
-        }]
-      }, {
-        name: 'Page',
-        icon: 'fa fa-files-o',
-        url: "/page",
-        children: [{
-          name: 'All Page',
-          icon: 'fa fa-list',
-          url: "/page/all"
-        }, {
-          name: 'Add New',
-          icon: 'fa fa-plus',
-          url: "/page/new"
-        }]
-      }, {
+      }, // {
+      //     name: 'Assignment',
+      //     icon: 'fa fa-book',
+      //     url: `/assignment`,
+      //     children: [{
+      //             name: 'All Assignment',
+      //             icon: 'fa fa-list',
+      //             url: `/assignment/all`,
+      //         },
+      //         {
+      //             name: 'Add New',
+      //             icon: 'fa fa-plus',
+      //             url: `/assignment/new`
+      //         }
+      //     ]
+      // },
+      // {
+      //     name: 'Blog',
+      //     icon: 'fa fa-pencil-square-o',
+      //     url: `/blog`,
+      //     children: [{
+      //             name: 'All Blog',
+      //             icon: 'fa fa-list',
+      //             url: `/blog/list`,
+      //         },
+      //         {
+      //             name: 'Add New',
+      //             icon: 'fa fa-plus',
+      //             url: `/blog/new`
+      //         },
+      //         {
+      //             name: 'Category',
+      //             icon: 'fa fa-list-alt',
+      //             url: `/blog/edit-category`
+      //         },
+      //         {
+      //             name: 'Tag',
+      //             icon: 'fa fa-tags',
+      //             url: `/blog/edit-tag`
+      //         }
+      //     ]
+      // },
+      // {
+      //     name: 'Page',
+      //     icon: 'fa fa-files-o',
+      //     url: `/page`,
+      //     children: [{
+      //             name: 'All Page',
+      //             icon: 'fa fa-list',
+      //             url: `/page/all`,
+      //         },
+      //         {
+      //             name: 'Add New',
+      //             icon: 'fa fa-plus',
+      //             url: `/page/new`
+      //         }
+      //     ]
+      // },
+      {
         name: 'Request',
         icon: 'fa fa-user-plus',
         url: "/request",
         children: [{
           name: 'Awardee',
-          icon: 'fa fa-list',
+          icon: '',
           url: "/request/awardee"
         }, {
           name: 'Nonreg',
-          icon: 'fa fa-list',
+          icon: '',
           url: "/request/nonreg"
+        }]
+      }, {
+        name: 'Account',
+        icon: 'fa fa-users',
+        url: "/account",
+        children: [// {
+        //   name: 'Awardee',
+        //   icon: '',
+        //   url: `/account/awardee`,
+        // },
+        {
+          name: 'Donor',
+          icon: '',
+          url: "/account/donor"
         }]
       }, {
         name: 'Admin',
@@ -3119,29 +3144,16 @@ __webpack_require__.r(__webpack_exports__);
         url: "/admin",
         children: [{
           name: 'All Admin',
-          icon: 'fa fa-list',
+          icon: '',
           url: "/admin/all"
         }, {
           name: 'Department',
-          icon: 'fa fa-list',
+          icon: '',
           url: "/admin/department"
         }, {
           name: 'Add New',
-          icon: 'fa fa-list',
+          icon: '',
           url: "/admin/new"
-        }]
-      }, {
-        name: 'Account',
-        icon: 'fa fa-users',
-        url: "/account",
-        children: [{
-          name: 'Awardee',
-          icon: 'fa fa-list',
-          url: "/account/awardee"
-        }, {
-          name: 'Donor',
-          icon: 'fa fa-list',
-          url: "/account/donor"
         }]
       }]
     };
@@ -24631,7 +24643,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.ql-container,\n.ql-editor {\n  min-height: 25em\n}\n.dropdown.v-select>.dropdown-toggle {\n      border-radius: unset\n}\n.pell-actionbar {\n      border-color: #c2cfd6;\n      border-style: solid;\n      border-width: 1px 1px 0px 1px;\n}\n.pell-content {\n      height: unset;\n      min-height: 100px;\n}\n\n  /*.fade-select-enter-active,\n.fade-select-leave-active {\n  transition: opacity .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n\n.fade-select-enter,\n.fade-select-leave-to {\n  opacity: 0;\n}*/\ntable.table-hover>tbody>tr {\n      cursor: pointer;\n}\n.customBox {\n      display: none;\n}\n.customBox+label {\n      cursor: pointer;\n      position: fixed;\n      right: 1em;\n      bottom: 1em;\n      background-color: tomato;\n      height: 3em;\n      width: 3em;\n      border-radius: 50%;\n      z-index: 2;\n}\n.customBox+label:before,\n  .customBox+label:after {\n      position: absolute;\n      content: '';\n      height: 2em;\n      width: .25em;\n      background-color: #fff;\n      top: 0;\n      bottom: 0;\n      left: 0;\n      right: 0;\n      margin: auto;\n      border-radius: .5em;\n      transition: all .25s;\n}\n.customBox+label:before {\n      height: 2em;\n      width: .25em;\n}\n.customBox+label:after {\n      width: 2em;\n      height: .25em;\n}\n.customBox:checked+label:before {\n      transform: rotatez(-45deg);\n}\n.customBox:checked+label:after {\n      transform: rotatez(-45deg);\n}\n.one,\n  .two,\n  .three {\n      cursor: pointer;\n      position: fixed;\n      right: 1em;\n      bottom: 1.5em;\n      padding: 1em;\n      width: 3em;\n      height: 3em;\n      border-radius: 50%;\n      opacity: 0;\n      z-index: 1;\n      transform: rotateZ(90deg);\n      font-size: 1em;\n      color: #fff;\n      transition-property: all;\n      transition-duration: .35s;\n      transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);\n      display: grid;\n      justify-content: center\n}\n.customBox:checked~.one,\n  .customBox:checked~.two,\n  .customBox:checked~.three {\n      opacity: 1;\n}\n.customBox:checked~.one {\n      background-color: purple;\n      transform: translateY(-15em);\n      transition-delay: .2s;\n}\n.customBox:checked~.two {\n      background-color: slateblue;\n      transform: translateY(-4em);\n      transition-delay: .1s;\n}\n.customBox:checked~.three {\n      background-color: mediumorchid;\n      transform: translateY(-8em);\n}\n.customBox:checked~.one:hover,\n  .customBox:checked~.two:hover,\n  .customBox:checked~.three:hover {\n      opacity: .9;\n}\n.float-button {\n      position: fixed;\n      width: 60px;\n      height: 60px;\n      bottom: 40px;\n      right: 40px;\n      background-color: tomato;\n      color: #FdFF;\n      border-radius: 50px;\n      text-align: center;\n      box-shadow: 2px 2px 3px #999;\n      cursor: pointer;\n      margin: 1px;\n      z-index: 100;\n}\n.float-button:hover {\n      opacity: .9;\n}\n.float-button>i {\n      margin-top: 18px;\n      font-size: 27px;\n}\n.btn--corner {\n      position: absolute;\n      top: 1px;\n      right: 1px;\n      padding: 0rem 0.2rem;\n}\n.btn--corner-3 {\n      position: absolute;\n      top: 3px;\n      right: 3px;\n      padding: 0rem 0.2rem;\n}\n.btn--xs {\n      padding: 0rem 0.2rem;\n}\n.dimmer {\n      position: absolute;\n      z-index: 100;\n      height: 100%;\n      width: 100%;\n      left: 0;\n      vertical-align: middle;\n      top: 0;\n      display: grid;\n      align-content: center;\n      background-color: rgba(255, 255, 255, .85);\n}\ndl {\n      margin-bottom: 1rem;\n      border: 1px solid #A4B7C1;\n      height: 100%;\n}\ndl dt {\n      /* background: #C2CFD6; */\n      padding-top: 0.5rem;\n      padding-bottom: 0.5rem;\n}\ndl dd {\n      /* border-left: 1px solid #A4B7C1; */\n      margin-bottom: 0.5rem;\n      margin-top: 0.5rem\n}\n.fade-leave-active {\n      transition: opacity ease-in;\n}\n.fade-enter-active,\n      {\n      transition: opacity ease-out;\n}\n.fade-enter,\n  .fade-leave-to {\n      opacity: 0;\n}\n.page-item.active .page-link,\n  .pagination-datatables li.active .page-link,\n  .pagination li.active .page-link,\n  .page-item.active .pagination-datatables li a,\n  .pagination-datatables li .page-item.active a,\n  .pagination-datatables li.active a,\n  .page-item.active .pagination li a,\n  .pagination li .page-item.active a,\n  .pagination li.active a {\n      z-index: 0;\n}\n@media (min-width: 1024px) {\n.modal-xl {\n          max-width: 1000px;\n}\n}\n@media (min-width: 576px) {\n.truncate-cell {\n          white-space: nowrap;\n          text-overflow: ellipsis;\n          overflow: hidden;\n          max-width: 1px;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n.ql-container,\n.ql-editor {\n  min-height: 25em\n}\n.dropdown.v-select>.dropdown-toggle {\n  border-radius: unset\n}\n.pell-actionbar {\n  border-color: #c2cfd6;\n  border-style: solid;\n  border-width: 1px 1px 0px 1px;\n}\n.pell-content {\n  height: unset;\n  min-height: 100px;\n}\n\n/*.fade-select-enter-active,\n.fade-select-leave-active {\n  transition: opacity .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n\n.fade-select-enter,\n.fade-select-leave-to {\n  opacity: 0;\n}*/\ntable.table-hover>tbody>tr {\n  cursor: pointer;\n}\n.customBox {\n  display: none;\n}\n.customBox+label {\n  cursor: pointer;\n  position: fixed;\n  right: 1em;\n  bottom: 1em;\n  background-color: tomato;\n  height: 3em;\n  width: 3em;\n  border-radius: 50%;\n  z-index: 2;\n}\n.customBox+label:before,\n.customBox+label:after {\n  position: absolute;\n  content: '';\n  height: 2em;\n  width: .25em;\n  background-color: #fff;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  margin: auto;\n  border-radius: .5em;\n  transition: all .25s;\n}\n.customBox+label:before {\n  height: 2em;\n  width: .25em;\n}\n.customBox+label:after {\n  width: 2em;\n  height: .25em;\n}\n.customBox:checked+label:before {\n  transform: rotatez(-45deg);\n}\n.customBox:checked+label:after {\n  transform: rotatez(-45deg);\n}\n.one,\n.two,\n.three {\n  cursor: pointer;\n  position: fixed;\n  right: 1em;\n  bottom: 1.5em;\n  padding: 1em;\n  width: 3em;\n  height: 3em;\n  border-radius: 50%;\n  opacity: 0;\n  z-index: 1;\n  transform: rotateZ(90deg);\n  font-size: 1em;\n  color: #fff;\n  transition-property: all;\n  transition-duration: .35s;\n  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);\n  display: grid;\n  justify-content: center\n}\n.customBox:checked~.one,\n.customBox:checked~.two,\n.customBox:checked~.three {\n  opacity: 1;\n}\n.customBox:checked~.one {\n  background-color: purple;\n  transform: translateY(-15em);\n  transition-delay: .2s;\n}\n.customBox:checked~.two {\n  background-color: slateblue;\n  transform: translateY(-4em);\n  transition-delay: .1s;\n}\n.customBox:checked~.three {\n  background-color: mediumorchid;\n  transform: translateY(-8em);\n}\n.customBox:checked~.one:hover,\n.customBox:checked~.two:hover,\n.customBox:checked~.three:hover {\n  opacity: .9;\n}\n.float-button {\n  position: fixed;\n  width: 60px;\n  height: 60px;\n  bottom: 40px;\n  right: 40px;\n  background-color: tomato;\n  color: #FdFF;\n  border-radius: 50px;\n  text-align: center;\n  box-shadow: 2px 2px 3px #999;\n  cursor: pointer;\n  margin: 1px;\n  z-index: 100;\n}\n.float-button:hover {\n  opacity: .9;\n}\n.float-button>i {\n  margin-top: 18px;\n  font-size: 27px;\n}\n.btn--corner {\n  position: absolute;\n  top: 1px;\n  right: 1px;\n  padding: 0rem 0.2rem;\n}\n.btn--corner-3 {\n  position: absolute;\n  top: 3px;\n  right: 3px;\n  padding: 0rem 0.2rem;\n}\n.btn--xs {\n  padding: 0rem 0.2rem;\n}\n.dimmer {\n  position: absolute;\n  z-index: 100;\n  height: 100%;\n  width: 100%;\n  left: 0;\n  vertical-align: middle;\n  top: 0;\n  display: grid;\n  align-content: center;\n  background-color: rgba(255, 255, 255, .85);\n}\ndl {\n  margin-bottom: 1rem;\n  border: 1px solid #A4B7C1;\n  height: 100%;\n}\ndl dt {\n  /* background: #C2CFD6; */\n  padding-top: 0.5rem;\n  padding-bottom: 0.5rem;\n}\ndl dd {\n  /* border-left: 1px solid #A4B7C1; */\n  margin-bottom: 0.5rem;\n  margin-top: 0.5rem\n}\n.fade-leave-active {\n  transition: opacity ease-in;\n}\n.fade-enter-active,\n  {\n  transition: opacity ease-out;\n}\n.fade-enter,\n.fade-leave-to {\n  opacity: 0;\n}\n.page-item.active .page-link,\n.pagination-datatables li.active .page-link,\n.pagination li.active .page-link,\n.page-item.active .pagination-datatables li a,\n.pagination-datatables li .page-item.active a,\n.pagination-datatables li.active a,\n.page-item.active .pagination li a,\n.pagination li .page-item.active a,\n.pagination li.active a {\n  z-index: 0;\n}\n@media (min-width: 1024px) {\n.modal-xl {\n    max-width: 1000px;\n}\n}\n@media (min-width: 576px) {\n.truncate-cell {\n    white-space: nowrap;\n    text-overflow: ellipsis;\n    overflow: hidden;\n    max-width: 1px;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -69158,41 +69170,26 @@ window.FileSaver = __webpack_require__(/*! file-saver */ "./node_modules/file-sa
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-_router__WEBPACK_IMPORTED_MODULE_3__["default"].afterEach(vue_router_back_button__WEBPACK_IMPORTED_MODULE_10__["writeHistory"]); // router.beforeEach((to, from, next) => {
-//     if (to.meta.auth) {
-//         const isLoggedOut = store.getters.isLoggedOut;
-//         if (isLoggedOut) {
-//             next('/login');
-//         } else {
-//             if (to.meta.superAdmin) {
-//                 const isSuperAdmin = store.getters.user.superAdmin
-//                 if (isSuperAdmin) {
-//                     next();
-//                 } else {
-//                     next(false);
-//                 }
-//             } else if (to.meta.permission) {
-//                 const isHasPermissionOrSuperAdmin = store.getters.user.permissions.find(item => item.pivot.permission_id == to.meta.permission && item.pivot.project_id == to.params.projectId) ? true : store.getters.user.superAdmin ? true : false
-//                 if (isHasPermissionOrSuperAdmin) {
-//                     next();
-//                 }else{
-//                     next(false);
-//                 }
-//             } else{
-//                 next();
-//             }
-//         }
-//     } else if (to.meta.guest) {
-//         if (store.getters.isLoggedIn) {
-//             next('/project');
-//         } else {
-//             next();
-//         }
-//     } else {
-//         next();
-//     }
-// });
+_router__WEBPACK_IMPORTED_MODULE_3__["default"].afterEach(vue_router_back_button__WEBPACK_IMPORTED_MODULE_10__["writeHistory"]);
+_router__WEBPACK_IMPORTED_MODULE_3__["default"].beforeEach(function (to, from, next) {
+  if (to.meta.auth) {
+    var isLoggedOut = _store__WEBPACK_IMPORTED_MODULE_1__["store"].getters.isLoggedOut;
 
+    if (isLoggedOut) {
+      next('/login');
+    } else {
+      next();
+    }
+  } else if (to.meta.guest) {
+    if (_store__WEBPACK_IMPORTED_MODULE_1__["store"].getters.isLoggedIn) {
+      next(false);
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
 Object(_interceptor__WEBPACK_IMPORTED_MODULE_6__["default"])();
 var app = new Vue({
   el: '#apps',
@@ -71006,10 +71003,11 @@ function setup() {
   }, function (error) {
     // console.log(error.response.statusText);
     // console.log(error.response)
-    if (error.response.status == 401) {// store.dispatch('logout')
-      // router.push({
-      //   path: '/login'
-      // })
+    if (error.response.status == 401) {
+      _store__WEBPACK_IMPORTED_MODULE_2__["store"].dispatch('logout');
+      _router__WEBPACK_IMPORTED_MODULE_3__["default"].push({
+        path: '/login'
+      });
     }
 
     if (error.response.status == 500) {} // Snotify.error("Ooops, There's Something Error, Try Again Later", "ERROR");
@@ -71205,7 +71203,10 @@ vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
-      component: AppDashboard
+      component: AppDashboard,
+      meta: {
+        auth: true
+      }
     }]
   }, {
     path: '/assignment',
@@ -71214,11 +71215,17 @@ vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     children: [{
       path: 'all',
       name: 'Assignment',
-      component: AppAssignment
+      component: AppAssignment,
+      meta: {
+        auth: true
+      }
     }, {
       path: 'detail/:assignmentId',
       name: 'AssignmentDetail',
-      component: AssignmentDetail
+      component: AssignmentDetail,
+      meta: {
+        auth: true
+      }
     }]
   }, {
     path: '/assignment/new',
@@ -71226,7 +71233,10 @@ vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     children: [{
       path: '',
       name: 'AssignmentNew',
-      component: AppAssignmentNew
+      component: AppAssignmentNew,
+      meta: {
+        auth: true
+      }
     }]
   }, {
     path: '/blog',
@@ -71235,11 +71245,17 @@ vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     children: [{
       path: 'list',
       name: 'Blog',
-      component: AppBlog
+      component: AppBlog,
+      meta: {
+        auth: true
+      }
     }, {
       path: 'list/detail/:blogId',
       name: 'BlogDetail',
-      component: BlogDetail
+      component: BlogDetail,
+      meta: {
+        auth: true
+      }
     }]
   }, {
     path: '/blog/new',
@@ -71247,7 +71263,10 @@ vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     children: [{
       path: '',
       name: 'BlogNew',
-      component: AppBlogNew
+      component: AppBlogNew,
+      meta: {
+        auth: true
+      }
     }]
   }, {
     path: '/blog/edit-tag',
@@ -71255,7 +71274,10 @@ vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     children: [{
       path: '',
       name: 'BlogTag',
-      component: AppBlogTag
+      component: AppBlogTag,
+      meta: {
+        auth: true
+      }
     }]
   }, {
     path: '/blog/edit-category',
@@ -71263,7 +71285,10 @@ vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     children: [{
       path: '',
       name: 'BlogCategory',
-      component: AppBlogCategory
+      component: AppBlogCategory,
+      meta: {
+        auth: true
+      }
     }]
   }, {
     path: '/page',
@@ -71272,11 +71297,17 @@ vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     children: [{
       path: 'all',
       name: 'Page',
-      component: AppPage
+      component: AppPage,
+      meta: {
+        auth: true
+      }
     }, {
       path: ':pageId',
       name: 'PageDetail',
-      component: PageDetail
+      component: PageDetail,
+      meta: {
+        auth: true
+      }
     }]
   }, {
     path: '/page/new',
@@ -71284,7 +71315,10 @@ vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     children: [{
       path: '',
       name: 'PageNew',
-      component: AppPageNew
+      component: AppPageNew,
+      meta: {
+        auth: true
+      }
     }]
   }, {
     path: '/request',
@@ -71297,16 +71331,25 @@ vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
       children: [{
         path: '',
         name: 'RequestAwardeeDefault',
-        component: RequestAwardeeDefault
+        component: RequestAwardeeDefault,
+        meta: {
+          auth: true
+        }
       }, {
         path: ':periodYear',
         name: 'RequestAwardeeIndex',
-        component: RequestAwardeeIndex
+        component: RequestAwardeeIndex,
+        meta: {
+          auth: true
+        }
       }]
     }, {
       path: 'awardee/:periodYear/:userId',
       name: 'DetailRequestAwardee',
-      component: DetailRequestAwardee
+      component: DetailRequestAwardee,
+      meta: {
+        auth: true
+      }
     }, {
       path: 'nonreg',
       name: 'RequestNonreg',
@@ -71314,16 +71357,25 @@ vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
       children: [{
         path: '',
         name: 'RequestNonregDefault',
-        component: RequestNonregDefault
+        component: RequestNonregDefault,
+        meta: {
+          auth: true
+        }
       }, {
         path: ':scholarshipId',
         name: 'RequestNonregIndex',
-        component: RequestNonregIndex
+        component: RequestNonregIndex,
+        meta: {
+          auth: true
+        }
       }]
     }, {
       path: 'nonreg/:scholarshipId/:userId',
       name: 'DetailRequestNonreg',
-      component: DetailRequestNonreg
+      component: DetailRequestNonreg,
+      meta: {
+        auth: true
+      }
     }]
   }, {
     path: '/admin',
@@ -71332,19 +71384,31 @@ vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     children: [{
       path: 'all',
       name: 'AccountAdmin',
-      component: AppAccountAdmin
+      component: AppAccountAdmin,
+      meta: {
+        auth: true
+      }
     }, {
       path: 'all/detail/:userId',
       name: 'AccountAdminDetail',
-      component: AccountAdminDetail
+      component: AccountAdminDetail,
+      meta: {
+        auth: true
+      }
     }, {
       path: 'department',
       name: 'Department',
-      component: AppAccountAdminDepartment
+      component: AppAccountAdminDepartment,
+      meta: {
+        auth: true
+      }
     }, {
       path: 'new',
       name: 'NewAdmin',
-      component: AppAccountAdminNew
+      component: AppAccountAdminNew,
+      meta: {
+        auth: true
+      }
     }]
   }, {
     path: '/account',
@@ -71361,16 +71425,25 @@ vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
       children: [{
         path: '',
         name: 'AccountDonorDefault',
-        component: AccountDonorDefault
+        component: AccountDonorDefault,
+        meta: {
+          auth: true
+        }
       }, {
         path: ':periodYear',
         name: 'AccountDonorIndex',
-        component: AccountDonorIndex
+        component: AccountDonorIndex,
+        meta: {
+          auth: true
+        }
       }]
     }, {
       path: 'donor/:periodYear/:userId',
       name: 'DetailAccountDonor',
-      component: DetailAccountDonor
+      component: DetailAccountDonor,
+      meta: {
+        auth: true
+      }
     }]
   }, {
     path: '/login',
@@ -71422,20 +71495,14 @@ vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
-/* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js");
-/* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es6_array_map__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.array.map */ "./node_modules/core-js/modules/es6.array.map.js");
-/* harmony import */ var core_js_modules_es6_array_map__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_array_map__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty */ "./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js");
-/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
-/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_6__);
-
-
+/* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty */ "./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js");
+/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
+/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_4__);
 
 
 
@@ -71445,30 +71512,22 @@ var _mutations;
 
  // import router from './router/index';
 
-vue__WEBPACK_IMPORTED_MODULE_4___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_5__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_3__["default"]);
 var LOGIN = "LOGIN";
 var LOGIN_SUCCESS = "LOGIN_SUCCESS";
 var USER_INFO = "USER_INFO";
 var LOGOUT = "LOGOUT";
 var LOADING = "LOADING";
 var LOADINGOVERLAY = "LOADINGOVERLAY";
-var PROJECTID = "PROJECTID";
-var TAGSIDEBAR = "TAGSIDEBAR";
-var PROJECT = "PROJECT";
-var TOTALSIDEBAR = "TOTALSIDEBAR";
 var SIDEBARDATA = "SIDEBARDATA";
-var store = new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store({
+var store = new vuex__WEBPACK_IMPORTED_MODULE_3__["default"].Store({
   state: {
-    isLoggedIn: !!js_cookie__WEBPACK_IMPORTED_MODULE_6___default.a.get("token"),
-    isLoggedOut: !js_cookie__WEBPACK_IMPORTED_MODULE_6___default.a.get("token"),
-    token: js_cookie__WEBPACK_IMPORTED_MODULE_6___default.a.get("token"),
+    isLoggedIn: !!js_cookie__WEBPACK_IMPORTED_MODULE_4___default.a.get("token"),
+    isLoggedOut: !js_cookie__WEBPACK_IMPORTED_MODULE_4___default.a.get("token"),
+    token: js_cookie__WEBPACK_IMPORTED_MODULE_4___default.a.get("token"),
     sidebar: false,
     loading: false,
     loadingOverlay: false,
-    currentProjectId: '',
-    tagSidebar: '',
-    project: '',
-    totalSidebar: '',
     sidebarData: {},
     user: {
       id: null,
@@ -71490,35 +71549,25 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store({
 
     }
   },
-  mutations: (_mutations = {}, Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_mutations, LOGIN, function (state) {
+  mutations: (_mutations = {}, Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(_mutations, LOGIN, function (state) {
     state.loading = true;
-  }), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_mutations, PROJECTID, function (state) {
-    state.currentProjectId = state.route.params.id;
-  }), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_mutations, LOGIN_SUCCESS, function (state) {
+  }), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(_mutations, LOGIN_SUCCESS, function (state) {
     state.isLoggedIn = true;
     state.isLoggedOut = false;
     state.loading = false;
-    state.token = js_cookie__WEBPACK_IMPORTED_MODULE_6___default.a.get("token");
-  }), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_mutations, USER_INFO, function (state, n) {
+    state.token = js_cookie__WEBPACK_IMPORTED_MODULE_4___default.a.get("token");
+  }), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(_mutations, USER_INFO, function (state, n) {
     state.user.id = n.id;
     state.user.name = n.name;
     state.user.superAdmin = n.super_admin;
     state.user.permissions = n.permissions;
-  }), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_mutations, LOGOUT, function (state) {
+  }), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(_mutations, LOGOUT, function (state) {
     state.isLoggedIn = false;
     state.isLoggedOut = true;
     state.token = '';
-  }), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_mutations, LOADING, function (state, n) {
+  }), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(_mutations, LOADING, function (state, n) {
     state.loading = n;
-  }), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_mutations, TAGSIDEBAR, function (state, n) {
-    state.tagSidebar = n;
-  }), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_mutations, PROJECT, function (state, n) {
-    state.project = n;
-  }), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_mutations, TOTALSIDEBAR, function (state, n) {
-    state.totalSidebar = n;
-  }), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_mutations, SIDEBARDATA, function (state, n) {
-    state.sidebarData = n;
-  }), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_mutations, LOADINGOVERLAY, function (state, n) {
+  }), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(_mutations, LOADINGOVERLAY, function (state, n) {
     state.loadingOverlay = n;
   }), _mutations),
   actions: {
@@ -71533,101 +71582,25 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store({
       var token = creds.access_token;
       var duration = creds.expires_in;
       var time = duration / 86400;
-      js_cookie__WEBPACK_IMPORTED_MODULE_6___default.a.set("token", token, {
+      js_cookie__WEBPACK_IMPORTED_MODULE_4___default.a.set("token", token, {
         expires: time
       });
       commit(LOGIN_SUCCESS);
     },
     logout: function logout(_ref3) {
       var commit = _ref3.commit;
-      js_cookie__WEBPACK_IMPORTED_MODULE_6___default.a.remove("token");
+      js_cookie__WEBPACK_IMPORTED_MODULE_4___default.a.remove("token");
       commit(LOGOUT);
     },
     //   checkProjectId({ commit }) {
     //    commit(PROJECTID);
     //  },
-    getProject: function getProject(_ref4) {
+    checkToken: function checkToken(_ref4) {
       var commit = _ref4.commit,
           state = _ref4.state;
-      axios.get('api/project/' + state.route.params.projectId).then(function (response) {
-        // console.log('getProject');
-        commit(PROJECT, response.data);
-      }).catch(function (error) {
-        console.log(error); // console.log('not checked');
-      });
-    },
-    getSidebarData: function getSidebarData(_ref5) {
-      var commit = _ref5.commit,
-          state = _ref5.state;
-      axios.get('api/project/' + state.route.params.projectId + '/sidebar').then(function (response) {
-        var _data;
-
-        // console.log(response.data);
-        var editTags = function editTags(tags) {
-          return tags.map(function (item) {
-            var temp = C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default()({}, item);
-
-            temp['url'] = '/project/' + state.route.params.projectId + '/tag/' + temp.name;
-            temp['badge'] = {
-              variant: 'danger',
-              text: temp.contents_count // temp.name = 'my name '+temp.name;
-
-            };
-            return temp;
-          });
-        };
-
-        var editCategory = function editCategory(category) {
-          return category.map(function (item) {
-            var temp = C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default()({}, item);
-
-            temp['url'] = '/project/' + state.route.params.projectId + '/content/category/' + temp.id, temp['badge'] = {
-              variant: 'danger',
-              text: temp.contents_count // temp.name = 'my name '+temp.name;
-
-            };
-            return temp;
-          });
-        };
-
-        var data = (_data = {}, Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_data, 'categories', editCategory(response.data.category)), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_data, 'tags', editTags(response.data.tag)), Object(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(_data, 'claim', response.data.claim), _data);
-        console.log(data);
-        commit(SIDEBARDATA, data);
-      }).catch(function (error) {
-        console.log(error); // console.log('not checked');
-      });
-    },
-    getTags: function getTags(_ref6) {
-      var commit = _ref6.commit,
-          state = _ref6.state;
-      axios.get('api/project/' + state.route.params.projectId + '/tag').then(function (response) {
-        // console.log(response.data)
-        var editTags = function editTags(tags) {
-          return tags.map(function (item) {
-            var temp = C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default()({}, item);
-
-            temp['url'] = '/project/' + state.route.params.projectId + '/tag/' + temp.name;
-            temp['badge'] = {
-              variant: 'danger',
-              text: temp.contents_count // temp.name = 'my name '+temp.name;
-
-            };
-            return temp;
-          });
-        };
-
-        var updateTags = editTags(response.data);
-        commit(TAGSIDEBAR, updateTags); // console.log(updateTags);
-      }).catch(function (error) {
-        console.log(error);
-      });
-    },
-    checkToken: function checkToken(_ref7) {
-      var commit = _ref7.commit,
-          state = _ref7.state;
 
       if (state.isLoggedIn && state.token) {
-        axios.post('api/me', '').then(function (response) {
+        axios.post('api/auth/admin/me', '').then(function (response) {
           var user_info = {
             id: response.data.id,
             name: response.data.name,
@@ -71655,18 +71628,6 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store({
     },
     loading: function loading(state) {
       return state.loading;
-    },
-    sidebar: function sidebar(state) {
-      return state.sidebar;
-    },
-    tagSidebar: function tagSidebar(state) {
-      return state.tagSidebar;
-    },
-    currentProjectId: function currentProjectId(state) {
-      return state.route.params.projectId;
-    },
-    currentProject: function currentProject(state) {
-      return state.project;
     },
     user: function user(state) {
       return state.user;

@@ -57,7 +57,7 @@ return [
             'driver' => 'jwt',
             'provider' => 'awardee_nonregs',
         ],
-        'patron-api' => [
+        'donor-api' => [
             'driver' => 'jwt',
             'provider' => 'donors',
         ],    ],

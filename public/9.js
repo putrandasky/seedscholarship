@@ -333,6 +333,8 @@ __webpack_require__.r(__webpack_exports__);
         _this4.isDisabled = false;
       }).catch(function (error) {
         // console.log(error.response.data);
+        _this4.$snotify.error(error.response.data.message, "ERROR");
+
         _this4.isDisabled = false;
         var errors = error.response.data.errors; // console.log(errors.name);
 
@@ -346,8 +348,6 @@ __webpack_require__.r(__webpack_exports__);
         _this4.errors.amount = errors.amount ? errors.amount[0] : 'no-error';
         _this4.errors.period = errors.period ? errors.period[0] : 'no-error';
         _this4.errors.accept_term_condition = errors.accept_term_condition ? errors.accept_term_condition[0] : 'no-error';
-
-        _this4.$snotify.error(error.response.data.message, "ERROR");
       });
     }
   }

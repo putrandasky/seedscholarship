@@ -519,7 +519,7 @@ var render = function() {
                 _vm._v("Please upload this file below in "),
                 _c("strong", [_vm._v("pdf/jpeg/png")]),
                 _vm._v(" file with max size\n      "),
-                _c("strong", [_vm._v("3mb")]),
+                _c("strong", [_vm._v("2mb")]),
                 _vm._v("."),
                 _c("br"),
                 _vm._v("\n      Download  "),

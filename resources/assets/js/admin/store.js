@@ -11,10 +11,6 @@ const USER_INFO = "USER_INFO";
 const LOGOUT = "LOGOUT";
 const LOADING = "LOADING";
 const LOADINGOVERLAY = "LOADINGOVERLAY";
-const PROJECTID = "PROJECTID";
-const TAGSIDEBAR = "TAGSIDEBAR";
-const PROJECT = "PROJECT";
-const TOTALSIDEBAR = "TOTALSIDEBAR";
 const SIDEBARDATA = "SIDEBARDATA";
 
 export const store = new Vuex.Store({
@@ -25,10 +21,6 @@ export const store = new Vuex.Store({
     sidebar: false,
     loading: false,
     loadingOverlay: false,
-    currentProjectId: '',
-    tagSidebar: '',
-    project: '',
-    totalSidebar: '',
     sidebarData:{},
     user: {
       id: null,
@@ -55,10 +47,6 @@ export const store = new Vuex.Store({
       state.loading = true;
 
     },
-    [PROJECTID](state) {
-      state.currentProjectId = state.route.params.id;
-
-    },
     [LOGIN_SUCCESS](state) {
       state.isLoggedIn = true;
       state.isLoggedOut = false;
@@ -78,18 +66,6 @@ export const store = new Vuex.Store({
     },
     [LOADING](state, n) {
       state.loading = n;
-    },
-    [TAGSIDEBAR](state, n) {
-      state.tagSidebar = n;
-    },
-    [PROJECT](state, n) {
-      state.project = n;
-    },
-    [TOTALSIDEBAR](state, n) {
-      state.totalSidebar = n;
-    },
-    [SIDEBARDATA](state, n) {
-      state.sidebarData = n;
     },
     [LOADINGOVERLAY](state, n) {
       state.loadingOverlay = n;
@@ -124,98 +100,12 @@ export const store = new Vuex.Store({
     //   checkProjectId({ commit }) {
     //    commit(PROJECTID);
     //  },
-    getProject({
-      commit,
-      state
-    }) {
-      axios.get('api/project/' + state.route.params.projectId)
-        .then((response) => {
-          // console.log('getProject');
-          commit(PROJECT, response.data);
 
-        })
-        .catch((error) => {
-          console.log(error);
-          // console.log('not checked');
-        })
-    },
-    getSidebarData({
-      commit,
-      state
-    }) {
-      axios.get('api/project/' + state.route.params.projectId + '/sidebar')
-        .then((response) => {
-          // console.log(response.data);
-          const editTags = (tags) => {
-            return tags.map(item => {
-              var temp = Object.assign({}, item);
-              temp['url'] = '/project/' + state.route.params.projectId + '/tag/' + temp.name
-              temp['badge'] = {
-                variant: 'danger',
-                text: temp.contents_count
-              }
-              // temp.name = 'my name '+temp.name;
-              return temp;
-            });
-          }
-          const editCategory = (category) => {
-            return category.map(item => {
-              var temp = Object.assign({}, item);
-              temp['url'] = '/project/' + state.route.params.projectId + '/content/category/' + temp.id,
-              temp['badge'] = {
-                variant: 'danger',
-                text: temp.contents_count
-              }
-              // temp.name = 'my name '+temp.name;
-              return temp;
-            });
-          }
-          let data = {
-            ['categories'] : editCategory(response.data.category),
-            ['tags']: editTags(response.data.tag),
-            ['claim']: response.data.claim
-          }
-          console.log(data);
 
-          commit(SIDEBARDATA, data);
 
-        })
-        .catch((error) => {
-          console.log(error);
-          // console.log('not checked');
-        })
-    },
-    getTags({
-      commit,
-      state
-    }) {
-      axios.get('api/project/' + state.route.params.projectId + '/tag')
-        .then((response) => {
-          // console.log(response.data)
-          const editTags = (tags) => {
-            return tags.map(item => {
-              var temp = Object.assign({}, item);
-              temp['url'] = '/project/' + state.route.params.projectId + '/tag/' + temp.name
-              temp['badge'] = {
-                variant: 'danger',
-                text: temp.contents_count
-              }
-              // temp.name = 'my name '+temp.name;
-              return temp;
-            });
-          }
-          let updateTags = editTags(response.data)
-          commit(TAGSIDEBAR, updateTags)
-          // console.log(updateTags);
-
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-    },
     checkToken({commit,state}) {
       if (state.isLoggedIn && state.token) {
-        axios.post('api/me', '')
+        axios.post('api/auth/admin/me', '')
           .then((response) => {
             let user_info = {
               id: response.data.id,
@@ -249,18 +139,7 @@ export const store = new Vuex.Store({
     loading: state => {
       return state.loading
     },
-    sidebar: state => {
-      return state.sidebar
-    },
-    tagSidebar: state => {
-      return state.tagSidebar
-    },
-    currentProjectId: state => {
-      return state.route.params.projectId
-    },
-    currentProject: state => {
-      return state.project
-    },
+
     user: state => {
       return state.user
     },

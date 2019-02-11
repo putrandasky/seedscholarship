@@ -91,7 +91,7 @@ __webpack_require__.r(__webpack_exports__);
         minWidth: '175px'
       }
     }, {
-      key: 'users_count',
+      key: 'admins_count',
       label: 'Users',
       'class': 'text-right',
       thStyle: {
@@ -218,228 +218,238 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      directives: [
-        {
-          name: "show",
-          rawName: "v-show",
-          value: _vm.loaded,
-          expression: "loaded"
-        }
-      ]
-    },
-    [
-      _c(
-        "b-row",
-        [
-          _c(
-            "b-col",
-            { attrs: { lg: "4", md: "5" } },
-            [
-              _c(
-                "b-card",
-                [
-                  _c("header", { attrs: { slot: "header" }, slot: "header" }, [
-                    _c("strong", [_vm._v("Add New Department")])
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-input", {
-                    attrs: { type: "text" },
-                    model: {
-                      value: _vm.input,
-                      callback: function($$v) {
-                        _vm.input = $$v
-                      },
-                      expression: "input"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "mt-2" },
-                    [
-                      _c(
-                        "b-button",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.input,
-                              expression: "input"
-                            }
-                          ],
-                          staticClass: "float-right",
-                          attrs: { variant: "success", size: "sm" },
-                          on: { click: _vm.onAddDepartment }
-                        },
-                        [_vm._v("Add")]
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-col",
-            { attrs: { lg: "8", md: "7" } },
-            [
-              _c("b-card", [
-                _c("header", { attrs: { slot: "header" }, slot: "header" }, [
-                  _c("strong", [_vm._v("List of Available Department")])
-                ]),
-                _vm._v(" "),
+  return _c("slide-y-up-transition", [
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.loaded,
+            expression: "loaded"
+          }
+        ]
+      },
+      [
+        _c(
+          "b-row",
+          [
+            _c(
+              "b-col",
+              { attrs: { lg: "4", md: "5" } },
+              [
                 _c(
-                  "div",
-                  { staticStyle: { "overflow-y": "auto" } },
+                  "b-card",
                   [
-                    _vm.items.length !== 0
-                      ? _c("b-table", {
-                          attrs: {
-                            stacked: "sm",
-                            small: "",
-                            fields: _vm.fieldsDocuments,
-                            items: _vm.items,
-                            "thead-class": "thead-light"
+                    _c(
+                      "header",
+                      { attrs: { slot: "header" }, slot: "header" },
+                      [_c("strong", [_vm._v("Add New Department")])]
+                    ),
+                    _vm._v(" "),
+                    _c("b-form-input", {
+                      attrs: { type: "text" },
+                      model: {
+                        value: _vm.input,
+                        callback: function($$v) {
+                          _vm.input = $$v
+                        },
+                        expression: "input"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "mt-2" },
+                      [
+                        _c(
+                          "b-button",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.input,
+                                expression: "input"
+                              }
+                            ],
+                            staticClass: "float-right",
+                            attrs: { variant: "success", size: "sm" },
+                            on: { click: _vm.onAddDepartment }
                           },
-                          scopedSlots: _vm._u([
-                            {
-                              key: "no",
-                              fn: function(data) {
-                                return [
-                                  _vm._v(
-                                    "\n              " +
-                                      _vm._s(data.index + 1) +
-                                      "\n            "
-                                  )
-                                ]
-                              }
-                            },
-                            {
-                              key: "action",
-                              fn: function(data) {
-                                return [
-                                  _c(
-                                    "b-button",
-                                    {
-                                      attrs: { variant: "success", size: "sm" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.onEditDepartmentModal(
-                                            data.item.id,
-                                            data.item.department
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Edit")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-button",
-                                    {
-                                      attrs: { variant: "danger", size: "sm" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.trigerConfirmModal(
-                                            "Confirm Remove Department",
-                                            "Are You Sure To Remove This Department From This User?",
-                                            "deleteDepartment",
-                                            data.item.id
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Remove")]
-                                  )
-                                ]
-                              }
-                            }
-                          ])
-                        })
-                      : _vm._e()
+                          [_vm._v("Add")]
+                        )
+                      ],
+                      1
+                    )
                   ],
                   1
                 )
-              ])
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-modal",
-        {
-          attrs: {
-            "no-close-on-esc": true,
-            "hide-header-close": true,
-            "no-close-on-backdrop": true,
-            title: "Edit Depatment"
-          },
-          on: {
-            ok: function($event) {
-              _vm.trigerConfirmModal(
-                "Confirm Edit Department",
-                "Are You Sure To Edit This Department From This User?",
-                "editDepartment"
-              )
-            }
-          },
-          model: {
-            value: _vm.editModal,
-            callback: function($$v) {
-              _vm.editModal = $$v
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              { attrs: { lg: "8", md: "7" } },
+              [
+                _c("b-card", [
+                  _c("header", { attrs: { slot: "header" }, slot: "header" }, [
+                    _c("strong", [_vm._v("List of Available Department")])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticStyle: { "overflow-y": "auto" } },
+                    [
+                      _vm.items.length !== 0
+                        ? _c("b-table", {
+                            attrs: {
+                              stacked: "sm",
+                              small: "",
+                              fields: _vm.fieldsDocuments,
+                              items: _vm.items,
+                              "thead-class": "thead-light"
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "no",
+                                fn: function(data) {
+                                  return [
+                                    _vm._v(
+                                      "\n                " +
+                                        _vm._s(data.index + 1) +
+                                        "\n              "
+                                    )
+                                  ]
+                                }
+                              },
+                              {
+                                key: "action",
+                                fn: function(data) {
+                                  return [
+                                    _c(
+                                      "b-button",
+                                      {
+                                        attrs: {
+                                          variant: "success",
+                                          size: "sm"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.onEditDepartmentModal(
+                                              data.item.id,
+                                              data.item.department
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Edit")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-button",
+                                      {
+                                        attrs: {
+                                          variant: "danger",
+                                          size: "sm"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.trigerConfirmModal(
+                                              "Confirm Remove Department",
+                                              "Are You Sure To Remove This Department From This User?",
+                                              "deleteDepartment",
+                                              data.item.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Remove")]
+                                    )
+                                  ]
+                                }
+                              }
+                            ])
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "b-modal",
+          {
+            attrs: {
+              "no-close-on-esc": true,
+              "hide-header-close": true,
+              "no-close-on-backdrop": true,
+              title: "Edit Depatment"
             },
-            expression: "editModal"
-          }
-        },
-        [
-          _c("b-form-input", {
-            attrs: { type: "text" },
+            on: {
+              ok: function($event) {
+                _vm.trigerConfirmModal(
+                  "Confirm Edit Department",
+                  "Are You Sure To Edit This Department From This User?",
+                  "editDepartment"
+                )
+              }
+            },
             model: {
-              value: _vm.selected.department,
+              value: _vm.editModal,
               callback: function($$v) {
-                _vm.$set(_vm.selected, "department", $$v)
+                _vm.editModal = $$v
               },
-              expression: "selected.department"
+              expression: "editModal"
             }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-modal",
-        {
-          attrs: {
-            "no-close-on-esc": true,
-            "hide-header-close": true,
-            "no-close-on-backdrop": true,
-            title: _vm.confirmModalTitle
           },
-          on: { ok: _vm.onConfirmModal },
-          model: {
-            value: _vm.confirmModal,
-            callback: function($$v) {
-              _vm.confirmModal = $$v
+          [
+            _c("b-form-input", {
+              attrs: { type: "text" },
+              model: {
+                value: _vm.selected.department,
+                callback: function($$v) {
+                  _vm.$set(_vm.selected, "department", $$v)
+                },
+                expression: "selected.department"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "b-modal",
+          {
+            attrs: {
+              "no-close-on-esc": true,
+              "hide-header-close": true,
+              "no-close-on-backdrop": true,
+              title: _vm.confirmModalTitle
             },
-            expression: "confirmModal"
-          }
-        },
-        [_vm._v("\n  " + _vm._s(_vm.confirmModalBody) + "\n")]
-      )
-    ],
-    1
-  )
+            on: { ok: _vm.onConfirmModal },
+            model: {
+              value: _vm.confirmModal,
+              callback: function($$v) {
+                _vm.confirmModal = $$v
+              },
+              expression: "confirmModal"
+            }
+          },
+          [_vm._v("\n      " + _vm._s(_vm.confirmModalBody) + "\n    ")]
+        )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

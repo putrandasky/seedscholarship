@@ -139,6 +139,10 @@ __webpack_require__.r(__webpack_exports__);
         _this2.$snotify.success("New User Registered", "SUCCESS");
 
         _this2.input.name = '', _this2.input.initial = '', _this2.input.department = null, _this2.input.email = '', _this2.input.password = '', _this2.input.password_confirmation = '';
+
+        _this2.$router.push({
+          name: 'AccountAdmin'
+        });
       }).catch(function (error) {
         // console.log(error.response.data);
         var errors = error.response.data.errors; // console.log(errors.name);
@@ -292,7 +296,7 @@ var render = function() {
                     _c("h1", [_vm._v("Register")]),
                     _vm._v(" "),
                     _c("p", { staticClass: "text-muted" }, [
-                      _vm._v("Create your account")
+                      _vm._v("Create new admin account")
                     ]),
                     _vm._v(" "),
                     _c(

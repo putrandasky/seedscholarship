@@ -219,7 +219,7 @@ __webpack_require__.r(__webpack_exports__);
     onFileChange: function onFileChange(e) {
       var file = e.target.files[0]; // console.log(file);
 
-      if (file.size > 3 * 1024 * 1024) {
+      if (file.size > 2 * 1024 * 1024) {
         e.preventDefault();
         this.$refs.upload.reset();
         return;
@@ -533,7 +533,7 @@ var render = function() {
                 _vm._v("Please upload this file below in "),
                 _c("strong", [_vm._v("pdf/jpeg/png")]),
                 _vm._v(" file with max size\n      "),
-                _c("strong", [_vm._v("3mb")]),
+                _c("strong", [_vm._v("2mb")]),
                 _vm._v(".\n      "),
                 _c("hr"),
                 _vm._v(" "),

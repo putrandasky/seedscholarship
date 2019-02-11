@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Notifications\Donor\PostRegistered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -61,19 +62,19 @@ class AuthController extends Controller
         $user->awardee_department_id = $request->department;
         // $user->donation_category = $request->donation_category;
         $user->address = $request->address;
-
         // $user->password = Hash::make($request->password);
         // $registration_code = Str::random(60);
-        $user->save();
-        $user->periods()->attach($request->period, [
-            'donation_category' => $request->donation_category,
-            'amount' => $request->amount,
-            'is_term_condition_agreed' => $request->accept_term_condition,
-            'is_contract_agreed' => false,
-        ]);
-        $data = App\Donor::where('id', $user->id)->with('awardeeDepartment', 'periods')->first();
-        $user->notify(new PostRegistered($data));
-
+        DB::transaction(function () use ($request, $user) {
+            $user->save();
+            $user->periods()->attach($request->period, [
+                'donation_category' => $request->donation_category,
+                'amount' => $request->amount,
+                'is_term_condition_agreed' => $request->accept_term_condition,
+                'is_contract_agreed' => false,
+            ]);
+            $data = App\Donor::where('id', $user->id)->with('awardeeDepartment', 'periods')->first();
+            $user->notify(new PostRegistered($data));
+        });
         return response()->json([
             'status' => 'Successfully register new donor',
         ], 200);

@@ -1,63 +1,70 @@
 <template>
-  <b-row v-show="loaded">
-    <b-col md="3">
-      <b-card no-body>
-        <div slot="header" class="text-center">
-          <strong>Profile Picture</strong>
-        </div>
-        <b-card-img :src="url" style="border-radius:unset">
-        </b-card-img>
-        <b-btn v-show="data.photo || new_profile_picture" class="btn--corner" variant="danger" size="sm" style="top:47px"
-          @click="handleRemoveCoverImage">
-          <i class="fa fa-close"></i>
-        </b-btn>
-        <b-btn v-show="old_profile_picture && new_profile_picture" class="btn--corner" variant="warning" size="sm"
-          style="top:47px;right:22px" @click="handleUndoCoverImage">
-          <i class="fa fa-undo"></i>
-        </b-btn>
-        <b-progress v-show="uploadPercentage>0" height="5px" :value="uploadPercentage" variant="primary"></b-progress>
-        <b-card-body v-show="!data.photo && !new_profile_picture">
-          <b-form-file accept="image/jpeg, image/png, image/gif" ref="fileProfilePicture" v-model="file" placeholder="Choose a file..."
-            @change="onFileChange"></b-form-file>
-        </b-card-body>
-        <!-- <upload-cover-image ref="upload" /> -->
-      </b-card>
-    </b-col>
-    <b-col md="9">
-      <b-card>
-        <div slot="header" class="text-center">
-          <strong>Profile Data</strong>
-        </div>
-        <b-form-group label="Full Name" label-for="name" :label-cols="3" :horizontal="true" :invalid-feedback="errors.name" :state="stateName">
-          <b-form-input id="name" type="text" :state="stateName" v-model="data.name"></b-form-input>
-        </b-form-group>
-        <b-form-group label="Email" label-for="email" :label-cols="3" :horizontal="true" :invalid-feedback="errors.email" :state="stateEmail">
-          <b-form-input id="email" type="email" :state="stateEmail" v-model="data.email"></b-form-input>
-        </b-form-group>
-        <b-form-group label="Phone Number" label-for="number" :label-cols="3" :horizontal="true" :invalid-feedback="errors.phone" :state="statePhone">
-          <b-form-input id="number" type="text" :state="statePhone" v-model="data.phone"></b-form-input>
-        </b-form-group>
-        <b-form-group label="Department"  label-for="department" :label-cols="3" :horizontal="true" :invalid-feedback="errors.department_id" :state="stateDepartment_id">
-          <b-form-select plain id="department" :state="stateDepartment_id" v-model="data.department_id" :options="departmentOptions">
-            <template slot="first">
-              <option :value="null" disabled>-- Please Select Department --</option>
-            </template>
-          </b-form-select>
-        </b-form-group>
-        <b-button class="float-right" variant="primary" @click="postData">Update Data</b-button>
-            <div slot="footer">
-                <small class="text-muted">Registered : {{data.created_at}} | Last updated : {{data.updated_at}}</small>
-            </div>
-      </b-card>
-    </b-col>
-  </b-row>
+  <slide-y-up-transition>
+    <b-row v-show="loaded">
+      <b-col md="3">
+        <b-card no-body>
+          <div slot="header" class="text-center">
+            <strong>Profile Picture</strong>
+          </div>
+          <b-card-img :src="url" style="border-radius:unset">
+          </b-card-img>
+          <b-btn v-show="data.photo || new_profile_picture" class="btn--corner" variant="danger" size="sm" style="top:47px"
+            @click="handleRemoveCoverImage">
+            <i class="fa fa-close"></i>
+          </b-btn>
+          <b-btn v-show="old_profile_picture && new_profile_picture" class="btn--corner" variant="warning" size="sm"
+            style="top:47px;right:22px" @click="handleUndoCoverImage">
+            <i class="fa fa-undo"></i>
+          </b-btn>
+          <b-progress v-show="uploadPercentage>0" height="5px" :value="uploadPercentage" variant="primary"></b-progress>
+          <b-card-body v-show="!data.photo && !new_profile_picture">
+            <b-form-file accept="image/jpeg, image/png, image/gif" ref="fileProfilePicture" v-model="file" placeholder="Choose a file..."
+              @change="onFileChange"></b-form-file>
+          </b-card-body>
+          <!-- <upload-cover-image ref="upload" /> -->
+        </b-card>
+      </b-col>
+      <b-col md="9">
+        <b-card>
+          <div slot="header" class="text-center">
+            <strong>Profile Data</strong>
+          </div>
+          <b-form-group label="Full Name" label-for="name" :label-cols="3" :horizontal="true" :invalid-feedback="errors.name"
+            :state="stateName">
+            <b-form-input id="name" type="text" :state="stateName" v-model="data.name"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Email" label-for="email" :label-cols="3" :horizontal="true" :invalid-feedback="errors.email"
+            :state="stateEmail">
+            <b-form-input id="email" type="email" :state="stateEmail" v-model="data.email"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Phone Number" label-for="number" :label-cols="3" :horizontal="true" :invalid-feedback="errors.phone"
+            :state="statePhone">
+            <b-form-input id="number" type="text" :state="statePhone" v-model="data.phone"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Department" label-for="department" :label-cols="3" :horizontal="true" :invalid-feedback="errors.department_id"
+            :state="stateDepartment_id">
+            <b-form-select plain id="department" :state="stateDepartment_id" v-model="data.department_id" :options="departmentOptions">
+              <template slot="first">
+                <option :value="null" disabled>-- Please Select Department --</option>
+              </template>
+            </b-form-select>
+          </b-form-group>
+          <b-button class="float-right" variant="primary" @click="postData">Update Data</b-button>
+          <div slot="footer">
+            <small class="text-muted">Registered : {{data.created_at}} | Last updated : {{data.updated_at}}</small>
+          </div>
+        </b-card>
+      </b-col>
+    </b-row>
+  </slide-y-up-transition>
+
 </template>
 <script>
   export default {
     name: 'AdminDetail',
     data: function () {
       return {
-        loaded:false,
+        loaded: false,
         uploadPercentage: 0,
         new_profile_picture: null,
         old_profile_picture: null,
@@ -69,7 +76,7 @@
           phone: '',
           department_id: null,
           created_at: null,
-          updated_at:null,
+          updated_at: null,
           photo: null,
         },
         errors: {
@@ -162,9 +169,10 @@
       },
       postData() {
         let self = this
-        axios.patch(`api/user-admin/${this.$route.params.userId}`,this.data)
+        axios.patch(`api/user-admin/${this.$route.params.userId}`, this.data)
           .then((response) => {
             console.log(response.data)
+            this.$snotify.success(`Profile Updated`, "SUCCESS");
 
             if (self.old_profile_picture && !self.data.photo && !self.new_profile_picture) {
               console.log('delete')
@@ -208,6 +216,7 @@
             self.old_profile_picture = self.new_profile_picture
             self.data.photo = self.new_profile_picture
             self.new_profile_picture = null
+            this.$snotify.success(`New Photo Added`, "SUCCESS");
             self.getData()
           })
           .catch((error) => {
@@ -234,6 +243,7 @@
             self.old_profile_picture = self.new_profile_picture
             self.data.photo = self.new_profile_picture
             self.new_profile_picture = null
+            this.$snotify.success(`Photo Updated`, "SUCCESS");
             self.getData()
           })
           .catch((error) => {
@@ -247,6 +257,7 @@
           .then((response) => {
             console.log(response.data)
             self.old_profile_picture = null
+            this.$snotify.success(`Photo Deleted`, "SUCCESS");
             self.getData()
           })
           .catch((error) => {

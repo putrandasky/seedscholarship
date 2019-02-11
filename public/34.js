@@ -89,6 +89,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'AuthRegister',
   data: function data() {
@@ -156,6 +159,10 @@ __webpack_require__.r(__webpack_exports__);
         _this2.$snotify.success("New User Registered", "SUCCESS");
 
         _this2.input.name = '', _this2.input.initial = '', _this2.input.department = null, _this2.input.email = '', _this2.input.password = '', _this2.input.password_confirmation = '';
+
+        _this2.$router.push({
+          name: 'AccountAdmin'
+        });
       }).catch(function (error) {
         // console.log(error.response.data);
         var errors = error.response.data.errors; // console.log(errors.name);
@@ -281,374 +288,378 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      directives: [
-        {
-          name: "show",
-          rawName: "v-show",
-          value: _vm.loaded,
-          expression: "loaded"
-        }
-      ],
-      staticClass: "app flex-row align-items-center"
-    },
-    [
-      _c(
-        "div",
-        { staticClass: "container" },
-        [
-          _c(
-            "b-row",
-            { staticClass: "justify-content-center" },
-            [
-              _c(
-                "b-col",
-                { attrs: { md: "6", sm: "8" } },
-                [
-                  _c(
-                    "b-card",
-                    { staticClass: "mx-4", attrs: { "no-body": "" } },
-                    [
-                      _c(
-                        "form",
-                        {
-                          staticClass: "card-body p-4",
-                          on: {
-                            submit: function($event) {
-                              $event.preventDefault()
-                              return _vm.register($event)
-                            }
+  return _c("div", { staticClass: "app flex-row align-items-center" }, [
+    _c(
+      "div",
+      { staticClass: "container" },
+      [
+        _c(
+          "b-row",
+          { staticClass: "justify-content-center" },
+          [
+            _c(
+              "b-col",
+              { attrs: { md: "6", sm: "8" } },
+              [
+                _c(
+                  "slide-y-up-transition",
+                  [
+                    _c(
+                      "b-card",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.loaded,
+                            expression: "loaded"
                           }
-                        },
-                        [
-                          _c("h1", [_vm._v("Register")]),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "text-muted" }, [
-                            _vm._v("Create your account")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-group",
-                            {
-                              attrs: {
-                                "invalid-feedback": _vm.errors.name,
-                                state: _vm.stateName
+                        ],
+                        staticClass: "mx-4",
+                        attrs: { "no-body": "" }
+                      },
+                      [
+                        _c(
+                          "form",
+                          {
+                            staticClass: "card-body p-4",
+                            on: {
+                              submit: function($event) {
+                                $event.preventDefault()
+                                return _vm.register($event)
                               }
-                            },
-                            [
-                              _c(
-                                "b-input-group",
-                                [
-                                  _c(
-                                    "b-input-group-prepend",
-                                    [
-                                      _c("b-input-group-text", [
-                                        _c("i", { staticClass: "icon-user" })
-                                      ])
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("b-input", {
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      placeholder: "Full Name",
-                                      state: _vm.stateName
-                                    },
-                                    model: {
-                                      value: _vm.input.name,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.input, "name", $$v)
-                                      },
-                                      expression: "input.name"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-group",
-                            {
-                              attrs: {
-                                "invalid-feedback": _vm.errors.initial,
-                                state: _vm.stateInitial
-                              }
-                            },
-                            [
-                              _c(
-                                "b-input-group",
-                                {},
-                                [
-                                  _c(
-                                    "b-input-group-prepend",
-                                    [
-                                      _c("b-input-group-text", [
-                                        _c("i", { staticClass: "icon-user" })
-                                      ])
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("b-input", {
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      placeholder: "Initial",
-                                      state: _vm.stateInitial
-                                    },
-                                    model: {
-                                      value: _vm.input.initial,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.input, "initial", $$v)
-                                      },
-                                      expression: "input.initial"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-group",
-                            {
-                              attrs: {
-                                "invalid-feedback": _vm.errors.department,
-                                state: _vm.stateDepartment
-                              }
-                            },
-                            [
-                              _c(
-                                "b-input-group",
-                                {},
-                                [
-                                  _c(
-                                    "b-input-group-prepend",
-                                    [
-                                      _c("b-input-group-text", [
-                                        _c("i", { staticClass: "icon-list" })
-                                      ])
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-form-select",
-                                    {
+                            }
+                          },
+                          [
+                            _c("h1", [_vm._v("Register")]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "text-muted" }, [
+                              _vm._v("Create New Admin Account")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "b-form-group",
+                              {
+                                attrs: {
+                                  "invalid-feedback": _vm.errors.name,
+                                  state: _vm.stateName
+                                }
+                              },
+                              [
+                                _c(
+                                  "b-input-group",
+                                  [
+                                    _c(
+                                      "b-input-group-prepend",
+                                      [
+                                        _c("b-input-group-text", [
+                                          _c("i", { staticClass: "icon-user" })
+                                        ])
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c("b-input", {
+                                      staticClass: "form-control",
                                       attrs: {
-                                        plain: "",
-                                        id: "department",
-                                        options: _vm.departmentOptions,
-                                        state: _vm.stateDepartment
+                                        type: "text",
+                                        placeholder: "Full Name",
+                                        state: _vm.stateName
                                       },
                                       model: {
-                                        value: _vm.input.department_id,
+                                        value: _vm.input.name,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.input, "name", $$v)
+                                        },
+                                        expression: "input.name"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-form-group",
+                              {
+                                attrs: {
+                                  "invalid-feedback": _vm.errors.initial,
+                                  state: _vm.stateInitial
+                                }
+                              },
+                              [
+                                _c(
+                                  "b-input-group",
+                                  {},
+                                  [
+                                    _c(
+                                      "b-input-group-prepend",
+                                      [
+                                        _c("b-input-group-text", [
+                                          _c("i", { staticClass: "icon-user" })
+                                        ])
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c("b-input", {
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        placeholder: "Initial",
+                                        state: _vm.stateInitial
+                                      },
+                                      model: {
+                                        value: _vm.input.initial,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.input, "initial", $$v)
+                                        },
+                                        expression: "input.initial"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-form-group",
+                              {
+                                attrs: {
+                                  "invalid-feedback": _vm.errors.department,
+                                  state: _vm.stateDepartment
+                                }
+                              },
+                              [
+                                _c(
+                                  "b-input-group",
+                                  {},
+                                  [
+                                    _c(
+                                      "b-input-group-prepend",
+                                      [
+                                        _c("b-input-group-text", [
+                                          _c("i", { staticClass: "icon-list" })
+                                        ])
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-form-select",
+                                      {
+                                        attrs: {
+                                          plain: "",
+                                          id: "department",
+                                          options: _vm.departmentOptions,
+                                          state: _vm.stateDepartment
+                                        },
+                                        model: {
+                                          value: _vm.input.department_id,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.input,
+                                              "department_id",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "input.department_id"
+                                        }
+                                      },
+                                      [
+                                        _c("template", { slot: "first" }, [
+                                          _c(
+                                            "option",
+                                            {
+                                              attrs: { disabled: "" },
+                                              domProps: { value: null }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "-- Please select department --"
+                                              )
+                                            ]
+                                          )
+                                        ])
+                                      ],
+                                      2
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-form-group",
+                              {
+                                attrs: {
+                                  "invalid-feedback": _vm.errors.email,
+                                  state: _vm.stateEmail
+                                }
+                              },
+                              [
+                                _c(
+                                  "b-input-group",
+                                  {},
+                                  [
+                                    _c(
+                                      "b-input-group-prepend",
+                                      [_c("b-input-group-text", [_vm._v("@")])],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c("b-input", {
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        placeholder: "Email",
+                                        state: _vm.stateEmail
+                                      },
+                                      model: {
+                                        value: _vm.input.email,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.input, "email", $$v)
+                                        },
+                                        expression: "input.email"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-form-group",
+                              {
+                                attrs: {
+                                  "invalid-feedback": _vm.errors.password,
+                                  state: _vm.statePassword
+                                }
+                              },
+                              [
+                                _c(
+                                  "b-input-group",
+                                  {},
+                                  [
+                                    _c(
+                                      "b-input-group-prepend",
+                                      [
+                                        _c("b-input-group-text", [
+                                          _c("i", { staticClass: "icon-lock" })
+                                        ])
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c("b-input", {
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "password",
+                                        placeholder: "Password",
+                                        state: _vm.statePassword
+                                      },
+                                      model: {
+                                        value: _vm.input.password,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.input, "password", $$v)
+                                        },
+                                        expression: "input.password"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-form-group",
+                              {
+                                attrs: {
+                                  "invalid-feedback": _vm.errors.password,
+                                  state: _vm.statePassword
+                                }
+                              },
+                              [
+                                _c(
+                                  "b-input-group",
+                                  { staticClass: "mb-1" },
+                                  [
+                                    _c(
+                                      "b-input-group-prepend",
+                                      [
+                                        _c("b-input-group-text", [
+                                          _c("i", { staticClass: "icon-lock" })
+                                        ])
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c("b-input", {
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "password",
+                                        placeholder: "Repeat password",
+                                        state: _vm.statePassword
+                                      },
+                                      model: {
+                                        value: _vm.input.password_confirmation,
                                         callback: function($$v) {
                                           _vm.$set(
                                             _vm.input,
-                                            "department_id",
+                                            "password_confirmation",
                                             $$v
                                           )
                                         },
-                                        expression: "input.department_id"
+                                        expression:
+                                          "input.password_confirmation"
                                       }
-                                    },
-                                    [
-                                      _c("template", { slot: "first" }, [
-                                        _c(
-                                          "option",
-                                          {
-                                            attrs: { disabled: "" },
-                                            domProps: { value: null }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "-- Please select department --"
-                                            )
-                                          ]
-                                        )
-                                      ])
-                                    ],
-                                    2
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-group",
-                            {
-                              attrs: {
-                                "invalid-feedback": _vm.errors.email,
-                                state: _vm.stateEmail
-                              }
-                            },
-                            [
-                              _c(
-                                "b-input-group",
-                                {},
-                                [
-                                  _c(
-                                    "b-input-group-prepend",
-                                    [_c("b-input-group-text", [_vm._v("@")])],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("b-input", {
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "text",
-                                      placeholder: "Email",
-                                      state: _vm.stateEmail
-                                    },
-                                    model: {
-                                      value: _vm.input.email,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.input, "email", $$v)
-                                      },
-                                      expression: "input.email"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-group",
-                            {
-                              attrs: {
-                                "invalid-feedback": _vm.errors.password,
-                                state: _vm.statePassword
-                              }
-                            },
-                            [
-                              _c(
-                                "b-input-group",
-                                {},
-                                [
-                                  _c(
-                                    "b-input-group-prepend",
-                                    [
-                                      _c("b-input-group-text", [
-                                        _c("i", { staticClass: "icon-lock" })
-                                      ])
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("b-input", {
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "password",
-                                      placeholder: "Password",
-                                      state: _vm.statePassword
-                                    },
-                                    model: {
-                                      value: _vm.input.password,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.input, "password", $$v)
-                                      },
-                                      expression: "input.password"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-group",
-                            {
-                              attrs: {
-                                "invalid-feedback": _vm.errors.password,
-                                state: _vm.statePassword
-                              }
-                            },
-                            [
-                              _c(
-                                "b-input-group",
-                                { staticClass: "mb-1" },
-                                [
-                                  _c(
-                                    "b-input-group-prepend",
-                                    [
-                                      _c("b-input-group-text", [
-                                        _c("i", { staticClass: "icon-lock" })
-                                      ])
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("b-input", {
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      type: "password",
-                                      placeholder: "Repeat password",
-                                      state: _vm.statePassword
-                                    },
-                                    model: {
-                                      value: _vm.input.password_confirmation,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.input,
-                                          "password_confirmation",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "input.password_confirmation"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: {
-                                type: "submit",
-                                variant: "success",
-                                block: ""
-                              }
-                            },
-                            [_vm._v("Create Account")]
-                          )
-                        ],
-                        1
-                      )
-                    ]
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ]
-  )
+                                    })
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-button",
+                              {
+                                attrs: {
+                                  type: "submit",
+                                  variant: "success",
+                                  block: ""
+                                }
+                              },
+                              [_vm._v("Create Account")]
+                            )
+                          ],
+                          1
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

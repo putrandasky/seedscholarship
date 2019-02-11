@@ -34,10 +34,10 @@ export default function setup() {
       // console.log(error.response.statusText);
       // console.log(error.response)
       if (error.response.status == 401) {
-        // store.dispatch('logout')
-        // router.push({
-        //   path: '/login'
-        // })
+        store.dispatch('logout')
+        router.push({
+          path: '/login'
+        })
       }
       if (error.response.status == 500) {
 

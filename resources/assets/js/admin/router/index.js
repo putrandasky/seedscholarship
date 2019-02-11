@@ -66,6 +66,9 @@ export default new Router({
         path: 'dashboard',
         name: 'Dashboard',
         component: AppDashboard,
+          meta: {
+            auth: true
+          },
       }, ]
     },
     {
@@ -76,11 +79,17 @@ export default new Router({
           path: 'all',
           name: 'Assignment',
           component: AppAssignment,
+            meta: {
+              auth: true
+            },
         },
         {
           path: 'detail/:assignmentId',
           name: 'AssignmentDetail',
           component: AssignmentDetail,
+            meta: {
+              auth: true
+            },
         },
       ]
     },
@@ -90,7 +99,10 @@ export default new Router({
       children: [{
         path: '',
         name: 'AssignmentNew',
-        component: AppAssignmentNew
+        component: AppAssignmentNew,
+          meta: {
+            auth: true
+          },
       }]
     },
     {
@@ -100,12 +112,18 @@ export default new Router({
       children: [{
           path: 'list',
           name: 'Blog',
-          component: AppBlog
+          component: AppBlog,
+            meta: {
+              auth: true
+            },
         },
         {
           path: 'list/detail/:blogId',
           name: 'BlogDetail',
-          component: BlogDetail
+          component: BlogDetail,
+            meta: {
+              auth: true
+            },
         },
       ]
     },
@@ -115,7 +133,10 @@ export default new Router({
       children: [{
         path: '',
         name: 'BlogNew',
-        component: AppBlogNew
+        component: AppBlogNew,
+          meta: {
+            auth: true
+          },
       }]
     },
     {
@@ -124,7 +145,10 @@ export default new Router({
       children: [{
         path: '',
         name: 'BlogTag',
-        component: AppBlogTag
+        component: AppBlogTag,
+          meta: {
+            auth: true
+          },
       }]
     },
     {
@@ -133,7 +157,10 @@ export default new Router({
       children: [{
         path: '',
         name: 'BlogCategory',
-        component: AppBlogCategory
+        component: AppBlogCategory,
+          meta: {
+            auth: true
+          },
       }]
     },
     {
@@ -143,12 +170,18 @@ export default new Router({
       children: [{
           path: 'all',
           name: 'Page',
-          component: AppPage
+          component: AppPage,
+            meta: {
+              auth: true
+            },
         },
         {
           path: ':pageId',
           name: 'PageDetail',
-          component: PageDetail
+          component: PageDetail,
+            meta: {
+              auth: true
+            },
         },
       ]
     },
@@ -158,7 +191,10 @@ export default new Router({
       children: [{
         path: '',
         name: 'PageNew',
-        component: AppPageNew
+        component: AppPageNew,
+          meta: {
+            auth: true
+          },
       }]
     },
     {
@@ -172,20 +208,28 @@ export default new Router({
           children: [{
               path: '',
               name: 'RequestAwardeeDefault',
-              component: RequestAwardeeDefault
+              component: RequestAwardeeDefault,
+                meta: {
+                  auth: true
+                },
             },
             {
               path: ':periodYear',
               name: 'RequestAwardeeIndex',
               component: RequestAwardeeIndex,
+                meta: {
+                  auth: true
+                },
             },
-
           ]
         },
         {
           path: 'awardee/:periodYear/:userId',
           name: 'DetailRequestAwardee',
-          component: DetailRequestAwardee
+          component: DetailRequestAwardee,
+            meta: {
+              auth: true
+            },
         },
         {
           path: 'nonreg',
@@ -194,19 +238,28 @@ export default new Router({
           children: [{
               path: '',
               name: 'RequestNonregDefault',
-              component: RequestNonregDefault
+              component: RequestNonregDefault,
+                meta: {
+                  auth: true
+                },
             },
             {
               path: ':scholarshipId',
               name: 'RequestNonregIndex',
               component: RequestNonregIndex,
+                meta: {
+                  auth: true
+                },
             },
 
           ]
         }, {
           path: 'nonreg/:scholarshipId/:userId',
           name: 'DetailRequestNonreg',
-          component: DetailRequestNonreg
+          component: DetailRequestNonreg,
+            meta: {
+              auth: true
+            },
         },
       ],
     },
@@ -217,22 +270,34 @@ export default new Router({
       children: [{
           path: 'all',
           name: 'AccountAdmin',
-          component: AppAccountAdmin
+          component: AppAccountAdmin,
+            meta: {
+              auth: true
+            },
         },
         {
           path: 'all/detail/:userId',
           name: 'AccountAdminDetail',
-          component: AccountAdminDetail
+          component: AccountAdminDetail,
+            meta: {
+              auth: true
+            },
         },
         {
           path: 'department',
           name: 'Department',
-          component: AppAccountAdminDepartment
+          component: AppAccountAdminDepartment,
+            meta: {
+              auth: true
+            },
         },
         {
           path: 'new',
           name: 'NewAdmin',
-          component: AppAccountAdminNew
+          component: AppAccountAdminNew,
+            meta: {
+              auth: true
+            },
         },
       ]
     },
@@ -252,17 +317,26 @@ export default new Router({
           children:[{
             path:'',
             name:'AccountDonorDefault',
-            component:AccountDonorDefault
+            component: AccountDonorDefault,
+              meta: {
+                auth: true
+              },
           },{
             path:':periodYear',
             name:'AccountDonorIndex',
-            component:AccountDonorIndex
+            component: AccountDonorIndex,
+              meta: {
+                auth: true
+              },
           }]
         },
         {
           path: 'donor/:periodYear/:userId',
           name:'DetailAccountDonor',
-          component: DetailAccountDonor
+          component: DetailAccountDonor,
+            meta: {
+              auth: true
+            },
         },
       ]
     },

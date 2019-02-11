@@ -5,6 +5,10 @@
         <b-card>
           <div slot="header" class="text-center">
             <strong>Profile Awardee</strong>
+            <router-link tag="button" class="btn btn-sm btn-primary btn-sm float-left" :to="{name:'RequestAwardeeIndex',params:{periodYear:$route.params.periodYear}}">
+              <i class="fa fa-arrow-left"></i>
+              BACK
+            </router-link>
           </div>
           <b-row>
             <b-col md="3" sm="6">

@@ -244,6 +244,7 @@
           })
           .catch((error) => {
             // console.log(error.response.data);
+            this.$snotify.error(error.response.data.message, "ERROR");
             this.isDisabled = false
             let errors = error.response.data.errors
             // console.log(errors.name);
@@ -254,7 +255,6 @@
             this.errors.scholarship_id = errors.scholarship_id ? errors.scholarship_id[0] : 'no-error';
             this.errors.department_id = errors.department_id ? errors.department_id[0] : 'no-error';
             this.errors.password = errors.password ? errors.password[0] : 'no-error';
-            this.$snotify.error(error.response.data.message, "ERROR");
           })
       }
     },

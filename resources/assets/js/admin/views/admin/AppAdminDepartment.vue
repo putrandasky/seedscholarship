@@ -1,5 +1,5 @@
 <template>
-
+  <slide-y-up-transition>
     <div v-show="loaded">
       <b-row>
         <b-col lg="4" md="5">
@@ -10,7 +10,6 @@
               <b-button v-show="input" variant="success" size="sm" class="float-right" @click="onAddDepartment">Add</b-button>
             </div>
           </b-card>
-
         </b-col>
         <b-col lg="8" md="7">
           <b-card>
@@ -36,19 +35,20 @@
           </b-card>
         </b-col>
       </b-row>
-    <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" title="Edit Depatment"
-      v-model="editModal" @ok="trigerConfirmModal(
+      <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" title="Edit Depatment"
+        v-model="editModal" @ok="trigerConfirmModal(
             'Confirm Edit Department',
             'Are You Sure To Edit This Department From This User?',
             'editDepartment'
           )">
-      <b-form-input type="text" v-model="selected.department" />
-    </b-modal>
-    <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" :title="confirmModalTitle"
-      v-model="confirmModal" @ok="onConfirmModal">
-      {{confirmModalBody}}
-    </b-modal>
+        <b-form-input type="text" v-model="selected.department" />
+      </b-modal>
+      <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" :title="confirmModalTitle"
+        v-model="confirmModal" @ok="onConfirmModal">
+        {{confirmModalBody}}
+      </b-modal>
     </div>
+  </slide-y-up-transition>
 </template>
 <script>
   export default {
@@ -56,7 +56,7 @@
     data: function () {
       return {
         confirmModal: false,
-        editModal:false,
+        editModal: false,
         loaded: false,
         confirmModal: false,
         confirmModalTitle: '',
@@ -65,9 +65,9 @@
         confirmModalTempValue: '',
         items: [],
         input: '',
-        selected:{
-          department:'',
-          id:null
+        selected: {
+          department: '',
+          id: null
         },
         fieldsDocuments: [{
             key: 'no',
@@ -88,7 +88,7 @@
             },
           },
           {
-            key: 'users_count',
+            key: 'admins_count',
             label: 'Users',
             'class': 'text-right',
             thStyle: {
@@ -112,7 +112,7 @@
       this.getData()
     },
     methods: {
-      onConfirmModal(){
+      onConfirmModal() {
         if (this.confirmModalState == 'deleteDepartment') {
           this.onDeleteDepartment()
         }
@@ -120,7 +120,7 @@
           this.onUpdateDepartment()
         }
       },
-      onEditDepartmentModal(id,department){
+      onEditDepartmentModal(id, department) {
         this.selected.id = id
         this.selected.department = department
         this.editModal = true
@@ -189,6 +189,7 @@
       }
     },
   }
+
 </script>
 <style>
 </style>

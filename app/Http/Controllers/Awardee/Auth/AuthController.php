@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Notifications\Awardee\PostRegistered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -34,11 +35,12 @@ class AuthController extends Controller
             $query->where('year', '=', $request->year);
 
         })
-        ->with('awardeeDepartment','periods')->orderBy('created_at','desc')->get();
+            ->with('awardeeDepartment', 'periods')->orderBy('created_at', 'desc')->get();
         return $user;
     }
     public function register(Request $request)
     {
+
         $this->validate($request, [
             'name' => 'required|string',
             'email' => 'required|email|unique:awardees',
@@ -55,17 +57,18 @@ class AuthController extends Controller
         $user->year = $request->year;
         $user->phone = $request->phone;
         $user->awardee_department_id = $request->department_id;
-        // $user->password = Hash::make($request->password);
-        $user->save();
         $registration_code = Str::random(100);
-        $user->periods()->attach($request->period_id,['status'=>'in progress','registration_code' => $registration_code]);
+        DB::transaction(function () use ($request, $registration_code, $user) {
+            $user->save();
+            $user->periods()->attach($request->period_id, ['status' => 'in progress', 'registration_code' => $registration_code]);
+
+            $data = App\Awardee::where('id', $user->id)->with('awardeeDepartment', 'periods')->first();
+            $user->notify(new PostRegistered($data));
+        });
         Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/cv");
         Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/essay");
         Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/slip");
         Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/siakng");
-
-        $data = App\Awardee::where('id', $user->id)->with('awardeeDepartment', 'periods')->first();
-        $user->notify(new PostRegistered($data));
 
         return response()->json([
             'status' => 'Successfully register new awardee',
@@ -74,6 +77,7 @@ class AuthController extends Controller
             'period_id' => $request->period_id,
             'id' => $user->id,
         ], 200);
+
     }
     public function login()
     {

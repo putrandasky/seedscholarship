@@ -5,7 +5,7 @@
           <b-card no-body class="mx-4">
             <form class="card-body p-4" @submit.prevent="register">
               <h1>Register</h1>
-              <p class="text-muted">Create your account</p>
+              <p class="text-muted">Create new admin account</p>
               <b-form-group :invalid-feedback="errors.name" :state="stateName">
                 <b-input-group>
                   <b-input-group-prepend>
@@ -124,6 +124,9 @@
               this.input.email = '',
               this.input.password = '',
               this.input.password_confirmation = ''
+              this.$router.push({
+                name:'AccountAdmin'
+              })
           })
           .catch((error) => {
             // console.log(error.response.data);

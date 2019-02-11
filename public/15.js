@@ -259,6 +259,8 @@ __webpack_require__.r(__webpack_exports__);
         });
       }).catch(function (error) {
         // console.log(error.response.data);
+        _this3.$snotify.error(error.response.data.message, "ERROR");
+
         _this3.isDisabled = false;
         var errors = error.response.data.errors; // console.log(errors.name);
 
@@ -269,8 +271,6 @@ __webpack_require__.r(__webpack_exports__);
         _this3.errors.period_id = errors.period_id ? errors.period_id[0] : 'no-error';
         _this3.errors.department_id = errors.department_id ? errors.department_id[0] : 'no-error';
         _this3.errors.password = errors.password ? errors.password[0] : 'no-error';
-
-        _this3.$snotify.error(error.response.data.message, "ERROR");
       });
     }
   }

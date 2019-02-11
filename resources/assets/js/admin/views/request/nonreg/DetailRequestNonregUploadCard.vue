@@ -44,7 +44,7 @@
   export default {
     name: 'RegistrationUploadCard',
     props: [
-      'title', 'folder', 'data','periodId','registrationCode'
+      'title', 'folder', 'data','scholarshipId','registrationCode'
     ],
     data: function () {
       return {
@@ -66,7 +66,7 @@
       openFile() {
         let self = this
         window.open(
-          `/api/registration-awardee/upload/${this.$route.params.userId}?folder=${this.folder}&period_id=${this.periodId}&filename=${this.data.name}&registration_code=${this.registrationCode}`,
+          `/api/registration-awardee-nonreg/upload/${this.$route.params.userId}?folder=${this.folder}&scholarship_id=${this.scholarshipId}&filename=${this.data.name}&registration_code=${this.registrationCode}`,
           self.data.name,
           `window,width=${screen.availWidth},height=${screen.availHeight},resizeable,left=200,top=100,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0`
         );

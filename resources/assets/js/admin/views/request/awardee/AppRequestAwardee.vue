@@ -7,7 +7,7 @@
       <div>
         <b-button-group v-show="loaded">
           <router-link v-for="(v) in periods" :key="v.id" tag="button" class="btn btn-outline-primary btn-sm" :to="{name:'RequestAwardeeIndex', params:{periodYear: v.year}}">
-            Seedscholarship #{{v.period}} - year {{v.year}}
+            Seedscholarship #{{v.period}} - Year {{v.year}}
           </router-link>
         </b-button-group>
       </div>

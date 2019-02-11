@@ -4,13 +4,13 @@ namespace App\Http\Controllers\AwardeeNonreg\Auth;
 
 use App;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Notifications\Nonreg\PostRegistered;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-
 
 class AuthController extends Controller
 {
@@ -35,7 +35,7 @@ class AuthController extends Controller
             $query->where('scholarships.id', '=', $request->id);
 
         })
-        ->with('awardeeDepartment','scholarships')->orderBy('created_at','desc')->get();
+            ->with('awardeeDepartment', 'scholarships')->orderBy('created_at', 'desc')->get();
         return $user;
     }
     public function register(Request $request)
@@ -55,27 +55,26 @@ class AuthController extends Controller
         $user->phone = $request->phone;
         $user->year = $request->year;
         $user->awardee_department_id = $request->department_id;
-        // $user->password = Hash::make($request->password);
-        $user->save();
         $registration_code = Str::random(100);
-        $user->scholarships()->attach($request->scholarship_id,[
-          'status'=>'in progress',
-          'registration_code'=>$registration_code
-          ]);
+        DB::transaction(function () use ($request, $registration_code, $user) {
+            $user->save();
+            $user->scholarships()->attach($request->scholarship_id, [
+                'status' => 'in progress',
+                'registration_code' => $registration_code,
+            ]);
+            $data = App\AwardeeNonreg::where('id', $user->id)->with('awardeeDepartment', 'scholarships')->first();
+            $user->notify(new PostRegistered($data));
+        });
         Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/cv");
         Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/proposal");
         Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/sktmb");
         Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/siakng");
-
-        $data = App\AwardeeNonreg::where('id', $user->id)->with('awardeeDepartment', 'scholarships')->first();
-        $user->notify(new PostRegistered($data));
-
         return response()->json([
             'status' => 'Successfully register new awardee',
             'registration_code' => $registration_code,
             'email' => $user->email,
             'id' => $user->id,
-            'scholarship_id' => $request->scholarship_id
+            'scholarship_id' => $request->scholarship_id,
         ], 200);
     }
     public function login()

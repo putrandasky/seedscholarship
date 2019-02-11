@@ -130,7 +130,7 @@ var render = function() {
                       _vm._v(
                         "\n          Seedscholarship #" +
                           _vm._s(v.period) +
-                          " - year " +
+                          " - Year " +
                           _vm._s(v.year) +
                           "\n        "
                       )

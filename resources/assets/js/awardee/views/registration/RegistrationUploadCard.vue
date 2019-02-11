@@ -116,7 +116,7 @@
       onFileChange(e) {
         const file = e.target.files[0];
         // console.log(file);
-        if (file.size > 3 * 1024 * 1024) {
+        if (file.size > 2 * 1024 * 1024) {
           e.preventDefault()
           this.$refs.upload.reset()
           return

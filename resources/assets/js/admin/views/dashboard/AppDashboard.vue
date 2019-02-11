@@ -1,7 +1,7 @@
 <template>
-<div>
-    this is dashboard
-</div>
+<b-alert show variant="info">
+This Page to be developed later
+</b-alert>
 </template>
 <script>
     export default {

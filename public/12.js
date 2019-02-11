@@ -100,6 +100,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'DetailRequestAwardee',
@@ -265,7 +269,31 @@ var render = function() {
                       attrs: { slot: "header" },
                       slot: "header"
                     },
-                    [_c("strong", [_vm._v("Profile Awardee")])]
+                    [
+                      _c("strong", [_vm._v("Profile Awardee")]),
+                      _vm._v(" "),
+                      _c(
+                        "router-link",
+                        {
+                          staticClass:
+                            "btn btn-sm btn-primary btn-sm float-left",
+                          attrs: {
+                            tag: "button",
+                            to: {
+                              name: "RequestAwardeeIndex",
+                              params: {
+                                periodYear: _vm.$route.params.periodYear
+                              }
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "fa fa-arrow-left" }),
+                          _vm._v("\n            BACK\n          ")
+                        ]
+                      )
+                    ],
+                    1
                   ),
                   _vm._v(" "),
                   _c(

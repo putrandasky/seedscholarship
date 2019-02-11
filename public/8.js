@@ -89,6 +89,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'AdminDetail',
   data: function data() {
@@ -192,9 +199,13 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     postData: function postData() {
+      var _this3 = this;
+
       var self = this;
       axios.patch("api/user-admin/".concat(this.$route.params.userId), this.data).then(function (response) {
         console.log(response.data);
+
+        _this3.$snotify.success("Profile Updated", "SUCCESS");
 
         if (self.old_profile_picture && !self.data.photo && !self.new_profile_picture) {
           console.log('delete');
@@ -221,6 +232,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     uploadCover: function uploadCover(blogId) {
+      var _this4 = this;
+
       // console.log(this.url);
       var formData = new FormData();
       var self = this;
@@ -238,12 +251,17 @@ __webpack_require__.r(__webpack_exports__);
         self.old_profile_picture = self.new_profile_picture;
         self.data.photo = self.new_profile_picture;
         self.new_profile_picture = null;
+
+        _this4.$snotify.success("New Photo Added", "SUCCESS");
+
         self.getData();
       }).catch(function (error) {
         console.log(error);
       });
     },
     updateCover: function updateCover(blogId) {
+      var _this5 = this;
+
       // console.log(this.url);
       var formData = new FormData();
       var self = this;
@@ -261,16 +279,24 @@ __webpack_require__.r(__webpack_exports__);
         self.old_profile_picture = self.new_profile_picture;
         self.data.photo = self.new_profile_picture;
         self.new_profile_picture = null;
+
+        _this5.$snotify.success("Photo Updated", "SUCCESS");
+
         self.getData();
       }).catch(function (error) {
         console.log(error);
       });
     },
     deleteCover: function deleteCover(blogId) {
+      var _this6 = this;
+
       var self = this;
       axios.delete("api/file/admin-cover-image/".concat(blogId)).then(function (response) {
         console.log(response.data);
         self.old_profile_picture = null;
+
+        _this6.$snotify.success("Photo Deleted", "SUCCESS");
+
         self.getData();
       }).catch(function (error) {
         console.log(error);
@@ -543,307 +569,319 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "b-row",
-    {
-      directives: [
-        {
-          name: "show",
-          rawName: "v-show",
-          value: _vm.loaded,
-          expression: "loaded"
-        }
-      ]
-    },
+    "slide-y-up-transition",
     [
       _c(
-        "b-col",
-        { attrs: { md: "3" } },
+        "b-row",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.loaded,
+              expression: "loaded"
+            }
+          ]
+        },
         [
           _c(
-            "b-card",
-            { attrs: { "no-body": "" } },
+            "b-col",
+            { attrs: { md: "3" } },
             [
               _c(
-                "div",
-                {
-                  staticClass: "text-center",
-                  attrs: { slot: "header" },
-                  slot: "header"
-                },
-                [_c("strong", [_vm._v("Profile Picture")])]
-              ),
-              _vm._v(" "),
-              _c("b-card-img", {
-                staticStyle: { "border-radius": "unset" },
-                attrs: { src: _vm.url }
-              }),
-              _vm._v(" "),
-              _c(
-                "b-btn",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.data.photo || _vm.new_profile_picture,
-                      expression: "data.photo || new_profile_picture"
-                    }
-                  ],
-                  staticClass: "btn--corner",
-                  staticStyle: { top: "47px" },
-                  attrs: { variant: "danger", size: "sm" },
-                  on: { click: _vm.handleRemoveCoverImage }
-                },
-                [_c("i", { staticClass: "fa fa-close" })]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-btn",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.old_profile_picture && _vm.new_profile_picture,
-                      expression: "old_profile_picture && new_profile_picture"
-                    }
-                  ],
-                  staticClass: "btn--corner",
-                  staticStyle: { top: "47px", right: "22px" },
-                  attrs: { variant: "warning", size: "sm" },
-                  on: { click: _vm.handleUndoCoverImage }
-                },
-                [_c("i", { staticClass: "fa fa-undo" })]
-              ),
-              _vm._v(" "),
-              _c("b-progress", {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.uploadPercentage > 0,
-                    expression: "uploadPercentage>0"
-                  }
-                ],
-                attrs: {
-                  height: "5px",
-                  value: _vm.uploadPercentage,
-                  variant: "primary"
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "b-card-body",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: !_vm.data.photo && !_vm.new_profile_picture,
-                      expression: "!data.photo && !new_profile_picture"
-                    }
-                  ]
-                },
+                "b-card",
+                { attrs: { "no-body": "" } },
                 [
-                  _c("b-form-file", {
-                    ref: "fileProfilePicture",
-                    attrs: {
-                      accept: "image/jpeg, image/png, image/gif",
-                      placeholder: "Choose a file..."
+                  _c(
+                    "div",
+                    {
+                      staticClass: "text-center",
+                      attrs: { slot: "header" },
+                      slot: "header"
                     },
-                    on: { change: _vm.onFileChange },
-                    model: {
-                      value: _vm.file,
-                      callback: function($$v) {
-                        _vm.file = $$v
-                      },
-                      expression: "file"
+                    [_c("strong", [_vm._v("Profile Picture")])]
+                  ),
+                  _vm._v(" "),
+                  _c("b-card-img", {
+                    staticStyle: { "border-radius": "unset" },
+                    attrs: { src: _vm.url }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "b-btn",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.data.photo || _vm.new_profile_picture,
+                          expression: "data.photo || new_profile_picture"
+                        }
+                      ],
+                      staticClass: "btn--corner",
+                      staticStyle: { top: "47px" },
+                      attrs: { variant: "danger", size: "sm" },
+                      on: { click: _vm.handleRemoveCoverImage }
+                    },
+                    [_c("i", { staticClass: "fa fa-close" })]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-btn",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value:
+                            _vm.old_profile_picture && _vm.new_profile_picture,
+                          expression:
+                            "old_profile_picture && new_profile_picture"
+                        }
+                      ],
+                      staticClass: "btn--corner",
+                      staticStyle: { top: "47px", right: "22px" },
+                      attrs: { variant: "warning", size: "sm" },
+                      on: { click: _vm.handleUndoCoverImage }
+                    },
+                    [_c("i", { staticClass: "fa fa-undo" })]
+                  ),
+                  _vm._v(" "),
+                  _c("b-progress", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.uploadPercentage > 0,
+                        expression: "uploadPercentage>0"
+                      }
+                    ],
+                    attrs: {
+                      height: "5px",
+                      value: _vm.uploadPercentage,
+                      variant: "primary"
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "b-card-body",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.data.photo && !_vm.new_profile_picture,
+                          expression: "!data.photo && !new_profile_picture"
+                        }
+                      ]
+                    },
+                    [
+                      _c("b-form-file", {
+                        ref: "fileProfilePicture",
+                        attrs: {
+                          accept: "image/jpeg, image/png, image/gif",
+                          placeholder: "Choose a file..."
+                        },
+                        on: { change: _vm.onFileChange },
+                        model: {
+                          value: _vm.file,
+                          callback: function($$v) {
+                            _vm.file = $$v
+                          },
+                          expression: "file"
+                        }
+                      })
+                    ],
+                    1
+                  )
                 ],
                 1
               )
             ],
             1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-col",
-        { attrs: { md: "9" } },
-        [
+          ),
+          _vm._v(" "),
           _c(
-            "b-card",
+            "b-col",
+            { attrs: { md: "9" } },
             [
               _c(
-                "div",
-                {
-                  staticClass: "text-center",
-                  attrs: { slot: "header" },
-                  slot: "header"
-                },
-                [_c("strong", [_vm._v("Profile Data")])]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-form-group",
-                {
-                  attrs: {
-                    label: "Full Name",
-                    "label-for": "name",
-                    "label-cols": 3,
-                    horizontal: true,
-                    "invalid-feedback": _vm.errors.name,
-                    state: _vm.stateName
-                  }
-                },
-                [
-                  _c("b-form-input", {
-                    attrs: { id: "name", type: "text", state: _vm.stateName },
-                    model: {
-                      value: _vm.data.name,
-                      callback: function($$v) {
-                        _vm.$set(_vm.data, "name", $$v)
-                      },
-                      expression: "data.name"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-form-group",
-                {
-                  attrs: {
-                    label: "Email",
-                    "label-for": "email",
-                    "label-cols": 3,
-                    horizontal: true,
-                    "invalid-feedback": _vm.errors.email,
-                    state: _vm.stateEmail
-                  }
-                },
-                [
-                  _c("b-form-input", {
-                    attrs: {
-                      id: "email",
-                      type: "email",
-                      state: _vm.stateEmail
-                    },
-                    model: {
-                      value: _vm.data.email,
-                      callback: function($$v) {
-                        _vm.$set(_vm.data, "email", $$v)
-                      },
-                      expression: "data.email"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-form-group",
-                {
-                  attrs: {
-                    label: "Phone Number",
-                    "label-for": "number",
-                    "label-cols": 3,
-                    horizontal: true,
-                    "invalid-feedback": _vm.errors.phone,
-                    state: _vm.statePhone
-                  }
-                },
-                [
-                  _c("b-form-input", {
-                    attrs: {
-                      id: "number",
-                      type: "text",
-                      state: _vm.statePhone
-                    },
-                    model: {
-                      value: _vm.data.phone,
-                      callback: function($$v) {
-                        _vm.$set(_vm.data, "phone", $$v)
-                      },
-                      expression: "data.phone"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-form-group",
-                {
-                  attrs: {
-                    label: "Department",
-                    "label-for": "department",
-                    "label-cols": 3,
-                    horizontal: true,
-                    "invalid-feedback": _vm.errors.department_id,
-                    state: _vm.stateDepartment_id
-                  }
-                },
+                "b-card",
                 [
                   _c(
-                    "b-form-select",
+                    "div",
+                    {
+                      staticClass: "text-center",
+                      attrs: { slot: "header" },
+                      slot: "header"
+                    },
+                    [_c("strong", [_vm._v("Profile Data")])]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
                     {
                       attrs: {
-                        plain: "",
-                        id: "department",
-                        state: _vm.stateDepartment_id,
-                        options: _vm.departmentOptions
-                      },
-                      model: {
-                        value: _vm.data.department_id,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data, "department_id", $$v)
-                        },
-                        expression: "data.department_id"
+                        label: "Full Name",
+                        "label-for": "name",
+                        "label-cols": 3,
+                        horizontal: true,
+                        "invalid-feedback": _vm.errors.name,
+                        state: _vm.stateName
                       }
                     },
                     [
-                      _c("template", { slot: "first" }, [
-                        _c(
-                          "option",
-                          {
-                            attrs: { disabled: "" },
-                            domProps: { value: null }
+                      _c("b-form-input", {
+                        attrs: {
+                          id: "name",
+                          type: "text",
+                          state: _vm.stateName
+                        },
+                        model: {
+                          value: _vm.data.name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.data, "name", $$v)
                           },
-                          [_vm._v("-- Please Select Department --")]
-                        )
-                      ])
+                          expression: "data.name"
+                        }
+                      })
                     ],
-                    2
-                  )
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    {
+                      attrs: {
+                        label: "Email",
+                        "label-for": "email",
+                        "label-cols": 3,
+                        horizontal: true,
+                        "invalid-feedback": _vm.errors.email,
+                        state: _vm.stateEmail
+                      }
+                    },
+                    [
+                      _c("b-form-input", {
+                        attrs: {
+                          id: "email",
+                          type: "email",
+                          state: _vm.stateEmail
+                        },
+                        model: {
+                          value: _vm.data.email,
+                          callback: function($$v) {
+                            _vm.$set(_vm.data, "email", $$v)
+                          },
+                          expression: "data.email"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    {
+                      attrs: {
+                        label: "Phone Number",
+                        "label-for": "number",
+                        "label-cols": 3,
+                        horizontal: true,
+                        "invalid-feedback": _vm.errors.phone,
+                        state: _vm.statePhone
+                      }
+                    },
+                    [
+                      _c("b-form-input", {
+                        attrs: {
+                          id: "number",
+                          type: "text",
+                          state: _vm.statePhone
+                        },
+                        model: {
+                          value: _vm.data.phone,
+                          callback: function($$v) {
+                            _vm.$set(_vm.data, "phone", $$v)
+                          },
+                          expression: "data.phone"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    {
+                      attrs: {
+                        label: "Department",
+                        "label-for": "department",
+                        "label-cols": 3,
+                        horizontal: true,
+                        "invalid-feedback": _vm.errors.department_id,
+                        state: _vm.stateDepartment_id
+                      }
+                    },
+                    [
+                      _c(
+                        "b-form-select",
+                        {
+                          attrs: {
+                            plain: "",
+                            id: "department",
+                            state: _vm.stateDepartment_id,
+                            options: _vm.departmentOptions
+                          },
+                          model: {
+                            value: _vm.data.department_id,
+                            callback: function($$v) {
+                              _vm.$set(_vm.data, "department_id", $$v)
+                            },
+                            expression: "data.department_id"
+                          }
+                        },
+                        [
+                          _c("template", { slot: "first" }, [
+                            _c(
+                              "option",
+                              {
+                                attrs: { disabled: "" },
+                                domProps: { value: null }
+                              },
+                              [_vm._v("-- Please Select Department --")]
+                            )
+                          ])
+                        ],
+                        2
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      staticClass: "float-right",
+                      attrs: { variant: "primary" },
+                      on: { click: _vm.postData }
+                    },
+                    [_vm._v("Update Data")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
+                    _c("small", { staticClass: "text-muted" }, [
+                      _vm._v(
+                        "Registered : " +
+                          _vm._s(_vm.data.created_at) +
+                          " | Last updated : " +
+                          _vm._s(_vm.data.updated_at)
+                      )
+                    ])
+                  ])
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-button",
-                {
-                  staticClass: "float-right",
-                  attrs: { variant: "primary" },
-                  on: { click: _vm.postData }
-                },
-                [_vm._v("Update Data")]
-              ),
-              _vm._v(" "),
-              _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
-                _c("small", { staticClass: "text-muted" }, [
-                  _vm._v(
-                    "Registered : " +
-                      _vm._s(_vm.data.created_at) +
-                      " | Last updated : " +
-                      _vm._s(_vm.data.updated_at)
-                  )
-                ])
-              ])
+              )
             ],
             1
           )

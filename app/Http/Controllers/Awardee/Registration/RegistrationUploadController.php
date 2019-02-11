@@ -15,12 +15,12 @@ class RegistrationUploadController extends Controller
         $RegisterExist = App\Awardee::whereHas('periods', function ($query) use ($request) {
             $query->where('registration_code', '=', $request->registration_code);
         })
-        ->where([
-          'email'=>$request->email,
-          'id'=>$request->id
-        ])->exists();
+            ->where([
+                'email' => $request->email,
+                'id' => $request->id,
+            ])->exists();
         if (!$RegisterExist) {
-            return response()->json(['error' => 'Unauthorized','message'=>'You are not allowed to access this page'], 401);
+            return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
         }
     }
     public function index(Request $request)
@@ -44,27 +44,41 @@ class RegistrationUploadController extends Controller
     }
     public function show(Request $request, $id)
     {
-      // return 'test';
-//         $newpathToFile = Storage::files("registration/{$id}/{$request->folder}/{$request->filename}");
-// return response()->file($newpathToFile[0]);
+        if (!($this->registrantAuthenticate($id, $request->registration_code, $request->period_id))) {
+            return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
+        }
 
-    $newpathToFile = Storage::disk('local')->getDriver()->getAdapter()->applyPathPrefix("registration/awardee/{$request->period_id}/{$id}/{$request->folder}/{$request->filename}");
+        $newpathToFile = Storage::disk('local')->getDriver()->getAdapter()->applyPathPrefix("registration/awardee/{$request->period_id}/{$id}/{$request->folder}/{$request->filename}");
         return response()->file($newpathToFile);
 
     }
     public function store(Request $request)
     {
+        if (!($this->registrantAuthenticate($request->id, $request->registration_code, $request->period_id))) {
+            return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
+        }
+
         $save = $request->file('file')->storeAs("registration/awardee/{$request->period_id}/{$request->id}/{$request->folder}", $request->file('file')->getClientOriginalName());
         return response()->json(['status' => 'File Succesfuly Uploaded'], 200);
 
     }
     public function destroy(Request $request, $id)
     {
-      // dd("registration/{$id}/{$request->folder}/{$request->filename}");
+        if (!($this->registrantAuthenticate($id, $request->registration_code, $request->period_id))) {
+            return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
+        }
         if (Storage::delete("registration/awardee/{$request->period_id}/{$id}/{$request->folder}/{$request->filename}")) {
-          # code...
-          return response()->json(['status' => 'File Deleted Successfuly'], 200);
+            # code...
+            return response()->json(['status' => 'File Deleted Successfuly'], 200);
         }
         // return response()->json(['error' => 'File not deleted'], 401);
+    }
+    public function registrantAuthenticate($id, $registration_code, $period_id)
+    {
+        $user = App\Awardee::find($id);
+        $RegisterExist = $user->periods()->where(
+            ['registration_code' => $registration_code, 'period_id' => $period_id]
+        )->exists();
+        return $RegisterExist;
     }
 }

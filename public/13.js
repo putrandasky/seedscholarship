@@ -100,6 +100,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'DetailRequestNonreg',
@@ -200,7 +204,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'RegistrationUploadCard',
-  props: ['title', 'folder', 'data', 'periodId', 'registrationCode'],
+  props: ['title', 'folder', 'data', 'scholarshipId', 'registrationCode'],
   data: function data() {
     return {};
   },
@@ -213,7 +217,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     openFile: function openFile() {
       var self = this;
-      window.open("/api/registration-awardee/upload/".concat(this.$route.params.userId, "?folder=").concat(this.folder, "&period_id=").concat(this.periodId, "&filename=").concat(this.data.name, "&registration_code=").concat(this.registrationCode), self.data.name, "window,width=".concat(screen.availWidth, ",height=").concat(screen.availHeight, ",resizeable,left=200,top=100,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0"));
+      window.open("/api/registration-awardee-nonreg/upload/".concat(this.$route.params.userId, "?folder=").concat(this.folder, "&scholarship_id=").concat(this.scholarshipId, "&filename=").concat(this.data.name, "&registration_code=").concat(this.registrationCode), self.data.name, "window,width=".concat(screen.availWidth, ",height=").concat(screen.availHeight, ",resizeable,left=200,top=100,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0"));
     }
   }
 });
@@ -265,7 +269,31 @@ var render = function() {
                       attrs: { slot: "header" },
                       slot: "header"
                     },
-                    [_c("strong", [_vm._v("Profile Awardee")])]
+                    [
+                      _c("strong", [_vm._v("Profile Awardee")]),
+                      _vm._v(" "),
+                      _c(
+                        "router-link",
+                        {
+                          staticClass:
+                            "btn btn-sm btn-primary btn-sm float-left",
+                          attrs: {
+                            tag: "button",
+                            to: {
+                              name: "RequestNonregIndex",
+                              params: {
+                                scholarshipId: _vm.$route.params.scholarshipId
+                              }
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "fa fa-arrow-left" }),
+                          _vm._v("\n            BACK\n          ")
+                        ]
+                      )
+                    ],
+                    1
                   ),
                   _vm._v(" "),
                   _c(
@@ -442,7 +470,7 @@ var render = function() {
                       _c("file-card", {
                         attrs: {
                           title: "Curriculum Vitae",
-                          periodId: _vm.data.scholarships[0].id,
+                          scholarshipId: _vm.data.scholarships[0].id,
                           registrationCode:
                             _vm.data.scholarships[0].pivot.registration_code,
                           folder: "cv",
@@ -461,10 +489,10 @@ var render = function() {
                         attrs: {
                           title: "Proposal",
                           folder: "proposal",
-                          periodId: _vm.data.scholarships[0].id,
+                          scholarshipId: _vm.data.scholarships[0].id,
                           registrationCode:
                             _vm.data.scholarships[0].pivot.registration_code,
-                          data: _vm.files.essay
+                          data: _vm.files.proposal
                         }
                       })
                     ],
@@ -479,10 +507,10 @@ var render = function() {
                         attrs: {
                           title: "Surat Keterangan",
                           folder: "sktmb",
-                          periodId: _vm.data.scholarships[0].id,
+                          scholarshipId: _vm.data.scholarships[0].id,
                           registrationCode:
                             _vm.data.scholarships[0].pivot.registration_code,
-                          data: _vm.files.slip
+                          data: _vm.files.sktmb
                         }
                       })
                     ],
@@ -497,7 +525,7 @@ var render = function() {
                         attrs: {
                           title: "SiakNG",
                           folder: "siakng",
-                          periodId: _vm.data.scholarships[0].id,
+                          scholarshipId: _vm.data.scholarships[0].id,
                           registrationCode:
                             _vm.data.scholarships[0].pivot.registration_code,
                           data: _vm.files.siakng

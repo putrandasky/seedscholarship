@@ -83,12 +83,12 @@ class AuthController extends Controller
     }
     public function me()
     {
+
         $user = auth('admin-api')->user();
+
         return response()->json([
             'id' => $user->id,
             'name' => $user->name,
-            // 'super_admin' => $user->super_admin()->exists(),
-            // 'permissions' => $user->permissions()->select('permissions.id', 'permissions.name')->get(),
         ]);
     }
 
