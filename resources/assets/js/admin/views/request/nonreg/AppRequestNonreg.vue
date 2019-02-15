@@ -34,7 +34,7 @@
       getPeriods() {
         axios.get(`api/scholarship`)
           .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             this.scholarships = response.data
             this.loaded = true
 

@@ -25,7 +25,7 @@
                       <b-input-group-prepend>
                         <b-input-group-text>@</b-input-group-text>
                       </b-input-group-prepend>
-                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Email" v-model="input.email"
+                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Active Email" v-model="input.email"
                         :state="stateEmail" />
                     </b-input-group>
                   </b-form-group>
@@ -36,7 +36,7 @@
                       <b-input-group-prepend>
                         <b-input-group-text><i class="icon-calendar"></i></b-input-group-text>
                       </b-input-group-prepend>
-                      <b-input autocomplete="off" type="number" min="2015" max="3000" class="form-control" placeholder="Year"
+                      <b-input autocomplete="off" type="number" :min="minYear" :max="maxYear" class="form-control" placeholder="Year (Angkatan)"
                         v-model="input.year" :state="stateYear" />
                     </b-input-group>
                   </b-form-group>
@@ -48,7 +48,7 @@
                       <b-input-group-prepend>
                         <b-input-group-text><i class="icon-phone"></i></b-input-group-text>
                       </b-input-group-prepend>
-                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Phone" v-model="input.phone"
+                      <b-input autocomplete="off" type="number" class="form-control" placeholder="Phone Number" v-model="input.phone"
                         :state="statePhone" />
                     </b-input-group>
                   </b-form-group>
@@ -62,7 +62,7 @@
                       <b-form-select plain id="department" :options="departmentOptions" v-model="input.department_id"
                         :state="stateDepartment">
                         <template slot="first">
-                          <option :value="null" disabled>-- Please select department --</option>
+                          <option :value="null" disabled>-- Please select field of study --</option>
                         </template>
                       </b-form-select>
                     </b-input-group>
@@ -153,6 +153,12 @@
       this.getDepartment()
     },
     computed: {
+            maxYear(){
+        return (new Date()).getFullYear() - 1
+      },
+            minYear(){
+        return (new Date()).getFullYear() - 7
+      },
       loaded() {
         return this.periodOptions && this.departmentOptions ? true : false
       },

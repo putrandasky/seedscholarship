@@ -9,7 +9,7 @@
     },
     beforeCreate: function () {
       document.body.className = 'app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden';
-      this.$store.dispatch("checkToken")
+      // this.$store.dispatch("checkToken")
     },
     created() {
 

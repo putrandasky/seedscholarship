@@ -46,7 +46,7 @@ const options = {
   toast: {
     position: SnotifyPosition.rightTop,
     showProgressBar: false,
-    timeout: 1000,
+    timeout: 500,
   }
 }
 Vue.use(Snotify, options)

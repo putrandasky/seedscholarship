@@ -40,7 +40,7 @@ class AuthController extends Controller
     }
     public function register(Request $request)
     {
-        $this->validate($request, [
+        $rules = [
             'name' => 'required|string',
             'email' => 'required|email',
             // 'password' => 'required|confirmed|min:6',
@@ -48,7 +48,13 @@ class AuthController extends Controller
             'year' => 'required|digits:4',
             'scholarship_id' => 'required',
             'department_id' => 'required',
-        ]);
+        ];
+        $messages = [
+            'scholarship_id.required' => 'The Scholarship program must be selected',
+            'department_id.required' => 'The field of study must be selected',
+        ];
+
+        $this->validate($request, $rules, $messages);
         $user = new App\AwardeeNonreg();
         $user->name = ucwords($request->name);
         $user->email = $request->email;

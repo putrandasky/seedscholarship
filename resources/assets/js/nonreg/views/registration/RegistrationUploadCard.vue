@@ -130,7 +130,7 @@
       checkFile() {
         axios.get(`api/registration-awardee-nonreg/upload?folder=${this.folder}&id=${this.$route.query.id}&registration_code=${this.$route.query.registration_code}&scholarship_id=${this.$route.query.scholarship_id}`)
           .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             this.data = response.data
             this.loaded = true
 
@@ -168,7 +168,7 @@
             }.bind(this)
           })
           .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             self.uploadPercentage = 0
             self.old_file = self.new_file
             self.new_file = null
@@ -182,13 +182,13 @@
 
       },
       deleteFile() {
-        console.log('deleting');
+        // console.log('deleting');
 
         let self = this
         axios.delete(
             `api/registration-awardee-nonreg/upload/${this.$route.query.id}?folder=${this.folder}&filename=${this.data.name}&registration_code=${this.$route.query.registration_code}&scholarship_id=${this.$route.query.scholarship_id}`)
           .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             self.old_file = null
             self.data.name = ''
             self.data.size = ''

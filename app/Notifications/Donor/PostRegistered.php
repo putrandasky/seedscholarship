@@ -39,7 +39,7 @@ class PostRegistered extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = 'no-reply@seedscholarship.org';
+$url = 'hello@seedscholarship.org';
         return (new MailMessage)
             ->from($url)
             ->subject('Terimakasih Telah Mendaftar')

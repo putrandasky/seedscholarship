@@ -73,7 +73,7 @@
       this.loaded = false
         axios.get(`api/auth/nonreg?id=${this.$route.params.scholarshipId}`)
           .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             this.checkPage()
             const editData = (data) => {
               return data.map(item => {

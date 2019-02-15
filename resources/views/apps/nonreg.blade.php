@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.nonreg')
 @section('content')
 <div id="apps"></div>
 @endsection

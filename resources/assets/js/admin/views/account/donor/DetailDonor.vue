@@ -11,56 +11,56 @@
             </router-link>
           </div>
           <b-row>
-            <b-col md="3" sm="6">
+            <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-user"></i> Full Name</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.name}}</span>
             </b-col>
-            <b-col md="3" sm="6">
+            <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-envelope"></i> Email Address</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.email}}</span>
             </b-col>
-            <b-col md="3" sm="6">
+            <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-calendar"></i> Year of Period (Angkatan)</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.year}}</span>
             </b-col>
-            <b-col md="3" sm="6">
+            <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-phone"></i> Phone Number</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.phone}}</span>
             </b-col>
-            <b-col md="3" sm="6">
+            <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-list"></i> Department</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.awardee_department.department}}</span>
             </b-col>
-            <b-col md="3" sm="6">
+            <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-address-book"></i> Address</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.address}}</span>
             </b-col>
-            <b-col md="3" sm="6">
+            <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-list-alt"></i> Donation Category</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.periods[0].pivot.donation_category}}</span>
             </b-col>
-            <b-col md="3" sm="6" v-if="data.periods[0].pivot.donation_category == 'aktif'">
+            <b-col md="3" sm="6" class="pb-3" v-if="data.periods[0].pivot.donation_category == 'aktif'">
               <div class="border-bottom">
                 <h5><i class="fa fa-dollar"></i> Amount Plan</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.periods[0].pivot.amount}}</span>
             </b-col>
 
-            <b-col md="3" sm="6">
+            <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-calendar-check-o"></i> Date Registered</h5>
               </div>
@@ -114,7 +114,7 @@
         let self = this
         axios.get(`api/user-donor/${this.$route.params.userId}?year=${this.$route.params.periodYear}`)
           .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             self.data = response.data.user
             this.loaded = true
           })

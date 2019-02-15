@@ -42,22 +42,14 @@
   components: {
     HeaderDropdown
   },
-    // mixins: [checkPermission],
     data() {
       return {
-        project: '',
         user:'',
       }
     },
     watch: {
-      checkProject() {
-        this.project = this.$store.state.project
-      },
     },
     computed: {
-      checkProject() {
-        return this.$store.state.project
-      },
     },
     methods: {
       sidebarToggle(e) {

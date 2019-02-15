@@ -3,52 +3,52 @@ import Router from 'vue-router'
 import Full from '../container/Full.vue'
 import Plain from '../container/Plain.vue'
 
-const AppDashboard = () => import('../views/dashboard/AppDashboard.vue')
+import AppDashboard from '../views/dashboard/AppDashboard.vue'
 
-// const AppUserAdmin = () => import('../views/user/AppAdmin.vue')
-// const AppUserAwardee = () => import('../views/user/AppAwardee.vue')
-// const AppUserPatron = () => import('../views/user/AppPatron.vue')
+// import AppUserAdmin from '../views/user/AppAdmin.vue'
+// import AppUserAwardee from '../views/user/AppAwardee.vue'
+// import AppUserPatron from '../views/user/AppPatron.vue'
 
-const AppAssignment = () => import('../views/assignment/AppAssignment.vue')
-const AppAssignmentNew = () => import('../views/assignment/AppNewAssignment.vue')
-const AssignmentDetail = () => import('../views/assignment/AssignmentDetail.vue')
+import AppAssignment from '../views/assignment/AppAssignment.vue'
+import AppAssignmentNew from '../views/assignment/AppNewAssignment.vue'
+import AssignmentDetail from '../views/assignment/AssignmentDetail.vue'
 
-const AppBlog = () => import('../views/blog/AppBlog.vue')
-const AppBlogNew = () => import('../views/blog/AppBlogNew.vue')
-const AppBlogTag = () => import('../views/blog/AppBlogTag.vue')
-const AppBlogCategory = () => import('../views/blog/AppBlogCategory.vue')
-const BlogDetail = () => import('../views/blog/BlogDetail.vue')
+import AppBlog from '../views/blog/AppBlog.vue'
+import AppBlogNew from '../views/blog/AppBlogNew.vue'
+import AppBlogTag from '../views/blog/AppBlogTag.vue'
+import AppBlogCategory from '../views/blog/AppBlogCategory.vue'
+import BlogDetail from '../views/blog/BlogDetail.vue'
 
-const AppPage = () => import('../views/page/AppPage.vue')
-const AppPageNew = () => import('../views/page/AppPageNew.vue')
-const PageDetail = () => import('../views/page/PageDetail.vue')
+import AppPage from '../views/page/AppPage.vue'
+import AppPageNew from '../views/page/AppPageNew.vue'
+import PageDetail from '../views/page/PageDetail.vue'
 
-const AppRequestAwardee = () => import('../views/request/awardee/AppRequestAwardee.vue')
-const RequestAwardeeIndex = () => import('../views/request/awardee/AppRequestAwardeeIndex.vue')
-const RequestAwardeeDefault = () => import('../views/request/awardee/AppRequestAwardeeDefault.vue')
-const DetailRequestAwardee = () => import('../views/request/awardee/DetailRequestAwardee.vue')
+import AppRequestAwardee from '../views/request/awardee/AppRequestAwardee.vue'
+import RequestAwardeeIndex from '../views/request/awardee/AppRequestAwardeeIndex.vue'
+import RequestAwardeeDefault from '../views/request/awardee/AppRequestAwardeeDefault.vue'
+import DetailRequestAwardee from '../views/request/awardee/DetailRequestAwardee.vue'
 
-const AppRequestNonreg = () => import('../views/request/nonreg/AppRequestNonreg.vue')
-const RequestNonregIndex = () => import('../views/request/nonreg/AppRequestNonregIndex.vue')
-const RequestNonregDefault = () => import('../views/request/nonreg/AppRequestNonregDefault.vue')
-const DetailRequestNonreg = () => import('../views/request/nonreg/DetailRequestNonreg.vue')
+import AppRequestNonreg from '../views/request/nonreg/AppRequestNonreg.vue'
+import RequestNonregIndex from '../views/request/nonreg/AppRequestNonregIndex.vue'
+import RequestNonregDefault from '../views/request/nonreg/AppRequestNonregDefault.vue'
+import DetailRequestNonreg from '../views/request/nonreg/DetailRequestNonreg.vue'
 
-const AppAccountAdmin = () => import('../views/admin/AppAdmin.vue')
-const AppAccountAdminDepartment = () => import('../views/admin/AppAdminDepartment.vue')
-const AccountAdminDetail = () => import('../views/admin/AdminDetail.vue')
-const AppAccountAdminNew = () => import('../views/admin/AppAdminNew.vue')
-const AppAccountAwardee = () => import('../views/admin/AppAwardee.vue')
+import AppAccountAdmin from '../views/admin/AppAdmin.vue'
+import AppAccountAdminDepartment from '../views/admin/AppAdminDepartment.vue'
+import AccountAdminDetail from '../views/admin/AdminDetail.vue'
+import AppAccountAdminNew from '../views/admin/AppAdminNew.vue'
+import AppAccountAwardee from '../views/admin/AppAwardee.vue'
 
-const AppAccountDonor = () => import('../views/account/donor/AppDonor.vue')
-const AccountDonorIndex = () => import('../views/account/donor/AppDonorIndex.vue')
-const AccountDonorDefault = () => import('../views/account/donor/AppDonorDefault.vue')
-const DetailAccountDonor = () => import('../views/account/donor/DetailDonor.vue')
+import AppAccountDonor from '../views/account/donor/AppDonor.vue'
+import AccountDonorIndex from '../views/account/donor/AppDonorIndex.vue'
+import AccountDonorDefault from '../views/account/donor/AppDonorDefault.vue'
+import DetailAccountDonor from '../views/account/donor/DetailDonor.vue'
 
 
 import Login from "../views/auth/AuthLogin";
-const PasswordReset = () => import('../views/auth/AuthPasswordReset')
-const ForgotPassword = () => import('../views/auth/AuthForgotPassword')
-const Register = () => import('../views/auth/AuthRegister')
+import PasswordReset from '../views/auth/AuthPasswordReset'
+import ForgotPassword from '../views/auth/AuthForgotPassword'
+import Register from '../views/auth/AuthRegister'
 Vue.use(Router)
 
 export default new Router({
@@ -60,7 +60,7 @@ export default new Router({
   // }),
   routes: [{
       path: '',
-      redirect: 'dashboard',
+      redirect: '/login',
       component: Full,
       children: [{
         path: 'dashboard',
@@ -347,9 +347,9 @@ export default new Router({
       children: [{
         path: '',
         component: Login,
-        meta: {
-          guest: true
-        },
+        // meta: {
+        //   guest: true
+        // },
 
       }]
     },

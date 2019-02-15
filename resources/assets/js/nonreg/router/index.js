@@ -25,7 +25,7 @@ export default new Router({
   // }),
   routes: [{
       path: '',
-      redirect: 'dashboard',
+      redirect: '/login',
       component: Full,
       children: [{
           path: 'dashboard',

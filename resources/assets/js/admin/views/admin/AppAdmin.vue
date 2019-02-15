@@ -71,7 +71,7 @@
       getData() {
         axios.get(`api/auth/admin`)
           .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             this.checkPage()
             const editData = (data) => {
               return data.map(item => {

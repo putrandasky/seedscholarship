@@ -16,7 +16,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $data = App\AwardeeDepartment::orderBy('department','asc')->select(['id','department'])->withCount('awardees')->get();
+        $data = App\AwardeeDepartment::orderBy('id','asc')->select(['id','department'])->withCount('awardees')->get();
 
         return $data;
     }

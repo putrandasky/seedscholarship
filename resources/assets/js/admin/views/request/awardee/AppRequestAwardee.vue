@@ -34,7 +34,7 @@
       getPeriods() {
         axios.get(`api/period`)
           .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             this.periods = response.data
             this.loaded = true
 

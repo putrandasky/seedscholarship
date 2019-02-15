@@ -157,7 +157,7 @@
         let self = this
         axios.get(`api/user-admin/${this.$route.params.userId}`)
           .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             self.data = response.data
             this.old_profile_picture = response.data.photo
             this.loaded = true
@@ -171,25 +171,25 @@
         let self = this
         axios.patch(`api/user-admin/${this.$route.params.userId}`, this.data)
           .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             this.$snotify.success(`Profile Updated`, "SUCCESS");
 
             if (self.old_profile_picture && !self.data.photo && !self.new_profile_picture) {
-              console.log('delete')
+              // console.log('delete')
               self.deleteCover(self.data.id)
               return
             }
             if (self.old_profile_picture && self.new_profile_picture) {
-              console.log('update')
+              // console.log('update')
               self.updateCover(self.data.id)
               return
             }
             if (!self.old_profile_picture && self.new_profile_picture) {
-              console.log('upload')
+              // console.log('upload')
               self.uploadCover(self.data.id)
               return
             }
-            console.log('no action')
+            // console.log('no action')
             self.getData()
             // this.$refs.upload.start(response.data.blog_id)
           })
@@ -211,7 +211,7 @@
             }.bind(this)
           })
           .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             self.uploadPercentage = 0
             self.old_profile_picture = self.new_profile_picture
             self.data.photo = self.new_profile_picture
@@ -238,7 +238,7 @@
             }.bind(this)
           })
           .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             self.uploadPercentage = 0
             self.old_profile_picture = self.new_profile_picture
             self.data.photo = self.new_profile_picture
@@ -255,7 +255,7 @@
         let self = this
         axios.delete(`api/file/admin-cover-image/${blogId}`)
           .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             self.old_profile_picture = null
             this.$snotify.success(`Photo Deleted`, "SUCCESS");
             self.getData()

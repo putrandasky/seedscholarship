@@ -10,7 +10,7 @@
     <b-dropdown-item  @click="handleClickPermission">
       <i class="fa fa-key"></i> Permission
     </b-dropdown-item> -->
-    <b-dropdown-item><i class="fa fa-lock"></i> Logout</b-dropdown-item>
+    <b-dropdown-item @click="handleLogout"><i class="fa fa-lock"></i> Logout</b-dropdown-item>
   </b-nav-item-dropdown>
 </template>
 <script>
@@ -20,30 +20,19 @@
       return {}
     },
     methods: {
-      handleClickUserProfile() {
-        this.$router.replace({
-          name: 'MyTask',
-          params: {
-            projectId: this.$route.params.projectId
-          }
-        })
+      handleLogout() {
+      axios.post(`api/auth/logout`)
+      .then((response) => {
+            // this.$snotify.info(`Good Bye`, "LOGGED OUT");
+              this.$store.dispatch('logout')
+            setTimeout(() => {
+              this.$router.push('/login')
+            },200)
+      })
+      .catch((error) => {
+      console.log(error);
+      })
       },
-      handleClickSettings() {
-        this.$router.push({
-          name: 'Settings',
-          params: {
-            projectId: this.$route.params.projectId,
-          }
-        })
-      },
-      handleClickPermission() {
-        this.$router.push({
-          name: 'PermissionProject',
-          params: {
-            projectId: this.$route.params.projectId,
-          }
-        })
-      }
     }
   }
 </script>

@@ -9,7 +9,7 @@
         <strong>2mb</strong>.<br/>
         Download  <a download href="files/BEASISWA PENELITIAN SEEDS 2019 - II - FORMAT PROPOSAL.docx" class="alert-link">here</a> for format "Proposal" &  <a download href="files/BEASISWA PENELITIAN SEEDS 2019 - II - SK Tidak Menerima Beasiswa.docx" class="alert-link">here</a> for "Surat Keterangan"
         <hr>
-        <small>Nb : Make sure you bookmark this page, if you need to update the file, you can back to this page later.</small>
+        <small>Nb : Make sure you bookmark this page, if you need to update the file, you can back to this page later. or check your Inbox / Spam folder of your email</small>
         </b-alert>
       <b-row>
         <b-col lg="3" sm="6">

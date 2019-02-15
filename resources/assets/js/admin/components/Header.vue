@@ -25,10 +25,10 @@
       <!-- <b-nav-item  v-if="permission(1) || permission(5)" v-b-tooltip.hover.bottom title="Settings">
         <i class="fa fa-cog" @click="handleClickSettings"></i>
       </b-nav-item> -->
-      <header-dropdown />
     <strong class="d-md-down-none pr-3">
-      <!-- {{this.$store.getters.user.name}} -->
+      {{this.$store.getters.user.name}}
     </strong>
+      <header-dropdown />
     </b-navbar-nav>
     <loading :active.sync="this.$store.state.loading" :can-cancel="false" :height=20 :opacity=0 loader='spinner'
       transition='none' :is-full-page="false" />
@@ -45,19 +45,14 @@
     // mixins: [checkPermission],
     data() {
       return {
-        project: '',
         user:'',
       }
     },
     watch: {
-      checkProject() {
-        this.project = this.$store.state.project
-      },
+
     },
     computed: {
-      checkProject() {
-        return this.$store.state.project
-      },
+
     },
     methods: {
       sidebarToggle(e) {

@@ -5,7 +5,7 @@
         <b-col lg="6" md="8">
           <b-card no-body class="mx-4">
             <form class="card-body p-4" @submit.prevent="register" autocomplete="off">
-              <h2>Non Reg Awardee Registration</h2>
+              <h2>Research Awardee Registration</h2>
               <!-- <p class="text-muted">Create your first account</p> -->
               <b-row class="form-group">
                 <b-col sm="12">
@@ -25,7 +25,7 @@
                       <b-input-group-prepend>
                         <b-input-group-text>@</b-input-group-text>
                       </b-input-group-prepend>
-                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Email" v-model="input.email"
+                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Active Email" v-model="input.email"
                         :state="stateEmail" />
                     </b-input-group>
                   </b-form-group>
@@ -36,7 +36,7 @@
                       <b-input-group-prepend>
                         <b-input-group-text><i class="icon-calendar"></i></b-input-group-text>
                       </b-input-group-prepend>
-                      <b-input autocomplete="off" type="number" min="2015" max="3000" class="form-control" placeholder="Year"
+                      <b-input autocomplete="off" type="number" :min="minYear" :max="maxYear" class="form-control" placeholder="Year (Angkatan)"
                         v-model="input.year" :state="stateYear" />
                     </b-input-group>
                   </b-form-group>
@@ -48,7 +48,7 @@
                       <b-input-group-prepend>
                         <b-input-group-text><i class="icon-phone"></i></b-input-group-text>
                       </b-input-group-prepend>
-                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Phone" v-model="input.phone"
+                      <b-input autocomplete="off" type="number" class="form-control" placeholder="Phone Number" v-model="input.phone"
                         :state="statePhone" />
                     </b-input-group>
                   </b-form-group>
@@ -62,7 +62,7 @@
                       <b-form-select plain id="department" :options="departmentOptions" v-model="input.department_id"
                         :state="stateDepartment">
                         <template slot="first">
-                          <option :value="null" disabled>-- Please select department --</option>
+                            <option :value="null" disabled>-- Please select your field of study --</option>
                         </template>
                       </b-form-select>
                     </b-input-group>
@@ -77,7 +77,7 @@
                       <b-form-select plain id="scholarship" :options="scholarshipOptions" v-model="input.scholarship_id"
                         :state="stateScholarship">
                         <template slot="first">
-                          <option :value="null" disabled>-- Please select scholarship --</option>
+                          <option :value="null" disabled>-- Please select program --</option>
                         </template>
                       </b-form-select>
                     </b-input-group>
@@ -151,11 +151,17 @@
       }
     },
     created() {
-      this.getSchoarship()
+      this.getScholarship()
       this.getDepartment()
     },
     computed: {
-      loaded() {
+            maxYear(){
+        return (new Date()).getFullYear() - 1
+      },
+            minYear(){
+        return (new Date()).getFullYear() - 7
+      },
+            loaded() {
         return this.scholarshipOptions && this.departmentOptions ? true : false
       },
       stateName() {
@@ -184,7 +190,7 @@
       },
     },
     methods: {
-      getSchoarship() {
+      getScholarship() {
         axios.get(`api/scholarship`)
           .then((response) => {
             response.data.forEach(function (obj) {
@@ -195,7 +201,7 @@
               delete obj.year
             });
             this.scholarshipOptions = response.data;
-            console.log(this.scholarshipOptions);
+            // console.log(this.scholarshipOptions);
 
 
           })

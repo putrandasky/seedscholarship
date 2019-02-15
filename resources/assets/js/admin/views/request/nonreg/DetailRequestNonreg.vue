@@ -11,43 +11,43 @@
             </router-link>
           </div>
           <b-row>
-            <b-col md="3" sm="6">
+            <b-col md="3" sm="6"  class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-user"></i> Full Name</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.name}}</span>
             </b-col>
-            <b-col md="3" sm="6">
+            <b-col md="3" sm="6"  class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-envelope"></i> Email Address</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.email}}</span>
             </b-col>
-            <b-col md="3" sm="6">
+            <b-col md="3" sm="6"  class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-calendar"></i> Year of Period</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.year}}</span>
             </b-col>
-            <b-col md="3" sm="6">
+            <b-col md="3" sm="6"  class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-phone"></i> Phone Number</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.phone}}</span>
             </b-col>
-            <b-col md="3" sm="6">
+            <b-col md="3" sm="6"  class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-list"></i> Department</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.awardee_department.department}}</span>
             </b-col>
-            <b-col md="3" sm="6">
+            <b-col md="3" sm="6"  class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-check"></i> Status Approval</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.scholarships[0].pivot.status}}</span>
             </b-col>
-            <b-col md="3" sm="6">
+            <b-col md="3" sm="6"  class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-calendar-check-o"></i> Date Registered</h5>
               </div>
@@ -125,7 +125,7 @@
         let self = this
         axios.get(`api/registration-awardee-nonreg/${this.$route.params.userId}?id=${this.$route.params.scholarshipId}`)
           .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             self.data = response.data.user
             self.files = response.data.files
             this.loaded = true

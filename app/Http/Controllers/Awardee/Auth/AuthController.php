@@ -40,16 +40,21 @@ class AuthController extends Controller
     }
     public function register(Request $request)
     {
+        $rules = [
+                    'name' => 'required|string',
+                    'email' => 'required|email|unique:awardees',
+                    // 'password' => 'required|confirmed|min:6',
+                    'phone' => 'required|numeric|min:6',
+                    'year' => 'required|numeric|min:4',
+                    'period_id' => 'required',
+                    'department_id' => 'required',
+        ];
+        $messages = [
+            'period_id.required' => 'The period of seedscholarship must be selected',
+            'department_id.required' => 'The field of study must be selected',
+        ];
 
-        $this->validate($request, [
-            'name' => 'required|string',
-            'email' => 'required|email|unique:awardees',
-            // 'password' => 'required|confirmed|min:6',
-            'phone' => 'required|numeric|min:6',
-            'year' => 'required|numeric|min:4',
-            'period_id' => 'required',
-            'department_id' => 'required',
-        ]);
+        $this->validate($request, $rules, $messages);
         $user = new App\Awardee();
         $user->name = ucwords($request->name);
         $user->email = $request->email;

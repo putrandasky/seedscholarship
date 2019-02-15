@@ -28,9 +28,9 @@
       <strong>Q : Apa saja tahap syarat administrasi untuk seleksi Calon Penerima Beasiswa?</strong>
       <p>A : Team Recruitment akan melakukan screening dari CV, Essay, Transkrip Nilai dan data kondisi finansial keluarga yang didukung dengan data berupa slip gaji orang tua dan atau rekening listrik. Apabila tidak ada slip gaji maka dilengkapi juga essay mengenai kondisi finansial keluarga.</p>
       <strong>Q : Berapa jumlah Penerima Beasiswa ?</strong>
-      <p>A : Jumlah penerima beasiswa untuk periode 1 adalah 5 orang dari angkatan 2014. Untuk Periode 2, 7 orang angkatan 2015, untuk periode 3 adalah 10 orang (disesuaikan dengan hasil akhir rekrutmen)</p>
-      <strong>Q : Berapa jumlah besaran beasiswa untuk Periode 4?</strong>
-      <p>A : Besaran beasiswa untuk periode 4 adalah Rp 3.600.000,- untuk satu semester. Para penerima beasiswa akan mendapatkan beasiswa selama satu tahun sehingga total beasiswa yang akan didapatkan adalah Rp 7.200.000,-</p>
+      <p>Jumlah mahasiswa yang akan menerima beasiswa kaan disesuaikan dengan hasil propses seleksi. SEED Scholarship memeiliki kuota penerima beasiswa hingga 10 awardee</p>
+      <strong>Q : Berapa jumlah besaran beasiswa diberikan?</strong>
+      <p>A : Besaran beasiswa yang diberikan oleh SEEDS adalah sebesar Rp 3.600.000,- untuk satu semester.</p>
       <strong>Q : Kapan beasiswa diberikan kepada Penerima Beasiswa?</strong>
       <p>A : Beasiswa akan diberikan pada bulan pertama atau paling lambat bulan kedua dari awal semester berjalan</p>
     </b-modal>

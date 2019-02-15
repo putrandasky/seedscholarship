@@ -33,3 +33,7 @@ Vue.filter('reverse', function (value) {
   // slice to make a copy of array, then reverse the copy
   return value.slice().reverse();
 });
+Vue.filter('currency', function (value) {
+  let val = (value / 1).toFixed(0).replace('.', ',')
+  return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+});

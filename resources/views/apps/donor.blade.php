@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.donor')
 @section('content')
 <div id="apps"></div>
 @endsection

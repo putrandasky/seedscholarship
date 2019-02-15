@@ -83,7 +83,7 @@
               // this.$store.dispatch('checkToken');
               // console.log('login success');
               // this.$store.commit('PENDING', false)
-            }, 500)
+            }, 1000)
           })
           .catch((error) => {
             // console.log(error);

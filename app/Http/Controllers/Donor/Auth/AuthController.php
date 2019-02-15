@@ -40,7 +40,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $this->validate($request, [
+        $rules = [
             'name' => 'required|string',
             'email' => 'required|email|unique:donors',
             // 'password' => 'required|confirmed|min:6',
@@ -52,8 +52,17 @@ class AuthController extends Controller
             'address' => 'required',
             'accept_term_condition' => 'required',
             'period' => 'required',
-            // 'amount' => 'required'
-        ]);
+            'amount' => $request->donation_category == 'aktif' ? 'required|min:100000|numeric|' : '',
+        ];
+        $messages = [
+            'period.required' => 'The period of seedscholarship must be selected',
+            'department.required' => 'The field of study must be selected',
+            'accept_term_condition.required' => 'You must read & accept the term & condition',
+            'amount.required' => 'Plan amount of monthly donation must be filled by donatur aktif',
+            'amount.min' => 'A minimum of donation for donatur aktif is Rp. 100.000 / month',
+        ];
+        $this->validate($request, $rules, $messages);
+
         $user = new App\Donor();
         $user->name = ucwords($request->name);
         $user->email = $request->email;
@@ -64,11 +73,19 @@ class AuthController extends Controller
         $user->address = $request->address;
         // $user->password = Hash::make($request->password);
         // $registration_code = Str::random(60);
-        DB::transaction(function () use ($request, $user) {
+        if ($request->donation_category == "aktif") {
+          $amount =  $request->amount * 12;
+          } elseif ($request->amount) {
+            $amount =  $request->amount;
+          }else{
+            $amount = 0;
+        }
+        DB::transaction(function () use ($request, $user, $amount) {
             $user->save();
+
             $user->periods()->attach($request->period, [
                 'donation_category' => $request->donation_category,
-                'amount' => $request->amount,
+                'amount' => $amount,
                 'is_term_condition_agreed' => $request->accept_term_condition,
                 'is_contract_agreed' => false,
             ]);

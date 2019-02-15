@@ -4,12 +4,12 @@
       <b-row class="justify-content-center">
         <b-col sm="8" v-if="registered">
             <header class="text-center" id="header">
-              <h1 class="display-1"><strong>TERIMA KASIH!</strong></h1>
+              <h1 ><strong>TERIMA KASIH</strong></h1>
             </header>
 
             <div class="text-center">
               <i class="fa fa-heart display-1" id="checkmark" style="color:red"></i>
-              <p>Terimakasih telah mendaftar menjadi donatur SEEDS 5. Kontribusi Anda sangat berharga untuk mahasiswa Departemen Teknik Sipil UI. Tim kami akan segera menghubungi Anda.</p>
+            <p>Terima kasih telah begabung bersama kami menjadi donatur di SEED Scholarship Periode ke-5. Kontribusi anda sangat berharga bagi adik-adik kita di Departemen Teknik Sipil UI. Tim kami akan segera menghubungi Anda</p>
             </div>
         </b-col>
         <b-col lg="6" md="8" v-if="!registered">
@@ -17,7 +17,7 @@
             <b-card no-body class="mx-4">
               <form class="card-body p-4" @submit.prevent="register" autocomplete="off">
                 <h2>Donors Registration</h2>
-                <p class="text-muted">Create your first account</p>
+                <p class="text-muted">Silahkan mengisi form berikut untuk menjadi donatur kami. </p>
                 <b-row class="form-group">
                   <b-col sm="12">
                     <b-form-group :invalid-feedback="errors.name" :state="stateName">
@@ -36,7 +36,7 @@
                         <b-input-group-prepend>
                           <b-input-group-text>@</b-input-group-text>
                         </b-input-group-prepend>
-                        <b-input autocomplete="off" type="text" class="form-control" placeholder="Email" v-model="input.email"
+                        <b-input autocomplete="off" type="text" class="form-control" placeholder="Active Email" v-model="input.email"
                           :state="stateEmail" />
                       </b-input-group>
                     </b-form-group>
@@ -48,7 +48,7 @@
                         <b-input-group-prepend>
                           <b-input-group-text><i class="icon-phone"></i></b-input-group-text>
                         </b-input-group-prepend>
-                        <b-input autocomplete="off" type="text" class="form-control" placeholder="Phone" v-model="input.phone"
+                        <b-input autocomplete="off" type="number" class="form-control" placeholder="Phone Number" v-model="input.phone"
                           :state="statePhone" />
                       </b-input-group>
                     </b-form-group>
@@ -59,8 +59,8 @@
                         <b-input-group-prepend>
                           <b-input-group-text><i class="icon-calendar"></i></b-input-group-text>
                         </b-input-group-prepend>
-                        <b-input autocomplete="off" type="number" min="1950" max="2014" class="form-control"
-                          placeholder="Year" v-model="input.year" :state="stateYear" />
+                        <b-input autocomplete="off" type="number" min="1950" :max="maxYear" class="form-control"
+                          placeholder="Year (Angkatan)" v-model="input.year" :state="stateYear" />
                       </b-input-group>
                     </b-form-group>
                   </b-col>
@@ -73,7 +73,7 @@
                         <b-form-select plain id="department" :options="departmentOptions" v-model="input.department"
                           :state="stateDepartment">
                           <template slot="first">
-                            <option :value="null" disabled>-- Please select department --</option>
+                            <option :value="null" disabled>-- Please select your field of study --</option>
                           </template>
                         </b-form-select>
                       </b-input-group>
@@ -98,7 +98,7 @@
                         </b-input-group-prepend>
                         <b-form-select plain id="period" :options="periodOptions" v-model="input.period" :state="statePeriod">
                           <template slot="first">
-                            <option :value="null" disabled>-- Please select period --</option>
+                            <option :value="null" disabled>-- Please select seedscholarship period --</option>
                           </template>
                         </b-form-select>
                       </b-input-group>
@@ -112,12 +112,14 @@
                         </b-input-group-prepend>
                         <b-form-select plain id="donationCategory" :options="[
                       {
-                        value:'pasif',
-                        text:'Donatur Pasif'
-                      },{
                         value:'aktif',
                         text:'Donatur Aktif'
-                      }]"
+                      },
+                      {
+                        value:'pasif',
+                        text:'Donatur Pasif'
+                      },
+                      ]"
                           v-model="input.donation_category" :state="stateDonationCategory">
                           <template slot="first">
                             <option :value="null" disabled>-- Please select donation category for this period --</option>
@@ -127,15 +129,17 @@
                     </b-form-group>
                   </b-col>
                   <slide-y-up-transition>
-                    <b-col sm="12" v-if="input.donation_category == 'aktif'">
-                      <b-form-group :invalid-feedback="errors.amount" :state="stateAmount" description="This amount will be billed every month">
+                    <b-col sm="12">
+                      <b-form-group :invalid-feedback="errors.amount" :state="stateAmount" >
                         <b-input-group class="">
                           <b-input-group-prepend>
                             <b-input-group-text>Rp</b-input-group-text>
                           </b-input-group-prepend>
-                          <b-input autocomplete="off" type="number" class="form-control" placeholder="Amount of Donation (could be tentative)"
-                            v-model="input.amount" :state="stateAmount" />
+                          <b-input  autocomplete="off" type="number" class="form-control" placeholder="Plan Amount of Donation per Year"
+                            v-model="input.amount" :state="stateAmount"  />
                         </b-input-group>
+                        <small v-show="input.donation_category == 'aktif'" slot="description" >Your total donation Rp. {{input.amount*12 | currency}} / year & will be billed Rp. {{input.amount|currency}} / month</small>
+                        <small v-show="input.donation_category == 'pasif'" slot="description" >Your total donation Rp. {{input.amount | currency}} / year</small>
                       </b-form-group>
                     </b-col>
                   </slide-y-up-transition>
@@ -166,6 +170,7 @@
     },
     data: function () {
       return {
+        showTotalAmount:false,
         isDisabled:false,
         registered:false,
         scholarshipOptions: [],
@@ -207,6 +212,9 @@
       this.getDepartment()
     },
     computed: {
+      maxYear(){
+        return (new Date()).getFullYear() - 4
+      },
       loaded() {
         return this.scholarshipOptions && this.departmentOptions && this.periodOptions ? true : false
       },
@@ -252,6 +260,7 @@
       },
     },
     methods: {
+
       getPeriod() {
         axios.get(`api/period`)
           .then((response) => {
@@ -337,6 +346,7 @@
             this.errors.password = errors.password ? errors.password[0] : 'no-error';
             this.errors.amount = errors.amount ? errors.amount[0] : 'no-error';
             this.errors.period = errors.period ? errors.period[0] : 'no-error';
+            this.errors.address = errors.address ? errors.address[0] : 'no-error';
             this.errors.accept_term_condition = errors.accept_term_condition ? errors.accept_term_condition[0] :
               'no-error';
           })

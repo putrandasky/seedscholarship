@@ -8,7 +8,7 @@
       <b-alert show variant="primary">Please upload this file below in <strong>pdf/jpeg/png</strong> file with max size
         <strong>2mb</strong>.
         <hr>
-        <small>Nb : Make sure you bookmark this page, if you need to update the file, you can back to this page later.</small>
+        <small>Nb : Make sure you bookmark this page, if you need to update the file, you can back to this page later. or check your Inbox / Spam folder of your email</small>
       </b-alert>
       <b-row>
         <b-col lg="3" sm="6">

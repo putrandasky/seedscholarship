@@ -39,10 +39,10 @@ class PostRegistered extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = 'no-reply@seedscholarship.org';
+        $url = 'hello@seedscholarship.org';
         return (new MailMessage)
             ->from($url)
-            ->subject('Hai Calon Awardee')
+            ->subject("Hai Calon Awardee")
             ->markdown('email.AwardeePostRegistered', ['data' => $this->data]);
 
     }
