@@ -31,16 +31,20 @@ Department : {{$data->awardeeDepartment->department}}<br/>
 Alamat : {{$data->address}}<br/>
 Kategori Donasi : {{$data->periods[0]->pivot->donation_category}}<br/>
 @if($data->periods[0]->pivot->amount != 0)
-Jumlah donasi : {{$data->periods[0]->pivot->amount}} / tahun<br/>
+Jumlah donasi : Rp. {{number_format($data->periods[0]->pivot->amount,0,",",".")}} / tahun<br/>
 @endif
 @if($data->periods[0]->pivot->donation_category == 'aktif')
-Akan ditagihkan : {{$data->periods[0]->pivot->amount / 12}} / bulan<br/>
+Akan ditagihkan : Rp. {{number_format($data->periods[0]->pivot->amount / 12,0,",",".")}} / bulan<br/>
 @endif
 @endcomponent
 
-Kontribusi anda sangat berharga untuk Department Teknik Sipil UI.
+Jika Anda sudah menyetujui data tersebut. silahkan klik tombol dibawah ini untuk menerima kontrak kerja sama dari kami
+@component('mail::button', ['url' => config('app.url')."/donor#/contract-agreed?id={$data->id}&email={$data->email}&period={$data->periods[0]->period}&token={$data->periods[0]->pivot->token}"])
+Saya Setuju
+@endcomponent
 
-Segera tim kami akan menghubungi anda untuk melakukan konfirmasi
+
+Tim kami akan menghubungi anda untuk melakukan konfirmasi jika Anda tidak menyetujui dalam waktu 3 hari.
 
 Terimakasih,<br/>
 

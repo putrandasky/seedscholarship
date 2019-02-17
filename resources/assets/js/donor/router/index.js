@@ -14,6 +14,7 @@ const PasswordReset = () => import('../views/auth/AuthPasswordReset')
 const ForgotPassword = () => import('../views/auth/AuthForgotPassword')
 const Register = () => import('../views/auth/AuthRegister')
 const RegistrationUpload = () => import('../views/registration/RegistrationUpload')
+const ContractAgreed = () => import('../views/registration/ContractAgreed')
 Vue.use(Router)
 
 export default new Router({
@@ -87,6 +88,17 @@ export default new Router({
         meta: {
           guest: true
         },
+
+      }]
+    },
+    {
+      path: '/contract-agreed',
+      component: Plain,
+      children: [{
+        path: '',
+        name:'ContractAgreed',
+        component: ContractAgreed,
+
 
       }]
     },

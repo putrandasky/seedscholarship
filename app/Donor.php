@@ -49,7 +49,7 @@ class Donor extends Authenticatable implements JWTSubject
     }
         public function periods()
     {
-        return $this->belongsToMany('App\Period')->withPivot('donation_category', 'amount')->withTimestamps();
+        return $this->belongsToMany('App\Period')->withPivot('donation_category', 'amount','contract_number','token','is_contract_agreed','agreed_at')->withTimestamps();
     }
     public function getJWTIdentifier()
     {

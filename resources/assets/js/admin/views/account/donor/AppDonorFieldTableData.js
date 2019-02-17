@@ -52,8 +52,18 @@ export const AppDonorFieldTableData = {
                     label: 'Category',
                     'class': 'text-center',
                     thStyle: {
-                        minWidth: '150px',
-                        width: '150px'
+                        minWidth: '100px',
+                        width: '100px'
+                    },
+                    sortable: true
+                },
+                {
+                    key: 'contract',
+                    label: 'Contract',
+                    'class': 'text-center',
+                    thStyle: {
+                        minWidth: '100px',
+                        width: '100px'
                     },
                     sortable: true
                 },

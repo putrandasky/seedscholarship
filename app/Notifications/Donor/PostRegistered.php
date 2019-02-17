@@ -44,6 +44,7 @@ $url = 'hello@seedscholarship.org';
             ->from($url)
             ->subject('Terimakasih Telah Mendaftar')
             ->markdown('email.DonorPostRegistered', ['data' => $this->data]);
+            // ->attach(storage_path('app')."/contract/donor/{$this->data->periods[0]->period}/{$this->data->id}/Surat Perjanjian Kerja Sama {$this->data->name}.pdf");
 
     }
 

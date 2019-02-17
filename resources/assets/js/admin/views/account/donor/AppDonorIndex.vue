@@ -26,6 +26,16 @@
         <template slot="no" slot-scope="data">
           {{data.index+1+((currentPage-1)*perPage)}}
         </template>
+        <template slot="category" slot-scope="data">
+            <b-badge :variant="getBadgeCategory(data.item.category)">
+              {{data.item.category}}
+            </b-badge>
+        </template>
+        <template slot="contract" slot-scope="data">
+            <b-badge :variant="getBadgeContract(data.item.contract)">
+              {{data.item.contract}}
+            </b-badge>
+        </template>
       </b-table>
     </div>
   </div>
@@ -68,7 +78,7 @@
       this.loaded = false
         axios.get(`api/auth/donor?year=${this.$route.params.periodYear}`)
           .then((response) => {
-            // console.log(response.data)
+            console.log(response.data)
             this.checkPage()
             const editData = (data) => {
               return data.map(item => {
@@ -76,6 +86,7 @@
                 temp['department'] = temp.awardee_department.department
                 temp['category'] = temp.periods[0].pivot.donation_category
                 temp['registered'] = temp.created_at
+                temp['contract'] = temp.periods[0].pivot.is_contract_agreed
                 // temp.name = 'my name '+temp.name;
                 return temp;
               });
@@ -86,7 +97,15 @@
           .catch((error) => {
             console.log(error);
           })
-      }
+      },
+          getBadgeContract(status) {
+      return status === 'AGREED' ? 'success' :
+        status === 'NOT YET' ? 'secondary' : 'primary'
+    },
+          getBadgeCategory(status) {
+      return status === 'AKTIF' ? 'primary' :
+        status === 'PASIF' ? 'success' : 'secondary'
+    },
     },
   }
 

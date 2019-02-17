@@ -1,1 +1,668 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[16],{291:function(t,e,a){for(var n=a(233),r=a(232),o=a(28),i=a(13),s=a(37),l=a(120),u=a(11),p=u("iterator"),d=u("toStringTag"),c=l.Array,m={CSSRuleList:!0,CSSStyleDeclaration:!1,CSSValueList:!1,ClientRectList:!1,DOMRectList:!1,DOMStringList:!1,DOMTokenList:!0,DataTransferItemList:!1,FileList:!1,HTMLAllCollection:!1,HTMLCollection:!1,HTMLFormElement:!1,HTMLSelectElement:!1,MediaList:!0,MimeTypeArray:!1,NamedNodeMap:!1,NodeList:!0,PaintRequestList:!1,Plugin:!1,PluginArray:!1,SVGLengthList:!1,SVGNumberList:!1,SVGPathSegList:!1,SVGPointList:!1,SVGStringList:!1,SVGTransformList:!1,SourceBufferList:!1,StyleSheetList:!0,TextTrackCueList:!1,TextTrackList:!1,TouchList:!1},b=r(m),f=0;f<b.length;f++){var h,g=b[f],v=m[g],k=i[g],_=k&&k.prototype;if(_&&(_[p]||s(_,p,c),_[d]||s(_,d,g),l[g]=c,v))for(h in n)_[h]||o(_,h,n[h],!0)}},292:function(t,e,a){"use strict";var n=a(22),r=a(76)(0),o=a(73)([].forEach,!0);n(n.P+n.F*!o,"Array",{forEach:function(t){return r(this,t,arguments[1])}})},422:function(t,e,a){"use strict";a.r(e);a(291),a(292),a(30);var n={name:"AuthRegisterFaq",data:function(){return{faqModal:!1}},created:function(){},methods:{}},r=a(0),o={name:"AuthRegister",components:{FaqModal:Object(r.a)(n,function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("div",[a("div",{directives:[{name:"b-tooltip",rawName:"v-b-tooltip.hover.left",value:"Term Conditions & FAQ",expression:"'Term Conditions & FAQ'",modifiers:{hover:!0,left:!0}}],staticClass:"float-button",on:{click:function(e){t.faqModal=!0}}},[a("i",{staticClass:"fa fa-question"})]),t._v(" "),a("b-modal",{attrs:{"hide-footer":!0,"no-close-on-esc":!0,"hide-header-close":!1,"no-close-on-backdrop":!1,size:"xl",title:"Term, Conditions, & Frequently Asked Question"},model:{value:t.faqModal,callback:function(e){t.faqModal=e},expression:"faqModal"}},[a("p",[t._v("Tim SEED Scholarship mengajak dan membuka peluang sebesar-besarnya bagi para calon donatur yang ingin ikut\n      berpartisipasi dalam keberlangsungan program beasiswa SEED Scholarship. Demi memberikan kenyamanan dan\n      menyesuaikan kemampuan calon donatur, kami memberikan pilihan 2 (dua) kategori donatur sebagai berikut")]),t._v(" "),a("ol",[a("li",[t._v("Donatur Aktif adalah donatur yang memberikan donasi dengan jumlah minimal Rp. 100.000,00 rutin setiap bulan\n        selama 12 bulan. "),a("br"),t._v("\n        Donatur akan diberikan pengingat atau himbauan untuk melakukan donasi setiap\n        bulannya oleh narahubung dari tim kami. ")]),t._v(" "),a("li",[t._v("Donatur Pasif adalah donatur yang memberikan donasi dengan jumlah yang tidak ditetapkan sebanyak minimal 1\n        (satu) kali dalam 12 bulan. "),a("br"),t._v("\n        Jumlah nilai yang dimasukan dalam rencana donasi adalah target atau estimasi jumlah\n        yang akan didonasikan. Kami menyarankan anda namun tidak memewajibkan. Angka\n        yang Anda masukan akan digunakan dalam perencanaan keuangan kami. ")])]),t._v(" "),a("hr"),t._v(" "),a("strong",[t._v("Q : Kapan donasi dibayarkan?")]),t._v(" "),a("p",[t._v("A : Periode pembayaran donasi dibayarkan tanggal 25 s/d 5 bulan setelahnya. Contoh: Untuk pembayaran bulan\n      November 2015, maka donasi dapat dibayarkan sejak tanggal 25 November 2015 s/d 5 Desember 2015")]),t._v(" "),a("strong",[t._v("Q : Kapan pembukaan pendaftaran donatur?")]),t._v(" "),a("p",[t._v("A : Pendaftaran donatur akan dibuka sepanjang tahun. Anda cukup mengisi formulir pendaftaran kemudian tim PR\n      akan mengubungi Anda untuk memberikan informasi selengkapnya")]),t._v(" "),a("strong",[t._v("Q: Untuk donatur aktif, dapatkah donasi dibayarkan langsung untuk beberapa bulan ke depan untuk\n      menghindari lupa transfer ?")]),t._v(" "),a("p",[t._v("A : Donasi bisa dibayarkan langsung untuk beberapa bulan donasi, misalkan langsung Rp 300.000,- untuk 3 bulan\n      dst. Team finance akan mencatatnya. Yang ditekankan adalah dalam satu periode (selama 1 tahun) total donasi\n      yang dikumpulkan adalah Rp 1.200.000,-\n\n      Kategori Donatur*\n    ")])])],1)},[],!1,null,null,null).exports},data:function(){return{showTotalAmount:!1,isDisabled:!1,registered:!1,scholarshipOptions:[],departmentOptions:[],periodOptions:[],errors:{name:"",year:"",phone:"",email:"",donation_category:"",department:"",initial:"",password:"",amount:null,address:"",accept_term_condition:null,period:null},input:{name:"",year:"",phone:"",donation_category:null,department:null,email:"",amount:null,address:"",accept_term_condition:null,period:null,password:"",password_confirmation:""}}},created:function(){this.getSchoarship(),this.getPeriod(),this.getDepartment()},computed:{maxYear:function(){return(new Date).getFullYear()-4},loaded:function(){return!!(this.scholarshipOptions&&this.departmentOptions&&this.periodOptions)},stateName:function(){return"no-error"==this.errors.name||!this.errors.name&&null},stateEmail:function(){return"no-error"==this.errors.email||!this.errors.email&&null},statePhone:function(){return"no-error"==this.errors.phone||!this.errors.phone&&null},stateScholarship:function(){return"no-error"==this.errors.donation_category||!this.errors.donation_category&&null},stateYear:function(){return"no-error"==this.errors.year||!this.errors.year&&null},stateInitial:function(){return"no-error"==this.errors.initial||!this.errors.initial&&null},statePassword:function(){return"no-error"==this.errors.password||!this.errors.password&&null},stateDepartment:function(){return"no-error"==this.errors.department||!this.errors.department&&null},stateAmount:function(){return"no-error"==this.errors.amount||!this.errors.amount&&null},stateAddress:function(){return"no-error"==this.errors.address||!this.errors.address&&null},stateDonationCategory:function(){return"no-error"==this.errors.donation_category||!this.errors.donation_category&&null},statePeriod:function(){return"no-error"==this.errors.period||!this.errors.period&&null},stateAcceptTermCondition:function(){return"no-error"==this.errors.accept_term_condition||!this.errors.accept_term_condition&&null}},methods:{getPeriod:function(){var t=this;axios.get("api/period").then(function(e){e.data.forEach(function(t){t.value=t.id,t.text="Seedscholarship #".concat(t.period," - Year ").concat(t.year),delete t.id,delete t.period,delete t.year}),t.periodOptions=e.data,console.log(t.periodOptions)}).catch(function(t){console.log(t)})},getSchoarship:function(){var t=this;axios.get("api/scholarship").then(function(e){e.data.forEach(function(t){t.value=t.id,t.text="".concat(t.name," - Year ").concat(t.year),delete t.id,delete t.name,delete t.year}),t.scholarshipOptions=e.data,console.log(t.scholarshipOptions)}).catch(function(t){console.log(t)})},getDepartment:function(){var t=this;axios.get("api/awardee-department").then(function(e){e.data.forEach(function(t){t.value=t.id,t.text=t.department,delete t.id,delete t.department,delete t.awardees_count}),t.departmentOptions=e.data}).catch(function(t){console.log(t)})},register:function(){var t=this;this.isDisabled=!0,axios.post("api/auth/donor/register",this.input).then(function(e){t.$snotify.success("You Are Registered Successfully","SUCCESS"),t.input.name="",t.input.donation_category=null,t.input.department=null,t.input.email="",t.input.password="",t.input.password_confirmation="",t.registered=!0,t.isDisabled=!1}).catch(function(e){t.$snotify.error(e.response.data.message,"ERROR"),t.isDisabled=!1;var a=e.response.data.errors;t.errors.name=a.name?a.name[0]:"no-error",t.errors.email=a.email?a.email[0]:"no-error",t.errors.phone=a.phone?a.phone[0]:"no-error",t.errors.year=a.year?a.year[0]:"no-error",t.errors.donation_category=a.donation_category?a.donation_category[0]:"no-error",t.errors.department=a.department?a.department[0]:"no-error",t.errors.password=a.password?a.password[0]:"no-error",t.errors.amount=a.amount?a.amount[0]:"no-error",t.errors.period=a.period?a.period[0]:"no-error",t.errors.address=a.address?a.address[0]:"no-error",t.errors.accept_term_condition=a.accept_term_condition?a.accept_term_condition[0]:"no-error"})}}},i=Object(r.a)(o,function(){var t=this,e=t.$createElement,a=t._self._c||e;return t.loaded?a("div",{staticClass:"app flex-row align-items-center"},[a("div",{staticClass:"container"},[a("b-row",{staticClass:"justify-content-center"},[t.registered?a("b-col",{attrs:{sm:"8"}},[a("header",{staticClass:"text-center",attrs:{id:"header"}},[a("h1",[a("strong",[t._v("TERIMA KASIH")])])]),t._v(" "),a("div",{staticClass:"text-center"},[a("i",{staticClass:"fa fa-heart display-1",staticStyle:{color:"red"},attrs:{id:"checkmark"}}),t._v(" "),a("p",[t._v("Terima kasih telah begabung bersama kami menjadi donatur di SEED Scholarship Periode ke-5. Kontribusi anda sangat berharga bagi adik-adik kita di Departemen Teknik Sipil UI. Tim kami akan segera menghubungi Anda")])])]):t._e(),t._v(" "),t.registered?t._e():a("b-col",{attrs:{lg:"6",md:"8"}},[a("b-card",{staticClass:"mx-4",attrs:{"no-body":""}},[a("form",{staticClass:"card-body p-4",attrs:{autocomplete:"off"},on:{submit:function(e){return e.preventDefault(),t.register(e)}}},[a("h2",[t._v("Donors Registration")]),t._v(" "),a("p",{staticClass:"text-muted"},[t._v("Silahkan mengisi form berikut untuk menjadi donatur kami. ")]),t._v(" "),a("b-row",{staticClass:"form-group"},[a("b-col",{attrs:{sm:"12"}},[a("b-form-group",{attrs:{"invalid-feedback":t.errors.name,state:t.stateName}},[a("b-input-group",[a("b-input-group-prepend",[a("b-input-group-text",[a("i",{staticClass:"icon-user"})])],1),t._v(" "),a("b-input",{staticClass:"form-control",attrs:{autocomplete:"off",type:"text",placeholder:"Full Name",state:t.stateName},model:{value:t.input.name,callback:function(e){t.$set(t.input,"name",e)},expression:"input.name"}})],1)],1)],1),t._v(" "),a("b-col",{attrs:{sm:"12"}},[a("b-form-group",{attrs:{"invalid-feedback":t.errors.email,state:t.stateEmail}},[a("b-input-group",{},[a("b-input-group-prepend",[a("b-input-group-text",[t._v("@")])],1),t._v(" "),a("b-input",{staticClass:"form-control",attrs:{autocomplete:"off",type:"text",placeholder:"Active Email",state:t.stateEmail},model:{value:t.input.email,callback:function(e){t.$set(t.input,"email",e)},expression:"input.email"}})],1)],1)],1),t._v(" "),a("b-col",{attrs:{sm:"6"}},[a("b-form-group",{attrs:{"invalid-feedback":t.errors.phone,state:t.statePhone}},[a("b-input-group",{},[a("b-input-group-prepend",[a("b-input-group-text",[a("i",{staticClass:"icon-phone"})])],1),t._v(" "),a("b-input",{staticClass:"form-control",attrs:{autocomplete:"off",type:"number",placeholder:"Phone Number",state:t.statePhone},model:{value:t.input.phone,callback:function(e){t.$set(t.input,"phone",e)},expression:"input.phone"}})],1)],1)],1),t._v(" "),a("b-col",{attrs:{sm:"6"}},[a("b-form-group",{attrs:{"invalid-feedback":t.errors.year,state:t.stateYear}},[a("b-input-group",{},[a("b-input-group-prepend",[a("b-input-group-text",[a("i",{staticClass:"icon-calendar"})])],1),t._v(" "),a("b-input",{staticClass:"form-control",attrs:{autocomplete:"off",type:"number",min:"1950",max:t.maxYear,placeholder:"Year (Angkatan)",state:t.stateYear},model:{value:t.input.year,callback:function(e){t.$set(t.input,"year",e)},expression:"input.year"}})],1)],1)],1),t._v(" "),a("b-col",{attrs:{sm:"12"}},[a("b-form-group",{attrs:{"invalid-feedback":t.errors.department,state:t.stateDepartment}},[a("b-input-group",{},[a("b-input-group-prepend",[a("b-input-group-text",[a("i",{staticClass:"icon-list"})])],1),t._v(" "),a("b-form-select",{attrs:{plain:"",id:"department",options:t.departmentOptions,state:t.stateDepartment},model:{value:t.input.department,callback:function(e){t.$set(t.input,"department",e)},expression:"input.department"}},[a("template",{slot:"first"},[a("option",{attrs:{disabled:""},domProps:{value:null}},[t._v("-- Please select your field of study --")])])],2)],1)],1)],1),t._v(" "),a("b-col",{attrs:{sm:"12"}},[a("b-form-group",{attrs:{"invalid-feedback":t.errors.address,state:t.stateAddress}},[a("b-input-group",{},[a("b-input-group-prepend",[a("b-input-group-text",[a("i",{staticClass:"icon-direction"})])],1),t._v(" "),a("b-input",{staticClass:"form-control",attrs:{autocomplete:"off",type:"text",placeholder:"Full Address",state:t.stateAddress},model:{value:t.input.address,callback:function(e){t.$set(t.input,"address",e)},expression:"input.address"}})],1)],1)],1),t._v(" "),a("b-col",{attrs:{sm:"12"}},[a("b-form-group",{attrs:{"invalid-feedback":t.errors.period,state:t.statePeriod}},[a("b-input-group",{},[a("b-input-group-prepend",[a("b-input-group-text",[a("i",{staticClass:"icon-list"})])],1),t._v(" "),a("b-form-select",{attrs:{plain:"",id:"period",options:t.periodOptions,state:t.statePeriod},model:{value:t.input.period,callback:function(e){t.$set(t.input,"period",e)},expression:"input.period"}},[a("template",{slot:"first"},[a("option",{attrs:{disabled:""},domProps:{value:null}},[t._v("-- Please select seedscholarship period --")])])],2)],1)],1)],1),t._v(" "),a("b-col",{attrs:{sm:"12"}},[a("b-form-group",{attrs:{"invalid-feedback":t.errors.donation_category,state:t.stateDonationCategory}},[a("b-input-group",{},[a("b-input-group-prepend",[a("b-input-group-text",[a("i",{staticClass:"icon-list"})])],1),t._v(" "),a("b-form-select",{attrs:{plain:"",id:"donationCategory",options:[{value:"aktif",text:"Donatur Aktif"},{value:"pasif",text:"Donatur Pasif"}],state:t.stateDonationCategory},model:{value:t.input.donation_category,callback:function(e){t.$set(t.input,"donation_category",e)},expression:"input.donation_category"}},[a("template",{slot:"first"},[a("option",{attrs:{disabled:""},domProps:{value:null}},[t._v("-- Please select donation category for this period --")])])],2)],1)],1)],1),t._v(" "),a("slide-y-up-transition",[a("b-col",{attrs:{sm:"12"}},[a("b-form-group",{attrs:{"invalid-feedback":t.errors.amount,state:t.stateAmount}},[a("b-input-group",{},[a("b-input-group-prepend",[a("b-input-group-text",[t._v("Rp")])],1),t._v(" "),a("b-input",{staticClass:"form-control",attrs:{autocomplete:"off",type:"number",placeholder:"Plan Amount of Donation per Year",state:t.stateAmount},model:{value:t.input.amount,callback:function(e){t.$set(t.input,"amount",e)},expression:"input.amount"}})],1),t._v(" "),a("small",{directives:[{name:"show",rawName:"v-show",value:"aktif"==t.input.donation_category,expression:"input.donation_category == 'aktif'"}],attrs:{slot:"description"},slot:"description"},[t._v("Your total donation Rp. "+t._s(t._f("currency")(12*t.input.amount))+" / year & will be billed Rp. "+t._s(t._f("currency")(t.input.amount))+" / month")]),t._v(" "),a("small",{directives:[{name:"show",rawName:"v-show",value:"pasif"==t.input.donation_category,expression:"input.donation_category == 'pasif'"}],attrs:{slot:"description"},slot:"description"},[t._v("Your total donation Rp. "+t._s(t._f("currency")(t.input.amount))+" / year")])],1)],1)],1),t._v(" "),a("b-col",{attrs:{sm:"12"}},[a("b-form-group",{attrs:{"invalid-feedback":t.errors.accept_term_condition,state:t.stateAcceptTermCondition}},[a("b-form-checkbox",{attrs:{id:"term_condition",value:!0,"unchecked-value":null,state:t.stateAcceptTermCondition},model:{value:t.input.accept_term_condition,callback:function(e){t.$set(t.input,"accept_term_condition",e)},expression:"input.accept_term_condition"}},[t._v("\n                      I already read & accept the terms and conditions.\n                    ")])],1)],1)],1),t._v(" "),a("b-button",{attrs:{disabled:t.isDisabled,type:"submit",variant:"success",block:""}},[a("i",{directives:[{name:"show",rawName:"v-show",value:t.isDisabled,expression:"isDisabled"}],staticClass:"fa fa-spinner fa-spin"}),t._v(" Submit")])],1)]),t._v(" "),a("faq-modal")],1)],1)],1)]):t._e()},[],!1,null,null,null);e.default=i.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[16],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/donor/views/assignment/Assignment.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/donor/views/assignment/Assignment.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AssignmentFieldTableData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AssignmentFieldTableData */ "./resources/assets/js/donor/views/assignment/AssignmentFieldTableData.js");
+/* harmony import */ var _share_mixins_instantSearch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_share/mixins/instantSearch */ "./resources/assets/js/donor/views/_share/mixins/instantSearch.js");
+/* harmony import */ var _share_mixins_OperationPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_share/mixins/OperationPage */ "./resources/assets/js/donor/views/_share/mixins/OperationPage.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'Assignment',
+  mixins: [_AssignmentFieldTableData__WEBPACK_IMPORTED_MODULE_0__["AssignmentFieldTableData"], _share_mixins_instantSearch__WEBPACK_IMPORTED_MODULE_1__["instantSearch"], _share_mixins_OperationPage__WEBPACK_IMPORTED_MODULE_2__["OperationPage"]],
+  data: function data() {
+    return {};
+  },
+  created: function created() {},
+  methods: {
+    handleRowClicked: function handleRowClicked() {}
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/donor/views/assignment/Assignment.vue?vue&type=template&id=0635d7ba&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/donor/views/assignment/Assignment.vue?vue&type=template&id=0635d7ba& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "b-card",
+    [
+      _c(
+        "div",
+        {
+          staticClass: "text-center",
+          attrs: { slot: "header" },
+          slot: "header"
+        },
+        [_c("strong", [_vm._v("ASSIGNNEMT")])]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c(
+            "b-col",
+            { staticClass: "mb-3", attrs: { xl: "4", md: "6" } },
+            [
+              _c(
+                "b-input-group",
+                [
+                  _c(
+                    "b-input-group-prepend",
+                    [
+                      _c("b-form-select", {
+                        attrs: { plain: "", options: _vm.optionsInputSearch },
+                        model: {
+                          value: _vm.selectedInputSearch,
+                          callback: function($$v) {
+                            _vm.selectedInputSearch = $$v
+                          },
+                          expression: "selectedInputSearch"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("b-form-input", {
+                    attrs: {
+                      autofocus: "",
+                      type: "text",
+                      placeholder: "Instant Search"
+                    },
+                    on: { input: _vm.onInput },
+                    model: {
+                      value: _vm.search,
+                      callback: function($$v) {
+                        _vm.search = $$v
+                      },
+                      expression: "search"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "b-input-group-append",
+                    [
+                      _c(
+                        "b-btn",
+                        {
+                          attrs: { disabled: !_vm.search },
+                          on: {
+                            click: function($event) {
+                              _vm.search = ""
+                            }
+                          }
+                        },
+                        [_vm._v("Clear")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm.getTotalPages > 1
+            ? _c(
+                "b-col",
+                {
+                  staticStyle: { "overflow-y": "auto" },
+                  attrs: { xl: "8", md: "6" }
+                },
+                [
+                  _c("b-pagination-nav", {
+                    staticClass: "justify-content-end mb-0",
+                    attrs: {
+                      align: "right",
+                      "use-router": true,
+                      "link-gen": _vm.linkGen,
+                      "number-of-pages": _vm.getTotalPages
+                    },
+                    model: {
+                      value: _vm.currentPage,
+                      callback: function($$v) {
+                        _vm.currentPage = $$v
+                      },
+                      expression: "currentPage"
+                    }
+                  })
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticStyle: { "overflow-y": "auto" } },
+        [
+          _c("b-table", {
+            staticStyle: { "animation-duration": "1s" },
+            attrs: {
+              stacked: "sm",
+              stack: "",
+              small: "",
+              hover: "",
+              fields: _vm.FieldTableItems,
+              items: _vm.filteredItemsData,
+              "thead-class": "thead-light",
+              "sort-by": _vm.querySortBy,
+              "sort-desc": _vm.querySortDesc,
+              "current-page": _vm.currentPage,
+              "per-page": _vm.perPage
+            },
+            on: {
+              "update:sortBy": function($event) {
+                _vm.querySortBy = $event
+              },
+              "update:sortDesc": function($event) {
+                _vm.querySortDesc = $event
+              },
+              "sort-changed": _vm.sortingChanged,
+              "row-clicked": _vm.handleRowClicked
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "no",
+                fn: function(data) {
+                  return [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(
+                          data.index + 1 + (_vm.currentPage - 1) * _vm.perPage
+                        ) +
+                        "\n            "
+                    )
+                  ]
+                }
+              },
+              {
+                key: "status",
+                fn: function(data) {
+                  return [
+                    _c(
+                      "b-badge",
+                      { attrs: { variant: _vm.getBadge(data.item.status) } },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(data.item.status) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  ]
+                }
+              }
+            ])
+          })
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/donor/views/_share/mixins/OperationPage.js":
+/*!************************************************************************!*\
+  !*** ./resources/assets/js/donor/views/_share/mixins/OperationPage.js ***!
+  \************************************************************************/
+/*! exports provided: OperationPage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OperationPage", function() { return OperationPage; });
+/* harmony import */ var core_js_modules_es6_number_constructor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es6.number.constructor */ "./node_modules/core-js/modules/es6.number.constructor.js");
+/* harmony import */ var core_js_modules_es6_number_constructor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_number_constructor__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.regexp.search */ "./node_modules/core-js/modules/es6.regexp.search.js");
+/* harmony import */ var core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js");
+/* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es6_regexp_replace__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es6.regexp.replace */ "./node_modules/core-js/modules/es6.regexp.replace.js");
+/* harmony import */ var core_js_modules_es6_regexp_replace__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_regexp_replace__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+var OperationPage = {
+  data: function data() {
+    return {
+      isBusy: false,
+      routeName: '',
+      querySortDesc: '',
+      querySortBy: this.$route.query.sortBy,
+      currentPage: this.$route.query.page,
+      perPage: 10,
+      totalRows: 0
+    };
+  },
+  created: function created() {
+    this.getSort();
+    this.getdata();
+  },
+  watch: {
+    '$route.query.sortDesc': 'getSort',
+    '$route.query.sortBy': 'getSort',
+    '$route.query.page': 'checkPage'
+  },
+  computed: {
+    checkNav: function checkNav() {
+      return this.$route.query.filterTarget ? this.$route.query.filterTarget : 'all';
+    },
+    getTotalPages: function getTotalPages() {
+      return Math.ceil(this.filteredItemsData.length / this.perPage);
+    }
+  },
+  methods: {
+    onInput: function onInput() {
+      if (this.currentPage !== 1) {
+        this.$router.replace({
+          name: this.routeName,
+          query: C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_2___default()({}, this.$route.query, {
+            page: 1,
+            search: this.search
+          })
+        });
+        this.currentPage = 1;
+      }
+    },
+    isActivePageButton: function isActivePageButton(page) {
+      return page == this.currentPage;
+    },
+    getRowCount: function getRowCount(items) {
+      return items.length;
+    },
+    checkPage: function checkPage() {
+      this.currentPage = Number(this.$route.query.page ? this.$route.query.page : 1);
+    },
+    linkGen: function linkGen(pageNum) {
+      return {
+        name: this.routeName,
+        query: C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_2___default()({}, this.$route.query, {
+          page: pageNum
+        })
+      };
+    },
+    changePage: function changePage(page) {
+      // let query = Object.assign({},this.$route.query,page)
+      // this.$router.push({page:query})
+      // this.get(query)
+      this.$router.replace({
+        name: this.routeName,
+        query: C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_2___default()({}, this.$route.query, {
+          page: page
+        })
+      });
+    },
+    sortingChanged: function sortingChanged(ctx) {
+      console.log(ctx); // console.log(ctx.sortBy);
+      // console.log(ctx.sortDesc);
+
+      this.$router.replace({
+        name: this.routeName,
+        query: C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_2___default()({}, this.$route.query, {
+          sortBy: ctx.sortBy,
+          sortDesc: ctx.sortDesc
+        })
+      });
+    },
+    getSort: function getSort() {
+      var getOrderingDesc = JSON.parse(typeof this.$route.query.sortDesc === 'undefined' ? false : this.$route.query.sortDesc);
+      var getOrderingBy = this.$route.query.sortBy ? this.$route.query.sortBy : ''; // let convertGeOrderingDesc = getOrderingDesc == "true"
+
+      this.querySortDesc = getOrderingDesc;
+      this.querySortBy = getOrderingBy; // console.log(this.orderDesc);
+    },
+    // handleHeadClicked(key){
+    //   console.log(key);
+    //   // console.log(this.orderDesc);
+    //     this.$router.replace({
+    //     name: this.routeName,
+    //     query: Object.assign({}, this.$route.query, {sortBy: key})
+    //   })
+    //   },
+    filterTarget: function filterTarget(target) {
+      // console.log(target);
+      if (target == this.$route.query.filterTarget || target == 'all' && typeof this.$route.query.filterTarget === 'undefined') {
+        return;
+      }
+
+      this.$router.replace({
+        name: this.routeName,
+        query: {
+          filterTarget: target,
+          page: 1
+        }
+      });
+      this.search = '';
+    },
+    getPriority: function getPriority(data) {
+      return data === 'high' ? 'text-danger' : data === 'medium' ? 'text-warning' : 'text-primary';
+    },
+    getBadge: function getBadge(status) {
+      return status === 'Active' ? 'success' : status === 'Closed' ? 'secondary' : 'primary';
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/assets/js/donor/views/_share/mixins/instantSearch.js":
+/*!************************************************************************!*\
+  !*** ./resources/assets/js/donor/views/_share/mixins/instantSearch.js ***!
+  \************************************************************************/
+/*! exports provided: instantSearch */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "instantSearch", function() { return instantSearch; });
+/* harmony import */ var core_js_modules_es6_regexp_replace__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es6.regexp.replace */ "./node_modules/core-js/modules/es6.regexp.replace.js");
+/* harmony import */ var core_js_modules_es6_regexp_replace__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_regexp_replace__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js");
+/* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es6.regexp.search */ "./node_modules/core-js/modules/es6.regexp.search.js");
+/* harmony import */ var core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+var instantSearch = {
+  data: function data() {
+    return {
+      search: this.$route.query.search || ''
+    };
+  },
+  watch: {
+    search: function search(newVal) {
+      var queryNewVal = C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_1___default()({}, this.$route.query, {
+        searchKey: this.selectedInputSearch,
+        search: newVal
+      });
+
+      if (newVal == '') {
+        delete queryNewVal.searchKey;
+        delete queryNewVal.search;
+      }
+
+      this.$router.replace({
+        query: queryNewVal
+      });
+    }
+  },
+  computed: {}
+};
+
+/***/ }),
+
+/***/ "./resources/assets/js/donor/views/assignment/Assignment.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/assets/js/donor/views/assignment/Assignment.vue ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Assignment_vue_vue_type_template_id_0635d7ba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Assignment.vue?vue&type=template&id=0635d7ba& */ "./resources/assets/js/donor/views/assignment/Assignment.vue?vue&type=template&id=0635d7ba&");
+/* harmony import */ var _Assignment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Assignment.vue?vue&type=script&lang=js& */ "./resources/assets/js/donor/views/assignment/Assignment.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Assignment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Assignment_vue_vue_type_template_id_0635d7ba___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Assignment_vue_vue_type_template_id_0635d7ba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/assets/js/donor/views/assignment/Assignment.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/donor/views/assignment/Assignment.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************!*\
+  !*** ./resources/assets/js/donor/views/assignment/Assignment.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Assignment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Assignment.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/donor/views/assignment/Assignment.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Assignment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/donor/views/assignment/Assignment.vue?vue&type=template&id=0635d7ba&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/assets/js/donor/views/assignment/Assignment.vue?vue&type=template&id=0635d7ba& ***!
+  \**************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Assignment_vue_vue_type_template_id_0635d7ba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Assignment.vue?vue&type=template&id=0635d7ba& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/donor/views/assignment/Assignment.vue?vue&type=template&id=0635d7ba&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Assignment_vue_vue_type_template_id_0635d7ba___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Assignment_vue_vue_type_template_id_0635d7ba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/donor/views/assignment/AssignmentFieldTableData.js":
+/*!********************************************************************************!*\
+  !*** ./resources/assets/js/donor/views/assignment/AssignmentFieldTableData.js ***!
+  \********************************************************************************/
+/*! exports provided: AssignmentFieldTableData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AssignmentFieldTableData", function() { return AssignmentFieldTableData; });
+/* harmony import */ var core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es6.regexp.search */ "./node_modules/core-js/modules/es6.regexp.search.js");
+/* harmony import */ var core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_regexp_search__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es6_array_index_of__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.array.index-of */ "./node_modules/core-js/modules/es6.array.index-of.js");
+/* harmony import */ var core_js_modules_es6_array_index_of__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_array_index_of__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es6_array_filter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es6.array.filter */ "./node_modules/core-js/modules/es6.array.filter.js");
+/* harmony import */ var core_js_modules_es6_array_filter__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_array_filter__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+var AssignmentFieldTableData = {
+  data: function data() {
+    return {
+      FieldTableItems: [{
+        key: 'no',
+        label: 'No',
+        'class': 'text-center',
+        thStyle: {
+          minWidth: '30px',
+          width: '30px'
+        }
+      }, {
+        key: 'assignment',
+        label: 'Assignment Name',
+        tdClass: 'truncate-cell',
+        sortable: true,
+        thStyle: {
+          minWidth: '175px'
+        }
+      }, {
+        key: 'closed_date',
+        label: 'Closed Date',
+        'class': 'text-center',
+        thStyle: {
+          minWidth: '150px',
+          width: '150px'
+        },
+        sortable: true
+      }, {
+        key: 'created_at',
+        label: 'Created Date',
+        'class': 'text-center',
+        thStyle: {
+          minWidth: '150px',
+          width: '150px'
+        },
+        sortable: true
+      }, {
+        key: 'status',
+        label: 'Status',
+        'class': 'text-center',
+        thStyle: {
+          minWidth: '25px',
+          width: '25px'
+        },
+        sortable: true
+      }],
+      itemsData: [{
+        id: 1,
+        assignment: 'lorem ipsum',
+        closed_date: "2015-03-25",
+        created_at: "2015-03-25",
+        status: 'Active'
+      }, {
+        id: 2,
+        assignment: 'Dolor Sit amet',
+        closed_date: "2015-03-25",
+        created_at: "2015-03-25",
+        status: 'Closed'
+      }],
+      selectedInputSearch: this.$route.query.searchKey || 'assignment',
+      optionsInputSearch: [{
+        value: 'assignment',
+        text: 'Assignment'
+      }, {
+        value: 'closed_date',
+        text: 'Closed Date'
+      }, {
+        value: 'created_at',
+        text: 'Created Date'
+      }, {
+        value: 'status',
+        text: 'Status'
+      }]
+    };
+  },
+  watch: {},
+  computed: {
+    filteredItemsData: function filteredItemsData() {
+      var _this = this;
+
+      if (this.selectedInputSearch == 'assignment') {
+        return this.itemsData.filter(function (result) {
+          return result.assignment.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+        });
+      }
+
+      if (this.selectedInputSearch == 'closed_date') {
+        return this.itemsData.filter(function (result) {
+          return result.closed_date.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+        });
+      }
+
+      if (this.selectedInputSearch == 'created_at') {
+        return this.itemsData.filter(function (result) {
+          return result.created_at.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+        });
+      }
+
+      if (this.selectedInputSearch == 'status') {
+        return this.itemsData.filter(function (result) {
+          return result.status.toLowerCase().indexOf(_this.search.toLowerCase()) > -1;
+        });
+      }
+    }
+  }
+};
+
+/***/ })
+
+}]);

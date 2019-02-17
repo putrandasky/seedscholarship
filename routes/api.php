@@ -15,6 +15,9 @@
 //     return $request->user();
 // });
 
+Route::get('attachment-contract', 'Donor\File\AttachmentContractController@view');
+
+
 Route::group([
 
     'middleware' => 'jwt.verify',
@@ -47,6 +50,8 @@ Route::group(['prefix' => 'file'], function () {
     Route::post('admin-cover-image/{userId}', 'Admin\User\UserProfilePictureController@store');
     Route::delete('admin-cover-image/{userId}', 'Admin\User\UserProfilePictureController@destroy');
     Route::post('admin-cover-image/update/{userId}', 'Admin\User\UserProfilePictureController@update');
+
+    Route::get('donor-contract/{userId}','Donor\File\AttachmentContractController@show');
 });
 Route::apiResource('department', 'Admin\Auth\DepartmentController');
 Route::apiResource('blog-category', 'Admin\Blog\BlogCategoryController');
@@ -73,7 +78,8 @@ Route::post('logout', 'Admin\Auth\AuthController@logout');
 
     Route::post('donor/login', 'Donor\Auth\AuthController@login');
     Route::post('donor/logout', 'Donor\Auth\AuthController@logout');
-    Route::post('donor/register', 'Donor\Auth\AuthController@register');
+    Route::post('donor/register', 'Donor\Auth\RegisterController@newRegister');
+    Route::get('donor/contract-agreed', 'Donor\Auth\RegisterController@contractAgreed');
 });
 
 Route::apiResource('awardee-department', 'Awardee\Auth\DepartmentController');

@@ -53,11 +53,23 @@
               </div>
               <span style="font-size:large;padding-left:20px">{{data.periods[0].pivot.donation_category}}</span>
             </b-col>
-            <b-col md="3" sm="6" class="pb-3" v-if="data.periods[0].pivot.donation_category == 'aktif'">
+            <b-col md="3" sm="6" class="pb-3">
+              <div class="border-bottom">
+                <h5><i class="fa fa-file-o"></i> Contract Agreed
+                </h5>
+              </div>
+              <span style="font-size:large;padding-left:20px">{{data.periods[0].pivot.is_contract_agreed}}
+                <b-button @click="seeContract" v-if="data.periods[0].pivot.is_contract_agreed == 'AGREED'" class="btn--corner-15 btn--xs"
+                  size="sm" variant="warning" v-b-tooltip.hover="'See Contract'"><i class="fa fa-search"></i></b-button>
+              </span>
+            </b-col>
+            <b-col md="3" sm="6" class="pb-3" v-if="data.periods[0].pivot.donation_category == 'AKTIF'">
               <div class="border-bottom">
                 <h5><i class="fa fa-dollar"></i> Amount Plan</h5>
               </div>
-              <span style="font-size:large;padding-left:20px">{{data.periods[0].pivot.amount}}</span>
+              <span style="font-size:large;padding-left:20px">Rp. {{data.periods[0].pivot.amount | currency}} / year</span><br>
+              <span style="font-size:large;padding-left:20px">Rp. {{data.periods[0].pivot.amount /12 | currency}} /
+                month</span>
             </b-col>
 
             <b-col md="3" sm="6" class="pb-3">
@@ -66,6 +78,7 @@
               </div>
               <span style="font-size:large;padding-left:20px">{{data.created_at}}</span>
             </b-col>
+
             <!-- <b-col sm="9"></b-col>
           <b-col sm="3"><strong>Email Address</strong></b-col>
           <b-col sm="9">{{data.email}}</b-col>
@@ -101,7 +114,6 @@
           created_at: null,
           updated_at: null,
         },
-
       }
     },
     created() {
@@ -109,7 +121,14 @@
     },
     computed: {},
     methods: {
-
+      seeContract() {
+        let self = this
+        window.open(
+          `/api/file/donor-contract/${this.$route.params.userId}?year=${this.$route.params.periodYear}`,
+          this.data.periods[0].pivot.contract_number,
+          `window,width=${screen.availWidth},height=${screen.availHeight},resizeable,left=200,top=100,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0`
+        );
+      },
       getData() {
         let self = this
         axios.get(`api/user-donor/${this.$route.params.userId}?year=${this.$route.params.periodYear}`)

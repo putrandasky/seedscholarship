@@ -9,7 +9,7 @@
 
             <div class="text-center">
               <i class="fa fa-heart display-1" id="checkmark" style="color:red"></i>
-            <p>Terima kasih telah begabung bersama kami menjadi donatur di SEED Scholarship Periode ke-5. Kontribusi anda sangat berharga bagi adik-adik kita di Departemen Teknik Sipil UI. Tim kami akan segera menghubungi Anda</p>
+            <p>Terima kasih telah mendaftar menjadi donatur di SEED Scholarship. Mohon cek email anda, untuk menyetujui data yang sudah anda berikan agar kontrak kerja sama bisa segera kami kirimkan.</p>
             </div>
         </b-col>
         <b-col lg="6" md="8" v-if="!registered">
@@ -112,11 +112,11 @@
                         </b-input-group-prepend>
                         <b-form-select plain id="donationCategory" :options="[
                       {
-                        value:'aktif',
+                        value:'AKTIF',
                         text:'Donatur Aktif'
                       },
                       {
-                        value:'pasif',
+                        value:'PASIF',
                         text:'Donatur Pasif'
                       },
                       ]"

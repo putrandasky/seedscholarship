@@ -383,6 +383,12 @@
     right: 3px;
     padding: 0rem 0.2rem;
   }
+  .btn--corner-15 {
+    position: absolute;
+    top: 3px;
+    right: 15px;
+    padding: 0rem 0.2rem;
+  }
 
   .btn--xs {
     padding: 0rem 0.2rem;

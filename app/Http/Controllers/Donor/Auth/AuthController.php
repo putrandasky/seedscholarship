@@ -38,64 +38,7 @@ class AuthController extends Controller
         return $user;
     }
 
-    public function register(Request $request)
-    {
-        $rules = [
-            'name' => 'required|string',
-            'email' => 'required|email|unique:donors',
-            // 'password' => 'required|confirmed|min:6',
-            'phone' => 'required|numeric|min:6',
-            'year' => 'required|digits:4',
-            // 'scholarship_id' => 'required',
-            'department' => 'required',
-            'donation_category' => 'required',
-            'address' => 'required',
-            'accept_term_condition' => 'required',
-            'period' => 'required',
-            'amount' => $request->donation_category == 'aktif' ? 'required|min:100000|numeric|' : '',
-        ];
-        $messages = [
-            'period.required' => 'The period of seedscholarship must be selected',
-            'department.required' => 'The field of study must be selected',
-            'accept_term_condition.required' => 'You must read & accept the term & condition',
-            'amount.required' => 'Plan amount of monthly donation must be filled by donatur aktif',
-            'amount.min' => 'A minimum of donation for donatur aktif is Rp. 100.000 / month',
-        ];
-        $this->validate($request, $rules, $messages);
 
-        $user = new App\Donor();
-        $user->name = ucwords($request->name);
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->year = $request->year;
-        $user->awardee_department_id = $request->department;
-        // $user->donation_category = $request->donation_category;
-        $user->address = $request->address;
-        // $user->password = Hash::make($request->password);
-        // $registration_code = Str::random(60);
-        if ($request->donation_category == "aktif") {
-          $amount =  $request->amount * 12;
-          } elseif ($request->amount) {
-            $amount =  $request->amount;
-          }else{
-            $amount = 0;
-        }
-        DB::transaction(function () use ($request, $user, $amount) {
-            $user->save();
-
-            $user->periods()->attach($request->period, [
-                'donation_category' => $request->donation_category,
-                'amount' => $amount,
-                'is_term_condition_agreed' => $request->accept_term_condition,
-                'is_contract_agreed' => false,
-            ]);
-            $data = App\Donor::where('id', $user->id)->with('awardeeDepartment', 'periods')->first();
-            $user->notify(new PostRegistered($data));
-        });
-        return response()->json([
-            'status' => 'Successfully register new donor',
-        ], 200);
-    }
     public function login()
     {
         $credentials = request(['email', 'password']);
