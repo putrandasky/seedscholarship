@@ -79,28 +79,22 @@
               <span style="font-size:large;padding-left:20px">{{data.created_at}}</span>
             </b-col>
 
-            <!-- <b-col sm="9"></b-col>
-          <b-col sm="3"><strong>Email Address</strong></b-col>
-          <b-col sm="9">{{data.email}}</b-col>
-          <b-col sm="3"><strong></strong></b-col>
-          <b-col sm="9">{{data.year}}</b-col>
-          <b-col sm="3"><strong></strong></b-col>
-          <b-col sm="9">{{data.phone}}</b-col>
-          <b-col sm="3"><strong></strong></b-col>
-          <b-col sm="9">{{}}</b-col>
-          <b-col sm="3"><strong></strong></b-col>
-          <b-col sm="9">{{}}</b-col>
-          <b-col sm="3"><strong></strong></b-col>
-          <b-col sm="9">{{}}</b-col> -->
           </b-row>
         </b-card>
+      </b-col>
+      <b-col sm="12">
+        <transaction-history :transactions="data.donor_transactions"/>
       </b-col>
     </b-row>
   </slide-y-up-transition>
 </template>
 <script>
+import TransactionHistory from './DetailDonorTransactionHistory.vue'
   export default {
     name: 'DetailRequestDonor',
+    components:{
+      TransactionHistory
+    },
     data: function () {
       return {
         loaded: false,
@@ -119,7 +113,9 @@
     created() {
       this.getData()
     },
-    computed: {},
+    computed: {
+
+    },
     methods: {
       seeContract() {
         let self = this

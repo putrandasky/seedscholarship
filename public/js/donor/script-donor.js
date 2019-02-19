@@ -69637,7 +69637,7 @@ var Dashboard = function Dashboard() {
 };
 
 var UserProfile = function UserProfile() {
-  return __webpack_require__.e(/*! import() */ 25).then(__webpack_require__.bind(null, /*! ../views/user/UserProfile.vue */ "./resources/assets/js/donor/views/user/UserProfile.vue"));
+  return __webpack_require__.e(/*! import() */ 26).then(__webpack_require__.bind(null, /*! ../views/user/UserProfile.vue */ "./resources/assets/js/donor/views/user/UserProfile.vue"));
 };
 
 var Assignment = function Assignment() {
@@ -69671,7 +69671,7 @@ var RegistrationUpload = function RegistrationUpload() {
 };
 
 var ContractAgreed = function ContractAgreed() {
-  return __webpack_require__.e(/*! import() */ 30).then(__webpack_require__.bind(null, /*! ../views/registration/ContractAgreed */ "./resources/assets/js/donor/views/registration/ContractAgreed.vue"));
+  return __webpack_require__.e(/*! import() */ 25).then(__webpack_require__.bind(null, /*! ../views/registration/ContractAgreed */ "./resources/assets/js/donor/views/registration/ContractAgreed.vue"));
 };
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);

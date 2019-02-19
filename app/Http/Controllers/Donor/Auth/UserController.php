@@ -18,6 +18,9 @@ class UserController extends Controller
         ->where('id', $id)
             ->with([
                 'awardeeDepartment',
+                'donorTransactions' => function ($query) use ($request) {
+                    $query->where('period_year', '=', $request->year);
+                },
                 'periods' => function ($query) use ($request) {
                     $query->where('periods.year', '=', $request->year);
                 },

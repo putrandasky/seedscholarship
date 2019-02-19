@@ -1111,7 +1111,7 @@ var render = function() {
           _vm._v(" "),
           _c("p", [
             _vm._v(
-              "Jumlah mahasiswa yang akan menerima beasiswa kaan disesuaikan dengan hasil propses seleksi. SEED Scholarship memeiliki kuota penerima beasiswa hingga 10 awardee"
+              "Jumlah mahasiswa yang akan menerima beasiswa akan disesuaikan dengan hasil proses seleksi. SEED Scholarship memiliki kuota penerima beasiswa hingga 10 awardee"
             )
           ]),
           _vm._v(" "),

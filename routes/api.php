@@ -20,7 +20,7 @@ Route::get('attachment-contract', 'Donor\File\AttachmentContractController@view'
 
 Route::group([
 
-    'middleware' => 'jwt.verify',
+    // 'middleware' => 'jwt.verify',
 
 ], function ($router) {
 
@@ -52,7 +52,11 @@ Route::group(['prefix' => 'file'], function () {
     Route::post('admin-cover-image/update/{userId}', 'Admin\User\UserProfilePictureController@update');
 
     Route::get('donor-contract/{userId}','Donor\File\AttachmentContractController@show');
+
+    Route::apiResource('donor-transaction/evidence','Donor\Transaction\EvidenceController');
 });
+
+Route::apiResource('donor-transaction', 'Donor\Transaction\TransactionHistoryController');
 Route::apiResource('department', 'Admin\Auth\DepartmentController');
 Route::apiResource('blog-category', 'Admin\Blog\BlogCategoryController');
 Route::apiResource('blog-tag', 'Admin\Blog\BlogTagController');

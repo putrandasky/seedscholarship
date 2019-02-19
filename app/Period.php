@@ -28,4 +28,8 @@ class Period extends Model
     {
         return $this->belongsToMany('App\Donor')->withPivot('donation_category', 'amount','contract_number','token','is_contract_agreed','agreed_at')->withTimestamps();
     }
+        public function donorTransactions()
+    {
+      return $this->hasMany('App\DonorTransaction','period_year','year');
+    }
 }

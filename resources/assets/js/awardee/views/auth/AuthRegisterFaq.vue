@@ -28,7 +28,7 @@
       <strong>Q : Apa saja tahap syarat administrasi untuk seleksi Calon Penerima Beasiswa?</strong>
       <p>A : Team Recruitment akan melakukan screening dari CV, Essay, Transkrip Nilai dan data kondisi finansial keluarga yang didukung dengan data berupa slip gaji orang tua dan atau rekening listrik. Apabila tidak ada slip gaji maka dilengkapi juga essay mengenai kondisi finansial keluarga.</p>
       <strong>Q : Berapa jumlah Penerima Beasiswa ?</strong>
-      <p>Jumlah mahasiswa yang akan menerima beasiswa kaan disesuaikan dengan hasil propses seleksi. SEED Scholarship memeiliki kuota penerima beasiswa hingga 10 awardee</p>
+      <p>Jumlah mahasiswa yang akan menerima beasiswa akan disesuaikan dengan hasil proses seleksi. SEED Scholarship memiliki kuota penerima beasiswa hingga 10 awardee</p>
       <strong>Q : Berapa jumlah besaran beasiswa diberikan?</strong>
       <p>A : Besaran beasiswa yang diberikan oleh SEEDS adalah sebesar Rp 3.600.000,- untuk satu semester.</p>
       <strong>Q : Kapan beasiswa diberikan kepada Penerima Beasiswa?</strong>

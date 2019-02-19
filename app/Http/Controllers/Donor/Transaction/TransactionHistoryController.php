@@ -1,0 +1,102 @@
+<?php
+
+namespace App\Http\Controllers\Donor\Transaction;
+
+use App;
+use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+class TransactionHistoryController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+
+        $rules = [
+            'trx_date' => 'required',
+            'amount' => 'required|numeric',
+            'verification' => 'required',
+            'status_invoice' => 'required',
+
+        ];
+        $messages = [
+            'trx_date.required' => 'Transaction date is required',
+        ];
+        $this->validate($request, $rules, $messages);
+
+        $transaction = new App\DonorTransaction();
+        $transaction->trx_date = Carbon::parse($request[$request->trx_date])->format('Y-m-d');
+        $transaction->amount = $request->amount;
+        $transaction->verification = $request->verification;
+        $transaction->invoice_no = $request->invoice_no;
+        $transaction->status_invoice = $request->status_invoice;
+        $transaction->donor_id = $request->donor_id;
+        $transaction->period_year = $request->period_year;
+        $transaction->save();
+        // return response()->json(['error' => 'Internal Server Error', 'message' => 'Oops.. Something Error, Try Again Later'], 500);
+        return response()->json(['message' => 'New Transaction Created', 'id' => $transaction->id], 200);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $transaction = App\DonorTransaction::find($id);
+        $transaction->trx_date = Carbon::parse($request[$request->trx_date])->format('Y-m-d');
+        $transaction->amount = $request->amount;
+        $transaction->verification = $request->verification;
+        $transaction->invoice_no = $request->invoice_no;
+        $transaction->status_invoice = $request->status_invoice;
+        $transaction->save();
+        // return response()->json(['error' => 'Internal Server Error', 'message' => 'Oops.. Something Error, Try Again Later'], 500);
+        return response()->json(['message' => 'Transaction Edited'], 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request,$id)
+    {
+        Storage::deleteDirectory("transaction/evidence/{$request->period_year}/{$request->donor_id}/{$id}");
+        $user = App\DonorTransaction::find($id);
+        $user->delete();
+        return response()->json(['status' => 'File Deleted Successfuly'], 200);
+
+    }
+}
