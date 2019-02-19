@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class TransactionHistoryController extends Controller
 {
@@ -32,21 +33,23 @@ class TransactionHistoryController extends Controller
         $rules = [
             'trx_date' => 'required',
             'amount' => 'required|numeric',
-            'verification' => 'required',
-            'status_invoice' => 'required',
+            // 'verification' => 'required',
+            // 'status_invoice' => 'required',
+            // 'invoice_no' => $request->invoice_no?'unique:donor_transactions':'',
 
         ];
         $messages = [
             'trx_date.required' => 'Transaction date is required',
+            // 'invoice_no.unique' => 'This invoice number already exist',
         ];
         $this->validate($request, $rules, $messages);
 
         $transaction = new App\DonorTransaction();
         $transaction->trx_date = Carbon::parse($request[$request->trx_date])->format('Y-m-d');
         $transaction->amount = $request->amount;
-        $transaction->verification = $request->verification;
-        $transaction->invoice_no = $request->invoice_no;
-        $transaction->status_invoice = $request->status_invoice;
+        $transaction->verification = 'UNVERIFIED';
+        $transaction->invoice_no = '';
+        $transaction->status_invoice = 'NOT SENT';
         $transaction->donor_id = $request->donor_id;
         $transaction->period_year = $request->period_year;
         $transaction->save();
@@ -74,8 +77,21 @@ class TransactionHistoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $rules = [
+            'trx_date' => 'required',
+            'amount' => 'required|numeric',
+            'verification' => 'required',
+            'status_invoice' => 'required',
+            'invoice_no' => $request->invoice_no? Rule::unique('donor_transactions')->ignore($id):'',
+
+        ];
+        $messages = [
+            'trx_date.required' => 'Transaction date is required',
+            'invoice_no.unique' => 'This invoice number already exist',
+        ];
+        $this->validate($request, $rules, $messages);
         $transaction = App\DonorTransaction::find($id);
-        $transaction->trx_date = Carbon::parse($request[$request->trx_date])->format('Y-m-d');
+        $transaction->trx_date = Carbon::parse($request->trx_date)->format('Y-m-d');
         $transaction->amount = $request->amount;
         $transaction->verification = $request->verification;
         $transaction->invoice_no = $request->invoice_no;
@@ -93,7 +109,14 @@ class TransactionHistoryController extends Controller
      */
     public function destroy(Request $request,$id)
     {
-        Storage::deleteDirectory("transaction/evidence/{$request->period_year}/{$request->donor_id}/{$id}");
+        Storage::deleteDirectory("transaction/{$request->period_year}/{$request->donor_id}/{$id}");
+        $user = App\DonorTransaction::find($id);
+        $user->delete();
+        return response()->json(['status' => 'File Deleted Successfuly'], 200);
+
+    }
+    public function sendInvoice(Request $request,$id)
+    {
         $user = App\DonorTransaction::find($id);
         $user->delete();
         return response()->json(['status' => 'File Deleted Successfuly'], 200);

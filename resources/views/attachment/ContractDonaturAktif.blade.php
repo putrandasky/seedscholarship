@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>{{$data->periods[0]->pivot->contract_number}}</title>
   <style>
     body {
       font-family: Arial, "Helvetica Neue", Helvetica, sans-serif

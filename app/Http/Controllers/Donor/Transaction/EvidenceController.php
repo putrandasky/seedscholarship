@@ -30,7 +30,7 @@ class EvidenceController extends Controller
         // if (!($this->registrantAuthenticate($request->id, $request->registration_code, $request->period_id))) {
         //     return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
         // }
-        $save = $request->file('file')->storeAs("transaction/evidence/{$request->periodYear}/{$request->userId}/{$request->id}", $request->file('file')->getClientOriginalName());
+        $save = $request->file('file')->storeAs("transaction/{$request->periodYear}/{$request->userId}/{$request->id}/evidence", $request->file('file')->getClientOriginalName());
         $user = App\DonorTransaction::find($request->id);
         $user->evidence = $request->file('file')->getClientOriginalName();
         $user->save();
@@ -59,7 +59,7 @@ class EvidenceController extends Controller
         //         },
         //     ])->first();
         // $data = App\DonorTransaction::find($id);
-        $newpathToFile = Storage::disk('local')->getDriver()->getAdapter()->applyPathPrefix("transaction/evidence/{$request->periodYear}/{$id}/{$request->id}/{$request->fileName}");
+        $newpathToFile = Storage::disk('local')->getDriver()->getAdapter()->applyPathPrefix("transaction/{$request->periodYear}/{$id}/{$request->id}/evidence/{$request->fileName}");
         return response()->file($newpathToFile);
 
     }
@@ -87,7 +87,8 @@ class EvidenceController extends Controller
         // if (!($this->registrantAuthenticate($id, $request->registration_code, $request->period_id))) {
         //     return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
         // }
-        Storage::delete("transaction/evidence/{$request->periodYear}/{$id}/{$request->id}/{$request->fileName}");
+        Storage::delete("transaction/{$request->periodYear}/{$id}/{$request->id}/evidence}");
+        // Storage::delete("transaction/{$request->periodYear}/{$id}/{$request->id}/evidence/{$request->fileName}");
         $user = App\DonorTransaction::find($request->id);
         $user->evidence = '';
         $user->save();

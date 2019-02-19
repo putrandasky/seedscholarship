@@ -53,6 +53,14 @@
               </div>
               <span style="font-size:large;padding-left:20px">{{data.periods[0].pivot.donation_category}}</span>
             </b-col>
+            <b-col md="3" sm="6" class="pb-3" v-if="data.periods[0].pivot.donation_category == 'AKTIF'">
+              <div class="border-bottom">
+                <h5><i class="fa fa-dollar"></i> Amount Plan</h5>
+              </div>
+              <span style="font-size:large;padding-left:20px">Rp. {{data.periods[0].pivot.amount | currency}} / year</span><br>
+              <span style="font-size:large;padding-left:20px">Rp. {{data.periods[0].pivot.amount /12 | currency}} /
+                month</span>
+            </b-col>
             <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-file-o"></i> Contract Agreed
@@ -63,16 +71,16 @@
                   size="sm" variant="warning" v-b-tooltip.hover="'See Contract'"><i class="fa fa-search"></i></b-button>
               </span>
             </b-col>
-            <b-col md="3" sm="6" class="pb-3" v-if="data.periods[0].pivot.donation_category == 'AKTIF'">
-              <div class="border-bottom">
-                <h5><i class="fa fa-dollar"></i> Amount Plan</h5>
-              </div>
-              <span style="font-size:large;padding-left:20px">Rp. {{data.periods[0].pivot.amount | currency}} / year</span><br>
-              <span style="font-size:large;padding-left:20px">Rp. {{data.periods[0].pivot.amount /12 | currency}} /
-                month</span>
-            </b-col>
-
             <b-col md="3" sm="6" class="pb-3">
+              <div class="border-bottom">
+                <h5><i class="fa fa-file-o"></i> Contract Number
+                </h5>
+              </div>
+              <span style="font-size:large;padding-left:20px">{{data.periods[0].pivot.contract_number}}
+
+              </span>
+            </b-col>
+                        <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-calendar-check-o"></i> Date Registered</h5>
               </div>

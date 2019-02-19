@@ -5,8 +5,10 @@
     <div class="app-body">
       <Sidebar :navItems="nav" />
       <main class="main">
-        <!-- <loading :active.sync="this.$store.state.loading" :can-cancel="false" :height=60 :opacity=0.9 loader='bars'
-      transition='fade' :is-full-page="false" /> -->
+        <loading style="z-index:9999" :active.sync="this.$store.state.loadingFull"  :can-cancel="false" :height=60 :opacity=0.9 loader='spinner'
+      transition='fade' :is-full-page="true" background-color="rgba(0,0,0,.85)" color="rgba(255,255,255,.9)">
+        <div class="text-center" slot="after" style="color:rgba(255,255,255,.9)">Please Wait...</div>
+        </loading>
         <breadcrumb :list="list" />
         <div class="container-fluid mt-3">
           <!-- <transition :duration="300" name="fade"> -->

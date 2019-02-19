@@ -10,6 +10,7 @@ const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 const USER_INFO = "USER_INFO";
 const LOGOUT = "LOGOUT";
 const LOADING = "LOADING";
+const LOADINGFULL = "LOADINGFULL";
 const LOADINGOVERLAY = "LOADINGOVERLAY";
 const SIDEBARDATA = "SIDEBARDATA";
 
@@ -20,6 +21,7 @@ export const store = new Vuex.Store({
     token: Cookies.get("token"),
     sidebar: false,
     loading: false,
+    loadingFull: false,
     loadingOverlay: false,
     sidebarData:{},
     user: {
@@ -67,6 +69,9 @@ export const store = new Vuex.Store({
     [LOADING](state, n) {
       state.loading = n;
     },
+    [LOADINGFULL](state, n) {
+      state.loadingFull = n;
+    },
     [LOADINGOVERLAY](state, n) {
       state.loadingOverlay = n;
     }
@@ -76,6 +81,11 @@ export const store = new Vuex.Store({
       commit
     }, isLoading) {
       commit(LOADING, isLoading)
+    },
+    stateLoadingFull({
+      commit
+    }, isLoading) {
+      commit(LOADINGFULL, isLoading)
     },
     login({
       commit

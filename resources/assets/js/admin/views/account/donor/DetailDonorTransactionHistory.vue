@@ -21,6 +21,10 @@
             {{data.item.verification}}
           </b-badge>
         </template>
+        <template slot="invoice_no" slot-scope="data">
+          <invoice :invoiceNo="data.item.invoice_no" :dataId="data.item.id" :index="data.index" :hasInvoice="data.item.has_invoice"
+            @hasInvoice=" data.item.has_invoice = $event " />
+        </template>
         <template slot="status_invoice" slot-scope="data">
           <b-badge :variant="getBadgeStatus(data.item.status_invoice)">
             {{data.item.status_invoice}}
@@ -33,17 +37,24 @@
             </b-btn>
             <b-btn variant="danger" size="sm" v-b-tooltip.hover="'Delete'" @click="triggerConfirmModal(
             'Delete Transaction',
-            'Are You Sure To Delete This Transaction?',
+            'Are You Sure To Delete This Transaction? All related data, inc evidence and invoice, will be deleted',
             'deleteTransaction',
             {id:data.item.id,index:data.index}
              )">
               <i class="fa fa-trash"></i>
             </b-btn>
-            <b-btn v-if="data.item.invoice_no && data.item.verification == 'VERIFIED'" variant="success" size="sm"
-              v-b-tooltip.hover="'Send Invoice'"><i class="fa fa-send"></i></b-btn>
+            <b-btn v-if="sendInvoiceAvailable(data.index)" variant="success" size="sm" v-b-tooltip.hover="'Send Invoice'"
+              @click="triggerConfirmModal(
+            'Send Invoice',
+            'Are You Sure To Send Invoice for This Transaction?',
+            'sendInvoice',
+            {id:data.item.id,index:data.index}
+             )"><i
+                class="fa fa-send"></i></b-btn>
           </b-btn-group>
         </template>
       </b-table>
+      <strong>Total Donations: Rp. {{ total | currency}}</strong>
     </div>
     <b-modal :title="transactionModalTitle" :no-close-on-esc="true" :hide-header-close="false" :no-close-on-backdrop="false"
       @hidden="handleHiddenModal" size="md" v-model="transactionModal" @ok="sendTransactionData">
@@ -66,7 +77,7 @@
           <b-input type="number" class="form-control" placeholder="Transaction Amount" v-model="input.amount" :state="stateAmount" />
         </b-input-group>
       </b-form-group>
-      <b-form-group :invalid-feedback="errors.verification" :state="stateVerification">
+      <b-form-group v-if="transactionModalState == 'editTransaction'" :invalid-feedback="errors.verification" :state="stateVerification">
         <b-input-group>
           <b-input-group-prepend>
             <b-input-group-text><i class="icon-check"></i></b-input-group-text>
@@ -81,7 +92,7 @@
           </b-form-select>
         </b-input-group>
       </b-form-group>
-      <b-form-group :invalid-feedback="errors.invoice_no" :state="stateInvoiceNumber">
+      <b-form-group v-if="transactionModalState == 'editTransaction'" :invalid-feedback="errors.invoice_no" :state="stateInvoiceNumber">
         <b-input-group>
           <b-input-group-prepend>
             <b-input-group-text><i class="icon-doc"></i></b-input-group-text>
@@ -90,7 +101,7 @@
             :state="stateInvoiceNumber" />
         </b-input-group>
       </b-form-group>
-      <b-form-group :invalid-feedback="errors.status_invoice" :state="stateStatusInvoice">
+      <!-- <b-form-group v-if="transactionModalState == 'editTransaction'" :invalid-feedback="errors.status_invoice" :state="stateStatusInvoice">
         <b-input-group>
           <b-input-group-prepend>
             <b-input-group-text><i class="icon-paper-plane"></i></b-input-group-text>
@@ -104,7 +115,7 @@
             </template>
           </b-form-select>
         </b-input-group>
-      </b-form-group>
+      </b-form-group> -->
     </b-modal>
     <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" :title="confirmModalTitle"
       v-model="confirmModal" @ok="onConfirmModal">
@@ -114,6 +125,7 @@
 </template>
 <script>
   import Evidence from './DetailDonorTransactionHistoryEvidence'
+  import Invoice from './DetailDonorTransactionHistoryInvoice'
   import flatPickr from 'vue-flatpickr-component';
   import 'flatpickr/dist/flatpickr.css';
   import {
@@ -124,7 +136,8 @@
     props: ['transactions'],
     components: {
       flatPickr,
-      Evidence
+      Evidence,
+      Invoice
     },
     mixins: [FieldTableData],
     data: function () {
@@ -176,6 +189,18 @@
       stateInvoiceNumber() {
         return this.errors.invoice_no == 'no-error' ? true : this.errors.invoice_no ? false : null
       },
+      sendInvoiceAvailable() {
+        return index => this.transactions[index].has_invoice && this.transactions[index].invoice_no && this.transactions[
+          index].verification == 'VERIFIED' ? true : false
+      },
+      total() {
+      let sum = 0;
+      for(let i = 0; i < this.transactions.length; i++){
+        sum += (parseFloat(this.transactions[i].amount) );
+      }
+
+     return sum;
+      }
     },
     methods: {
       triggerConfirmModal(title, body, state, value = '') {
@@ -207,17 +232,20 @@
       },
       handleNewTransaction() {
         this.input.trx_date = null,
-        this.input.amount = null,
-        this.input.verification = null,
-        this.input.invoice_no = '',
-        this.input.status_invoice = null,
-        this.transactionModal = true
+          this.input.amount = null,
+          this.input.verification = null,
+          this.input.invoice_no = '',
+          this.input.status_invoice = null,
+          this.transactionModal = true
         this.transactionModalTitle = 'Add New Transaction'
         this.transactionModalState = 'addTransaction'
       },
-      onConfirmModal(){
+      onConfirmModal() {
         if (this.confirmModalState == 'deleteTransaction') {
           this.deleteTransaction()
+        }
+        if (this.confirmModalState == 'sendInvoice') {
+          this.sendInvoice()
         }
       },
       sendTransactionData(e) {
@@ -233,9 +261,9 @@
               self.transactions.push({
                 trx_date: self.input.trx_date,
                 amount: self.input.amount,
-                verification: self.input.verification,
-                invoice_no: self.input.invoice_no,
-                status_invoice: self.input.status_invoice,
+                verification: 'UNVERIFIED',
+                invoice_no: '',
+                status_invoice: 'NOT SENT',
                 id: response.data.id,
                 created_at: dayjs().format('DD-MMM-YY')
               })
@@ -247,6 +275,7 @@
               this.$snotify.error(error.response.data.message, "ERROR");
               this.errors.trx_date = errors.trx_date ? errors.trx_date[0] : 'no-error';
               this.errors.amount = errors.amount ? errors.amount[0] : 'no-error';
+              this.errors.invoice_no = errors.invoice_no ? errors.invoice_no[0] : 'no-error';
               this.errors.verification = errors.verification ? errors.verification[0] : 'no-error';
               this.errors.status_invoice = errors.status_invoice ? errors.status_invoice[0] : 'no-error';
             })
@@ -273,25 +302,50 @@
               this.errors.trx_date = errors.trx_date ? errors.trx_date[0] : 'no-error';
               this.errors.amount = errors.amount ? errors.amount[0] : 'no-error';
               this.errors.verification = errors.verification ? errors.verification[0] : 'no-error';
+              this.errors.invoice_no = errors.invoice_no ? errors.invoice_no[0] : 'no-error';
               this.errors.status_invoice = errors.status_invoice ? errors.status_invoice[0] : 'no-error';
             })
         }
       },
-      deleteTransaction(){
-        axios.delete(`api/donor-transaction/${this.confirmModalTempValue.id}?donor_id=${this.$route.params.userId}&period_year=${this.$route.params.periodYear}`)
-        .then((response) => {
-        console.log(response.data)
-          this.transactions.splice(this.confirmModalTempValue.index, 1)
-        })
-        .catch((error) => {
-        console.log(error);
-        })
+      deleteTransaction() {
+        axios.delete(
+            `api/donor-transaction/${this.confirmModalTempValue.id}?donor_id=${this.$route.params.userId}&period_year=${this.$route.params.periodYear}`
+          )
+          .then((response) => {
+            console.log(response.data)
+            this.transactions.splice(this.confirmModalTempValue.index, 1)
+          })
+          .catch((error) => {
+            console.log(error);
+          })
       },
       handleHiddenModal() {
         this.errors.trx_date = null
         this.errors.amount = null
         this.errors.verification = null
         this.errors.status_invoice = null
+        this.errors.invoice_no = null
+      },
+      sendInvoice() {
+        this.$store.dispatch('stateLoadingFull', true)
+        let self = this
+        axios.post(`api/file/donor-transaction/invoice/send`, {
+            userId: this.$route.params.userId,
+            periodYear: this.$route.params.periodYear,
+            id: this.confirmModalTempValue.id,
+
+          })
+          .then((response) => {
+            console.log(response.data)
+            self.transactions[this.confirmModalTempValue.index].status_invoice = 'SENT'
+            self.$snotify.success(response.data.message, "SUCCESS");
+            this.$store.dispatch('stateLoadingFull', false)
+          })
+          .catch((error) => {
+            console.log(error);
+            self.$snotify.error(error.response.data.message, "ERROR");
+            this.$store.dispatch('stateLoadingFull', false)
+          })
       },
       handleRowClicked() {
 

@@ -53,6 +53,8 @@ Route::group(['prefix' => 'file'], function () {
 
     Route::get('donor-contract/{userId}','Donor\File\AttachmentContractController@show');
 
+    Route::post('donor-transaction/invoice/send','Donor\Transaction\InvoiceController@sendInvoice');
+    Route::apiResource('donor-transaction/invoice','Donor\Transaction\InvoiceController');
     Route::apiResource('donor-transaction/evidence','Donor\Transaction\EvidenceController');
 });
 
