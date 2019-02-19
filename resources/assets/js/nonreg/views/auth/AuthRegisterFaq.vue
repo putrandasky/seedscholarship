@@ -14,8 +14,8 @@
       <strong>Kemudian, siapkan persyaratan berikut sebagai berkas pendaftaran</strong>
       <ol>
         <li>CV / Riwayat Hidup</li>
-        <li>Proposal penelitan dengan isi; latar belakang, tujuan, metodologi, RAB, referensi (Format diberikan di halaman upload setelah melakukan registrasi)</li>
-        <li>Surat keterangan tidak menerima beasiswa riset lainnya (Format diberikan di halaman upload setelah melakukan registrasi)</li>
+        <li>Proposal penelitan dengan isi; latar belakang, tujuan, metodologi, RAB, referensi <strong>(Format diberikan di halaman upload setelah melakukan registrasi)</strong></li>
+        <li>Surat keterangan tidak menerima beasiswa riset lainnya <strong>(Format diberikan di halaman upload setelah melakukan registrasi)</strong></li>
         <li>Print out halaman ringkasan dan riwayat SIAKNG</li>
       </ol>
       <strong>Tunggu konfirmasi dari Tim Recruitment SEED</strong>

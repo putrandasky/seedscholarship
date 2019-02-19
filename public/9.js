@@ -1051,14 +1051,22 @@ var render = function() {
             _vm._v(" "),
             _c("li", [
               _vm._v(
-                "Proposal penelitan dengan isi; latar belakang, tujuan, metodologi, RAB, referensi (Format diberikan di halaman upload setelah melakukan registrasi)"
-              )
+                "Proposal penelitan dengan isi; latar belakang, tujuan, metodologi, RAB, referensi "
+              ),
+              _c("strong", [
+                _vm._v(
+                  "(Format diberikan di halaman upload setelah melakukan registrasi)"
+                )
+              ])
             ]),
             _vm._v(" "),
             _c("li", [
-              _vm._v(
-                "Surat keterangan tidak menerima beasiswa riset lainnya (Format diberikan di halaman upload setelah melakukan registrasi)"
-              )
+              _vm._v("Surat keterangan tidak menerima beasiswa riset lainnya "),
+              _c("strong", [
+                _vm._v(
+                  "(Format diberikan di halaman upload setelah melakukan registrasi)"
+                )
+              ])
             ]),
             _vm._v(" "),
             _c("li", [_vm._v("Print out halaman ringkasan dan riwayat SIAKNG")])

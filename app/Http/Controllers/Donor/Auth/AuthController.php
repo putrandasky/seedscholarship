@@ -34,7 +34,18 @@ class AuthController extends Controller
             $query->where('year', '=', $request->year);
 
         })
-            ->with('awardeeDepartment', 'periods')->orderBy('created_at', 'desc')->get();
+            ->with('awardeeDepartment', 'periods')
+            ->orderBy('created_at', 'desc')
+                        ->withCount([
+                'donorTransactions AS unverified_transactions' => function ($query) {
+                    $query->where('verification', 'UNVERIFIED');
+                  },
+                  'donorTransactions AS not_sent_invoice' => function ($query) {
+                    $query->where('status_invoice',  'NOT SENT');
+                    $query->where('verification', 'VERIFIED');
+                },
+            ])
+            ->get();
         return $user;
     }
 

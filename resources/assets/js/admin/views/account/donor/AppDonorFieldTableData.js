@@ -23,8 +23,7 @@ export const AppDonorFieldTableData = {
                     key: 'email',
                     label: 'Email',
                     thStyle: {
-                        minWidth: '150px',
-                        width: '150px'
+                        minWidth: '175px',
                     },
 
                     sortable: true
@@ -33,8 +32,8 @@ export const AppDonorFieldTableData = {
                     key: 'department',
                     label: 'Department',
                     thStyle: {
-                        minWidth: '250px',
-                        width: '250px'
+                        minWidth: '120px',
+                        width: '120px'
                     },
                     sortable: true
                 },
@@ -42,8 +41,8 @@ export const AppDonorFieldTableData = {
                     key: 'year',
                     label: 'Year',
                     thStyle: {
-                        minWidth: '100px',
-                        width: '100px'
+                        minWidth: '50px',
+                        width: '50px'
                     },
                     sortable: true
                 },
@@ -68,15 +67,35 @@ export const AppDonorFieldTableData = {
                     sortable: true
                 },
                 {
-                    key: 'registered',
-                    label: 'Registered',
+                    key: 'unverified_transactions',
+                    label: 'Unverified',
                     'class': 'text-center',
                     thStyle: {
-                        minWidth: '150px',
-                        width: '150px'
+                        minWidth: '50px',
+                        width: '50px'
                     },
                     sortable: true
                 },
+                {
+                    key: 'not_sent_invoice',
+                    label: 'To Invoice',
+                    'class': 'text-center',
+                    thStyle: {
+                        minWidth: '125px',
+                        width: '125px'
+                    },
+                    sortable: true
+                },
+                // {
+                //     key: 'registered',
+                //     label: 'Registered',
+                //     'class': 'text-center',
+                //     thStyle: {
+                //         minWidth: '150px',
+                //         width: '150px'
+                //     },
+                //     sortable: true
+                // },
             ],
             itemsData: [],
             selectedInputSearch: this.$route.query.searchKey || 'name',
@@ -91,6 +110,18 @@ export const AppDonorFieldTableData = {
                 {
                     value: 'department',
                     text: 'Department',
+                },
+                {
+                    value: 'year',
+                    text: 'Year',
+                },
+                {
+                    value: 'contract',
+                    text: 'Contract',
+                },
+                {
+                    value: 'category',
+                    text: 'Category',
                 },
             ],
         }
@@ -112,6 +143,21 @@ export const AppDonorFieldTableData = {
             if (this.selectedInputSearch == 'department') {
                 return this.itemsData.filter(result =>
                     result.department.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+                )
+            }
+            if (this.selectedInputSearch == 'year') {
+                return this.itemsData.filter(result =>
+                    result.year.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+                )
+            }
+            if (this.selectedInputSearch == 'contract') {
+                return this.itemsData.filter(result =>
+                    result.contract.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+                )
+            }
+            if (this.selectedInputSearch == 'category') {
+                return this.itemsData.filter(result =>
+                    result.category.toLowerCase().indexOf(this.search.toLowerCase()) > -1
                 )
             }
         }
