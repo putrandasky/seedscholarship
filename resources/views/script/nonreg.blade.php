@@ -1,1 +1,1 @@
-<script src="{{ asset('js/nonreg/script-nonreg.js') }}"></script>
+<script src="{{ asset('js/script-nonreg.js') }}"></script>

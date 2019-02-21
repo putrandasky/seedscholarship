@@ -1,7 +1,8 @@
 <template>
   <b-card>
-    <h4 class="card-title">Transaction History
-      <b-button variant="primary" class="float-right" size="sm" @click="handleNewTransaction"><i class="fa fa-plus"></i>
+    <h4 class="card-title d-sm-flex w-sm-100 justify-content-sm-between">
+      <span>Transaction History</span>
+      <b-button variant="primary"  size="sm" @click="handleNewTransaction"><i class="fa fa-plus"></i>
         Add Data</b-button>
     </h4>
     <div style="overflow-y:auto">

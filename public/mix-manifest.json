@@ -1,6 +1,6 @@
 {
-    "/js/admin/script-admin.js": "/js/admin/script-admin.js",
-    "/js/awardee/script-awardee.js": "/js/awardee/script-awardee.js",
-    "/js/donor/script-donor.js": "/js/donor/script-donor.js",
-    "/js/nonreg/script-nonreg.js": "/js/nonreg/script-nonreg.js"
+    "/js/script-admin.js": "/js/script-admin.js",
+    "/js/script-awardee.js": "/js/script-awardee.js",
+    "/js/script-donor.js": "/js/script-donor.js",
+    "/js/script-nonreg.js": "/js/script-nonreg.js"
 }

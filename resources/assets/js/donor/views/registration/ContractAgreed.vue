@@ -1,6 +1,9 @@
 <template>
   <div class="app flex-row align-items-center">
-    <loading :active="!loaded" :can-cancel="false" :opacity=0 loader='dots' transition='none' :is-full-page="true" />
+    <loading class="text-center"  :active="!loaded" :can-cancel="false" :opacity="0.9" :height="60"   loader='dots' transition='fade'  background-color="rgba(0,0,0,.85)" color="rgba(255,255,255,.9)" :is-full-page="true">
+            <div class="text-center" slot="after" style="color:rgba(255,255,255,.9)">Mohon Tunggu...</div>
+
+    </loading>
     <div class="container" v-if="loaded">
 
       <b-row class="justify-content-center">

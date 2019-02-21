@@ -31,9 +31,9 @@ Department : {{$data->awardeeDepartment->department}}<br/>
 Alamat : {{$data->address}}<br/>
 Kategori Donasi : {{$data->periods[0]->pivot->donation_category}}<br/>
 @if($data->periods[0]->pivot->amount != 0)
-Jumlah donasi : Rp. {{number_format($data->periods[0]->pivot->amount,0,",",".")}} / tahun<br/>
+Rencana Donasi : Rp. {{number_format($data->periods[0]->pivot->amount,0,",",".")}} / tahun<br/>
 @endif
-@if($data->periods[0]->pivot->donation_category == 'aktif')
+@if($data->periods[0]->pivot->donation_category == 'AKTIF')
 Akan ditagihkan : Rp. {{number_format($data->periods[0]->pivot->amount / 12,0,",",".")}} / bulan<br/>
 @endif
 @endcomponent

@@ -15,8 +15,10 @@ Kami telah melakukan verifikasi donasi anda sebesar :
 <div style="text-align:center;font-weight:bold;font-size:22px">
 Rp. {{number_format($data->donorTransactions[0]->amount,0,",",".")}},-
 </div>
+@php setlocale(LC_TIME, 'id');
+@endphp
 <div style="text-align:center">
-Tanggal Transaksi : {{Carbon\Carbon::parse($data->donorTransactions[0]->trx_date)->format('d F Y')}},-
+Tanggal Transaksi : {{Carbon\Carbon::parse($data->donorTransactions[0]->trx_date)->formatLocalized('%d %B %Y')}},-
 </div>
 @endcomponent
 

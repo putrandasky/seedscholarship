@@ -14,7 +14,7 @@
       <strong>Kemudian, siapkan berkas pendaftaran</strong>
       <ol>
         <li>CV (format bebas dengan informasi yang wajib ada yaitu: data diri, riwayat pendidikan, kemampuan bahasa, pengalaman kerja, status pekerjaan/pendidikan anggota keluarga)</li>
-        <li>Esai dengan topik : Mengapa saya pantas mendapatkan beasiswa SEED (300-500 kata)</li>
+        <li>Essai dengan topik : Mengapa saya pantas mendapatkan beasiswa SEED (300-500 kata)</li>
         <li>Salinan slip gaji orangtua dan/atau rekening listrik</li>
         <li>Print out halaman ringkasan dan riwayat SIAKNG</li>
       </ol>

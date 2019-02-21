@@ -16,7 +16,7 @@
         <li>Donatur Pasif adalah donatur yang memberikan donasi dengan jumlah yang tidak ditetapkan sebanyak minimal 1
           (satu) kali dalam 12 bulan. <br>
           Jumlah nilai yang dimasukan dalam rencana donasi adalah target atau estimasi jumlah
-          yang akan didonasikan. Kami menyarankan anda namun tidak memewajibkan. Angka
+          yang akan didonasikan. Kami menyarankan anda namun tidak mewajibkan. Angka
           yang Anda masukan akan digunakan dalam perencanaan keuangan kami. </li>
       </ol>
       <hr />
@@ -28,11 +28,11 @@
         akan mengubungi Anda untuk memberikan informasi selengkapnya</p>
       <strong>Q: Untuk donatur aktif, dapatkah donasi dibayarkan langsung untuk beberapa bulan ke depan untuk
         menghindari lupa transfer ?</strong>
-      <p>A : Donasi bisa dibayarkan langsung untuk beberapa bulan donasi, misalkan langsung Rp 300.000,- untuk 3 bulan
+      <p>A : Donasi bisa dibayarkan langsung untuk beberapa bulan donasi, misalkan donatur dengan rencana donasi Rp. 100.000,- per bulan akan langsung berdonasi sebesar Rp. 300.000,- untuk 3 bulan
         dst. Team finance akan mencatatnya. Yang ditekankan adalah dalam satu periode (selama 1 tahun) total donasi
         yang dikumpulkan adalah Rp 1.200.000,-
 
-        Kategori Donatur*
+        Kategori Donatur Aktif*
       </p>
     </b-modal>
   </div>

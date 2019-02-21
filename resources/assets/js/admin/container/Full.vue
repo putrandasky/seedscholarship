@@ -5,7 +5,7 @@
     <div class="app-body">
       <Sidebar :navItems="nav" />
       <main class="main">
-        <loading style="z-index:9999" :active.sync="this.$store.state.loadingFull"  :can-cancel="false" :height=60 :opacity=0.9 loader='spinner'
+        <loading class="text-center"  style="z-index:9999" :active.sync="this.$store.state.loadingFull"  :can-cancel="false" :height="60" :opacity="0.9" loader='spinner'
       transition='fade' :is-full-page="true" background-color="rgba(0,0,0,.85)" color="rgba(255,255,255,.9)">
         <div class="text-center" slot="after" style="color:rgba(255,255,255,.9)">Please Wait...</div>
         </loading>

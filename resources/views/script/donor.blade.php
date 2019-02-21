@@ -1,1 +1,1 @@
-<script src="{{ asset('js/donor/script-donor.js') }}"></script>
+<script src="{{ asset('js/script-donor.js') }}"></script>

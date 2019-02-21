@@ -13,10 +13,10 @@ const mix = require('laravel-mix');
 
 // mix.js('resources/js/app.js', 'public/js')
 //    .sass('resources/sass/app.scss', 'public/css');
-mix.js('resources/assets/js/awardee/app.js', 'public/js/awardee/script-awardee.js')
-.js('resources/assets/js/admin/app.js', 'public/js/admin/script-admin.js')
-.js('resources/assets/js/nonreg/app.js', 'public/js/nonreg/script-nonreg.js')
-.js('resources/assets/js/donor/app.js', 'public/js/donor/script-donor.js');
+mix.js('resources/assets/js/awardee/app.js', 'public/js/script-awardee.js')
+.js('resources/assets/js/admin/app.js', 'public/js/script-admin.js')
+.js('resources/assets/js/nonreg/app.js', 'public/js/script-nonreg.js')
+.js('resources/assets/js/donor/app.js', 'public/js/script-donor.js');
 
 
 // mix.js('resources/assets/js/awardee/app.js', 'public/js/awardee/script-awardee.js').sourceMaps(true, 'source-map')

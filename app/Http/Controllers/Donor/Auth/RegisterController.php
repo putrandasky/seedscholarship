@@ -117,7 +117,7 @@ class RegisterController extends Controller
 
 
         DB::transaction(function () use ($request,$data) {
-          $series = substr($data->periods[0]->pivot->contract_number, 2);
+          $series = substr($data->periods[0]->pivot->contract_number, 3);
           $attachmentTemplate = $data->periods[0]->pivot->donation_category == 'AKTIF'? 'attachment.ContractDonaturAktif':'attachment.ContractDonaturPasif';
           $pdf = app('dompdf.wrapper');
           $pdf->getDomPDF()->set_option("enable_php", true);

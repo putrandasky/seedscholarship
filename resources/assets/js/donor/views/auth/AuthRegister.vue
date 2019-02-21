@@ -135,11 +135,11 @@
                           <b-input-group-prepend>
                             <b-input-group-text>Rp</b-input-group-text>
                           </b-input-group-prepend>
-                          <b-input  autocomplete="off" type="number" class="form-control" placeholder="Plan Amount of Donation per Year"
+                          <b-input   autocomplete="off" type="number" class="form-control" min="0" :placeholder="amountPlaceholder"
                             v-model="input.amount" :state="stateAmount"  />
                         </b-input-group>
-                        <small v-show="input.donation_category == 'aktif'" slot="description" >Your total donation Rp. {{input.amount*12 | currency}} / year & will be billed Rp. {{input.amount|currency}} / month</small>
-                        <small v-show="input.donation_category == 'pasif'" slot="description" >Your total donation Rp. {{input.amount | currency}} / year</small>
+                        <small v-show="input.donation_category == 'AKTIF'" slot="description" >Your total donation Rp. {{input.amount*12 | currency}} / year & will be billed Rp. {{input.amount|currency}} / month</small>
+                        <small v-show="input.donation_category == 'PASIF'" slot="description" >Your total donation Rp. {{input.amount | currency}} / year</small>
                       </b-form-group>
                     </b-col>
                   </slide-y-up-transition>
@@ -258,6 +258,9 @@
         return this.errors.accept_term_condition == 'no-error' ? true : this.errors.accept_term_condition ? false :
           null
       },
+      amountPlaceholder(){
+        return this.input.donation_category == 'PASIF'? 'Planned amount of donations' : 'Planned amount of donations per Month'
+      }
     },
     methods: {
 

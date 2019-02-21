@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+@php
+setlocale(LC_TIME, 'id');
+@endphp
 <html lang="en">
 
 <head>
@@ -106,9 +109,11 @@
     <br />
     <br />
     <br />
-    <div>Jakarta, {{Carbon\Carbon::parse($data->periods[0]->pivot->created_at)->format('d-F-Y')}}</div>
-    <img style="max-height:100px; max-width:100%" src="{{ config('app.url').'/images/sign-ketua-biru.jpeg'}}">
-    <div class="underline">
+    <div>Jakarta, {{Carbon\Carbon::parse($data->periods[0]->pivot->created_at)->formatLocalized('%d %B %Y')}}</div>
+<div>
+      <img style="max-height:100px; max-width:100%" src="{{ config('app.url').'/images/sign-ketua-biru.jpeg'}}">
+    </div>
+        <div class="underline">
       Anggit Cahyo U.
     </div>
     <div>
@@ -149,7 +154,7 @@
         </tr>
         <tr>
           <td>Terdaftar pada tanggal</td>
-          <td style="padding-left:20px">: {{Carbon\Carbon::parse($data->periods[0]->pivot->created_at)->format('d F Y')}}</td>
+          <td style="padding-left:20px">: {{Carbon\Carbon::parse($data->periods[0]->pivot->created_at)->formatLocalized('%d %B %Y')}}</td>
         </tr>
       </tbody>
     </table>

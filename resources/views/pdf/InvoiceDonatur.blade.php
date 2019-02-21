@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 @php
+setlocale(LC_TIME, 'id');
 function terbilang($nilai)
 {
 if ($nilai < 0) { $hasil="minus " . trim(penyebut($nilai)); } else { $hasil=trim(penyebut($nilai)); } return $hasil; }
@@ -12,8 +13,10 @@ if ($nilai < 0) { $hasil="minus " . trim(penyebut($nilai)); } else { $hasil=trim
   penyebut($nilai % 1000); } else if ($nilai < 1000000000) { $temp=penyebut($nilai / 1000000) . " juta" .
   penyebut($nilai % 1000000); } else if ($nilai < 1000000000000) { $temp=penyebut($nilai / 1000000000) . " milyar" .
   penyebut(fmod($nilai, 1000000000)); } else if ($nilai < 1000000000000000) { $temp=penyebut($nilai / 1000000000000) .
-  " trilyun" . penyebut(fmod($nilai, 1000000000000)); } return $temp; } @endphp <html lang="en">
-
+  " trilyun" . penyebut(fmod($nilai, 1000000000000)); } return $temp;
+}
+  @endphp
+  <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -126,8 +129,7 @@ if ($nilai < 0) { $hasil="minus " . trim(penyebut($nilai)); } else { $hasil=trim
         <tbody>
           <tr>
             <td style="width:250px">Tanggal Donasi</td>
-            <td style="padding-left:30px;font-weight:bold">{{Carbon\Carbon::parse($donor->donorTransactions[0]->trx_date)->format('d
-              F Y')}}</td>
+            <td style="padding-left:30px;font-weight:bold">{{Carbon\Carbon::parse($donor->donorTransactions[0]->trx_date)->formatLocalized('%d %B %Y')}}</td>
           </tr>
           <tr>
             <td style="width:250px">Jumlah Donasi</td>
