@@ -1,0 +1,3 @@
+add $query->where('periods.is_contract_agreed', '<>', 'AGREED'); in registercontroller donatur
+add column donation_token in mysql
+add is_active to mysql in periods

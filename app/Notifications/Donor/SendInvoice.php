@@ -43,7 +43,7 @@ class SendInvoice extends Notification
 $url = 'hello@seedscholarship.org';
         return (new MailMessage)
             ->from($url,'Seedscholarship')
-            ->subject("Invoice Donasi #{$this->data->donorTransactions[0]->invoice_no}")
+            ->subject("Payment Receipt #{$this->data->donorTransactions[0]->invoice_no}")
             ->markdown('email.DonorInvoice', ['data' => $this->data])
             ->attach(storage_path('app')."/transaction/{$this->data->periods[0]->year}/{$this->data->id}/{$this->data->donorTransactions[0]->id}/invoice/{$this->data->donorTransactions[0]->invoice_no}.pdf");
 

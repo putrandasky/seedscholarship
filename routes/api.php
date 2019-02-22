@@ -59,6 +59,8 @@ Route::group(['prefix' => 'file'], function () {
 });
 
 Route::apiResource('donor-transaction', 'Donor\Transaction\TransactionHistoryController');
+Route::get('donor-transaction/confirmation/authorized', 'Donor\Transaction\ConfirmationController@authorized');
+Route::apiResource('donor-transaction/confirmation', 'Donor\Transaction\ConfirmationController');
 Route::apiResource('department', 'Admin\Auth\DepartmentController');
 Route::apiResource('blog-category', 'Admin\Blog\BlogCategoryController');
 Route::apiResource('blog-tag', 'Admin\Blog\BlogTagController');

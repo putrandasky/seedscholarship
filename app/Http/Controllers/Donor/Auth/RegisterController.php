@@ -53,6 +53,7 @@ class RegisterController extends Controller
         $user->address = $request->address;
         // $user->password = Hash::make($request->password);
         $token = Str::random(100);
+        $donation_token = Str::random(100);
         if ($request->donation_category == "AKTIF") {
             $amount = $request->amount * 12;
         } elseif ($request->amount) {
@@ -61,7 +62,7 @@ class RegisterController extends Controller
             $amount = 0;
         }
 
-        DB::transaction(function () use ($request, $user, $amount, $contract_number, $token) {
+        DB::transaction(function () use ($request, $user, $amount, $contract_number, $token,$donation_token) {
             $user->save();
 
             $user->periods()->attach($request->period, [
@@ -71,6 +72,7 @@ class RegisterController extends Controller
                 'is_contract_agreed' => 'NOT YET',
                 'contract_number' => $contract_number,
                 'token' => $token,
+                'donation_token' => $donation_token,
             ]);
             $data = App\Donor::whereHas('periods', function ($query) use ($request, $token) {
                 $query->where('periods.id', '=', $request->period);
@@ -98,6 +100,7 @@ class RegisterController extends Controller
     {
         $data = App\Donor::whereHas('periods', function ($query) use ($request) {
             $query->where('periods.period', '=', $request->period);
+$query->where('periods.is_contract_agreed', '<>', 'AGREED');
             $query->where('token', $request->token);
         })
             ->where([
@@ -108,6 +111,7 @@ class RegisterController extends Controller
                 'awardeeDepartment',
                 'periods' => function ($query) use ($request) {
                     $query->where('periods.period', '=', $request->period);
+                    $query->where('periods.is_contract_agreed', '<>', 'AGREED');
                     $query->where('token', $request->token);
                 },
             ])->first();

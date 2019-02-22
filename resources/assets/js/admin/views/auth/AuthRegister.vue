@@ -82,6 +82,7 @@
         errors: {
           name: '',
           email: '',
+          initial: '',
           department_id: '',
           initial: '',
           password: '',

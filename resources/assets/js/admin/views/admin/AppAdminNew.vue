@@ -14,6 +14,14 @@
                   <b-input type="text" class="form-control" placeholder="Full Name" v-model="input.name" :state="stateName" />
                 </b-input-group>
               </b-form-group>
+              <b-form-group :invalid-feedback="errors.initial" :state="stateInitial">
+                  <b-input-group class="">
+                    <b-input-group-prepend>
+                      <b-input-group-text><i class="icon-user"></i></b-input-group-text>
+                    </b-input-group-prepend>
+                    <b-input type="text" class="form-control" placeholder="Initial" v-model="input.initial" :state="stateInitial" />
+                  </b-input-group>
+               </b-form-group>
               <b-form-group :invalid-feedback="errors.department" :state="stateDepartment">
                 <b-input-group class="">
                   <b-input-group-prepend>
@@ -67,12 +75,14 @@
         departmentOptions: [],
         errors: {
           name: '',
+          initial: '',
           email: '',
           department_id: '',
           password: '',
         },
         input: {
           name: '',
+          initial: '',
           department_id: null,
           email: '',
           password: '',
@@ -86,6 +96,9 @@
     computed: {
       stateName() {
         return this.errors.name == 'no-error' ? true : this.errors.name ? false : null
+      },
+      stateInitial() {
+        return this.errors.initial == 'no-error' ? true : this.errors.initial ? false : null
       },
       stateEmail() {
         return this.errors.email == 'no-error' ? true : this.errors.email ? false : null

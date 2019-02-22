@@ -35,6 +35,7 @@ class AuthController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|',
+            'initial' => 'required|string|max:4',
             'email' => 'required|email|unique:admins',
             'password' => 'required|confirmed|min:6',
             'department_id' => 'required',
@@ -42,6 +43,7 @@ class AuthController extends Controller
         $user = new App\Admin();
         $user->name = ucwords($request->name);
         $user->email = $request->email;
+        $user->initial = strtoupper($request->initial);
         $user->department_id = $request->department_id;
         $user->password = Hash::make($request->password);
         $user->save();

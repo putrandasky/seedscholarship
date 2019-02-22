@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Donor\Auth;
 
 use App;
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -15,7 +14,7 @@ class UserController extends Controller
         $data['user'] = App\Donor::whereHas('periods', function ($query) use ($request) {
             $query->where('periods.year', '=', $request->year);
         })
-        ->where('id', $id)
+            ->where('id', $id)
             ->with([
                 'awardeeDepartment',
                 'donorTransactions' => function ($query) use ($request) {
@@ -24,12 +23,16 @@ class UserController extends Controller
                 'periods' => function ($query) use ($request) {
                     $query->where('periods.year', '=', $request->year);
                 },
-            ])->first();
+            ])
+            ->withCount(['donorTransactions AS total_donation' => function ($query) {
+                $query->select(DB::raw("SUM(amount) as verified"))->where('verification', 'VERIFIED');
+            },
+            ])
+            ->first();
 
         if (!$data['user']) {
             return response()->json(['error' => 'Not Found', 'message' => 'User Not Found For This Period'], 404);
         }
-
 
         return $data;
     }

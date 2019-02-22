@@ -104,10 +104,15 @@ class InvoiceController extends Controller
                 'donorTransactions' => function ($query) use ($request) {
                     $query->where('id', '=', $request->id);
                 },
-            ])->first();
-            DB::transaction(function () use ($request, $donor) {
-              $donor->notify(new SendInvoice($donor));
-              $transaction = App\DonorTransaction::find($request->id);
+            ])
+            ->withCount(['donorTransactions AS total_donation' => function ($query) {
+                $query->select(DB::raw("SUM(amount) as verified"))->where('verification', 'VERIFIED');
+            },
+            ])
+            ->first();
+        DB::transaction(function () use ($request, $donor) {
+            $donor->notify(new SendInvoice($donor));
+            $transaction = App\DonorTransaction::find($request->id);
             $transaction->status_invoice = 'SENT';
             $transaction->save();
         });

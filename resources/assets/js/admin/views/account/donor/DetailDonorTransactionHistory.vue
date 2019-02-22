@@ -55,7 +55,7 @@
           </b-btn-group>
         </template>
       </b-table>
-      <strong>Total Donations: Rp. {{ total | currency}}</strong>
+      <strong>Total Verified Donations: Rp. {{ total | currency}}</strong>
     </div>
     <b-modal :title="transactionModalTitle" :no-close-on-esc="true" :hide-header-close="false" :no-close-on-backdrop="false"
       @hidden="handleHiddenModal" size="md" v-model="transactionModal" @ok="sendTransactionData">
@@ -197,7 +197,8 @@
       total() {
       let sum = 0;
       for(let i = 0; i < this.transactions.length; i++){
-        sum += (parseFloat(this.transactions[i].amount) );
+
+        sum += this.transactions[i].verification == 'VERIFIED'? (parseFloat(this.transactions[i].amount) ) : 0;
       }
 
      return sum;

@@ -23,6 +23,17 @@
         <b-table stacked="sm" stack style="animation-duration: 1s" hover :fields="FieldTableItems" :items="filteredItemsData"
           thead-class="thead-light" :sort-by.sync="querySortBy" :sort-desc.sync="querySortDesc" @sort-changed="sortingChanged"
           :current-page="currentPage" :per-page="perPage" @row-clicked="handleRowClicked">
+
+            <template slot="HEAD_unverified_transactions" slot-scope="data">
+              <span>
+              <i v-b-tooltip.top.hover title="Unverified Transactions"  class="fa fa-check" style="cursor: pointer;color:limegreen"></i>
+              </span>
+            </template>
+            <template slot="HEAD_not_sent_invoice" slot-scope="data">
+              <span>
+              <i v-b-tooltip.top.hover title="Payment receipt to send"  class="fa fa-send" style="cursor: pointer"></i>
+              </span>
+            </template>
           <template slot="no" slot-scope="data">
             {{data.index+1+((currentPage-1)*perPage)}}
           </template>
@@ -87,6 +98,7 @@
                 temp['category'] = temp.periods[0].pivot.donation_category
                 temp['registered'] = temp.created_at
                 temp['contract'] = temp.periods[0].pivot.is_contract_agreed
+                temp['last_donate'] = temp.donor_transactions[0].trx_date
                 // temp.name = 'my name '+temp.name;
                 return temp;
               });

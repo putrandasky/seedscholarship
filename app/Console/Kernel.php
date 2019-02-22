@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+        'App\Console\Commands\DonationReminder',
     ];
 
     /**
@@ -24,8 +25,20 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+
+        $schedule->command('reminder:donation')
+            ->monthlyOn(25, '10:00')
+            ->timezone('Asia/Jakarta');
+        $schedule->command('reminder:donation')
+            ->monthlyOn(5, '10:00')
+            ->timezone('Asia/Jakarta');
+        $schedule->command('reminder:donation')
+            ->when(function () {
+                return \Carbon\Carbon::now()->endOfMonth()->isToday();
+            })
+            ->timezone('Asia/Jakarta')
+            ->at('10:00');
+
     }
 
     /**
@@ -35,7 +48,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

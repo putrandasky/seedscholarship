@@ -34,7 +34,17 @@ class AuthController extends Controller
             $query->where('year', '=', $request->year);
 
         })
-            ->with('awardeeDepartment', 'periods')
+            ->with([
+              'awardeeDepartment',
+                'periods' => function ($query) use ($request) {
+                    $query->where('periods.year', '=', $request->year);
+                },
+                'donorTransactions' => function ($query) use ($request) {
+                    $query->where('period_year', '=', $request->year);
+                    $query->select('id','period_year','trx_date','donor_id');
+                    $query->orderBy('trx_date', 'desc');
+                }
+                ])
             ->orderBy('created_at', 'desc')
                         ->withCount([
                 'donorTransactions AS unverified_transactions' => function ($query) {

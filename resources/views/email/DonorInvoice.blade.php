@@ -21,8 +21,18 @@ Rp. {{number_format($data->donorTransactions[0]->amount,0,",",".")}},-
 Tanggal Transaksi : {{Carbon\Carbon::parse($data->donorTransactions[0]->trx_date)->formatLocalized('%d %B %Y')}},-
 </div>
 @endcomponent
+<br>
+Sehingga total donasi anda yang kami terima untuk periode ini adalah sebesar
 
-Berikut terlampir invoice untuk donasi tersebut
+
+@component('mail::panel')
+<div style="text-align:center">TOTAL DONASI</div>
+<div style="text-align:center;font-weight:bold;font-size:22px">
+  Rp. {{number_format($data->total_donation,0,",",".")}},-
+</div>
+@endcomponent
+
+Berikut terlampir bukti penerimaan untuk donasi tersebut
 
 Kontribusi anda sangat berharga untuk Department Teknik Sipil UI.
 
@@ -32,8 +42,8 @@ Terimakasih,<br/>
 <img style="height:5%" src="{{ config('app.url').'/images/heart.png'}}">
 <strong>SEED Scholarship</strong>
 
-    @slot('footer')
-        @component('mail::footer')
+@slot('footer')
+@component('mail::footer')
 
 Anggit Cahyo S’08 : 085697274479 |
 Janitra Hendra L’08 : 081290001300

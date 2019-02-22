@@ -71,7 +71,6 @@ export const AppDonorFieldTableData = {
                     label: 'Unverified',
                     'class': 'text-center',
                     thStyle: {
-                        minWidth: '50px',
                         width: '50px'
                     },
                     sortable: true
@@ -81,8 +80,18 @@ export const AppDonorFieldTableData = {
                     label: 'To Invoice',
                     'class': 'text-center',
                     thStyle: {
-                        minWidth: '125px',
-                        width: '125px'
+                        minWidth: '50px',
+                        width: '50px'
+                    },
+                    sortable: true
+                },
+                {
+                    key: 'last_donate',
+                    label: 'Last Donate',
+                    'class': 'text-center',
+                    thStyle: {
+                        minWidth: '120px',
+                        width: '120px'
                     },
                     sortable: true
                 },

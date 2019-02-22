@@ -13,8 +13,8 @@ import Login from "../views/auth/AuthLogin";
 const PasswordReset = () => import('../views/auth/AuthPasswordReset')
 const ForgotPassword = () => import('../views/auth/AuthForgotPassword')
 const Register = () => import('../views/auth/AuthRegister')
-const RegistrationUpload = () => import('../views/registration/RegistrationUpload')
 const ContractAgreed = () => import('../views/registration/ContractAgreed')
+const DonationConfirmation = () => import('../views/confirmation/DonationConfirmation.vue')
 Vue.use(Router)
 
 export default new Router({
@@ -103,6 +103,17 @@ export default new Router({
       }]
     },
     {
+      path: '/donation-confirmation',
+      component: Plain,
+      children: [{
+        path: '',
+        name:'DonationConfirmation',
+        component: DonationConfirmation,
+
+
+      }]
+    },
+    {
       path: '/register',
       name: 'Register',
       component: Plain,
@@ -110,11 +121,6 @@ export default new Router({
           path: '',
           component: Register,
         },
-        {
-          path: 'upload',
-          name: 'RegistrationUpload',
-          component: RegistrationUpload
-        }
       ]
     },
     {
