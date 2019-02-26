@@ -1,1 +1,349 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[14],{306:function(t,a,e){for(var n=e(241),r=e(129),o=e(23),i=e(10),s=e(30),l=e(55),u=e(7),d=u("iterator"),p=u("toStringTag"),c=l.Array,m={CSSRuleList:!0,CSSStyleDeclaration:!1,CSSValueList:!1,ClientRectList:!1,DOMRectList:!1,DOMStringList:!1,DOMTokenList:!0,DataTransferItemList:!1,FileList:!1,HTMLAllCollection:!1,HTMLCollection:!1,HTMLFormElement:!1,HTMLSelectElement:!1,MediaList:!0,MimeTypeArray:!1,NamedNodeMap:!1,NodeList:!0,PaintRequestList:!1,Plugin:!1,PluginArray:!1,SVGLengthList:!1,SVGNumberList:!1,SVGPathSegList:!1,SVGPointList:!1,SVGStringList:!1,SVGTransformList:!1,SourceBufferList:!1,StyleSheetList:!0,TextTrackCueList:!1,TextTrackList:!1,TouchList:!1},b=r(m),f=0;f<b.length;f++){var h,g=b[f],v=m[g],k=i[g],_=k&&k.prototype;if(_&&(_[d]||s(_,d,c),_[p]||s(_,p,g),l[g]=c,v))for(h in n)_[h]||o(_,h,n[h],!0)}},307:function(t,a,e){"use strict";var n=e(18),r=e(83)(0),o=e(74)([].forEach,!0);n(n.P+n.F*!o,"Array",{forEach:function(t){return r(this,t,arguments[1])}})},434:function(t,a,e){"use strict";e.r(a);e(306),e(307),e(32);var n={name:"AuthRegisterFaq",data:function(){return{faqModal:!1}},created:function(){},methods:{}},r=e(0),o={name:"AuthRegister",components:{FaqModal:Object(r.a)(n,function(){var t=this,a=t.$createElement,e=t._self._c||a;return e("div",[e("div",{directives:[{name:"b-tooltip",rawName:"v-b-tooltip.hover.left",value:"Term Conditions & FAQ",expression:"'Term Conditions & FAQ'",modifiers:{hover:!0,left:!0}}],staticClass:"float-button",on:{click:function(a){t.faqModal=!0}}},[e("i",{staticClass:"fa fa-question"})]),t._v(" "),e("b-modal",{attrs:{"hide-footer":!0,"no-close-on-esc":!0,"hide-header-close":!1,"no-close-on-backdrop":!1,size:"xl",title:"Term, Conditions, & Frequently Asked Question"},model:{value:t.faqModal,callback:function(a){t.faqModal=a},expression:"faqModal"}},[e("p",[t._v("Tim SEED Scholarship mengajak dan membuka peluang sebesar-besarnya bagi para calon donatur yang ingin ikut\n      berpartisipasi dalam keberlangsungan program beasiswa SEED Scholarship. Demi memberikan kenyamanan dan\n      menyesuaikan kemampuan calon donatur, kami memberikan pilihan 2 (dua) kategori donatur sebagai berikut")]),t._v(" "),e("ol",[e("li",[t._v("Donatur Aktif adalah donatur yang memberikan donasi dengan jumlah minimal Rp. 100.000,00 rutin setiap bulan\n        selama 12 bulan. "),e("br"),t._v("\n        Donatur akan diberikan pengingat atau himbauan untuk melakukan donasi setiap\n        bulannya oleh narahubung dari tim kami. ")]),t._v(" "),e("li",[t._v("Donatur Pasif adalah donatur yang memberikan donasi dengan jumlah yang tidak ditetapkan sebanyak minimal 1\n        (satu) kali dalam 12 bulan. "),e("br"),t._v("\n        Jumlah nilai yang dimasukan dalam rencana donasi adalah target atau estimasi jumlah\n        yang akan didonasikan. Kami menyarankan anda namun tidak mewajibkan. Angka\n        yang Anda masukan akan digunakan dalam perencanaan keuangan kami. ")])]),t._v(" "),e("hr"),t._v(" "),e("strong",[t._v("Q : Kapan donasi dibayarkan?")]),t._v(" "),e("p",[t._v("A : Periode pembayaran donasi dibayarkan tanggal 25 s/d 5 bulan setelahnya. Contoh: Untuk pembayaran bulan\n      November 2015, maka donasi dapat dibayarkan sejak tanggal 25 November 2015 s/d 5 Desember 2015")]),t._v(" "),e("strong",[t._v("Q : Kapan pembukaan pendaftaran donatur?")]),t._v(" "),e("p",[t._v("A : Pendaftaran donatur akan dibuka sepanjang tahun. Anda cukup mengisi formulir pendaftaran kemudian tim PR\n      akan mengubungi Anda untuk memberikan informasi selengkapnya")]),t._v(" "),e("strong",[t._v("Q: Untuk donatur aktif, dapatkah donasi dibayarkan langsung untuk beberapa bulan ke depan untuk\n      menghindari lupa transfer ?")]),t._v(" "),e("p",[t._v("A : Donasi bisa dibayarkan langsung untuk beberapa bulan donasi, misalkan donatur dengan rencana donasi Rp. 100.000,- per bulan akan langsung berdonasi sebesar Rp. 300.000,- untuk 3 bulan\n      dst. Team finance akan mencatatnya. Yang ditekankan adalah dalam satu periode (selama 1 tahun) total donasi\n      yang dikumpulkan adalah Rp 1.200.000,-\n\n      Kategori Donatur Aktif*\n    ")])])],1)},[],!1,null,null,null).exports},data:function(){return{showTotalAmount:!1,isDisabled:!1,registered:!1,scholarshipOptions:[],departmentOptions:[],periodOptions:[],errors:{name:"",year:"",phone:"",email:"",donation_category:"",department:"",initial:"",password:"",amount:null,address:"",accept_term_condition:null,period:null},input:{name:"",year:"",phone:"",donation_category:null,department:null,email:"",amount:null,address:"",accept_term_condition:null,period:null,password:"",password_confirmation:""}}},created:function(){this.getSchoarship(),this.getPeriod(),this.getDepartment()},computed:{maxYear:function(){return(new Date).getFullYear()-4},loaded:function(){return!!(this.scholarshipOptions&&this.departmentOptions&&this.periodOptions)},stateName:function(){return"no-error"==this.errors.name||!this.errors.name&&null},stateEmail:function(){return"no-error"==this.errors.email||!this.errors.email&&null},statePhone:function(){return"no-error"==this.errors.phone||!this.errors.phone&&null},stateScholarship:function(){return"no-error"==this.errors.donation_category||!this.errors.donation_category&&null},stateYear:function(){return"no-error"==this.errors.year||!this.errors.year&&null},stateInitial:function(){return"no-error"==this.errors.initial||!this.errors.initial&&null},statePassword:function(){return"no-error"==this.errors.password||!this.errors.password&&null},stateDepartment:function(){return"no-error"==this.errors.department||!this.errors.department&&null},stateAmount:function(){return"no-error"==this.errors.amount||!this.errors.amount&&null},stateAddress:function(){return"no-error"==this.errors.address||!this.errors.address&&null},stateDonationCategory:function(){return"no-error"==this.errors.donation_category||!this.errors.donation_category&&null},statePeriod:function(){return"no-error"==this.errors.period||!this.errors.period&&null},stateAcceptTermCondition:function(){return"no-error"==this.errors.accept_term_condition||!this.errors.accept_term_condition&&null},amountPlaceholder:function(){return"PASIF"==this.input.donation_category?"Planned amount of donations":"Planned amount of donations per Month"}},methods:{getPeriod:function(){var t=this;axios.get("api/period").then(function(a){a.data.forEach(function(t){t.value=t.id,t.text="Seedscholarship #".concat(t.period," - Year ").concat(t.year),delete t.id,delete t.period,delete t.year}),t.periodOptions=a.data,console.log(t.periodOptions)}).catch(function(t){console.log(t)})},getSchoarship:function(){var t=this;axios.get("api/scholarship").then(function(a){a.data.forEach(function(t){t.value=t.id,t.text="".concat(t.name," - Year ").concat(t.year),delete t.id,delete t.name,delete t.year}),t.scholarshipOptions=a.data,console.log(t.scholarshipOptions)}).catch(function(t){console.log(t)})},getDepartment:function(){var t=this;axios.get("api/college-department").then(function(a){a.data.forEach(function(t){t.value=t.id,t.text=t.department,delete t.id,delete t.department,delete t.awardees_count}),t.departmentOptions=a.data}).catch(function(t){console.log(t)})},register:function(){var t=this;this.isDisabled=!0,axios.post("api/auth/donor/register",this.input).then(function(a){t.$snotify.success("You Are Registered Successfully","SUCCESS"),t.input.name="",t.input.donation_category=null,t.input.department=null,t.input.email="",t.input.password="",t.input.password_confirmation="",t.registered=!0,t.isDisabled=!1}).catch(function(a){t.$snotify.error(a.response.data.message,"ERROR"),t.isDisabled=!1;var e=a.response.data.errors;t.errors.name=e.name?e.name[0]:"no-error",t.errors.email=e.email?e.email[0]:"no-error",t.errors.phone=e.phone?e.phone[0]:"no-error",t.errors.year=e.year?e.year[0]:"no-error",t.errors.donation_category=e.donation_category?e.donation_category[0]:"no-error",t.errors.department=e.department?e.department[0]:"no-error",t.errors.password=e.password?e.password[0]:"no-error",t.errors.amount=e.amount?e.amount[0]:"no-error",t.errors.period=e.period?e.period[0]:"no-error",t.errors.address=e.address?e.address[0]:"no-error",t.errors.accept_term_condition=e.accept_term_condition?e.accept_term_condition[0]:"no-error"})}}},i=Object(r.a)(o,function(){var t=this,a=t.$createElement,e=t._self._c||a;return e("div",{staticClass:"app flex-row align-items-center"},[e("loading",{staticClass:"text-center",attrs:{active:t.isDisabled,"can-cancel":!1,opacity:.9,height:60,loader:"dots",transition:"fade","background-color":"rgba(0,0,0,.85)",color:"rgba(255,255,255,.9)","is-full-page":!0}},[e("div",{staticClass:"text-center",staticStyle:{color:"rgba(255,255,255,.9)"},attrs:{slot:"after"},slot:"after"},[t._v("Mohon Tunggu...")])]),t._v(" "),t.loaded?e("div",{staticClass:"container"},[e("b-row",{staticClass:"justify-content-center"},[t.registered?e("b-col",{attrs:{sm:"8"}},[e("header",{staticClass:"text-center",attrs:{id:"header"}},[e("h1",[e("strong",[t._v("TERIMA KASIH")])])]),t._v(" "),e("div",{staticClass:"text-center"},[e("i",{staticClass:"fa fa-heart display-1",staticStyle:{color:"red"},attrs:{id:"checkmark"}}),t._v(" "),e("p",[t._v("Terima kasih telah mendaftar menjadi donatur di SEED Scholarship. Mohon cek email anda, untuk menyetujui data yang sudah anda berikan agar kontrak kerja sama bisa segera kami kirimkan.")])])]):t._e(),t._v(" "),t.registered?t._e():e("b-col",{attrs:{lg:"6",md:"8"}},[e("b-card",{staticClass:"mx-4",attrs:{"no-body":""}},[e("form",{staticClass:"card-body p-4",attrs:{autocomplete:"off"},on:{submit:function(a){return a.preventDefault(),t.register(a)}}},[e("h2",[t._v("Donors Registration")]),t._v(" "),e("p",{staticClass:"text-muted"},[t._v("Silahkan mengisi form berikut untuk menjadi donatur kami. ")]),t._v(" "),e("b-row",{staticClass:"form-group"},[e("b-col",{attrs:{sm:"12"}},[e("b-form-group",{attrs:{"invalid-feedback":t.errors.name,state:t.stateName}},[e("b-input-group",[e("b-input-group-prepend",[e("b-input-group-text",[e("i",{staticClass:"icon-user"})])],1),t._v(" "),e("b-input",{staticClass:"form-control",attrs:{autocomplete:"off",type:"text",placeholder:"Full Name",state:t.stateName},model:{value:t.input.name,callback:function(a){t.$set(t.input,"name",a)},expression:"input.name"}})],1)],1)],1),t._v(" "),e("b-col",{attrs:{sm:"12"}},[e("b-form-group",{attrs:{"invalid-feedback":t.errors.email,state:t.stateEmail}},[e("b-input-group",{},[e("b-input-group-prepend",[e("b-input-group-text",[t._v("@")])],1),t._v(" "),e("b-input",{staticClass:"form-control",attrs:{autocomplete:"off",type:"text",placeholder:"Active Email",state:t.stateEmail},model:{value:t.input.email,callback:function(a){t.$set(t.input,"email",a)},expression:"input.email"}})],1)],1)],1),t._v(" "),e("b-col",{attrs:{sm:"6"}},[e("b-form-group",{attrs:{"invalid-feedback":t.errors.phone,state:t.statePhone}},[e("b-input-group",{},[e("b-input-group-prepend",[e("b-input-group-text",[e("i",{staticClass:"icon-phone"})])],1),t._v(" "),e("b-input",{staticClass:"form-control",attrs:{autocomplete:"off",type:"number",placeholder:"Phone Number",state:t.statePhone},model:{value:t.input.phone,callback:function(a){t.$set(t.input,"phone",a)},expression:"input.phone"}})],1)],1)],1),t._v(" "),e("b-col",{attrs:{sm:"6"}},[e("b-form-group",{attrs:{"invalid-feedback":t.errors.year,state:t.stateYear}},[e("b-input-group",{},[e("b-input-group-prepend",[e("b-input-group-text",[e("i",{staticClass:"icon-calendar"})])],1),t._v(" "),e("b-input",{staticClass:"form-control",attrs:{autocomplete:"off",type:"number",min:"1950",max:t.maxYear,placeholder:"Year (Angkatan)",state:t.stateYear},model:{value:t.input.year,callback:function(a){t.$set(t.input,"year",a)},expression:"input.year"}})],1)],1)],1),t._v(" "),e("b-col",{attrs:{sm:"12"}},[e("b-form-group",{attrs:{"invalid-feedback":t.errors.department,state:t.stateDepartment}},[e("b-input-group",{},[e("b-input-group-prepend",[e("b-input-group-text",[e("i",{staticClass:"icon-list"})])],1),t._v(" "),e("b-form-select",{attrs:{plain:"",id:"department",options:t.departmentOptions,state:t.stateDepartment},model:{value:t.input.department,callback:function(a){t.$set(t.input,"department",a)},expression:"input.department"}},[e("template",{slot:"first"},[e("option",{attrs:{disabled:""},domProps:{value:null}},[t._v("-- Please select your field of study --")])])],2)],1)],1)],1),t._v(" "),e("b-col",{attrs:{sm:"12"}},[e("b-form-group",{attrs:{"invalid-feedback":t.errors.address,state:t.stateAddress}},[e("b-input-group",{},[e("b-input-group-prepend",[e("b-input-group-text",[e("i",{staticClass:"icon-direction"})])],1),t._v(" "),e("b-input",{staticClass:"form-control",attrs:{autocomplete:"off",type:"text",placeholder:"Full Address",state:t.stateAddress},model:{value:t.input.address,callback:function(a){t.$set(t.input,"address",a)},expression:"input.address"}})],1)],1)],1),t._v(" "),e("b-col",{attrs:{sm:"12"}},[e("b-form-group",{attrs:{"invalid-feedback":t.errors.period,state:t.statePeriod}},[e("b-input-group",{},[e("b-input-group-prepend",[e("b-input-group-text",[e("i",{staticClass:"icon-list"})])],1),t._v(" "),e("b-form-select",{attrs:{plain:"",id:"period",options:t.periodOptions,state:t.statePeriod},model:{value:t.input.period,callback:function(a){t.$set(t.input,"period",a)},expression:"input.period"}},[e("template",{slot:"first"},[e("option",{attrs:{disabled:""},domProps:{value:null}},[t._v("-- Please select seedscholarship period --")])])],2)],1)],1)],1),t._v(" "),e("b-col",{attrs:{sm:"12"}},[e("b-form-group",{attrs:{"invalid-feedback":t.errors.donation_category,state:t.stateDonationCategory}},[e("b-input-group",{},[e("b-input-group-prepend",[e("b-input-group-text",[e("i",{staticClass:"icon-list"})])],1),t._v(" "),e("b-form-select",{attrs:{plain:"",id:"donationCategory",options:[{value:"AKTIF",text:"Donatur Aktif"},{value:"PASIF",text:"Donatur Pasif"}],state:t.stateDonationCategory},model:{value:t.input.donation_category,callback:function(a){t.$set(t.input,"donation_category",a)},expression:"input.donation_category"}},[e("template",{slot:"first"},[e("option",{attrs:{disabled:""},domProps:{value:null}},[t._v("-- Please select donation category for this period --")])])],2)],1)],1)],1),t._v(" "),e("slide-y-up-transition",[e("b-col",{attrs:{sm:"12"}},[e("b-form-group",{attrs:{"invalid-feedback":t.errors.amount,state:t.stateAmount}},[e("b-input-group",{},[e("b-input-group-prepend",[e("b-input-group-text",[t._v("Rp")])],1),t._v(" "),e("b-input",{staticClass:"form-control",attrs:{autocomplete:"off",type:"number",min:"0",placeholder:t.amountPlaceholder,state:t.stateAmount},model:{value:t.input.amount,callback:function(a){t.$set(t.input,"amount",a)},expression:"input.amount"}})],1),t._v(" "),e("small",{directives:[{name:"show",rawName:"v-show",value:"AKTIF"==t.input.donation_category,expression:"input.donation_category == 'AKTIF'"}],attrs:{slot:"description"},slot:"description"},[t._v("Your total donation Rp. "+t._s(t._f("currency")(12*t.input.amount))+" / year & will be billed Rp. "+t._s(t._f("currency")(t.input.amount))+" / month")]),t._v(" "),e("small",{directives:[{name:"show",rawName:"v-show",value:"PASIF"==t.input.donation_category,expression:"input.donation_category == 'PASIF'"}],attrs:{slot:"description"},slot:"description"},[t._v("Your total donation Rp. "+t._s(t._f("currency")(t.input.amount))+" / year")])],1)],1)],1),t._v(" "),e("b-col",{attrs:{sm:"12"}},[e("b-form-group",{attrs:{"invalid-feedback":t.errors.accept_term_condition,state:t.stateAcceptTermCondition}},[e("b-form-checkbox",{attrs:{id:"term_condition",value:!0,"unchecked-value":null,state:t.stateAcceptTermCondition},model:{value:t.input.accept_term_condition,callback:function(a){t.$set(t.input,"accept_term_condition",a)},expression:"input.accept_term_condition"}},[t._v("\n                      I already read & accept the terms and conditions.\n                    ")])],1)],1)],1),t._v(" "),e("b-button",{attrs:{disabled:t.isDisabled,type:"submit",variant:"success",block:""}},[e("i",{directives:[{name:"show",rawName:"v-show",value:t.isDisabled,expression:"isDisabled"}],staticClass:"fa fa-spinner fa-spin"}),t._v(" Submit")])],1)]),t._v(" "),e("faq-modal")],1)],1)],1):t._e()],1)},[],!1,null,null,null);a.default=i.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[14],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _share_PellEditorOption__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_share/PellEditorOption */ "./resources/assets/js/awardee/views/_share/PellEditorOption.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'SubmissionNew',
+  data: function data() {
+    return {
+      editorOptions: _share_PellEditorOption__WEBPACK_IMPORTED_MODULE_0__["default"].options,
+      editorClasses: _share_PellEditorOption__WEBPACK_IMPORTED_MODULE_0__["default"].classes,
+      input: {
+        title: '',
+        description: ''
+      },
+      errors: {
+        item: '',
+        description: ''
+      }
+    };
+  },
+  created: function created() {},
+  methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=style&index=0&id=91c2d3d2&scoped=true&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=style&index=0&id=91c2d3d2&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.pell-content[data-v-91c2d3d2] {\n  height: unset;\n  min-height: 50px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=style&index=0&id=91c2d3d2&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=style&index=0&id=91c2d3d2&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../../node_modules/css-loader??ref--5-1!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--5-2!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SubmissionNew.vue?vue&type=style&index=0&id=91c2d3d2&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=style&index=0&id=91c2d3d2&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=template&id=91c2d3d2&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=template&id=91c2d3d2&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "b-card",
+    [
+      _c(
+        "div",
+        {
+          staticClass: "text-center",
+          attrs: { slot: "header" },
+          slot: "header"
+        },
+        [_c("strong", [_vm._v("SUBMIT ASSIGNMENT FOR LOREM IPSUM")])]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-form-group",
+        {
+          attrs: {
+            label: "Title (Required)",
+            "label-for": "title",
+            "invalid-feedback": _vm.errors.title,
+            state: _vm.stateTitle
+          }
+        },
+        [
+          _c("b-form-input", {
+            attrs: {
+              required: "",
+              state: _vm.stateTitle,
+              id: "title",
+              type: "text",
+              placeholder: "Input title of your submission for this assignment"
+            },
+            model: {
+              value: _vm.input.title,
+              callback: function($$v) {
+                _vm.$set(_vm.input, "title", $$v)
+              },
+              expression: "input.title"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-form-group",
+        {
+          attrs: {
+            label: "Description (Required but not mandatory)",
+            "label-for": "description"
+          }
+        },
+        [
+          _c("vue-pell-editor", {
+            ref: "description",
+            attrs: {
+              actions: _vm.editorOptions,
+              content: _vm.input.description,
+              placeholder:
+                "Input description of your submission for this assignment",
+              "style-with-css": true,
+              classes: _vm.editorClasses,
+              "default-paragraph-separator": "div"
+            },
+            model: {
+              value: _vm.input.description,
+              callback: function($$v) {
+                _vm.$set(_vm.input, "description", $$v)
+              },
+              expression: "input.description"
+            }
+          })
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/awardee/views/_share/PellEditorOption.js":
+/*!**********************************************************************!*\
+  !*** ./resources/assets/js/awardee/views/_share/PellEditorOption.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  options: [{
+    name: 'bold',
+    icon: '<i class="fa fa-bold"></i>'
+  }, {
+    name: 'italic',
+    icon: '<i class="fa fa-italic"></i>'
+  }, {
+    name: 'underline',
+    icon: '<i class="fa fa-underline"></i>'
+  }, {
+    name: 'strikethrough',
+    icon: '<i class="fa fa-strikethrough"></i>'
+  }, {
+    name: 'backColor',
+    icon: '<div style="background-color:yellow;"><i class="fa fa-font"></i></div>',
+    title: 'Highlight Color',
+    result: function result() {
+      return window.pell.exec('backColor', 'yellow');
+    }
+  }, {
+    name: 'foreColor',
+    icon: '<div style="color:red;"><i class="fa fa-font"></i></div>',
+    title: 'Red Font',
+    result: function result() {
+      return window.pell.exec('foreColor', 'red');
+    }
+  }, {
+    name: 'olist',
+    icon: '<i class="fa fa-list-ol"></i>'
+  }, {
+    name: 'ulist',
+    icon: '<i class="fa fa-list-ul"></i>'
+  }, 'heading1', 'heading2', {
+    name: 'Clear Formatting',
+    title: 'Clear Formatting',
+    icon: '<i class="fa fa-eraser"></i>',
+    result: function result() {
+      return window.pell.exec('removeFormat');
+    }
+  }],
+  classes: {
+    actionbar: 'pell-actionbar',
+    button: 'pell-button',
+    content: 'pell-content form-control',
+    selected: 'pell-button-selected'
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/assets/js/awardee/views/assignment/SubmissionNew.vue":
+/*!************************************************************************!*\
+  !*** ./resources/assets/js/awardee/views/assignment/SubmissionNew.vue ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SubmissionNew_vue_vue_type_template_id_91c2d3d2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SubmissionNew.vue?vue&type=template&id=91c2d3d2&scoped=true& */ "./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=template&id=91c2d3d2&scoped=true&");
+/* harmony import */ var _SubmissionNew_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SubmissionNew.vue?vue&type=script&lang=js& */ "./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _SubmissionNew_vue_vue_type_style_index_0_id_91c2d3d2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SubmissionNew.vue?vue&type=style&index=0&id=91c2d3d2&scoped=true&lang=css& */ "./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=style&index=0&id=91c2d3d2&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _SubmissionNew_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SubmissionNew_vue_vue_type_template_id_91c2d3d2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SubmissionNew_vue_vue_type_template_id_91c2d3d2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "91c2d3d2",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/assets/js/awardee/views/assignment/SubmissionNew.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmissionNew_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SubmissionNew.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmissionNew_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=style&index=0&id=91c2d3d2&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************!*\
+  !*** ./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=style&index=0&id=91c2d3d2&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmissionNew_vue_vue_type_style_index_0_id_91c2d3d2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader!../../../../../../node_modules/css-loader??ref--5-1!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--5-2!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SubmissionNew.vue?vue&type=style&index=0&id=91c2d3d2&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=style&index=0&id=91c2d3d2&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmissionNew_vue_vue_type_style_index_0_id_91c2d3d2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmissionNew_vue_vue_type_style_index_0_id_91c2d3d2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmissionNew_vue_vue_type_style_index_0_id_91c2d3d2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmissionNew_vue_vue_type_style_index_0_id_91c2d3d2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmissionNew_vue_vue_type_style_index_0_id_91c2d3d2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=template&id=91c2d3d2&scoped=true&":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=template&id=91c2d3d2&scoped=true& ***!
+  \*******************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmissionNew_vue_vue_type_template_id_91c2d3d2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SubmissionNew.vue?vue&type=template&id=91c2d3d2&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/assignment/SubmissionNew.vue?vue&type=template&id=91c2d3d2&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmissionNew_vue_vue_type_template_id_91c2d3d2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmissionNew_vue_vue_type_template_id_91c2d3d2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);
