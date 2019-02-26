@@ -5,7 +5,7 @@
 @endcomponent
 @endslot
 
-Halo Donatur SEEDS {{$data->periods[0]->period}}!
+Halo Donatur SEEDS {{$data->donorPeriods[0]->period->period}}!
 
 Sebelumnya kami ingin mengucapkan terima kasih atas partisipasinya sebagai Donatur Aktif/Donatur Pasif di SEEDS 5.
 
@@ -36,7 +36,7 @@ Donasi dapat dilakukan dengan cara transfer ke
 
 Apabila transaksi sudah dilakukan, silahkan mengirimkan bukti transfer ke:
 
-@component('mail::button', ['url' => config('app.url')."/donor#/donation-confirmation?id={$data->id}&year={$data->periods[0]->year}&email={$data->email}&donation_token={$data->periods[0]->pivot->donation_token}"])
+@component('mail::button', ['url' => config('app.url')."/donor#/donation-confirmation?id={$data->id}&year={$data->donorPeriods[0]->period->year}&email={$data->email}&donation_token={$data->donorPeriods[0]->donation_token}"])
 Konfirmasi Pembayaran @endcomponent
 
 Terima kasih banyak atas partisipasinya di SEEDS 5.

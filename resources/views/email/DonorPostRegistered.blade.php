@@ -16,7 +16,7 @@ Terima kasih <strong>{{$data->name}}</strong>,
 Anda telah mendaftar sebagai :
     {{-- Subcopy --}}
 @component('mail::panel')
-Donatur <strong>{{$data->periods[0]->pivot->donation_category}}</strong> untuk SEED Scholarship <strong>#{{$data->periods[0]->period}}</strong> untuk tahun <strong>{{$data->periods[0]->year}}</strong>
+Donatur <strong>{{$data->donorPeriods[0]->donation_category}}</strong> untuk SEED Scholarship <strong>#{{$data->donorPeriods[0]->period->period}}</strong> untuk tahun <strong>{{$data->donorPeriods[0]->period->year}}</strong>
 @endcomponent
 {{-- @component('mail::button', ['url' => '/'])
 View Order
@@ -27,19 +27,19 @@ Nama : {{$data->name}}<br/>
 Email : {{$data->email}}<br/>
 Phone : {{$data->phone}}<br/>
 Angkatan : {{$data->year}}<br/>
-Department : {{$data->awardeeDepartment->department}}<br/>
+Department : {{$data->collegeDepartment->department}}<br/>
 Alamat : {{$data->address}}<br/>
-Kategori Donasi : {{$data->periods[0]->pivot->donation_category}}<br/>
-@if($data->periods[0]->pivot->amount != 0)
-Rencana Donasi : Rp. {{number_format($data->periods[0]->pivot->amount,0,",",".")}} / tahun<br/>
+Kategori Donasi : {{$data->donorPeriods[0]->donation_category}}<br/>
+@if($data->donorPeriods[0]->amount != 0)
+Rencana Donasi : Rp. {{number_format($data->donorPeriods[0]->amount,0,",",".")}} / tahun<br/>
 @endif
-@if($data->periods[0]->pivot->donation_category == 'AKTIF')
-Akan ditagihkan : Rp. {{number_format($data->periods[0]->pivot->amount / 12,0,",",".")}} / bulan<br/>
+@if($data->donorPeriods[0]->donation_category == 'AKTIF')
+Akan ditagihkan : Rp. {{number_format($data->donorPeriods[0]->amount / 12,0,",",".")}} / bulan<br/>
 @endif
 @endcomponent
 
 Jika Anda sudah menyetujui data tersebut. silahkan klik tombol dibawah ini untuk menerima kontrak kerja sama dari kami
-@component('mail::button', ['url' => config('app.url')."/donor#/contract-agreed?id={$data->id}&email={$data->email}&period={$data->periods[0]->period}&token={$data->periods[0]->pivot->token}"])
+@component('mail::button', ['url' => config('app.url')."/donor#/contract-agreed?id={$data->id}&email={$data->email}&period={$data->donorPeriods[0]->period->period}&token={$data->donorPeriods[0]->token}"])
 Saya Setuju
 @endcomponent
 

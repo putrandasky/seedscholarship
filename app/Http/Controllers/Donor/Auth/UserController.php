@@ -11,17 +11,21 @@ class UserController extends Controller
 {
     public function show(Request $request, $id)
     {
-        $data['user'] = App\Donor::whereHas('periods', function ($query) use ($request) {
-            $query->where('periods.year', '=', $request->year);
-        })
+        $data['user'] = App\Donor::whereHas(
+            'donorPeriods.period', function ($query) use ($request) {
+                $query->where('year', '=', $request->year);
+            })
             ->where('id', $id)
             ->with([
-                'awardeeDepartment',
+                'collegeDepartment',
+                'donorPeriods.pco' => function ($query) {
+                    $query->select('id','name','year','initial');
+                },
                 'donorTransactions' => function ($query) use ($request) {
                     $query->where('period_year', '=', $request->year);
                 },
-                'periods' => function ($query) use ($request) {
-                    $query->where('periods.year', '=', $request->year);
+                'donorPeriods.period' => function ($query) use ($request) {
+                    $query->where('year', '=', $request->year);
                 },
             ])
             ->withCount(['donorTransactions AS total_donation' => function ($query) {
@@ -44,6 +48,21 @@ class UserController extends Controller
         $user->phone = $request['phone'];
         $user->department_id = $request['department_id'];
         $user->save();
-        return response()->json(['status' => 'Successfully update user admin data'], 200);
+        return response()->json(['message' => 'Successfully update donor data'], 200);
+    }
+    public function assignPco(Request $request,$periodYear, $userId)
+    {
+        $user = App\DonorPeriod::whereHas(
+            'period', function ($query) use ($periodYear) {
+                $query->where('year', '=', $periodYear);
+            })
+            ->where('donor_id',$userId)
+            ->first();
+        $user->pco = $request->id;
+        $user->save();
+        $admin = App\Admin::whereId($request->id)
+                ->first(['id','name','year']);
+
+        return response()->json(['message' => 'Successfully assign PCO','data'=>$admin], 200);
     }
 }

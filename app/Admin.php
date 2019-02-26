@@ -2,10 +2,10 @@
 
 namespace App;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Admin extends Authenticatable implements JWTSubject
 {
@@ -20,7 +20,6 @@ class Admin extends Authenticatable implements JWTSubject
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-M-y');
     }
     // protected $guard = ['admin'];
-
 
     /**
      * The attributes that are mass assignable.
@@ -37,7 +36,7 @@ class Admin extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token'
+        'password', 'remember_token',
     ];
     public function blogs()
     {
@@ -47,9 +46,13 @@ class Admin extends Authenticatable implements JWTSubject
     {
         return $this->belongsTo('App\Department');
     }
-        public function periods()
+    public function donorPeriods()
     {
-        return $this->morphToMany('App\Period', 'periodable')->withPivot('status')->withTimestamps();;
+        return $this->hasMany('App\DonorPeriods','pco');
+    }
+    public function periods()
+    {
+        return $this->morphToMany('App\Period', 'periodable')->withPivot('status')->withTimestamps();
     }
     public function getJWTIdentifier()
     {

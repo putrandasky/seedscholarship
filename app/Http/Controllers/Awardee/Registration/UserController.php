@@ -12,13 +12,13 @@ class UserController extends Controller
 {
     public function show(Request $request, $id)
     {
-        $data['user'] = App\Awardee::whereHas('periods', function ($query) use ($request) {
+        $data['user'] = App\Awardee::whereHas('awardeePeriods.period', function ($query) use ($request) {
             $query->where('year', '=', $request->year);
         })
         ->where('id', $id)
             ->with([
-                'awardeeDepartment',
-                'periods' => function ($query) use ($request) {
+                'collegeDepartment',
+                'awardeePeriods.period' => function ($query) use ($request) {
                     $query->where('year', '=', $request->year);
                 },
             ])->first();
@@ -27,7 +27,7 @@ class UserController extends Controller
             return response()->json(['error' => 'Not Found', 'message' => 'User Not Found For This Period'], 404);
         }
 
-        $folders = Storage::directories("registration/awardee/{$data['user']->periods[0]->id}/{$id}");
+        $folders = Storage::directories("registration/awardee/{$data['user']->awardeePeriods[0]->period_id}/{$id}");
         for ($i = 0; $i < count($folders); $i++) {
             # code...
             $filesInFolder = Storage::files($folders[$i]);

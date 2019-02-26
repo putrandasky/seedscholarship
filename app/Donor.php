@@ -43,13 +43,18 @@ class Donor extends Authenticatable implements JWTSubject
     {
         return $this->morphMany('App\Blog', 'authorable');
     }
-        public function awardeeDepartment()
+        public function collegeDepartment()
     {
-      return $this->belongsTo('App\AwardeeDepartment');
+      return $this->belongsTo('App\CollegeDepartment');
     }
-        public function periods()
+    //     public function periods()
+    // {
+    // return $this->belongsToMany('App\Period')->withPivot('donation_category', 'amount','contract_number','token','is_contract_agreed','donation_token','agreed_at')->withTimestamps();
+    // }
+
+    public function donorPeriods()
     {
-    return $this->belongsToMany('App\Period')->withPivot('donation_category', 'amount','contract_number','token','is_contract_agreed','donation_token','agreed_at')->withTimestamps();
+      return $this->hasMany('App\DonorPeriod');
     }
     public function donorTransactions()
     {

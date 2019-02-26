@@ -39,13 +39,13 @@
               <div class="border-bottom">
                 <h5><i class="fa fa-list"></i> Department</h5>
               </div>
-              <span style="font-size:large;padding-left:20px">{{data.awardee_department.department}}</span>
+              <span style="font-size:large;padding-left:20px">{{data.college_department.department}}</span>
             </b-col>
             <b-col md="3" sm="6"  class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-check"></i> Status Approval</h5>
               </div>
-              <span style="font-size:large;padding-left:20px">{{data.periods[0].pivot.status}}</span>
+              <span style="font-size:large;padding-left:20px">{{data.awardee_periods[0].status}}</span>
             </b-col>
             <b-col md="3" sm="6"  class="pb-3">
               <div class="border-bottom">
@@ -72,19 +72,19 @@
       <b-col cols="12">
         <b-row>
           <b-col lg="3" sm="6">
-            <file-card title="Curriculum Vitae" :periodId="data.periods[0].id" :registrationCode="data.periods[0].pivot.registration_code"
+            <file-card title="Curriculum Vitae" :periodId="data.awardee_periods[0].period_id" :registrationCode="data.awardee_periods[0].registration_code"
               folder="cv" :data="files.cv" />
           </b-col>
           <b-col lg="3" sm="6">
-            <file-card title="Essay" folder="essay" :periodId="data.periods[0].id" :registrationCode="data.periods[0].pivot.registration_code"
+            <file-card title="Essay" folder="essay" :periodId="data.awardee_periods[0].period_id" :registrationCode="data.awardee_periods[0].registration_code"
               :data="files.essay" />
           </b-col>
           <b-col lg="3" sm="6">
-            <file-card title="Slip Gaji/Rekening Listrik" :periodId="data.periods[0].id" :registrationCode="data.periods[0].pivot.registration_code"
+            <file-card title="Slip Gaji/Rekening Listrik" :periodId="data.awardee_periods[0].period_id" :registrationCode="data.awardee_periods[0].registration_code"
               folder="slip" :data="files.slip" />
           </b-col>
           <b-col lg="3" sm="6">
-            <file-card title="SiakNG" folder="siakng" :periodId="data.periods[0].id" :registrationCode="data.periods[0].pivot.registration_code"
+            <file-card title="SiakNG" folder="siakng" :periodId="data.awardee_periods[0].period_id" :registrationCode="data.awardee_periods[0].registration_code"
               :data="files.siakng" />
           </b-col>
         </b-row>

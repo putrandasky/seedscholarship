@@ -16,11 +16,12 @@
 // });
 
 Route::get('attachment-contract', 'Donor\File\AttachmentContractController@view');
+Route::get('test/sendreminder', 'TestController@sendreminder');
 
 
 Route::group([
 
-    // 'middleware' => 'jwt.verify',
+    'middleware' => 'jwt.verify',
 
 ], function ($router) {
 
@@ -53,19 +54,20 @@ Route::group(['prefix' => 'file'], function () {
 
     Route::get('donor-contract/{userId}','Donor\File\AttachmentContractController@show');
 
-    Route::post('donor-transaction/invoice/send','Donor\Transaction\InvoiceController@sendInvoice');
-    Route::apiResource('donor-transaction/invoice','Donor\Transaction\InvoiceController');
+    Route::post('donor-transaction/payment-receipt/send','Donor\Transaction\InvoiceController@sendInvoice');
+    Route::apiResource('donor-transaction/payment-receipt','Donor\Transaction\InvoiceController');
     Route::apiResource('donor-transaction/evidence','Donor\Transaction\EvidenceController');
 });
 
 Route::apiResource('donor-transaction', 'Donor\Transaction\TransactionHistoryController');
-Route::get('donor-transaction/confirmation/authorized', 'Donor\Transaction\ConfirmationController@authorized');
-Route::apiResource('donor-transaction/confirmation', 'Donor\Transaction\ConfirmationController');
+Route::apiResource('donor-transaction/collection-officer', 'Donor\Transaction\CollectionOfficerController');
 Route::apiResource('department', 'Admin\Auth\DepartmentController');
 Route::apiResource('blog-category', 'Admin\Blog\BlogCategoryController');
 Route::apiResource('blog-tag', 'Admin\Blog\BlogTagController');
 Route::apiResource('blog', 'Admin\Blog\BlogController');
+Route::get('user-admin/search', 'Admin\Auth\UserController@search');
 Route::apiResource('user-admin', 'Admin\Auth\UserController');
+Route::post('user-donor/{periodYear}/{userId}/assign-pco', 'Donor\Auth\UserController@assignPco');
 Route::apiResource('user-donor', 'Donor\Auth\UserController');
 Route::post('blog-category/reordering', 'Admin\Blog\BlogCategoryController@reorder');
 Route::post('blog-tag/reordering', 'Admin\Blog\BlogTagController@reorder');
@@ -89,8 +91,9 @@ Route::post('logout', 'Admin\Auth\AuthController@logout');
     Route::post('donor/register', 'Donor\Auth\RegisterController@newRegister');
     Route::get('donor/contract-agreed', 'Donor\Auth\RegisterController@contractAgreed');
 });
-
-Route::apiResource('awardee-department', 'Awardee\Auth\DepartmentController');
+Route::get('donor-transaction/confirmation/authorized', 'Donor\Transaction\ConfirmationController@authorized');
+Route::apiResource('donor-transaction/confirmation', 'Donor\Transaction\ConfirmationController');
+Route::apiResource('college-department', 'Common\CollegeDepartmentController');
 Route::apiResource('period', 'Common\PeriodController');
 Route::apiResource('scholarship', 'Common\ScholarshipController');
 Route::get('registration-awardee/upload/authorized', 'Awardee\Registration\RegistrationUploadController@authorized');

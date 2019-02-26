@@ -39,10 +39,10 @@ import AccountAdminDetail from '../views/admin/AdminDetail.vue'
 import AppAccountAdminNew from '../views/admin/AppAdminNew.vue'
 import AppAccountAwardee from '../views/admin/AppAwardee.vue'
 
-import AppAccountDonor from '../views/account/donor/AppDonor.vue'
-import AccountDonorIndex from '../views/account/donor/AppDonorIndex.vue'
-import AccountDonorDefault from '../views/account/donor/AppDonorDefault.vue'
-import DetailAccountDonor from '../views/account/donor/DetailDonor.vue'
+import AppAccountDonor from '../views/donor/AppDonor.vue'
+import AccountDonorIndex from '../views/donor/AppDonorIndex.vue'
+import AccountDonorDefault from '../views/donor/AppDonorDefault.vue'
+import DetailAccountDonor from '../views/donor/DetailDonor.vue'
 
 
 import Login from "../views/auth/AuthLogin";
@@ -302,6 +302,41 @@ export default new Router({
       ]
     },
     {
+      path:'/donors',
+      redirect:'/donors/period',
+      component: Full,
+      children:[
+        {
+          path: 'period',
+          name: 'AccountDonor',
+          component: AppAccountDonor,
+          children: [{
+            path: '',
+            name: 'AccountDonorDefault',
+            component: AccountDonorDefault,
+            meta: {
+              auth: true
+            },
+          }, {
+            path: ':periodYear',
+            name: 'AccountDonorIndex',
+            component: AccountDonorIndex,
+            meta: {
+              auth: true
+            },
+          }
+        ]
+        }, {
+          path: 'period/:periodYear/:userId',
+          name: 'DetailAccountDonor',
+          component: DetailAccountDonor,
+          meta: {
+            auth: true
+          },
+        },
+      ]
+    },
+    {
       path: '/account',
       redirect: 'account/awardee',
       component: Full,
@@ -310,34 +345,27 @@ export default new Router({
           name: 'AccountAwardee',
           component: AppAccountAwardee
         },
-        {
-          path: 'donor',
-          name: 'AccountDonor',
-          component: AppAccountDonor,
-          children:[{
-            path:'',
-            name:'AccountDonorDefault',
-            component: AccountDonorDefault,
-              meta: {
-                auth: true
-              },
-          },{
-            path:':periodYear',
-            name:'AccountDonorIndex',
-            component: AccountDonorIndex,
-              meta: {
-                auth: true
-              },
-          }]
-        },
-        {
-          path: 'donor/:periodYear/:userId',
-          name:'DetailAccountDonor',
-          component: DetailAccountDonor,
-            meta: {
-              auth: true
-            },
-        },
+        // {
+        //   path: 'donor',
+        //   name: 'AccountDonor',
+        //   component: AppAccountDonor,
+        //   children:[{
+        //     path:'',
+        //     name:'AccountDonorDefault',
+        //     component: AccountDonorDefault,
+        //       meta: {
+        //         auth: true
+        //       },
+        //   },{
+        //     path:':periodYear',
+        //     name:'AccountDonorIndex',
+        //     component: AccountDonorIndex,
+        //       meta: {
+        //         auth: true
+        //       },
+        //   }]
+        // },
+
       ]
     },
     {

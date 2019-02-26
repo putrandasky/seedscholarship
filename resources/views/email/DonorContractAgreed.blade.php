@@ -12,7 +12,7 @@ Terima kasih <strong>{{$data->name}}</strong>,
 Anda telah menyetujui kontrak kerjasama untuk :
 
 @component('mail::panel')
-Donatur <strong>{{$data->periods[0]->pivot->donation_category}}</strong> periode SEED Scholarship <strong>#{{$data->periods[0]->period}}</strong> untuk tahun <strong>{{$data->periods[0]->year}}</strong>
+Donatur <strong>{{$data->donorPeriods[0]->donation_category}}</strong> periode SEED Scholarship <strong>#{{$data->donorPeriods[0]->period->period}}</strong> untuk tahun <strong>{{$data->donorPeriods[0]->period->year}}</strong>
 @endcomponent
 Berikut terlampir kontrak kerja sama dari kami
 

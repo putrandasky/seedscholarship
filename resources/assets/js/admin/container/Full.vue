@@ -127,9 +127,9 @@
             ]
           },
           {
-            name: 'Account',
+            name: 'Donor',
             icon: 'fa fa-users',
-            url: `/account`,
+            url: `/donors`,
             children: [
               // {
               //   name: 'Awardee',
@@ -137,12 +137,29 @@
               //   url: `/account/awardee`,
               // },
               {
-                name: 'Donor',
+                name: 'Period',
                 icon: '',
-                url: `/account/donor`,
+                url: `/donors/period`,
               }
             ]
           },
+          // {
+          //   name: 'Account',
+          //   icon: 'fa fa-users',
+          //   url: `/account`,
+          //   children: [
+          //     {
+          //       name: 'Awardee',
+          //       icon: '',
+          //       url: `/account/awardee`,
+          //     },
+          //     {
+          //       name: 'Donor',
+          //       icon: '',
+          //       url: `/account/donor`,
+          //     }
+          //   ]
+          // },
           {
             name: 'Admin',
             icon: 'fa fa-user-secret',

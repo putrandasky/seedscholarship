@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -31,11 +32,16 @@ class AuthController extends Controller
      */
     public function index(Request $request)
     {
-        $user = App\AwardeeNonreg::whereHas('scholarships', function ($query) use ($request) {
-            $query->where('scholarships.id', '=', $request->id);
+        $user = App\AwardeeNonreg::whereHas('awardeeNonregScholarships', function ($query) use ($request) {
+            $query->where('scholarship_id', '=', $request->id);
 
         })
-            ->with('awardeeDepartment', 'scholarships')->orderBy('created_at', 'desc')->get();
+            ->with([
+                'collegeDepartment',
+                'awardeeNonregScholarships.scholarship' => function ($query) use ($request) {
+                    $query->where('id', '=', $request->id);
+                }])
+            ->orderBy('created_at', 'desc')->get();
         return $user;
     }
     public function register(Request $request)
@@ -60,16 +66,38 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->year = $request->year;
-        $user->awardee_department_id = $request->department_id;
+        $user->college_department_id = $request->department_id;
         $registration_code = Str::random(100);
+
         DB::transaction(function () use ($request, $registration_code, $user) {
             $user->save();
-            $user->scholarships()->attach($request->scholarship_id, [
-                'status' => 'in progress',
-                'registration_code' => $registration_code,
-            ]);
-            $data = App\AwardeeNonreg::where('id', $user->id)->with('awardeeDepartment', 'scholarships')->first();
+
+            $awardee_nonreg_scholarship = new App\AwardeeNonregScholarship();
+            $awardee_nonreg_scholarship->status = 'IN PROGRESS';
+            $awardee_nonreg_scholarship->awardee_nonreg_id = $user->id;
+            $awardee_nonreg_scholarship->scholarship_id = $request->scholarship_id;
+            $awardee_nonreg_scholarship->registration_code = $registration_code;
+            $awardee_nonreg_scholarship->save();
+
+            $data = App\AwardeeNonreg::whereHas('awardeeNonregScholarships', function ($query) use ($request, $registration_code) {
+                $query->where('scholarship_id', '=', $request->scholarship_id);
+                $query->where('registration_code', $registration_code);
+            })
+                ->where('id', $user->id)
+                ->with([
+                    'collegeDepartment',
+                    'awardeeNonregScholarships.scholarship' => function ($query) use ($request) {
+                        $query->where('id', '=', $request->scholarship_id);
+
+                    },
+                    'awardeeNonregScholarships' => function ($query) use ($registration_code) {
+                        $query->where('registration_code', $registration_code);
+
+                    },
+                ])->first();
+            // $when = now()->addMinutes(1);
             $user->notify(new PostRegistered($data));
+            // $user->notify((new PostRegistered($data))->delay($when));
         });
         Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/cv");
         Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/proposal");

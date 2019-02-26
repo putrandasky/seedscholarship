@@ -32,12 +32,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('reminder:donation')
             ->monthlyOn(5, '10:00')
             ->timezone('Asia/Jakarta');
-        $schedule->command('reminder:donation')
-            ->when(function () {
-                return \Carbon\Carbon::now()->endOfMonth()->isToday();
-            })
-            ->timezone('Asia/Jakarta')
-            ->at('10:00');
 
     }
 

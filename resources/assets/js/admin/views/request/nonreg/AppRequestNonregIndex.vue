@@ -1,6 +1,6 @@
 <template>
   <slide-y-up-transition>
-  <div v-show="loaded" class="mt-3">
+  <div v-if="loaded" class="mt-3">
     <b-row>
       <b-col xl="4" md="6" class="mb-3">
         <b-input-group>
@@ -27,7 +27,7 @@
           {{data.index+1+((currentPage-1)*perPage)}}
         </template>
         <template slot="status" slot-scope="data">
-          <b-badge :variant="getBadgeApproval(data.item.scholarships[0].pivot.status)">
+          <b-badge :variant="getBadgeApproval(data.item.awardee_nonreg_scholarships[0].status)">
             {{data.item.status}}
           </b-badge>
         </template>
@@ -78,8 +78,8 @@
             const editData = (data) => {
               return data.map(item => {
                 var temp = Object.assign({}, item);
-                temp['department'] = temp.awardee_department.department
-                temp['status'] = temp.scholarships[0].pivot.status
+                temp['department'] = temp.college_department.department
+                temp['status'] = temp.awardee_nonreg_scholarships[0].status
                 temp['registered'] = temp.created_at
                 // temp.name = 'my name '+temp.name;
                 return temp;

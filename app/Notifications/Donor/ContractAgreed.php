@@ -16,6 +16,7 @@ class ContractAgreed extends Notification
      *
      * @return void
      */
+    public $data;
     public function __construct($data)
     {
         $this->data = $data;
@@ -43,9 +44,9 @@ class ContractAgreed extends Notification
 $url = 'hello@seedscholarship.org';
         return (new MailMessage)
             ->from($url,'Seedscholarship')
-            ->subject("Kontrak Kerja Sama SEEDS #{$this->data->periods[0]->period}")
+            ->subject("Kontrak Kerja Sama SEEDS #{$this->data->donorPeriods[0]->period->period}")
             ->markdown('email.DonorContractAgreed', ['data' => $this->data])
-            ->attach(storage_path('app')."/contract/donor/{$this->data->periods[0]->period}/{$this->data->id}/Surat Perjanjian Kerja Sama {$this->data->name}.pdf");
+            ->attach(storage_path('app')."/contract/donor/{$this->data->donorPeriods[0]->period->period}/{$this->data->id}/Surat Perjanjian Kerja Sama {$this->data->name}.pdf");
 
     }
 

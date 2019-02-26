@@ -31,6 +31,9 @@ class EvidenceController extends Controller
         //     return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
         // }
         $save = $request->file('file')->storeAs("transaction/{$request->periodYear}/{$request->userId}/{$request->id}/evidence", $request->file('file')->getClientOriginalName());
+
+        // Storage::putFileAs("transaction/{$request->periodYear}/{$request->userId}/{$request->id}/evidence", $request->file('file'), $request->file('file')->getClientOriginalName());
+
         $user = App\DonorTransaction::find($request->id);
         $user->evidence = $request->file('file')->getClientOriginalName();
         $user->save();
@@ -53,7 +56,7 @@ class EvidenceController extends Controller
         //         'id' => $userId,
         //     ])
         //     ->with([
-        //         'awardeeDepartment',
+        //         'collegeDepartment',
         //         'periods' => function ($query) use ($request) {
         //             $query->where('year', '=', $request->year);
         //         },
@@ -87,7 +90,7 @@ class EvidenceController extends Controller
         // if (!($this->registrantAuthenticate($id, $request->registration_code, $request->period_id))) {
         //     return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
         // }
-        Storage::delete("transaction/{$request->periodYear}/{$id}/{$request->id}/evidence}");
+        Storage::delete("transaction/{$request->periodYear}/{$id}/{$request->id}/evidence/{$request->fileName}");
         // Storage::delete("transaction/{$request->periodYear}/{$id}/{$request->id}/evidence/{$request->fileName}");
         $user = App\DonorTransaction::find($request->id);
         $user->evidence = '';

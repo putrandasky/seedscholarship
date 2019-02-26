@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers\Donor\Transaction;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App;
+use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+
 class ConfirmationController extends Controller
 {
     public function authorized(Request $request)
     {
 
-        $data = App\Donor::whereHas('periods', function ($query) use ($request) {
-            $query->where('periods.year', '=', $request->year);
-            $query->where('donation_token', $request->donation_token);
-        })
+        $data = App\Donor::whereHas(
+            'donorPeriods.period', function ($query) use ($request) {
+                $query->where('year', '=', $request->year);
+            })
+            ->whereHas(
+                'donorPeriods', function ($query) use ($request) {
+                    $query->where('donation_token', $request->donation_token);
+                })
             ->where([
                 'id' => $request->id,
                 'email' => $request->email,

@@ -7,7 +7,7 @@ setlocale(LC_TIME, 'id');
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{$data->periods[0]->pivot->contract_number}}</title>
+  <title>{{$data->donorPeriods[0]->contract_number}}</title>
   <style>
     body {
       font-family: Arial, "Helvetica Neue", Helvetica, sans-serif
@@ -77,7 +77,7 @@ setlocale(LC_TIME, 'id');
   <br />
   <div>
     <div class="text-center bold" style="font-size:24px">SURAT PERJANJIAN KERJASAMA</div>
-  <div class="text-center font-14">Nomor: {{$series}}/SEEDS/DA/{{$data->periods[0]->year}}</div>
+  <div class="text-center font-14">Nomor: {{$series}}/SEEDS/DA/{{$data->donorPeriods[0]->period->year}}</div>
     <br />
 
     <div class="text-center">Pemberian Donasi Bantuan Dana Pendidikan dan Pengembangan Diri Mahasiswa Departemen Teknik
@@ -96,7 +96,7 @@ setlocale(LC_TIME, 'id');
     <div class="text-center">
     <div class="bold">{{$data->name}}</div>
       <div class="italic font-14">(Selanjutnya disebut “Donatur Aktif)</div>
-      NO. KONTRAK : {{$data->periods[0]->pivot->contract_number}}
+      NO. KONTRAK : {{$data->donorPeriods[0]->contract_number}}
     </div>
     <br />
     <div class="text-justify">
@@ -109,7 +109,7 @@ setlocale(LC_TIME, 'id');
     <br />
     <br />
     <br />
-    <div>Jakarta, {{Carbon\Carbon::parse($data->periods[0]->pivot->created_at)->formatLocalized('%d %B %Y')}}</div>
+    <div>Jakarta, {{Carbon\Carbon::parse($data->donorPeriods[0]->created_at)->formatLocalized('%d %B %Y')}}</div>
     <div>
       <img style="max-height:100px; max-width:100%" src="{{ config('app.url').'/images/sign-ketua-biru.jpeg'}}">
       </div>
@@ -134,7 +134,7 @@ setlocale(LC_TIME, 'id');
       <tbody>
         <tr>
           <td>No Kontrak</td>
-          <td style="padding-left:20px">: {{$data->periods[0]->pivot->contract_number}}</td>
+          <td style="padding-left:20px">: {{$data->donorPeriods[0]->contract_number}}</td>
         </tr>
         <tr>
           <td>Nama</td>
@@ -142,7 +142,7 @@ setlocale(LC_TIME, 'id');
         </tr>
         <tr>
           <td>Alumni Program Studi</td>
-          <td style="padding-left:20px">: {{$data->awardeeDepartment->department}}</td>
+          <td style="padding-left:20px">: {{$data->collegeDepartment->department}}</td>
         </tr>
         <tr>
           <td>Angkatan</td>
@@ -154,11 +154,11 @@ setlocale(LC_TIME, 'id');
         </tr>
         <tr>
           <td>Terdaftar pada tanggal</td>
-          <td style="padding-left:20px">: {{Carbon\Carbon::parse($data->periods[0]->pivot->created_at)->formatLocalized('%d %B %Y')}}</td>
+          <td style="padding-left:20px">: {{Carbon\Carbon::parse($data->donorPeriods[0]->created_at)->formatLocalized('%d %B %Y')}}</td>
         </tr>
         <tr>
           <td>Total Donasi</td>
-          <td style="padding-left:20px">: Rp {{number_format($data->periods[0]->pivot->amount,0,",",".")}},-</td>
+          <td style="padding-left:20px">: Rp {{number_format($data->donorPeriods[0]->amount,0,",",".")}},-</td>
         </tr>
       </tbody>
     </table>
@@ -179,7 +179,7 @@ setlocale(LC_TIME, 'id');
       <br/>
     <li class="bold">Periode Donasi </li>
     <div class="text-justify" style="text-indent:35px">
-    Donatur Aktif membayarkan donasi sebesar <strong>Rp {{number_format($data->periods[0]->pivot->amount / 12,0,",",".")}},-</strong> setiap bulan selama 12 bulan terhitung dari Januari {{$data->periods[0]->year}} hingga Desember {{$data->periods[0]->year}}
+    Donatur Aktif membayarkan donasi sebesar <strong>Rp {{number_format($data->donorPeriods[0]->amount / 12,0,",",".")}},-</strong> setiap bulan selama 12 bulan terhitung dari Januari {{$data->donorPeriods[0]->period->year}} hingga Desember {{$data->donorPeriods[0]->period->year}}
     </div>
     <br/>
     <li class="bold">Pembayaran Donasi</li>

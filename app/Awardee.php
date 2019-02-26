@@ -47,9 +47,13 @@ class Awardee extends Authenticatable implements JWTSubject
     {
         return $this->morphToMany('App\Period', 'periodable')->withPivot('status','registration_code')->withTimestamps();;
     }
-    public function awardeeDepartment()
+    public function collegeDepartment()
     {
-      return $this->belongsTo('App\AwardeeDepartment');
+      return $this->belongsTo('App\CollegeDepartment');
+    }
+    public function awardeePeriods()
+    {
+      return $this->hasMany('App\AwardeePeriod');
     }
     public function getJWTIdentifier()
     {

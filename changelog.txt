@@ -1,3 +1,25 @@
-add $query->where('periods.is_contract_agreed', '<>', 'AGREED'); in registercontroller donatur
-add column donation_token in mysql
-add is_active to mysql in periods
+# CHANGE LOG
+
+### ADDED
+- condition where not AGREED to registercontroller for donors
+- column is_active in periods
+- assign PCO to donor
+- awardee_period table to database
+- Task Scheduling for reminder donation
+- Template email for reminder donation
+- page & controller for reminder donation
+- new table design for list donors
+
+### CHANGED
+- Rewrite model relationship for awardee to period and awardee_nonreg to scholarship
+- column donation_token in database
+- column first_name to initial in admin
+- table donor_period to donor_period
+- column last_name to year in admins table
+- datatype amount in donor period to float
+- edit datatype amount in donor transactions to float
+- change column name in table donor, awardee, awardee_nonreg from awardee_department to college_department
+- awardee_department to college_department
+- move college_department to folder common
+- DonorInvoice to DonorPaymentReceipt for email template name
+- SendInvoice to SendPaymentReceipt for nofification email

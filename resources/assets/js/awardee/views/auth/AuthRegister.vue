@@ -1,6 +1,9 @@
 <template>
-  <div class="app flex-row align-items-center" v-show="loaded">
-    <div class="container">
+  <div class="app flex-row align-items-center">
+        <loading class="text-center"  :active="isDisabled" :can-cancel="false" :opacity="0.9" :height="60"   loader='dots' transition='fade'  background-color="rgba(0,0,0,.85)" color="rgba(255,255,255,.9)" :is-full-page="true">
+            <div class="text-center" slot="after" style="color:rgba(255,255,255,.9)">Mohon Tunggu...</div>
+    </loading>
+    <div class="container" v-show="loaded">
       <b-row class="justify-content-center">
         <b-col lg="6" md="8">
           <b-card no-body class="mx-4">
@@ -208,7 +211,7 @@
           })
       },
       getDepartment() {
-        axios.get(`api/awardee-department`)
+        axios.get(`api/college-department`)
           .then((response) => {
             response.data.forEach(function (obj) {
               obj.value = obj.id

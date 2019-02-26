@@ -12,6 +12,8 @@ use Illuminate\Notifications\Messages\MailMessage;
 | contains the "web" middleware group. Now create something great!
 |
  */
+Route::redirect('/', '/donor#/register');
+Route::redirect('/admin-login', '/admin#/login');
 Route::redirect('/register-awardee', '/awardee#/register');
 Route::redirect('/register-beasiswa-penelitian', '/nonreg#/register');
 Route::redirect('/register-donatur', '/donor#/register');
@@ -36,9 +38,9 @@ Route::group(['prefix' => 'donor'], function () {
         return View::make('apps.donor');
     })->where('vue_capture', '[\/\w\.-]*');
 });
-Route::get('/', function () {
-    return View::make('apps.website');
-});
+// Route::get('/', function () {
+//     return View::make('apps.website');
+// });
 
 
 // Route::get('mail', function () {

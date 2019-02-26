@@ -5,6 +5,7 @@ namespace App\Notifications\Awardee;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class PostRegistered extends Notification
 {
@@ -15,6 +16,7 @@ class PostRegistered extends Notification
      *
      * @return void
      */
+    public $data;
     public function __construct($data)
     {
         $this->data = $data;

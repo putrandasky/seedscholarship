@@ -12,7 +12,7 @@ class RegistrationUploadController extends Controller
 {
     public function authorized(Request $request)
     {
-        $RegisterExist = App\Awardee::whereHas('periods', function ($query) use ($request) {
+        $RegisterExist = App\Awardee::whereHas('awardeePeriods', function ($query) use ($request) {
             $query->where('registration_code', '=', $request->registration_code);
         })
             ->where([
@@ -75,10 +75,11 @@ class RegistrationUploadController extends Controller
     }
     public function registrantAuthenticate($id, $registration_code, $period_id)
     {
-        $user = App\Awardee::find($id);
-        $RegisterExist = $user->periods()->where(
-            ['registration_code' => $registration_code, 'period_id' => $period_id]
-        )->exists();
+        $RegisterExist = App\AwardeePeriod::where([
+          'awardee_id'=>$id,
+          'registration_code'=>$registration_code,
+          'period_id'=>$period_id,
+        ])->exists();
         return $RegisterExist;
     }
 }

@@ -31,23 +31,28 @@ class AuthController extends Controller
      */
     public function index(Request $request)
     {
-        $user = App\Awardee::whereHas('periods', function ($query) use ($request) {
+        $user = App\Awardee::whereHas('awardeePeriods.period', function ($query) use ($request) {
             $query->where('year', '=', $request->year);
 
         })
-            ->with('awardeeDepartment', 'periods')->orderBy('created_at', 'desc')->get();
+            ->with([
+                'collegeDepartment',
+                'awardeePeriods.period' => function ($query) use ($request) {
+                    $query->where('year', '=', $request->year);
+                }])
+            ->orderBy('created_at', 'desc')->get();
         return $user;
     }
     public function register(Request $request)
     {
         $rules = [
-                    'name' => 'required|string',
-                    'email' => 'required|email|unique:awardees',
-                    // 'password' => 'required|confirmed|min:6',
-                    'phone' => 'required|numeric|min:6',
-                    'year' => 'required|numeric|min:4',
-                    'period_id' => 'required',
-                    'department_id' => 'required',
+            'name' => 'required|string',
+            'email' => 'required|email|unique:awardees',
+            // 'password' => 'required|confirmed|min:6',
+            'phone' => 'required|numeric|min:6',
+            'year' => 'required|numeric|min:4',
+            'period_id' => 'required',
+            'department_id' => 'required',
         ];
         $messages = [
             'period_id.required' => 'The period of seedscholarship must be selected',
@@ -61,14 +66,37 @@ class AuthController extends Controller
         $user->phone = $request->phone;
         $user->year = $request->year;
         $user->phone = $request->phone;
-        $user->awardee_department_id = $request->department_id;
+        $user->college_department_id = $request->department_id;
         $registration_code = Str::random(100);
         DB::transaction(function () use ($request, $registration_code, $user) {
             $user->save();
-            $user->periods()->attach($request->period_id, ['status' => 'in progress', 'registration_code' => $registration_code]);
 
-            $data = App\Awardee::where('id', $user->id)->with('awardeeDepartment', 'periods')->first();
+            $awardee_period = new App\AwardeePeriod();
+            $awardee_period->status = 'IN PROGRESS';
+            $awardee_period->awardee_id = $user->id;
+            $awardee_period->period_id = $request->period_id;
+            $awardee_period->registration_code = $registration_code;
+            $awardee_period->save();
+
+            $data = App\Awardee::whereHas('awardeePeriods', function ($query) use ($request, $registration_code) {
+                $query->where('period_id', '=', $request->period_id);
+                $query->where('registration_code', $registration_code);
+            })
+                ->where('id', $user->id)
+                ->with([
+                    'collegeDepartment',
+                    'awardeePeriods.period' => function ($query) use ($request) {
+                        $query->where('id', '=', $request->period_id);
+
+                      },
+                      'awardeePeriods' => function ($query) use ($registration_code) {
+                        $query->where('registration_code', $registration_code);
+
+                    },
+                ])->first();
+            // $when = now()->addMinutes(1);
             $user->notify(new PostRegistered($data));
+            // $user->notify((new PostRegistered($data))->delay($when));
         });
         Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/cv");
         Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/essay");

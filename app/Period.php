@@ -2,12 +2,12 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 
 class Period extends Model
 {
-      public function getCreatedAtAttribute($date)
+    public function getCreatedAtAttribute($date)
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-M-y');
     }
@@ -24,12 +24,20 @@ class Period extends Model
     {
         return $this->morphedByMany('App\Awardee', 'periodable')->withPivot('status')->withTimestamps();
     }
-        public function donors()
+    //     public function donors()
+    // {
+    //     return $this->belongsToMany('App\Donor')->withPivot('donation_category', 'amount','contract_number','token','is_contract_agreed','agreed_at')->withTimestamps();
+    // }
+    public function donorTransactions()
     {
-        return $this->belongsToMany('App\Donor')->withPivot('donation_category', 'amount','contract_number','token','is_contract_agreed','agreed_at')->withTimestamps();
+        return $this->hasMany('App\DonorTransaction', 'period_year', 'year');
     }
-        public function donorTransactions()
+    public function donorPeriods()
     {
-      return $this->hasMany('App\DonorTransaction','period_year','year');
+        return $this->hasMany('App\DonorPeriod');
+    }
+    public function awardeePeriods()
+    {
+        return $this->hasMany('App\AwardeePeriod');
     }
 }

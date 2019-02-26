@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Donor\Auth;
 
 use App;
 use App\Http\Controllers\Controller;
-use App\Notifications\Donor\PostRegistered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -30,41 +29,66 @@ class AuthController extends Controller
      */
     public function index(Request $request)
     {
-        $user = App\Donor::whereHas('periods', function ($query) use ($request) {
+      $data['plan_donation'] = App\DonorPeriod::whereHas('period', function ($query) use ($request) {
+            $query->where('year', '=', $request->year);
+      })->sum('amount');
+      $data['actual_donation'] = App\DonorTransaction::where('period_year',$request->year)->sum('amount');
+      $data['remaining'] = $data['actual_donation'] - $data['plan_donation'];
+        $data['user'] = App\Donor::whereHas('donorPeriods.period', function ($query) use ($request) {
             $query->where('year', '=', $request->year);
 
         })
+        ->select('id','name','email','college_department_id','year')
             ->with([
-              'awardeeDepartment',
-                'periods' => function ($query) use ($request) {
-                    $query->where('periods.year', '=', $request->year);
+                'collegeDepartment' => function ($query) {
+                    $query->select('id', 'department');
                 },
-                'donorTransactions' => function ($query) use ($request) {
-                    $query->where('period_year', '=', $request->year);
-                    $query->select('id','period_year','trx_date','donor_id');
-                    $query->orderBy('trx_date', 'desc');
-                }
-                ])
+                'donorPeriods.pco' => function ($query) {
+                    $query->select('id', 'name', 'year', 'initial');
+                },
+                'donorPeriods' => function ($query) {
+                    $query->select('id','pco','period_id','donor_id','is_contract_agreed','donation_category','amount');
+                },
+                // 'donorPeriods.period' => function ($query) use ($request) {
+                //     $query->where('year', '=', $request->year);
+                // },
+                // 'donorTransactions' => function ($query) use ($request) {
+                //     $query->where('period_year', '=', $request->year);
+                //     $query->select('id', 'period_year', 'trx_date', 'donor_id');
+                //     $query->orderBy('trx_date', 'desc');
+                // },
+            ])
             ->orderBy('created_at', 'desc')
-                        ->withCount([
-                'donorTransactions AS unverified_transactions' => function ($query) {
-                    $query->where('verification', 'UNVERIFIED');
-                  },
-                  'donorTransactions AS not_sent_invoice' => function ($query) {
-                    $query->where('status_invoice',  'NOT SENT');
-                    $query->where('verification', 'VERIFIED');
+            ->withCount([
+                'donorTransactions AS unverified_transactions' => function ($query)  use ($request) {
+                    $query->where('period_year', '=', $request->year)
+                    ->where('verification', 'UNVERIFIED');
+                },
+                'donorTransactions AS not_sent_invoice' => function ($query) use ($request)  {
+                    $query->where('period_year', '=', $request->year)
+                    ->where('status_invoice', 'NOT SENT')
+                    ->where('verification', 'VERIFIED');
+                },
+                'donorTransactions AS total_donation' => function ($query)  use ($request) {
+                    $query->where('period_year', '=', $request->year)
+                    ->where('verification', 'VERIFIED')
+                    ->select(DB::raw("SUM(amount) as verified"));
+                },
+                'donorTransactions AS last_donate' => function ($query) use ($request) {
+                    $query->where('period_year',$request->year)
+                    ->select(DB::raw('DATE_FORMAT(max(trx_date), "%d-%b-%y")'));
                 },
             ])
             ->get();
-        return $user;
+$data['total_user'] = count($data['user']);
+        return $data;
     }
-
 
     public function login()
     {
         $credentials = request(['email', 'password']);
 
-        if (!$token = auth('awardee-api')->attempt($credentials)) {
+        if (!$token = auth('donor-api')->attempt($credentials)) {
             return response()->json(['status' => 'Your Credentials Is Invalid', 'error' => 'Unauthorized'], 401);
         }
 
@@ -96,7 +120,7 @@ class AuthController extends Controller
     }
     public function me()
     {
-        $user = auth('awardee-api')->user();
+        $user = auth('donor-api')->user();
         return response()->json([
             'id' => $user->id,
             'name' => $user->name,
@@ -112,7 +136,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth('awardee-api')->logout();
+        auth('donor-api')->logout();
 
         return response()->json(['status' => 'Successfully logged out'], 200);
     }
@@ -124,7 +148,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth('awardee-api')->refresh());
+        return $this->respondWithToken(auth('donor-api')->refresh());
     }
 
     /**
@@ -139,7 +163,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth('awardee-api')->factory()->getTTL() * 60,
+            'expires_in' => auth('donor-api')->factory()->getTTL() * 60,
         ]);
     }
 }

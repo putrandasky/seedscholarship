@@ -169,6 +169,7 @@
             this.$snotify.success(`Confirmation Sent`, "SUCCESS");
             this.isDisabled = false
             this.confirmationFormSent = true
+            this.uploadPercentage = 0
           })
           .catch((error) => {
             console.log(error);
@@ -178,6 +179,7 @@
             this.errors.trx_date = errors.trx_date ? errors.trx_date[0] : 'no-error';
             this.errors.amount = errors.amount ? errors.amount[0] : 'no-error';
             this.errors.file = errors.file ? errors.file[0] : 'no-error';
+            this.uploadPercentage = 0
           })
       }
     },

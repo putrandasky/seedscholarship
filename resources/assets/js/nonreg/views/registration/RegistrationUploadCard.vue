@@ -36,17 +36,17 @@
         {{data.date}}
       </b-list-group-item>
     </b-list-group>
-    <b-card-body body-bg-variant="info" v-show="uploadPercentage>0 && uploadPercentage<100">
+    <b-card-body body-bg-variant="info" v-show="uploadPercentage>0 ">
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-0" style="align-self:center">Uploading</h5>
         <i class="fa fa-spinner fa-spin fa-2x" style="align-self:center"></i>
       </div>
     </b-card-body>
-    <b-card-body v-if="!data.name && !(uploadPercentage>0 && uploadPercentage<100) ">
+    <b-card-body v-if="!data.name && !(uploadPercentage>0 ) ">
       <b-form-file accept="image/jpeg, image/png, image/gif, application/pdf" ref="upload" placeholder="Choose a file..."
         v-model="file" @change="onFileChange" />
     </b-card-body>
-    <b-button :disabled="file.length == 0" v-if="!data.name && !(uploadPercentage>0 && uploadPercentage<100) " block fluid class="mt-0" variant="success"
+    <b-button :disabled="file.length == 0" v-if="!data.name && !(uploadPercentage>0 ) " block fluid class="mt-0" variant="success"
       style="border-top-left-radius:unset;border-top-right-radius:unset" @click="uploadFile"><i class="fa fa-upload"></i>
       Upload
       File</b-button>

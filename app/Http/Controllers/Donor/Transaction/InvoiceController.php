@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Donor\Transaction;
 
 use App;
 use App\Http\Controllers\Controller;
-use App\Notifications\Donor\SendInvoice;
+use App\Notifications\Donor\SendPaymentReceipt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-
+use Carbon\Carbon;
 class InvoiceController extends Controller
 {
     /**
@@ -34,8 +34,8 @@ class InvoiceController extends Controller
         // }
         $donor = App\Donor::whereId($request->userId)
             ->with([
-                'awardeeDepartment',
-                'periods' => function ($query) use ($request) {
+                'collegeDepartment',
+                 'donorPeriods.period' => function ($query) use ($request) {
                     $query->where('year', '=', $request->periodYear);
                 },
                 'donorTransactions' => function ($query) use ($request) {
@@ -44,7 +44,7 @@ class InvoiceController extends Controller
             ])->first();
         $pdf = app('dompdf.wrapper');
         $pdf->getDomPDF()->set_option("enable_php", true);
-        $pdf->loadView('pdf.InvoiceDonatur', compact('donor'));
+        $pdf->loadView('pdf.PaymentReceipt', compact('donor'));
         $pdf->setPaper('b5', 'landscape');
 
         Storage::put("transaction/{$request->periodYear}/{$request->userId}/{$request->id}/invoice/{$request->invoice_no}.pdf", $pdf->output());
@@ -71,7 +71,7 @@ class InvoiceController extends Controller
         //         'id' => $userId,
         //     ])
         //     ->with([
-        //         'awardeeDepartment',
+        //         'collegeDepartment',
         //         'periods' => function ($query) use ($request) {
         //             $query->where('year', '=', $request->year);
         //         },
@@ -97,8 +97,8 @@ class InvoiceController extends Controller
     {
         $donor = App\Donor::whereId($request->userId)
             ->with([
-                'awardeeDepartment',
-                'periods' => function ($query) use ($request) {
+                'collegeDepartment',
+                 'donorPeriods.period' => function ($query) use ($request) {
                     $query->where('year', '=', $request->periodYear);
                 },
                 'donorTransactions' => function ($query) use ($request) {
@@ -110,14 +110,16 @@ class InvoiceController extends Controller
             },
             ])
             ->first();
+            // return $donor;
         DB::transaction(function () use ($request, $donor) {
-            $donor->notify(new SendInvoice($donor));
+            // $when = Carbon::now()->addMinutes(1);
+            $donor->notify(new SendPaymentReceipt($donor));
             $transaction = App\DonorTransaction::find($request->id);
             $transaction->status_invoice = 'SENT';
             $transaction->save();
         });
         return response()->json([
-            'status' => 'Invoice Sent to Donor',
+            'status' => 'Payment Receipt Sent to Donor',
         ], 200);
     }
 

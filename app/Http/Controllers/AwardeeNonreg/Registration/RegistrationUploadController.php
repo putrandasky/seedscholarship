@@ -12,13 +12,15 @@ class RegistrationUploadController extends Controller
 {
     public function authorized(Request $request)
     {
-        $user = App\AwardeeNonreg::find($request->id);
-        $RegisterExist = $user->scholarships()->where(
-            ['registration_code' => $request->registration_code, 'scholarship_id' => $request->scholarship_id]
-        )->exists();
+        $RegisterExist = App\AwardeeNonregScholarship::where([
+            'awardee_nonreg_id' => $request->id,
+            'registration_code' => $request->registration_code,
+            'scholarship_id' => $request->scholarship_id,
+        ])->exists();
         if (!$RegisterExist) {
             return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
         }
+
     }
     public function index(Request $request)
     {
@@ -35,7 +37,7 @@ class RegistrationUploadController extends Controller
             return $file;
 
         }
-        return response()->json(['status' => 'File not found'], 404);
+        return response()->json(['status' => 'File not found'], 200);
 
     }
     public function show(Request $request, $id)
@@ -73,10 +75,11 @@ class RegistrationUploadController extends Controller
 
     public function registrantAuthenticate($id, $registration_code, $scholarship_id)
     {
-        $user = App\AwardeeNonreg::find($id);
-        $RegisterExist = $user->scholarships()->where(
-            ['registration_code' => $registration_code, 'scholarship_id' => $scholarship_id]
-        )->exists();
+        $RegisterExist = App\AwardeeNonregScholarship::where([
+            'awardee_nonreg_id' => $id,
+            'registration_code' => $registration_code,
+            'scholarship_id' => $scholarship_id,
+        ])->exists();
         return $RegisterExist;
     }
 }

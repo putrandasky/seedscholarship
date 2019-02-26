@@ -19,20 +19,20 @@ class AttachmentContractController extends Controller
     }
     public function show(Request $request, $userId)
     {
-        $data = App\Donor::whereHas('periods', function ($query) use ($request) {
+        $data = App\Donor::whereHas('donorPeriods.period', function ($query) use ($request) {
             $query->where('year', '=', $request->year);
         })
             ->where([
                 'id' => $userId,
             ])
             ->with([
-                'awardeeDepartment',
-                'periods' => function ($query) use ($request) {
+                'collegeDepartment',
+                'donorPeriods.period' => function ($query) use ($request) {
                     $query->where('year', '=', $request->year);
                 },
             ])->first();
 
-        $newpathToFile = Storage::disk('local')->getDriver()->getAdapter()->applyPathPrefix("contract/donor/{$data->periods[0]->period}/{$userId}/Surat Perjanjian Kerja Sama {$data->name}.pdf");
+        $newpathToFile = Storage::disk('local')->getDriver()->getAdapter()->applyPathPrefix("contract/donor/{$data->donorPeriods[0]->period->period}/{$userId}/Surat Perjanjian Kerja Sama {$data->name}.pdf");
         return response()->file($newpathToFile);
 
     }

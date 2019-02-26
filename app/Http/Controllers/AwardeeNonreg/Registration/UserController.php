@@ -12,14 +12,15 @@ class UserController extends Controller
 {
     public function show(Request $request, $id)
     {
-        $data['user'] = App\AwardeeNonreg::whereHas('scholarships', function ($query) use ($request) {
-            $query->where('scholarships.id', '=', $request->id);
+
+        $data['user'] = App\AwardeeNonreg::whereHas('awardeeNonregScholarships', function ($query) use ($request) {
+            $query->where('scholarship_id', '=', $request->id);
         })
-        ->where('id', $id)
+            ->where('id', $id)
             ->with([
-                'awardeeDepartment',
-                'scholarships' => function ($query) use ($request) {
-                    $query->where('scholarships.id', '=', $request->id);
+                'collegeDepartment',
+                'awardeeNonregScholarships.scholarship' => function ($query) use ($request) {
+                    $query->where('id', '=', $request->id);
                 },
             ])->first();
 
@@ -27,7 +28,7 @@ class UserController extends Controller
             return response()->json(['error' => 'Not Found', 'message' => 'User Not Found For This Scholarship'], 404);
         }
 
-        $folders = Storage::directories("registration/nonreg/{$data['user']->scholarships[0]->id}/{$id}");
+        $folders = Storage::directories("registration/nonreg/{$data['user']->awardeeNonregScholarships[0]->scholarship_id}/{$id}");
         for ($i = 0; $i < count($folders); $i++) {
             # code...
             $filesInFolder = Storage::files($folders[$i]);

@@ -10,4 +10,9 @@ class Scholarship extends Model
     {
         return $this->belongsToMany('App\AwardeeNonreg')->withPivot('status', 'registration_code')->withTimestamps();
     }
+    public function awardeeNonregScholarship()
+    {
+        return $this->hasMany('App\AwardeeNonregScholarship');
+    }
+
 }

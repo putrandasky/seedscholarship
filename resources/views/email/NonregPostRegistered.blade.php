@@ -16,7 +16,7 @@ Hai <strong>{{$data->name}}</strong>,
 Kamu telah mendaftar sebagai :
     {{-- Subcopy --}}
 @component('mail::panel')
-Calon Awardee  untuk <strong>{{$data->scholarships[0]->name}}</strong> tahun <strong>{{$data->scholarships[0]->year}}</strong>
+Calon Awardee  untuk <strong>{{$data->awardeeNonregScholarships[0]->scholarship->name}}</strong> tahun <strong>{{$data->awardeeNonregScholarships[0]->scholarship->year}}</strong>
 @endcomponent
 {{-- @component('mail::button', ['url' => '/'])
 View Order
@@ -27,7 +27,7 @@ Nama : {{$data->name}}<br/>
 Email : {{$data->email}}<br/>
 Phone : {{$data->phone}}<br/>
 Angkatan : {{$data->year}}<br/>
-Department : {{$data->awardeeDepartment->department}}<br/>
+Department : {{$data->collegeDepartment->department}}<br/>
 @endcomponent
 
 Segera siapkan file berikut ini :
@@ -41,7 +41,7 @@ Segera siapkan file berikut ini :
 @endcomponent
 
 Selanjutnya upload file tersebut dengan menekan tombol dibawah ini
-@component('mail::button', ['url' => config('app.url')."/nonreg#/register/upload?id={$data->id}&email={$data->email}&scholarship_id={$data->scholarships[0]->id}&registration_code={$data->scholarships[0]->pivot->registration_code}"])
+@component('mail::button', ['url' => config('app.url')."/nonreg#/register/upload?id={$data->id}&email={$data->email}&scholarship_id={$data->awardeeNonregScholarships[0]->scholarship_id}&registration_code={$data->awardeeNonregScholarships[0]->registration_code}"])
 Upload Disini
 @endcomponent
 
