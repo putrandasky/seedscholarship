@@ -8,6 +8,38 @@
     <div style="overflow-y:auto">
       <b-table stacked="sm" stack small :fields="FieldTableItems" :items="transactions" thead-class="thead-light"
         @row-clicked="handleRowClicked">
+          <template slot="HEAD_created_at" slot-scope="data">
+            <span>Input Date
+            </span>
+            <i v-b-tooltip.top.hover title="Tanggal submit/penerimaan konfirmasi donasi" style="cursor: pointer" class="fa fa-info-circle">
+            </i>
+          </template>
+          <template slot="HEAD_trx_date" slot-scope="data">
+            <span>Trx Date
+            </span>
+            <i v-b-tooltip.top.hover title="Tanggal actual transaksi" class="fa fa-info-circle" style="cursor: pointer"></i>
+          </template>
+          <template slot="HEAD_evidence" slot-scope="data">
+            <span>Evidence
+            </span>
+            <i v-b-tooltip.top.hover title="Bukti transfer" class="fa fa-info-circle" style="cursor: pointer"></i>
+          </template>
+          <template slot="HEAD_verification" slot-scope="data">
+            <span>Verification
+            </span>
+            <i v-b-tooltip.top.hover title="Status verifikasi transaksi" class="fa fa-info-circle" style="cursor: pointer"></i>
+          </template>
+          <template slot="HEAD_invoice_no" slot-scope="data">
+            <span>Invoice
+            </span>
+            <i v-b-tooltip.top.hover title="Nomor invoice dan bukti penerimaan donasi" class="fa fa-info-circle" style="cursor: pointer"></i>
+          </template>
+          <template slot="HEAD_status_invoice" slot-scope="data">
+            <span>Status
+            </span>
+            <i v-b-tooltip.top.hover title="Untuk menginformasikan status bukti penerimaan donasi sudah terkirim ke donatur atau belum"
+              class="fa fa-info-circle" style="cursor: pointer"></i>
+          </template>
         <template slot="no" slot-scope="data">
           {{data.index+1}}
         </template>
@@ -15,7 +47,7 @@
           Rp. {{data.item.amount|currency}}
         </template>
         <template slot="evidence" slot-scope="data">
-          <evidence :fileName="data.item.evidence" :dataId="data.item.id" :index="data.index" />
+          <evidence :propsFileName="data.item.evidence" :propsDataId="data.item.id" :propsIndex="data.index" :propsUserId="$route.params.userId" />
         </template>
         <template slot="verification" slot-scope="data">
           <b-badge :variant="getBadgeVerification(data.item.verification)">
@@ -23,7 +55,7 @@
           </b-badge>
         </template>
         <template slot="invoice_no" slot-scope="data">
-          <invoice :invoiceNo="data.item.invoice_no" :dataId="data.item.id" :index="data.index" :hasInvoice="data.item.has_invoice"
+          <invoice :invoiceNo="data.item.invoice_no" :dataId="data.item.id" :index="data.index" :hasInvoice="data.item.has_invoice" :userId="$route.params.userId"
             @hasInvoice=" data.item.has_invoice = $event " />
         </template>
         <template slot="status_invoice" slot-scope="data">
@@ -36,6 +68,14 @@
             <b-btn variant="primary" size="sm" v-b-tooltip.hover="'Edit'" @click="handleEditTransaction(data.index)">
               <i class="fa fa-edit"></i>
             </b-btn>
+            <b-btn :disabled="!sendInvoiceAvailable(data.index)" variant="success" size="sm" v-b-tooltip.hover="'Send Payment Receipt'"
+              @click="triggerConfirmModal(
+            'Send Payment Receipt',
+            'Are You Sure To Send Payment Receipt for This Transaction?',
+            'sendInvoice',
+            {id:data.item.id,index:data.index}
+             )"><i
+                class="fa fa-send"></i></b-btn>
             <b-btn variant="danger" size="sm" v-b-tooltip.hover="'Delete'" @click="triggerConfirmModal(
             'Delete Transaction',
             'Are You Sure To Delete This Transaction? All related data, inc evidence and invoice, will be deleted',
@@ -44,14 +84,6 @@
              )">
               <i class="fa fa-trash"></i>
             </b-btn>
-            <b-btn v-if="sendInvoiceAvailable(data.index)" variant="success" size="sm" v-b-tooltip.hover="'Send Payment Receipt'"
-              @click="triggerConfirmModal(
-            'Send Payment Receipt',
-            'Are You Sure To Send Payment Receipt for This Transaction?',
-            'sendInvoice',
-            {id:data.item.id,index:data.index}
-             )"><i
-                class="fa fa-send"></i></b-btn>
           </b-btn-group>
         </template>
       </b-table>
@@ -98,7 +130,9 @@
           <b-input-group-prepend>
             <b-input-group-text><i class="icon-doc"></i></b-input-group-text>
           </b-input-group-prepend>
-          <b-input type="text" class="form-control" placeholder="Invoice Number (If Ready)" v-model="input.invoice_no"
+    <!--       <b-input type="text" class="form-control" placeholder="Invoice Number (If Ready)" v-model="input.invoice_no"
+            :state="stateInvoiceNumber" /> -->
+          <b-input :disabled="transactions[transactionTableIndex].has_invoice?true:false" type="text" class="form-control" placeholder="Invoice Number (If Ready)" v-model="input.invoice_no"
             :state="stateInvoiceNumber" />
         </b-input-group>
       </b-form-group>
@@ -219,10 +253,10 @@
       handleEditTransaction(index) {
         console.log(this.transactions[index]);
         this.input.trx_date = this.transactions[index].trx_date,
-          this.input.amount = this.transactions[index].amount,
-          this.input.verification = this.transactions[index].verification,
-          this.input.invoice_no = this.transactions[index].invoice_no,
-          this.input.status_invoice = this.transactions[index].status_invoice
+        this.input.amount = this.transactions[index].amount,
+        this.input.verification = this.transactions[index].verification,
+        this.input.invoice_no = this.transactions[index].invoice_no,
+        this.input.status_invoice = this.transactions[index].status_invoice
         this.input.id = this.transactions[index].id
         this.transactionTableIndex = index
         console.log(this.input.id);
@@ -264,6 +298,7 @@
                 trx_date: self.input.trx_date,
                 amount: self.input.amount,
                 verification: 'UNVERIFIED',
+                has_invoice:null,
                 invoice_no: '',
                 status_invoice: 'NOT SENT',
                 id: response.data.id,
@@ -289,10 +324,13 @@
             .then((response) => {
               console.log(response.data)
               self.transactions[self.transactionTableIndex].trx_date = self.input.trx_date,
-                self.transactions[self.transactionTableIndex].amount = self.input.amount,
-                self.transactions[self.transactionTableIndex].verification = self.input.verification,
-                self.transactions[self.transactionTableIndex].invoice_no = self.input.invoice_no,
-                self.transactions[self.transactionTableIndex].status_invoice = self.input.status_invoice
+              self.transactions[self.transactionTableIndex].amount = self.input.amount,
+              self.transactions[self.transactionTableIndex].verification = self.input.verification,
+              self.transactions[self.transactionTableIndex].invoice_no = self.input.invoice_no,
+              // self.transactions[self.transactionTableIndex].has_invoice = self.input.has_invoice,
+              self.transactions[self.transactionTableIndex].status_invoice = self.input.status_invoice
+              // console.log(self.transactions[self.transactionTableIndex]);
+
               self.$snotify.success(response.data.message, "SUCCESS");
               self.transactionModal = false
 

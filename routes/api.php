@@ -68,6 +68,7 @@ Route::apiResource('blog', 'Admin\Blog\BlogController');
 Route::get('user-admin/search', 'Admin\Auth\UserController@search');
 Route::apiResource('user-admin', 'Admin\Auth\UserController');
 Route::post('user-donor/{periodYear}/{userId}/assign-pco', 'Donor\Auth\UserController@assignPco');
+Route::post('user-donor/{periodYear}/{userId}/assign-pr', 'Donor\Auth\UserController@assignPr');
 Route::apiResource('user-donor', 'Donor\Auth\UserController');
 Route::post('blog-category/reordering', 'Admin\Blog\BlogCategoryController@reorder');
 Route::post('blog-tag/reordering', 'Admin\Blog\BlogTagController@reorder');

@@ -24,6 +24,10 @@ class DonorPeriod extends Model
     {
         return $this->belongsTo('App\Admin','pco');
     }
+    public function pr()
+    {
+        return $this->belongsTo('App\Admin','pr');
+    }
     public function donor()
     {
         return $this->belongsTo('App\Donor');

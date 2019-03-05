@@ -30,14 +30,33 @@ class EvidenceController extends Controller
         // if (!($this->registrantAuthenticate($request->id, $request->registration_code, $request->period_id))) {
         //     return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
         // }
-        $save = $request->file('file')->storeAs("transaction/{$request->periodYear}/{$request->userId}/{$request->id}/evidence", $request->file('file')->getClientOriginalName());
+        $donorPeriod = App\DonorPeriod::whereHas(
+            'period', function ($query) use ($request) {
+                $query->where('year', '=', $request->periodYear);
+            })
+            ->where([
+          'donor_id'=>$request->userId,
+        ])->first();
+        $contractNo = $donorPeriod->contract_number;
+        $donorTransaction = App\DonorTransaction::where([
+          'donor_id'=>$request->userId,
+          'period_year'=>$request->periodYear,
+        ])
+        ->where('evidence','<>',false)
+        ->get()->max('evidence');
+        // return $donorTransaction->evidence ?? 0;
+        $lastEvidenceTitle = $donorTransaction ? explode('.',$donorTransaction): null;
+        $series =  $lastEvidenceTitle ? $lastEvidenceTitle[1]+1:1;
+        $evidenceTitle = $contractNo .'.'.$series.'.pdf';
+
+        $save = $request->file('file')->storeAs("transaction/{$request->periodYear}/{$request->userId}/{$request->id}/evidence", $evidenceTitle);
 
         // Storage::putFileAs("transaction/{$request->periodYear}/{$request->userId}/{$request->id}/evidence", $request->file('file'), $request->file('file')->getClientOriginalName());
 
-        $user = App\DonorTransaction::find($request->id);
-        $user->evidence = $request->file('file')->getClientOriginalName();
-        $user->save();
-        return response()->json(['status' => 'File Succesfuly Uploaded'], 200);
+        $donorTransactions = App\DonorTransaction::find($request->id);
+        $donorTransactions->evidence = $evidenceTitle;
+        $donorTransactions->save();
+        return response()->json(['status' => 'File Succesfuly Uploaded','filename' => $evidenceTitle], 200);
 
     }
 

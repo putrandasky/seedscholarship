@@ -15,7 +15,7 @@ class PeriodController extends Controller
      */
     public function index()
     {
-        $data = App\Period::get(['id','period','year']);
+        $data = App\Period::latest()->get(['id','period','year']);
         return $data;
     }
 

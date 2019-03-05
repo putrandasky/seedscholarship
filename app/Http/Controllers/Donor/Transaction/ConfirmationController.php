@@ -35,14 +35,18 @@ class ConfirmationController extends Controller
         $rules = [
             'trx_date' => 'required',
             'amount' => 'required|numeric',
-            'file' => 'required|max:1000',
+            'file' => 'required|max:1000|mimes:jpeg,png,pdf',
             'id' => 'required',
             'year' => 'required',
             // 'invoice_no' => $request->invoice_no?'unique:donor_transactions':'',
 
         ];
         $messages = [
-            'trx_date.required' => 'Transaction date is required',
+            'trx_date.required' => 'Mohon menginformasikan tanggal transfer',
+            'amount.required' => 'Mohon mencantumkan jumlah donasi anda',
+            'file.required' => 'Mohon melampirkan bukti transfer',
+            'file.max' => 'File tidak lebih dari 1 MB',
+            'file.mimes' => 'File dalam pdf/jpeg/png',
             // 'invoice_no.unique' => 'This invoice number already exist',
         ];
         $this->validate($request, $rules, $messages);

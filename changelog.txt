@@ -1,5 +1,28 @@
 # CHANGE LOG
 
+01-03-2019
+
+### ADDED
+- Assign PR Officer to donor
+- New Page for transactions for all Donor per period
+- Add plan to date in table donor
+- new column for PR to Donor table
+
+### CHANGED
+- Automatically generated evidence title with series incremented
+- Reminder to donor change to 10.00
+- Reminder to Donor with condition must AGREED contract
+- period change to MARCH - DECEMBER
+- commented information total donation per year in contract donor
+- switch button "send paymnent receit" and "delete" in transactions history
+
+### FIXED
+- Table for all transactions (not paginate)
+- input validation for file upload awardee & awardee_nonreg
+- input validation for file upload confirmation donor
+
+26-03-2019
+
 ### ADDED
 - condition where not AGREED to registercontroller for donors
 - column is_active in periods
@@ -23,3 +46,7 @@
 - move college_department to folder common
 - DonorInvoice to DonorPaymentReceipt for email template name
 - SendInvoice to SendPaymentReceipt for nofification email
+
+
+
+

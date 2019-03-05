@@ -57,9 +57,18 @@
               <div class="border-bottom">
                 <h5><i class="fa fa-dollar"></i> Amount Plan</h5>
               </div>
-              <span style="font-size:large;padding-left:20px">Rp. {{data.donor_periods[0].amount | currency}} / year</span><br>
-              <span style="font-size:large;padding-left:20px">Rp. {{data.donor_periods[0].amount /12 | currency}} /
+              <!-- <span style="font-size:large;padding-left:20px">Rp. {{data.donor_periods[0].amount | currency}} / year</span><br> -->
+              <!-- <span style="font-size:large;padding-left:20px">Rp. {{data.donor_periods[0].amount /12 | currency}} /
+                month</span> -->
+              <span style="font-size:large;padding-left:20px">Rp. {{data.donor_periods[0].amount /10 | currency}} /
                 month</span>
+            </b-col>
+            <b-col md="3" sm="6" class="pb-3" v-if="data.donor_periods[0].donation_category == 'PASIF'">
+              <div class="border-bottom">
+                <h5><i class="fa fa-dollar"></i> Amount Plan</h5>
+              </div>
+              <span style="font-size:large;padding-left:20px">Rp. {{data.donor_periods[0].amount | currency}} /
+                period</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
@@ -87,8 +96,7 @@
               <span style="font-size:large;padding-left:20px">{{data.donor_periods[0].created_at}}</span>
             </b-col>
             <collection-officer :dataProps="data.donor_periods[0].pco"/>
-
-
+            <pr-officer :dataProps="data.donor_periods[0].pr"/>
           </b-row>
         </b-card>
       </b-col>
@@ -101,11 +109,13 @@
 <script>
   import TransactionHistory from './DetailDonorTransactionHistory.vue'
   import CollectionOfficer from './DetailDonorCollectionOfficer.vue'
+  import PrOfficer from './DetailDonorPrOfficer.vue'
   export default {
     name: 'DetailRequestDonor',
     components: {
       TransactionHistory,
-      CollectionOfficer
+      CollectionOfficer,
+      PrOfficer
     },
     data: function () {
       return {

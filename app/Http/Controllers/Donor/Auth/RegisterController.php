@@ -56,7 +56,8 @@ class RegisterController extends Controller
         $token = Str::random(100);
         $donation_token = Str::random(100);
         if ($request->donation_category == "AKTIF") {
-            $amount = $request->amount * 12;
+            // $amount = $request->amount * 12;
+            $amount = $request->amount * 10;
         } elseif ($request->amount) {
             $amount = $request->amount;
         } else {

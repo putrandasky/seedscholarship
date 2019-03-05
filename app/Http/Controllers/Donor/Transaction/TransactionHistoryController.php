@@ -16,9 +16,18 @@ class TransactionHistoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $data = App\DonorTransaction::where('period_year',$request->periodYear)
+        ->with([
+          'donor'=>function($query){
+            $query->select(['id','name','year']);
+          }
+        ])
+        ->latest()
+        ->get();
+        return $data;
+
     }
 
     /**
@@ -45,7 +54,7 @@ class TransactionHistoryController extends Controller
         $this->validate($request, $rules, $messages);
 
         $transaction = new App\DonorTransaction();
-        $transaction->trx_date = Carbon::parse($request[$request->trx_date])->format('Y-m-d');
+        $transaction->trx_date = Carbon::parse($request->trx_date)->format('Y-m-d');
         $transaction->amount = $request->amount;
         $transaction->verification = 'UNVERIFIED';
         $transaction->invoice_no = '';

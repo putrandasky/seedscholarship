@@ -49,7 +49,11 @@ class DonationReminder extends Command
         $currentDay = $currentToday->day;
         $currentMonth = 1 <= $currentDay && $currentDay < 25 ? $currentToday->month -1 :$currentToday->month;
         $users = App\Donor::whereHas('donorPeriods', function ($query) use ($period) {
-            $query->where(['period_id'=> $period->id,'donation_category'=> 'AKTIF']);
+            $query->where([
+              'period_id'=> $period->id,
+              'donation_category'=> 'AKTIF',
+              'is_contract_agreed'=> 'AGREED'
+              ]);
         })
             ->select(['id', 'email', 'name', 'year', 'active'])
             ->withCount([
@@ -57,7 +61,12 @@ class DonationReminder extends Command
                     $query->where(['verification'=> 'VERIFIED','period_year'=>$period->year])->select(DB::raw("SUM(amount)"));
                 },
                 'donorPeriods AS plan_todate' => function ($query) use ($currentMonth,$period) {
-                    $query->where(['period_id'=> $period->id,'donation_category'=> 'AKTIF'])->select(DB::raw("(amount/12 * {$currentMonth})"));
+                    $query->where([
+                      'period_id'=> $period->id,
+                      'donation_category'=> 'AKTIF',
+                      'is_contract_agreed'=> 'AGREED'
+                      ])->select(DB::raw("(amount/10 * ({$currentMonth} - 1))"));
+                    // $query->where(['period_id'=> $period->id,'donation_category'=> 'AKTIF'])->select(DB::raw("(amount/12 * {$currentMonth})"));
                 },
                 'donorTransactions AS last_donate' => function ($query) use ($period) {
                     $query->where('period_year',$period->year)->select(DB::raw("(max(trx_date))"));

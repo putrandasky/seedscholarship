@@ -19,9 +19,14 @@
 <script>
   export default {
     name: 'DetailDonorTransactionHistoryInvoice',
-    props: ['invoiceNo', 'dataId', 'index', 'hasInvoice'],
+    props: ['invoiceNo', 'dataId', 'index', 'hasInvoice','userId'],
     data: function () {
       return {
+        index: this.propsIndex,
+        dataId: this.propsDataId,
+        userId: this.propsUserId,
+        invoiceNo: this.propsInvoiceNo,
+        hasInvoice: this.propsHasInvoice,
         isDisabled: false,
         confirmModal: false,
         confirmModalTitle: '',
@@ -67,7 +72,7 @@
         this.isDisabled = true
         axios.post(`api/file/donor-transaction/payment-receipt`, {
             periodYear: this.$route.params.periodYear,
-            userId: this.$route.params.userId,
+            userId: this.userId,
             id: this.dataId,
             invoice_no: this.invoiceNo
           })
@@ -86,7 +91,7 @@
       openInvoice() {
         let self = this
         window.open(
-          `/api/file/donor-transaction/payment-receipt/${this.$route.params.userId}?id=${this.dataId}&periodYear=${this.$route.params.periodYear}&invoice_no=${this.invoiceNo}`,
+          `/api/file/donor-transaction/payment-receipt/${this.userId}?id=${this.dataId}&periodYear=${this.$route.params.periodYear}&invoice_no=${this.invoiceNo}`,
           self.invoice_no,
           `window,width=${screen.availWidth},height=${screen.availHeight},resizeable,left=200,top=100,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0`
         );
@@ -94,7 +99,7 @@
       deleteInvoice() {
         let self = this
         axios.delete(
-            `/api/file/donor-transaction/payment-receipt/${this.$route.params.userId}?id=${this.dataId}&periodYear=${this.$route.params.periodYear}&invoice_no=${this.invoiceNo}`
+            `/api/file/donor-transaction/payment-receipt/${this.userId}?id=${this.dataId}&periodYear=${this.$route.params.periodYear}&invoice_no=${this.invoiceNo}`
           )
           .then((response) => {
             console.log(response.data)

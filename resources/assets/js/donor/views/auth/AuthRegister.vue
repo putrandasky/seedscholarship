@@ -141,8 +141,10 @@
                           <b-input   autocomplete="off" type="number" class="form-control" min="0" :placeholder="amountPlaceholder"
                             v-model="input.amount" :state="stateAmount"  />
                         </b-input-group>
-                        <small v-show="input.donation_category == 'AKTIF'" slot="description" >Your total donation Rp. {{input.amount*12 | currency}} / year & will be billed Rp. {{input.amount|currency}} / month</small>
-                        <small v-show="input.donation_category == 'PASIF'" slot="description" >Your total donation Rp. {{input.amount | currency}} / year</small>
+                        <small v-show="input.donation_category == 'AKTIF'" slot="description" >Rencana donasi anda akan ditagihkan Rp. {{input.amount|currency}} / bulan</small>
+                        <small v-show="input.donation_category == 'PASIF'" slot="description" >Rencana donasi anda Rp. {{input.amount | currency}} / periode</small>
+                        <!-- <small v-show="input.donation_category == 'AKTIF'" slot="description" >Your total donation Rp. {{input.amount*12 | currency}} / year & will be billed Rp. {{input.amount|currency}} / month</small>
+                        <small v-show="input.donation_category == 'PASIF'" slot="description" >Your total donation Rp. {{input.amount | currency}} / year</small> -->
                       </b-form-group>
                     </b-col>
                   </slide-y-up-transition>

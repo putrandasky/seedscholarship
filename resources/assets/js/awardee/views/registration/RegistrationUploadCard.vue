@@ -115,8 +115,8 @@
       },
       onFileChange(e) {
         const file = e.target.files[0];
-        // console.log(file);
-        if (file.size > 2 * 1024 * 1024) {
+        console.log(file);
+        if ((file.size > 1 * 1000 * 1024) || (!/\.(jpeg|jpe|jpg|png|pdf)$/i.test(file.name))) {
           e.preventDefault()
           this.$refs.upload.reset()
           return
@@ -174,6 +174,10 @@
           })
           .catch((error) => {
             console.log(error);
+            self.uploadPercentage = 0
+            self.old_file = self.new_file
+            self.new_file = null
+          this.$refs.upload.reset()
             this.$snotify.danger(`Ooops! Somethings Wrong, Try Again Later`, "ERROR");
           })
 

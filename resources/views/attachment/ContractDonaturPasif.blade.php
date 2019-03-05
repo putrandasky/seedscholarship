@@ -177,8 +177,11 @@ setlocale(LC_TIME, 'id');
       <br/>
     <li class="bold">Periode Donasi </li>
     <div class="text-justify" style="text-indent:35px">
-      Donatur Pasif membayarkan donasi minimal satu kali dalam periode 12 bulan terhitung dari Januari {{$data->donorPeriods[0]->period->year}} hingga Desember {{$data->donorPeriods[0]->period->year}}.
+      Donatur Pasif membayarkan donasi minimal satu kali dalam periode 12 bulan terhitung dari Maret {{$data->donorPeriods[0]->period->year}} hingga Desember {{$data->donorPeriods[0]->period->year}}.
     </div>
+    {{-- <div class="text-justify" style="text-indent:35px">
+      Donatur Pasif membayarkan donasi minimal satu kali dalam periode 12 bulan terhitung dari Januari {{$data->donorPeriods[0]->period->year}} hingga Desember {{$data->donorPeriods[0]->period->year}}.
+    </div> --}}
     <br/>
     <li class="bold">Nominal Donasi</li>
     <div class="text-justify" style="text-indent:35px">

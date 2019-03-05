@@ -185,6 +185,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'AuthRegister',
@@ -379,6 +381,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1326,20 +1334,13 @@ var render = function() {
                                                     },
                                                     [
                                                       _vm._v(
-                                                        "Your total donation Rp. " +
-                                                          _vm._s(
-                                                            _vm._f("currency")(
-                                                              _vm.input.amount *
-                                                                12
-                                                            )
-                                                          ) +
-                                                          " / year & will be billed Rp. " +
+                                                        "Rencana donasi anda akan ditagihkan Rp. " +
                                                           _vm._s(
                                                             _vm._f("currency")(
                                                               _vm.input.amount
                                                             )
                                                           ) +
-                                                          " / month"
+                                                          " / bulan"
                                                       )
                                                     ]
                                                   ),
@@ -1366,13 +1367,13 @@ var render = function() {
                                                     },
                                                     [
                                                       _vm._v(
-                                                        "Your total donation Rp. " +
+                                                        "Rencana donasi anda Rp. " +
                                                           _vm._s(
                                                             _vm._f("currency")(
                                                               _vm.input.amount
                                                             )
                                                           ) +
-                                                          " / year"
+                                                          " / periode"
                                                       )
                                                     ]
                                                   )
@@ -1566,19 +1567,21 @@ var render = function() {
           _c("ol", [
             _c("li", [
               _vm._v(
-                "Donatur Aktif adalah donatur yang memberikan donasi dengan jumlah minimal Rp. 100.000,00 rutin setiap bulan\n        selama 12 bulan. "
+                "\n        Donatur Aktif adalah donatur yang memberikan donasi dengan jumlah minimal Rp. 100.000,00 rutin setiap bulan\n        selama 1 periode.\n        "
               ),
+              _vm._v(" "),
               _c("br"),
               _vm._v(
-                "\n        Donatur akan diberikan pengingat atau himbauan untuk melakukan donasi setiap\n        bulannya oleh narahubung dari tim kami. "
+                "\n        Donatur akan diberikan pengingat atau himbauan untuk melakukan donasi setiap\n        bulannya oleh narahubung dari tim kami dan email reminder kami. "
               )
             ]),
             _vm._v(" "),
             _c("li", [
               _vm._v(
-                "Donatur Pasif adalah donatur yang memberikan donasi dengan jumlah yang tidak ditetapkan sebanyak minimal 1\n        (satu) kali dalam 12 bulan. "
+                "Donatur Pasif adalah donatur yang memberikan donasi dengan jumlah yang tidak ditetapkan sebanyak minimal 1\n        (satu) kali dalam 1 periode. "
               ),
               _c("br"),
+              _vm._v(" "),
               _vm._v(
                 "\n        Jumlah nilai yang dimasukan dalam rencana donasi adalah target atau estimasi jumlah\n        yang akan didonasikan. Kami menyarankan anda namun tidak mewajibkan. Angka\n        yang Anda masukan akan digunakan dalam perencanaan keuangan kami. "
               )

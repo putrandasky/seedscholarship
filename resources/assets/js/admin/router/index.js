@@ -44,6 +44,10 @@ import AccountDonorIndex from '../views/donor/AppDonorIndex.vue'
 import AccountDonorDefault from '../views/donor/AppDonorDefault.vue'
 import DetailAccountDonor from '../views/donor/DetailDonor.vue'
 
+import AppAllDonation from '../views/finance/donation/AppAllDonation.vue'
+import AllDonationIndex from '../views/finance/donation/AppAllDonationIndex.vue'
+import AllDonationDefault from '../views/finance/donation/AppAllDonationDefault.vue'
+
 
 import Login from "../views/auth/AuthLogin";
 import PasswordReset from '../views/auth/AuthPasswordReset'
@@ -325,15 +329,51 @@ export default new Router({
               auth: true
             },
           }
-        ]
-        }, {
+        ]},
+        {
           path: 'period/:periodYear/:userId',
           name: 'DetailAccountDonor',
           component: DetailAccountDonor,
+            props: true,
           meta: {
             auth: true
           },
         },
+      ]
+    },
+    {
+      path:'/finances',
+      component: Full,
+      children:[
+        {
+          path: 'donations',
+          name: 'AllDonation',
+          component: AppAllDonation,
+          children: [{
+            path: '',
+            name: 'AllDonationDefault',
+            component: AllDonationDefault,
+            meta: {
+              auth: true
+            },
+          }, {
+            path: ':periodYear',
+            name: 'AllDonationIndex',
+            component: AllDonationIndex,
+            props: true,
+            meta: {
+              auth: true
+            },
+          }
+        ]},
+        // {
+        //   path: 'period/:periodYear/:userId',
+        //   name: 'DetailAccountDonor',
+        //   component: DetailAccountDonor,
+        //   meta: {
+        //     auth: true
+        //   },
+        // },
       ]
     },
     {

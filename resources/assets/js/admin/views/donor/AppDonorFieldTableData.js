@@ -106,6 +106,16 @@ export const AppDonorFieldTableData = {
                     sortable: true
                 },
                 {
+                    key: 'plan',
+                    label: 'Plan to Date',
+                    'class': 'text-right',
+                    thStyle: {
+                        minWidth: '120px',
+                        width: '120px'
+                    },
+                    sortable: true
+                },
+                {
                     key: 'last_donate',
                     label: 'Last Donate',
                     'class': 'text-center',

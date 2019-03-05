@@ -62,7 +62,11 @@
             </b-badge>
           </template>
           <template slot="total_donation" slot-scope="data">
-            <span :style="{'color':moreDonationColor(data.item.total_donation, data.item.donor_periods[0].amount)}">Rp. {{data.item.total_donation | currency}}</span>
+            <span :style="{'color':moreDonationColor(data.item.total_donation, data.item.donor_periods[0].amount,data.item.donor_periods[0].donation_category)}">
+              Rp. {{data.item.total_donation | currency}}</span>
+          </template>
+          <template slot="plan" slot-scope="data">
+              Rp. {{data.item.plan | currency}}
           </template>
           <!-- <template slot="last_donate" slot-scope="data">
             <b-badge :variant="getBadgeLastDonate(data.item.last_donate)">
@@ -86,7 +90,7 @@
     OperationPage
   } from "../_share/mixins/OperationPage";
   export default {
-    name: 'AppAdmin',
+    name: 'AppDonorIndex',
     mixins: [AppDonorFieldTableData, instantSearch, OperationPage],
     components:{panel},
     data: function () {
@@ -106,16 +110,36 @@
       '$route.params.periodYear': 'getData'
     },
     methods: {
-      moreDonationColor(actual,plan){
+      moreDonationColor(actual,plan,category){
         // let thisDate = dayjs()
         let today = (new Date()).getDate()
         let day = (new Date()).getDate()
         let month = (new Date()).getMonth() + 1
         let lastMonth = (new Date()).getMonth()
-        return 1 <= today && today < 25?
-        actual == (plan/12 )* lastMonth ? 'black':actual > (plan/12 )* lastMonth ? 'blue':'red'
-        :
-        actual == (plan/12 )* month ? 'black':actual > (plan/12 )* month ? 'blue':'red'
+        if (category === 'AKTIF') {
+          return 1 <= today && today < 25?
+          actual == (plan/10 )* (lastMonth - 2) ? 'black':actual > (plan/10 )* (lastMonth - 2) ? 'blue':'red'
+          // actual == (plan/12 )* lastMonth ? 'black':actual > (plan/12 )* lastMonth ? 'blue':'red'
+          :
+          actual == (plan/10 )* (month - 2) ? 'black':actual > (plan/10 )* (month - 2) ? 'blue':'red'
+          // actual == (plan/12 )* month ? 'black':actual > (plan/12 )* month ? 'blue':'red'
+        }else{
+          return actual == plan ? 'black'  :actual > plan? 'blue':'red'
+        }
+
+      },
+      getPlanToDate(plan,category){
+        // let thisDate = dayjs()
+        let today = (new Date()).getDate()
+        let day = (new Date()).getDate()
+        let month = (new Date()).getMonth() + 1
+        let lastMonth = (new Date()).getMonth()
+        if (category === 'AKTIF') {
+          return 1 <= today && today < 25?(plan/10 )* (lastMonth - 2):(plan/10 )* (month - 2)
+          // return 1 <= today && today < 25?(plan/12 )* (lastMonth ):(plan/12 )* (month )
+        }else{
+          return plan
+        }
 
       },
       handleRowClicked(record) {
@@ -143,6 +167,7 @@
                 temp['contract'] = temp.donor_periods[0].is_contract_agreed
                 temp['last_donate'] = temp.last_donate
                 temp['total_donation'] = temp.total_donation
+                temp['plan'] = this.getPlanToDate(temp.donor_periods[0].amount,temp.donor_periods[0].donation_category)
                 temp['_rowVariant'] = this.getBadgeLastDonate(temp.last_donate)
                 // temp.name = 'my name '+temp.name;
                 return temp;

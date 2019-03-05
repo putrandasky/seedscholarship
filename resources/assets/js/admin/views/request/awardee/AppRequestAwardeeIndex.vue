@@ -47,11 +47,11 @@
     OperationPage
   } from "../../_share/mixins/OperationPage";
   export default {
-    name: 'AppAdmin',
+    name: 'AppRequestAwardeeIndex',
     mixins: [AppRequestAwardeeFieldTableData, instantSearch, OperationPage],
     data: function () {
       return {
-        routeName: 'AppRequestAwardeeIndex',
+        routeName: 'RequestAwardeeIndex',
         loaded: false,
       }
     },

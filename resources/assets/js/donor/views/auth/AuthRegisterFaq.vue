@@ -9,12 +9,18 @@
         berpartisipasi dalam keberlangsungan program beasiswa SEED Scholarship. Demi memberikan kenyamanan dan
         menyesuaikan kemampuan calon donatur, kami memberikan pilihan 2 (dua) kategori donatur sebagai berikut</p>
       <ol>
-        <li>Donatur Aktif adalah donatur yang memberikan donasi dengan jumlah minimal Rp. 100.000,00 rutin setiap bulan
-          selama 12 bulan. <br>
+        <li>
+          Donatur Aktif adalah donatur yang memberikan donasi dengan jumlah minimal Rp. 100.000,00 rutin setiap bulan
+          selama 1 periode.
+          <!-- Donatur Aktif adalah donatur yang memberikan donasi dengan jumlah minimal Rp. 100.000,00 rutin setiap bulan
+          selama 12 bulan.  -->
+          <br>
           Donatur akan diberikan pengingat atau himbauan untuk melakukan donasi setiap
-          bulannya oleh narahubung dari tim kami. </li>
+          bulannya oleh narahubung dari tim kami dan email reminder kami. </li>
         <li>Donatur Pasif adalah donatur yang memberikan donasi dengan jumlah yang tidak ditetapkan sebanyak minimal 1
-          (satu) kali dalam 12 bulan. <br>
+          (satu) kali dalam 1 periode. <br>
+        <!-- <li>Donatur Pasif adalah donatur yang memberikan donasi dengan jumlah yang tidak ditetapkan sebanyak minimal 1
+          (satu) kali dalam 12 bulan. <br> -->
           Jumlah nilai yang dimasukan dalam rencana donasi adalah target atau estimasi jumlah
           yang akan didonasikan. Kami menyarankan anda namun tidak mewajibkan. Angka
           yang Anda masukan akan digunakan dalam perencanaan keuangan kami. </li>

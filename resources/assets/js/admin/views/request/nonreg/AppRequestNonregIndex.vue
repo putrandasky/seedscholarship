@@ -47,11 +47,11 @@
     OperationPage
   } from "../../_share/mixins/OperationPage";
   export default {
-    name: 'AppAdmin',
+    name: 'AppDetailRequestNonreg',
     mixins: [AppRequestNonregFieldTableData, instantSearch, OperationPage],
     data: function () {
       return {
-        routeName: 'AppRequestNonregIndex',
+        routeName: 'RequestNonregIndex',
         loaded: false,
       }
     },

@@ -157,8 +157,10 @@ setlocale(LC_TIME, 'id');
           <td style="padding-left:20px">: {{Carbon\Carbon::parse($data->donorPeriods[0]->created_at)->formatLocalized('%d %B %Y')}}</td>
         </tr>
         <tr>
-          <td>Total Donasi</td>
-          <td style="padding-left:20px">: Rp {{number_format($data->donorPeriods[0]->amount,0,",",".")}},-</td>
+          <td>Rencana Donasi</td>
+          <td style="padding-left:20px">: Rp {{number_format($data->donorPeriods[0]->amount/10,0,",",".")}},- / Bulan</td>
+          {{-- <td>Total Donasi</td>
+          <td style="padding-left:20px">: Rp {{number_format($data->donorPeriods[0]->amount,0,",",".")}},-</td> --}}
         </tr>
       </tbody>
     </table>
@@ -179,8 +181,11 @@ setlocale(LC_TIME, 'id');
       <br/>
     <li class="bold">Periode Donasi </li>
     <div class="text-justify" style="text-indent:35px">
-    Donatur Aktif membayarkan donasi sebesar <strong>Rp {{number_format($data->donorPeriods[0]->amount / 12,0,",",".")}},-</strong> setiap bulan selama 12 bulan terhitung dari Januari {{$data->donorPeriods[0]->period->year}} hingga Desember {{$data->donorPeriods[0]->period->year}}
+    Donatur Aktif membayarkan donasi sebesar <strong>Rp {{number_format($data->donorPeriods[0]->amount / 10,0,",",".")}},-</strong> setiap bulan terhitung dari Maret {{$data->donorPeriods[0]->period->year}} hingga Desember {{$data->donorPeriods[0]->period->year}}
     </div>
+    {{-- <div class="text-justify" style="text-indent:35px">
+    Donatur Aktif membayarkan donasi sebesar <strong>Rp {{number_format($data->donorPeriods[0]->amount / 12,0,",",".")}},-</strong> setiap bulan selama 12 bulan terhitung dari Maret {{$data->donorPeriods[0]->period->year}} hingga Desember {{$data->donorPeriods[0]->period->year}}
+    </div> --}}
     <br/>
     <li class="bold">Pembayaran Donasi</li>
      <div class="text-justify" style="text-indent:35px">Donatur Aktif dapat membayarkan donasi setiap bulannya mulai dari tanggal 25 hingga tanggal 5 bulan berikutnya ke rekening

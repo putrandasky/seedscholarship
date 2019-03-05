@@ -57,7 +57,9 @@ class RegistrationUploadController extends Controller
         if (!($this->registrantAuthenticate($request->id, $request->registration_code, $request->period_id))) {
             return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
         }
-
+        $this->validate($request, [
+            'file' => 'mimes:jpeg,png,pdf|max:1024'
+        ]);
         $save = $request->file('file')->storeAs("registration/awardee/{$request->period_id}/{$request->id}/{$request->folder}", $request->file('file')->getClientOriginalName());
         return response()->json(['status' => 'File Succesfuly Uploaded'], 200);
 

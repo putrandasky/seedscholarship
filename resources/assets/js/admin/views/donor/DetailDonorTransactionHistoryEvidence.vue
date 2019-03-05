@@ -24,10 +24,15 @@
 <script>
   export default {
     name: 'DetailDonorTransactionHistoryEvidence',
-    props: ['dataId', 'index', 'fileName'],
+    props: ['propsDataId', 'propsIndex', 'propsFileName','propsUserId'],
     data: function () {
       return {
         file: [],
+        fileName: this.propsFileName,
+        index: this.propsIndex,
+        dataId: this.propsDataId,
+        userId: this.propsUserId,
+
         uploadPercentage: 0,
         new_file: '',
         old_file: '',
@@ -45,7 +50,7 @@
         // console.log(file);
         if (file.size > 2 * 1024 * 1024) {
           e.preventDefault()
-          this.$refs.upload.reset()
+          this.file = []
           return
         }
         // this.data.photo = file.name
@@ -59,7 +64,7 @@
       openFile() {
         let self = this
         window.open(
-          `/api/file/donor-transaction/evidence/${this.$route.params.userId}?id=${this.dataId}&periodYear=${this.$route.params.periodYear}&fileName=${this.fileName}`,
+          `/api/file/donor-transaction/evidence/${this.userId}?id=${this.dataId}&periodYear=${this.$route.params.periodYear}&fileName=${this.fileName}`,
           self.data.name,
           `window,width=${screen.availWidth},height=${screen.availHeight},resizeable,left=200,top=100,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0`
         );
@@ -73,7 +78,7 @@
             params: {
               id: this.dataId,
               periodYear: this.$route.params.periodYear,
-              userId: this.$route.params.userId,
+              userId: this.userId,
             },
             headers: {
               'Content-Type': 'multipart/form-data'
@@ -84,7 +89,7 @@
           })
           .then((response) => {
             console.log(response.data)
-            self.fileName = self.new_file
+            self.fileName = response.data.filename
             self.new_file = null
             self.uploadPercentage = 0
 
@@ -93,6 +98,7 @@
           })
           .catch((error) => {
             console.log(error);
+            self.uploadPercentage = 0
             this.$snotify.danger(`Ooops! Somethings Wrong, Try Again Later`, "ERROR");
           })
 
@@ -101,7 +107,7 @@
 
         let self = this
         axios.delete(
-            `api/file/donor-transaction/evidence/${this.$route.params.userId}?id=${this.dataId}&periodYear=${this.$route.params.periodYear}&fileName=${this.fileName}`
+            `api/file/donor-transaction/evidence/${this.userId}?id=${this.dataId}&periodYear=${this.$route.params.periodYear}&fileName=${this.fileName}`
           )
           .then((response) => {
             console.log(response.data)

@@ -13,10 +13,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_es6_function_bind__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.function.bind */ "./node_modules/core-js/modules/es6.function.bind.js");
 /* harmony import */ var core_js_modules_es6_function_bind__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_function_bind__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-flatpickr-component */ "./node_modules/vue-flatpickr-component/dist/vue-flatpickr.min.js");
-/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flatpickr/dist/flatpickr.css */ "./node_modules/flatpickr/dist/flatpickr.css");
-/* harmony import */ var flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
+/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-flatpickr-component */ "./node_modules/vue-flatpickr-component/dist/vue-flatpickr.min.js");
+/* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! flatpickr/dist/flatpickr.css */ "./node_modules/flatpickr/dist/flatpickr.css");
+/* harmony import */ var flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_flatpickr_css__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 //
@@ -96,13 +99,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'DonationConfirmation',
   components: {
-    flatPickr: vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_2___default.a
+    flatPickr: vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_3___default.a
   },
   data: function data() {
     return {
       confirmationFormSent: false,
       uploadPercentage: 0,
       isDisabled: false,
+      isLoading: true,
       loaded: false,
       authorized: false,
       file: [],
@@ -136,12 +140,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onFileChange: function onFileChange(e) {
-      var file = e.target.files[0];
-      console.log(file);
+      var file = e.target.files[0]; // console.log(file);
 
-      if (file.size > 2 * 1024 * 1024) {
+      if (file.size > 1 * 1000 * 1024 || !/\.(jpeg|jpg|png|pdf)$/i.test(file.name)) {
         e.preventDefault();
-        this.file = [];
+        this.$refs.upload.reset(); // this.file = []
+
         return;
       } // this.data.photo = file.name
       // this.objectUrl = URL.createObjectURL(file);
@@ -153,10 +157,12 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("api/donor-transaction/confirmation/authorized?id=".concat(this.$route.query.id, "&year=").concat(this.$route.query.year, "&email=").concat(this.$route.query.email, "&donation_token=").concat(this.$route.query.donation_token)).then(function (response) {
         console.log(response.data);
         _this.loaded = true;
+        _this.isLoading = false;
         _this.authorized = true;
       }).catch(function (error) {
         console.log(error);
         _this.loaded = true;
+        _this.isLoading = false;
         _this.authorized = false;
       });
     },
@@ -166,6 +172,7 @@ __webpack_require__.r(__webpack_exports__);
       this.isDisabled = true;
       var formData = new FormData();
       var self = this;
+      this.isLoading = true;
       formData.append('file', this.file);
       axios.post("api/donor-transaction/confirmation", formData, {
         params: {
@@ -189,6 +196,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.isDisabled = false;
         _this2.confirmationFormSent = true;
         _this2.uploadPercentage = 0;
+        _this2.isLoading = false;
       }).catch(function (error) {
         console.log(error);
 
@@ -200,6 +208,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.errors.amount = errors.amount ? errors.amount[0] : 'no-error';
         _this2.errors.file = errors.file ? errors.file[0] : 'no-error';
         _this2.uploadPercentage = 0;
+        _this2.isLoading = false;
       });
     }
   }
@@ -231,7 +240,7 @@ var render = function() {
         {
           staticClass: "text-center",
           attrs: {
-            active: !_vm.loaded,
+            active: _vm.isLoading,
             "can-cancel": false,
             opacity: 0.9,
             height: 60,
@@ -399,8 +408,6 @@ var render = function() {
                                                         "white"
                                                     },
                                                     attrs: {
-                                                      allowInput:
-                                                        _vm.isDisabled,
                                                       placeholder:
                                                         "Tanggal Transaksi",
                                                       id: "date",
@@ -461,7 +468,6 @@ var render = function() {
                                                   _c("b-input", {
                                                     staticClass: "form-control",
                                                     attrs: {
-                                                      disabled: _vm.isDisabled,
                                                       autocomplete: "off",
                                                       type: "number",
                                                       min: "0",
@@ -510,7 +516,6 @@ var render = function() {
                                               _c("b-form-file", {
                                                 ref: "upload",
                                                 attrs: {
-                                                  disabled: _vm.isDisabled,
                                                   accept:
                                                     "image/jpeg, image/png, image/gif, application/pdf",
                                                   state: _vm.stateFile,

@@ -217,9 +217,10 @@ __webpack_require__.r(__webpack_exports__);
       this.confirmModalTempValue = value;
     },
     onFileChange: function onFileChange(e) {
-      var file = e.target.files[0]; // console.log(file);
+      var file = e.target.files[0];
+      console.log(file);
 
-      if (file.size > 2 * 1024 * 1024) {
+      if (file.size > 1 * 1000 * 1024 || !/\.(jpeg|jpe|jpg|png|pdf)$/i.test(file.name)) {
         e.preventDefault();
         this.$refs.upload.reset();
         return;
@@ -272,6 +273,11 @@ __webpack_require__.r(__webpack_exports__);
         _this2.$snotify.success("".concat(_this2.title, " Succesfully Uploaded"), "UPLOADED");
       }).catch(function (error) {
         console.log(error);
+        self.uploadPercentage = 0;
+        self.old_file = self.new_file;
+        self.new_file = null;
+
+        _this2.$refs.upload.reset();
 
         _this2.$snotify.danger("Ooops! Somethings Wrong, Try Again Later", "ERROR");
       });
@@ -506,7 +512,7 @@ var render = function() {
                 _vm._v("Please upload this file below in "),
                 _c("strong", [_vm._v("pdf/jpeg/png")]),
                 _vm._v(" file with max size\n      "),
-                _c("strong", [_vm._v("2mb")]),
+                _c("strong", [_vm._v("1mb")]),
                 _vm._v(".\n      "),
                 _c("hr"),
                 _vm._v(" "),

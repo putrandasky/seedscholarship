@@ -1,6 +1,6 @@
 <template>
   <div class="app flex-row align-items-center">
-    <loading class="text-center" :active="!loaded" :can-cancel="false" :opacity="0.9" :height="60" loader='dots'
+    <loading class="text-center" :active="isLoading" :can-cancel="false" :opacity="0.9" :height="60" loader='dots'
       transition='fade' background-color="rgba(0,0,0,.85)" color="rgba(255,255,255,.9)" :is-full-page="true">
       <div class="text-center" slot="after" style="color:rgba(255,255,255,.9)">Mohon Tunggu...</div>
 
@@ -36,7 +36,7 @@
                       <b-input-group-prepend>
                         <b-input-group-text><i class="icon-calendar"></i></b-input-group-text>
                       </b-input-group-prepend>
-                      <flat-pickr :allowInput="isDisabled" placeholder="Tanggal Transaksi" id="date" v-b-tooltip.hover
+                      <flat-pickr  placeholder="Tanggal Transaksi" id="date" v-b-tooltip.hover
                         title="Click To Edit" class="form-control" v-bind:class="{'is-invalid':stateTrxDate==false,'is-valid':stateTrxDate==true}"
                         style="background-color:white" :config="configCalendar" v-model="input.trx_date" />
                     </b-input-group>
@@ -48,14 +48,14 @@
                       <b-input-group-prepend>
                         <b-input-group-text>Rp</b-input-group-text>
                       </b-input-group-prepend>
-                      <b-input :disabled="isDisabled" autocomplete="off" type="number" class="form-control" min="0"
+                      <b-input  autocomplete="off" type="number" class="form-control" min="0"
                         placeholder="Jumlah Donasi" v-model="input.amount" :state="stateAmount" />
                     </b-input-group>
                   </b-form-group>
                 </b-col>
                 <b-col lg="12">
                   <b-form-group :invalid-feedback="errors.file" :state="stateFile" description="File jpeg/png/pdf (max: 1MB)">
-                    <b-form-file :disabled="isDisabled" accept="image/jpeg, image/png, image/gif, application/pdf"
+                    <b-form-file  accept="image/jpeg, image/png, image/gif, application/pdf"
                       :state="stateFile" ref="upload" v-model="file" placeholder="Bukti Transfer." @change="onFileChange" />
                     <b-progress v-show="uploadPercentage !== 0" height="5px" :value="uploadPercentage" variant="success"></b-progress>
                   </b-form-group>
@@ -83,6 +83,7 @@
         confirmationFormSent: false,
         uploadPercentage: 0,
         isDisabled: false,
+        isLoading:true,
         loaded: false,
         authorized: false,
         file: [],
@@ -118,10 +119,11 @@
     methods: {
       onFileChange(e) {
         const file = e.target.files[0];
-        console.log(file);
-        if (file.size > 2 * 1024 * 1024) {
+        // console.log(file);
+        if ((file.size > 1 * 1000 * 1024) || (!/\.(jpeg|jpg|png|pdf)$/i.test(file.name))) {
           e.preventDefault()
-          this.file = []
+          this.$refs.upload.reset()
+          // this.file = []
           return
         }
         // this.data.photo = file.name
@@ -135,11 +137,13 @@
           .then((response) => {
             console.log(response.data)
             this.loaded = true
+            this.isLoading = false
             this.authorized = true
           })
           .catch((error) => {
             console.log(error);
             this.loaded = true
+            this.isLoading = false
             this.authorized = false
           })
       },
@@ -147,6 +151,7 @@
         this.isDisabled = true
         let formData = new FormData();
         let self = this
+            this.isLoading = true
         formData.append('file', this.file)
         axios.post(`api/donor-transaction/confirmation`, formData, {
             params: {
@@ -170,6 +175,7 @@
             this.isDisabled = false
             this.confirmationFormSent = true
             this.uploadPercentage = 0
+            this.isLoading = false
           })
           .catch((error) => {
             console.log(error);
@@ -180,6 +186,7 @@
             this.errors.amount = errors.amount ? errors.amount[0] : 'no-error';
             this.errors.file = errors.file ? errors.file[0] : 'no-error';
             this.uploadPercentage = 0
+            this.isLoading = false
           })
       }
     },

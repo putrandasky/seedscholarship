@@ -21,6 +21,9 @@ class UserController extends Controller
                 'donorPeriods.pco' => function ($query) {
                     $query->select('id','name','year','initial');
                 },
+                'donorPeriods.pr' => function ($query) {
+                    $query->select('id','name','year','initial');
+                },
                 'donorTransactions' => function ($query) use ($request) {
                     $query->where('period_year', '=', $request->year);
                 },
@@ -64,5 +67,20 @@ class UserController extends Controller
                 ->first(['id','name','year']);
 
         return response()->json(['message' => 'Successfully assign PCO','data'=>$admin], 200);
+    }
+    public function assignPr(Request $request,$periodYear, $userId)
+    {
+        $user = App\DonorPeriod::whereHas(
+            'period', function ($query) use ($periodYear) {
+                $query->where('year', '=', $periodYear);
+            })
+            ->where('donor_id',$userId)
+            ->first();
+        $user->pr = $request->id;
+        $user->save();
+        $admin = App\Admin::whereId($request->id)
+                ->first(['id','name','year']);
+
+        return response()->json(['message' => 'Successfully assign PR','data'=>$admin], 200);
     }
 }

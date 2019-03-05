@@ -32,7 +32,10 @@ class AuthController extends Controller
       $data['plan_donation'] = App\DonorPeriod::whereHas('period', function ($query) use ($request) {
             $query->where('year', '=', $request->year);
       })->sum('amount');
-      $data['actual_donation'] = App\DonorTransaction::where('period_year',$request->year)->sum('amount');
+      $data['actual_donation'] = App\DonorTransaction::where([
+        'period_year'=>$request->year,
+        'verification'=>'VERIFIED'
+        ])->sum('amount');
       $data['remaining'] = $data['actual_donation'] - $data['plan_donation'];
         $data['user'] = App\Donor::whereHas('donorPeriods.period', function ($query) use ($request) {
             $query->where('year', '=', $request->year);

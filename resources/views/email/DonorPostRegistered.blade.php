@@ -30,11 +30,15 @@ Angkatan : {{$data->year}}<br/>
 Department : {{$data->collegeDepartment->department}}<br/>
 Alamat : {{$data->address}}<br/>
 Kategori Donasi : {{$data->donorPeriods[0]->donation_category}}<br/>
-@if($data->donorPeriods[0]->amount != 0)
+{{-- @if($data->donorPeriods[0]->amount != 0)
 Rencana Donasi : Rp. {{number_format($data->donorPeriods[0]->amount,0,",",".")}} / tahun<br/>
-@endif
+@endif --}}
 @if($data->donorPeriods[0]->donation_category == 'AKTIF')
-Akan ditagihkan : Rp. {{number_format($data->donorPeriods[0]->amount / 12,0,",",".")}} / bulan<br/>
+{{-- Akan ditagihkan : Rp. {{number_format($data->donorPeriods[0]->amount / 12,0,",",".")}} / bulan<br/> --}}
+Rencana Donasi : Rp. {{number_format($data->donorPeriods[0]->amount / 10,0,",",".")}} / bulan<br/>
+@endif
+@if($data->donorPeriods[0]->donation_category == 'PASIF')
+Rencana Donasi : Rp. {{number_format($data->donorPeriods[0]->amount,0,",",".")}} / periode<br/>
 @endif
 @endcomponent
 
