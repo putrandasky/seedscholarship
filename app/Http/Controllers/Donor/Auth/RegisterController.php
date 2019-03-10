@@ -27,6 +27,7 @@ class RegisterController extends Controller
             'department' => 'required',
             'donation_category' => 'required',
             'address' => 'required',
+            'zip_code' => 'required|digits:5',
             'accept_term_condition' => 'required',
             'period' => 'required',
             'amount' => $request->donation_category == 'AKTIF' ? 'required|min:100000|numeric|' : '',
@@ -49,6 +50,7 @@ class RegisterController extends Controller
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->year = $request->year;
+        $user->zip_code = $request->zip_code;
         $user->college_department_id = $request->department;
         // $user->donation_category = $request->donation_category;
         $user->address = $request->address;

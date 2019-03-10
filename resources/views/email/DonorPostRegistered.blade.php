@@ -29,6 +29,7 @@ Phone : {{$data->phone}}<br/>
 Angkatan : {{$data->year}}<br/>
 Department : {{$data->collegeDepartment->department}}<br/>
 Alamat : {{$data->address}}<br/>
+Kode Pos : {{$data->zip_code}}<br/>
 Kategori Donasi : {{$data->donorPeriods[0]->donation_category}}<br/>
 {{-- @if($data->donorPeriods[0]->amount != 0)
 Rencana Donasi : Rp. {{number_format($data->donorPeriods[0]->amount,0,",",".")}} / tahun<br/>

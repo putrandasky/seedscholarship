@@ -49,6 +49,12 @@
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
+                <h5><i class="fa fa-address-book"></i> Zip Code</h5>
+              </div>
+              <span style="font-size:large;padding-left:20px">{{data.zip_code}}</span>
+            </b-col>
+            <b-col md="3" sm="6" class="pb-3">
+              <div class="border-bottom">
                 <h5><i class="fa fa-list-alt"></i> Donation Category</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.donor_periods[0].donation_category}}</span>
