@@ -1,5 +1,16 @@
 # CHANGE LOG
 
+11-03-2019
+
+### CHANGE
+- Change email name to SEED scholarship
+- Remove "12 bulan" in contract donors
+
+10-03-2019
+
+### ADDED
+- Zip Code in form registration donors (with validation input)
+
 01-03-2019
 
 ### ADDED

@@ -42,7 +42,7 @@ class PostRegistered extends Notification
     {
         $url = 'hello@seedscholarship.org';
         return (new MailMessage)
-            ->from($url)
+            ->from($url,'SEED Scholarship')
             ->subject("Hai Calon Awardee")
             ->markdown('email.NonregPostRegistered', ['data' => $this->data]);
 
