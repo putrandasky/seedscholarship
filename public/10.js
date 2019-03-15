@@ -1,1 +1,1354 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[10],{124:function(e,t,a){e.exports=a(325)},246:function(e,t,a){var i=a(22);i(i.P,"Function",{bind:a(328)})},247:function(e,t){e.exports=function(e,t,a){var i=void 0===a;switch(t.length){case 0:return i?e():e.call(a);case 1:return i?e(t[0]):e.call(a,t[0]);case 2:return i?e(t[0],t[1]):e.call(a,t[0],t[1]);case 3:return i?e(t[0],t[1],t[2]):e.call(a,t[0],t[1],t[2]);case 4:return i?e(t[0],t[1],t[2],t[3]):e.call(a,t[0],t[1],t[2],t[3])}return e.apply(a,t)}},286:function(e,t){e.exports="\t\n\v\f\r   ᠎             　\u2028\u2029\ufeff"},310:function(e,t,a){var i=a(15),o=a(52),n=a(51),r=a(286),s="["+r+"]",l=RegExp("^"+s+s+"*"),c=RegExp(s+s+"*$"),d=function(e,t,a){var o={},s=n(function(){return!!r[e]()||"​"!="​"[e]()}),l=o[e]=s?t(u):r[e];a&&(o[a]=l),i(i.P+i.F*s,"String",o)},u=d.trim=function(e,t){return e=String(o(e)),1&t&&(e=e.replace(l,"")),2&t&&(e=e.replace(c,"")),e};e.exports=d},325:function(e,t,a){a(326),e.exports=a(6).parseInt},326:function(e,t,a){var i=a(15),o=a(327);i(i.G+i.F*(parseInt!=o),{parseInt:o})},327:function(e,t,a){var i=a(5).parseInt,o=a(310).trim,n=a(286),r=/^[-+]?0[xX]/;e.exports=8!==i(n+"08")||22!==i(n+"0x16")?function(e,t){var a=o(String(e),3);return i(a,t>>>0||(r.test(a)?16:10))}:i},328:function(e,t,a){"use strict";var i=a(49),o=a(21),n=a(247),r=[].slice,s={};e.exports=Function.bind||function(e){var t=i(this),a=r.call(arguments,1),l=function(){var i=a.concat(r.call(arguments));return this instanceof l?function(e,t,a){if(!(t in s)){for(var i=[],o=0;o<t;o++)i[o]="a["+o+"]";s[t]=Function("F,a","return new F("+i.join(",")+")")}return s[t](e,a)}(t,i.length,i):n(t,i,e)};return o(t.prototype)&&(l.prototype=t.prototype),l}},434:function(e,t,a){"use strict";a.r(t);var i=a(124),o=a.n(i),n=(a(246),a(28),a(2)),r={name:"RegistrationUploadCard",props:["title","folder"],data:function(){var e;return e={confirmModal:!1,confirmModalTitle:"",confirmModalBody:"",confirmModalState:"",confirmModalTempValue:""},Object(n.a)(e,"confirmModal",!1),Object(n.a)(e,"file",[]),Object(n.a)(e,"uploadPercentage",0),Object(n.a)(e,"new_file",""),Object(n.a)(e,"old_file",""),Object(n.a)(e,"data",{name:"",size:"",date:null}),e},created:function(){this.checkFile()},computed:{information:function(){return"cv"==this.folder?"Riwayat hidup dengan format bebas dengan informasi wajib berupa data diri dan riwayat pendidikan":"essay"==this.folder?"Esai dengan topik : Mengapa saya pantas mendapatkan beasiswa SEED (300-500 kata)":"slip"==this.folder?"Salinan slip gaji orangtua dan/atau rekening listrik":"siakng"==this.folder?"Print Out Ringkasan / Riwayat Akademis  SIAK NG":""}},methods:{trigerConfirmModal:function(e,t,a){var i=arguments.length>3&&void 0!==arguments[3]?arguments[3]:"";this.confirmModalTitle=e,this.confirmModalBody=t,this.confirmModal=!0,this.confirmModalState=a,this.confirmModalTempValue=i},onFileChange:function(e){var t=e.target.files[0];if(console.log(t),t.size>1024e3||!/\.(jpeg|jpe|jpg|png|pdf)$/i.test(t.name))return e.preventDefault(),void this.$refs.upload.reset();this.new_file=t.name},checkFile:function(){var e=this;axios.get("api/registration-awardee/upload?folder=".concat(this.folder,"&id=").concat(this.$route.query.id,"&period_id=").concat(this.$route.query.period_id,"&registration_code=").concat(this.$route.query.registration_code)).then(function(t){console.log(t.data),e.data=t.data}).catch(function(e){console.log(e)})},openFile:function(){window.open("/api/registration-awardee/upload/".concat(this.$route.query.id,"?folder=").concat(this.folder,"&period_id=").concat(this.$route.query.period_id,"&filename=").concat(this.data.name,"&registration_code=").concat(this.$route.query.registration_code),this.data.name,"window,width=".concat(screen.availWidth,",height=").concat(screen.availHeight,",resizeable,left=200,top=100,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0"))},uploadFile:function(){var e=this,t=new FormData,a=this;t.append("file",this.file),axios.post("api/registration-awardee/upload",t,{params:{id:this.$route.query.id,folder:this.folder,registration_code:this.$route.query.registration_code,period_id:this.$route.query.period_id},headers:{"Content-Type":"multipart/form-data"},onUploadProgress:function(e){this.uploadPercentage=o()(Math.round(100*e.loaded/e.total))}.bind(this)}).then(function(t){console.log(t.data),a.uploadPercentage=0,a.old_file=a.new_file,a.new_file=null,a.checkFile(),e.$snotify.success("".concat(e.title," Succesfully Uploaded"),"UPLOADED")}).catch(function(t){console.log(t),a.uploadPercentage=0,a.old_file=a.new_file,a.new_file=null,e.$refs.upload.reset(),e.$snotify.danger("Ooops! Somethings Wrong, Try Again Later","ERROR")})},deleteFile:function(){var e=this;console.log("deleting");var t=this;axios.delete("api/registration-awardee/upload/".concat(this.$route.query.id,"?folder=").concat(this.folder,"&filename=").concat(this.data.name,"&period_id=").concat(this.$route.query.period_id,"&registration_code=").concat(this.$route.query.registration_code)).then(function(a){console.log(a.data),t.old_file=null,t.data.name="",t.data.size="",t.data.date=null,e.$snotify.success("".concat(e.title," Succesfully Deleted"),"DELETED"),t.file=[]}).catch(function(t){console.log(t),e.$snotify.danger("Ooops! Somethings Wrong, Try Again Later","ERROR")})}}},s=a(0),l={name:"RegistrationUpload",components:{UploadCard:Object(s.a)(r,function(){var e=this,t=e.$createElement,a=e._self._c||t;return a("b-card",{attrs:{"no-body":""}},[a("div",{staticClass:"text-center",attrs:{slot:"header"},slot:"header"},[a("strong",[e._v(e._s(e.title)+"  "),a("i",{directives:[{name:"b-tooltip",rawName:"v-b-tooltip.hover",value:e.information,expression:"information",modifiers:{hover:!0}}],staticClass:"fa fa-info-circle"})])]),e._v(" "),e.data.name?e._e():a("b-card-body",{attrs:{"body-bg-variant":"danger"}},[a("div",{staticClass:"d-flex w-100 justify-content-between"},[a("h5",{staticClass:"mb-0 pt-5 pb-5",staticStyle:{"align-self":"center"}},[e._v("No File Uploaded")]),e._v(" "),a("i",{staticClass:"fa fa-close fa-2x",staticStyle:{"align-self":"center"}})]),e._v(" "),a("b-progress",{directives:[{name:"show",rawName:"v-show",value:e.uploadPercentage>0,expression:"uploadPercentage>0 "}],attrs:{height:"5px",value:e.uploadPercentage,variant:"success"}})],1),e._v(" "),e.data.name?a("b-card-body",{attrs:{"body-bg-variant":"success"}},[a("div",{staticClass:"d-flex w-100 justify-content-between"},[a("h5",{staticClass:"mb-0",staticStyle:{"align-self":"center"}},[e._v("File Uploaded")]),e._v(" "),a("i",{staticClass:"fa fa-check fa-2x",staticStyle:{"align-self":"center"}})])]):e._e(),e._v(" "),e.data.name?a("b-list-group",{attrs:{flush:""}},[a("b-list-group-item",[a("strong",[e._v("Name: ")]),e._v("\n      "+e._s(e.data.name)+"\n    ")]),e._v(" "),a("b-list-group-item",[a("strong",[e._v("Size: ")]),e._v("\n      "+e._s(e._f("formatSize")(e.data.size))+"\n    ")]),e._v(" "),a("b-list-group-item",[a("strong",[e._v("Uploaded: ")]),e._v("\n      "+e._s(e.data.date)+"\n    ")])],1):e._e(),e._v(" "),a("b-card-body",{directives:[{name:"show",rawName:"v-show",value:e.uploadPercentage>0,expression:"uploadPercentage>0 "}],attrs:{"body-bg-variant":"info"}},[a("div",{staticClass:"d-flex w-100 justify-content-between"},[a("h5",{staticClass:"mb-0",staticStyle:{"align-self":"center"}},[e._v("Uploading")]),e._v(" "),a("i",{staticClass:"fa fa-spinner fa-spin fa-2x",staticStyle:{"align-self":"center"}})])]),e._v(" "),e.data.name||e.uploadPercentage>0?e._e():a("b-card-body",[a("b-form-file",{ref:"upload",attrs:{accept:"image/jpeg, image/png, image/gif, application/pdf",placeholder:"Choose a file..."},on:{change:e.onFileChange},model:{value:e.file,callback:function(t){e.file=t},expression:"file"}})],1),e._v(" "),e.data.name||e.uploadPercentage>0?e._e():a("b-button",{staticClass:"mt-0",staticStyle:{"border-top-left-radius":"unset","border-top-right-radius":"unset"},attrs:{disabled:0==e.file.length,block:"",fluid:"",variant:"success"},on:{click:e.uploadFile}},[a("i",{staticClass:"fa fa-paper-plane"}),e._v("\n    Upload\n    File")]),e._v(" "),e.data.name?a("b-button",{staticStyle:{"border-radius":"unset"},attrs:{block:"",fluid:"",variant:"primary"},on:{click:e.openFile}},[a("i",{staticClass:"fa fa-search"}),e._v("\n    See File\n  ")]):e._e(),e._v(" "),e.data.name?a("b-button",{staticClass:"mt-0",staticStyle:{"border-top-left-radius":"unset","border-top-right-radius":"unset"},attrs:{block:"",fluid:"",variant:"danger"},on:{click:function(t){e.trigerConfirmModal("Delete "+e.title,"Are you sure want to delete this file?","deleteFile")}}},[a("i",{staticClass:"fa fa-trash"}),e._v(" Delete File\n  ")]):e._e(),e._v(" "),a("b-modal",{attrs:{"no-close-on-esc":!0,"hide-header-close":!0,"no-close-on-backdrop":!0,title:e.confirmModalTitle},on:{ok:e.deleteFile},model:{value:e.confirmModal,callback:function(t){e.confirmModal=t},expression:"confirmModal"}},[e._v("\n    "+e._s(e.confirmModalBody)+"\n  ")])],1)},[],!1,null,null,null).exports},data:function(){return{loaded:!1,authorized:!1}},created:function(){this.checkAuthorization()},methods:{checkAuthorization:function(){var e=this;axios.get("api/registration-awardee/upload/authorized?id=".concat(this.$route.query.id,"&registration_code=").concat(this.$route.query.registration_code,"&email=").concat(this.$route.query.email,"&period_id=").concat(this.$route.query.period_id)).then(function(t){e.loaded=!0,e.authorized=!0}).catch(function(t){console.log(t),e.loaded=!0,e.authorized=!1})}}},c=Object(s.a)(l,function(){var e=this,t=e.$createElement,a=e._self._c||t;return a("div",{directives:[{name:"show",rawName:"v-show",value:e.loaded,expression:"loaded"}],staticClass:"app flex-row align-items-center"},[e.authorized?e._e():a("b-container",[a("b-alert",{attrs:{show:"",variant:"danger"}},[e._v("YOU ARE NOT ALLOWED TO ACCESS THIS PAGE.\n    ")])],1),e._v(" "),e.authorized?a("div",{staticClass:"container"},[a("b-alert",{attrs:{show:"",variant:"primary"}},[e._v("Please upload this file below in "),a("strong",[e._v("pdf/jpeg/png")]),e._v(" file with max size\n      "),a("strong",[e._v("1mb")]),e._v(".\n      "),a("hr"),e._v(" "),a("small",[e._v("Nb : Make sure you bookmark this page, if you need to update the file, you can back to this page later. or check your Inbox / Spam folder of your email")])]),e._v(" "),a("b-row",[a("b-col",{attrs:{lg:"3",sm:"6"}},[a("slide-y-up-transition",[a("upload-card",{attrs:{title:"Curriculum Vitae",folder:"cv"}})],1)],1),e._v(" "),a("b-col",{attrs:{lg:"3",sm:"6"}},[a("slide-y-up-transition",[a("upload-card",{attrs:{title:"Essay",folder:"essay"}})],1)],1),e._v(" "),a("b-col",{attrs:{lg:"3",sm:"6"}},[a("slide-y-up-transition",[a("upload-card",{attrs:{title:"Slip Gaji/Rekening Listrik",folder:"slip"}})],1)],1),e._v(" "),a("b-col",{attrs:{lg:"3",sm:"6"}},[a("slide-y-up-transition",[a("upload-card",{attrs:{title:"SiakNG",folder:"siakng"}})],1)],1)],1)],1):e._e()],1)},[],!1,null,null,null);t.default=c.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[10],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/nonreg/views/auth/AuthRegister.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/nonreg/views/auth/AuthRegister.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_es6_regexp_replace__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es6.regexp.replace */ "./node_modules/core-js/modules/es6.regexp.replace.js");
+/* harmony import */ var core_js_modules_es6_regexp_replace__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_regexp_replace__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es6_array_for_each__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es6.array.for-each */ "./node_modules/core-js/modules/es6.array.for-each.js");
+/* harmony import */ var core_js_modules_es6_array_for_each__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_array_for_each__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
+/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _AuthRegisterFaq_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AuthRegisterFaq.vue */ "./resources/assets/js/nonreg/views/auth/AuthRegisterFaq.vue");
+
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'AuthRegister',
+  components: {
+    FaqModal: _AuthRegisterFaq_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+  },
+  data: function data() {
+    return {
+      isClosed: true,
+      isDisabled: false,
+      scholarshipOptions: [],
+      departmentOptions: [],
+      errors: {
+        name: '',
+        year: '',
+        phone: '',
+        email: '',
+        scholarship_id: '',
+        department_id: '',
+        initial: '',
+        password: ''
+      },
+      input: {
+        name: '',
+        year: '',
+        phone: '',
+        scholarship_id: null,
+        department_id: null,
+        email: '',
+        password: '',
+        password_confirmation: ''
+      }
+    };
+  },
+  created: function created() {
+    this.getScholarship();
+    this.getDepartment();
+  },
+  computed: {
+    maxYear: function maxYear() {
+      return new Date().getFullYear() - 1;
+    },
+    minYear: function minYear() {
+      return new Date().getFullYear() - 7;
+    },
+    loaded: function loaded() {
+      return this.scholarshipOptions && this.departmentOptions ? true : false;
+    },
+    stateName: function stateName() {
+      return this.errors.name == 'no-error' ? true : this.errors.name ? false : null;
+    },
+    stateEmail: function stateEmail() {
+      return this.errors.email == 'no-error' ? true : this.errors.email ? false : null;
+    },
+    statePhone: function statePhone() {
+      return this.errors.phone == 'no-error' ? true : this.errors.phone ? false : null;
+    },
+    stateScholarship: function stateScholarship() {
+      return this.errors.scholarship_id == 'no-error' ? true : this.errors.scholarship_id ? false : null;
+    },
+    stateYear: function stateYear() {
+      return this.errors.year == 'no-error' ? true : this.errors.year ? false : null;
+    },
+    stateInitial: function stateInitial() {
+      return this.errors.initial == 'no-error' ? true : this.errors.initial ? false : null;
+    },
+    statePassword: function statePassword() {
+      return this.errors.password == 'no-error' ? true : this.errors.password ? false : null;
+    },
+    stateDepartment: function stateDepartment() {
+      return this.errors.department_id == 'no-error' ? true : this.errors.department_id ? false : null;
+    }
+  },
+  methods: {
+    getScholarship: function getScholarship() {
+      var _this = this;
+
+      axios.get("api/scholarship").then(function (response) {
+        response.data.forEach(function (obj) {
+          obj.value = obj.id;
+          obj.text = "".concat(obj.name, " - Year ").concat(obj.year);
+          delete obj.id;
+          delete obj.name;
+          delete obj.year;
+        });
+        _this.scholarshipOptions = response.data; // console.log(this.scholarshipOptions);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    getDepartment: function getDepartment() {
+      var _this2 = this;
+
+      axios.get("api/college-department").then(function (response) {
+        response.data.forEach(function (obj) {
+          obj.value = obj.id;
+          obj.text = obj.department;
+          delete obj.id;
+          delete obj.department;
+          delete obj.awardees_count;
+        });
+        _this2.departmentOptions = response.data;
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    register: function register() {
+      var _this3 = this;
+
+      this.isDisabled = true;
+      axios.post('api/auth/nonreg/register', this.input).then(function (response) {
+        _this3.$snotify.success("You Are Registered Successfully", "SUCCESS");
+
+        _this3.input.name = '', _this3.input.scholarship_id = null, _this3.input.department_id = null, _this3.input.email = '', _this3.input.password = '', _this3.input.password_confirmation = '';
+        _this3.isDisabled = false;
+
+        _this3.$router.replace({
+          name: 'RegistrationUpload',
+          query: {
+            id: response.data.id,
+            email: response.data.email,
+            scholarship_id: response.data.scholarship_id,
+            registration_code: response.data.registration_code
+          }
+        });
+      }).catch(function (error) {
+        // console.log(error.response.data);
+        _this3.$snotify.error(error.response.data.message, "ERROR");
+
+        _this3.isDisabled = false;
+        var errors = error.response.data.errors; // console.log(errors.name);
+
+        _this3.errors.name = errors.name ? errors.name[0] : 'no-error';
+        _this3.errors.email = errors.email ? errors.email[0] : 'no-error';
+        _this3.errors.phone = errors.phone ? errors.phone[0] : 'no-error';
+        _this3.errors.year = errors.year ? errors.year[0] : 'no-error';
+        _this3.errors.scholarship_id = errors.scholarship_id ? errors.scholarship_id[0] : 'no-error';
+        _this3.errors.department_id = errors.department_id ? errors.department_id[0] : 'no-error';
+        _this3.errors.password = errors.password ? errors.password[0] : 'no-error';
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/nonreg/views/auth/AuthRegisterFaq.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/nonreg/views/auth/AuthRegisterFaq.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'AuthRegisterFaq',
+  data: function data() {
+    return {
+      faqModal: false
+    };
+  },
+  created: function created() {},
+  methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es6.array.for-each.js":
+/*!************************************************************!*\
+  !*** ./node_modules/core-js/modules/es6.array.for-each.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(/*! ./_export */ "./node_modules/core-js/modules/_export.js");
+var $forEach = __webpack_require__(/*! ./_array-methods */ "./node_modules/core-js/modules/_array-methods.js")(0);
+var STRICT = __webpack_require__(/*! ./_strict-method */ "./node_modules/core-js/modules/_strict-method.js")([].forEach, true);
+
+$export($export.P + $export.F * !STRICT, 'Array', {
+  // 22.1.3.10 / 15.4.4.18 Array.prototype.forEach(callbackfn [, thisArg])
+  forEach: function forEach(callbackfn /* , thisArg */) {
+    return $forEach(this, callbackfn, arguments[1]);
+  }
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/web.dom.iterable.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/core-js/modules/web.dom.iterable.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $iterators = __webpack_require__(/*! ./es6.array.iterator */ "./node_modules/core-js/modules/es6.array.iterator.js");
+var getKeys = __webpack_require__(/*! ./_object-keys */ "./node_modules/core-js/modules/_object-keys.js");
+var redefine = __webpack_require__(/*! ./_redefine */ "./node_modules/core-js/modules/_redefine.js");
+var global = __webpack_require__(/*! ./_global */ "./node_modules/core-js/modules/_global.js");
+var hide = __webpack_require__(/*! ./_hide */ "./node_modules/core-js/modules/_hide.js");
+var Iterators = __webpack_require__(/*! ./_iterators */ "./node_modules/core-js/modules/_iterators.js");
+var wks = __webpack_require__(/*! ./_wks */ "./node_modules/core-js/modules/_wks.js");
+var ITERATOR = wks('iterator');
+var TO_STRING_TAG = wks('toStringTag');
+var ArrayValues = Iterators.Array;
+
+var DOMIterables = {
+  CSSRuleList: true, // TODO: Not spec compliant, should be false.
+  CSSStyleDeclaration: false,
+  CSSValueList: false,
+  ClientRectList: false,
+  DOMRectList: false,
+  DOMStringList: false,
+  DOMTokenList: true,
+  DataTransferItemList: false,
+  FileList: false,
+  HTMLAllCollection: false,
+  HTMLCollection: false,
+  HTMLFormElement: false,
+  HTMLSelectElement: false,
+  MediaList: true, // TODO: Not spec compliant, should be false.
+  MimeTypeArray: false,
+  NamedNodeMap: false,
+  NodeList: true,
+  PaintRequestList: false,
+  Plugin: false,
+  PluginArray: false,
+  SVGLengthList: false,
+  SVGNumberList: false,
+  SVGPathSegList: false,
+  SVGPointList: false,
+  SVGStringList: false,
+  SVGTransformList: false,
+  SourceBufferList: false,
+  StyleSheetList: true, // TODO: Not spec compliant, should be false.
+  TextTrackCueList: false,
+  TextTrackList: false,
+  TouchList: false
+};
+
+for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++) {
+  var NAME = collections[i];
+  var explicit = DOMIterables[NAME];
+  var Collection = global[NAME];
+  var proto = Collection && Collection.prototype;
+  var key;
+  if (proto) {
+    if (!proto[ITERATOR]) hide(proto, ITERATOR, ArrayValues);
+    if (!proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
+    Iterators[NAME] = ArrayValues;
+    if (explicit) for (key in $iterators) if (!proto[key]) redefine(proto, key, $iterators[key], true);
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/nonreg/views/auth/AuthRegister.vue?vue&type=template&id=b911d20a&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/nonreg/views/auth/AuthRegister.vue?vue&type=template&id=b911d20a& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.loaded
+    ? _c(
+        "div",
+        { staticClass: "app flex-row align-items-center" },
+        [
+          _c(
+            "loading",
+            {
+              staticClass: "text-center",
+              attrs: {
+                active: _vm.isDisabled,
+                "can-cancel": false,
+                opacity: 0.9,
+                height: 60,
+                loader: "dots",
+                transition: "fade",
+                "background-color": "rgba(0,0,0,.85)",
+                color: "rgba(255,255,255,.9)",
+                "is-full-page": true
+              }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "text-center",
+                  staticStyle: { color: "rgba(255,255,255,.9)" },
+                  attrs: { slot: "after" },
+                  slot: "after"
+                },
+                [_vm._v("Mohon Tunggu...")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _vm.isClosed
+            ? _c(
+                "div",
+                { staticClass: "container" },
+                [
+                  _c(
+                    "b-row",
+                    { staticClass: "justify-content-center" },
+                    [
+                      _c("b-col", { attrs: { sm: "8" } }, [
+                        _c("div", { staticClass: "text-center" }, [
+                          _c("img", {
+                            staticStyle: { "max-height": "150px" },
+                            attrs: { src: "/images/Seedlogo2.png", alt: "" }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "header",
+                          {
+                            staticClass: "text-center my-2",
+                            attrs: { id: "header" }
+                          },
+                          [
+                            _c("h1", [
+                              _c("strong", [_vm._v("PENDAFTARAN DITUTUP")])
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "text-center" }, [
+                          _c("p", [
+                            _vm._v("Silahkan mencoba dilain kesempatan.")
+                          ])
+                        ])
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.isClosed
+            ? _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.loaded,
+                      expression: "loaded"
+                    }
+                  ],
+                  staticClass: "container"
+                },
+                [
+                  _c(
+                    "b-row",
+                    { staticClass: "justify-content-center" },
+                    [
+                      _c(
+                        "b-col",
+                        { attrs: { lg: "6", md: "8" } },
+                        [
+                          _c(
+                            "b-card",
+                            { staticClass: "mx-4", attrs: { "no-body": "" } },
+                            [
+                              _c(
+                                "form",
+                                {
+                                  staticClass: "card-body p-4",
+                                  attrs: { autocomplete: "off" },
+                                  on: {
+                                    submit: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.register($event)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("h2", [
+                                    _vm._v("Research Awardee Registration")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-row",
+                                    { staticClass: "form-group" },
+                                    [
+                                      _c(
+                                        "b-col",
+                                        { attrs: { sm: "12" } },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                "invalid-feedback":
+                                                  _vm.errors.name,
+                                                state: _vm.stateName
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "b-input-group",
+                                                [
+                                                  _c(
+                                                    "b-input-group-prepend",
+                                                    [
+                                                      _c("b-input-group-text", [
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "icon-user"
+                                                        })
+                                                      ])
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c("b-input", {
+                                                    staticClass: "form-control",
+                                                    attrs: {
+                                                      autocomplete: "off",
+                                                      type: "text",
+                                                      placeholder: "Full Name",
+                                                      state: _vm.stateName
+                                                    },
+                                                    model: {
+                                                      value: _vm.input.name,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          _vm.input,
+                                                          "name",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression: "input.name"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        { attrs: { sm: "12" } },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                "invalid-feedback":
+                                                  _vm.errors.email,
+                                                state: _vm.stateEmail
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "b-input-group",
+                                                {},
+                                                [
+                                                  _c(
+                                                    "b-input-group-prepend",
+                                                    [
+                                                      _c("b-input-group-text", [
+                                                        _vm._v("@")
+                                                      ])
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c("b-input", {
+                                                    staticClass: "form-control",
+                                                    attrs: {
+                                                      autocomplete: "off",
+                                                      type: "text",
+                                                      placeholder:
+                                                        "Active Email",
+                                                      state: _vm.stateEmail
+                                                    },
+                                                    model: {
+                                                      value: _vm.input.email,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          _vm.input,
+                                                          "email",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression: "input.email"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        { attrs: { sm: "6" } },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                "invalid-feedback":
+                                                  _vm.errors.year,
+                                                state: _vm.stateYear
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "b-input-group",
+                                                {},
+                                                [
+                                                  _c(
+                                                    "b-input-group-prepend",
+                                                    [
+                                                      _c("b-input-group-text", [
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "icon-calendar"
+                                                        })
+                                                      ])
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c("b-input", {
+                                                    staticClass: "form-control",
+                                                    attrs: {
+                                                      autocomplete: "off",
+                                                      type: "number",
+                                                      min: _vm.minYear,
+                                                      max: _vm.maxYear,
+                                                      placeholder:
+                                                        "Year (Angkatan)",
+                                                      state: _vm.stateYear
+                                                    },
+                                                    model: {
+                                                      value: _vm.input.year,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          _vm.input,
+                                                          "year",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression: "input.year"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        { attrs: { sm: "6" } },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                "invalid-feedback":
+                                                  _vm.errors.phone,
+                                                state: _vm.statePhone
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "b-input-group",
+                                                {},
+                                                [
+                                                  _c(
+                                                    "b-input-group-prepend",
+                                                    [
+                                                      _c("b-input-group-text", [
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "icon-phone"
+                                                        })
+                                                      ])
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c("b-input", {
+                                                    staticClass: "form-control",
+                                                    attrs: {
+                                                      autocomplete: "off",
+                                                      type: "number",
+                                                      placeholder:
+                                                        "Phone Number",
+                                                      state: _vm.statePhone
+                                                    },
+                                                    model: {
+                                                      value: _vm.input.phone,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          _vm.input,
+                                                          "phone",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression: "input.phone"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        { attrs: { sm: "12" } },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                "invalid-feedback":
+                                                  _vm.errors.department_id,
+                                                state: _vm.stateDepartment
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "b-input-group",
+                                                {},
+                                                [
+                                                  _c(
+                                                    "b-input-group-prepend",
+                                                    [
+                                                      _c("b-input-group-text", [
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "icon-list"
+                                                        })
+                                                      ])
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "b-form-select",
+                                                    {
+                                                      attrs: {
+                                                        plain: "",
+                                                        id: "department",
+                                                        options:
+                                                          _vm.departmentOptions,
+                                                        state:
+                                                          _vm.stateDepartment
+                                                      },
+                                                      model: {
+                                                        value:
+                                                          _vm.input
+                                                            .department_id,
+                                                        callback: function(
+                                                          $$v
+                                                        ) {
+                                                          _vm.$set(
+                                                            _vm.input,
+                                                            "department_id",
+                                                            $$v
+                                                          )
+                                                        },
+                                                        expression:
+                                                          "input.department_id"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "template",
+                                                        { slot: "first" },
+                                                        [
+                                                          _c(
+                                                            "option",
+                                                            {
+                                                              attrs: {
+                                                                disabled: ""
+                                                              },
+                                                              domProps: {
+                                                                value: null
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "-- Please select your field of study --"
+                                                              )
+                                                            ]
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    2
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        { attrs: { sm: "12" } },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                "invalid-feedback":
+                                                  _vm.errors.scholarship_id,
+                                                state: _vm.stateScholarship
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "b-input-group",
+                                                {},
+                                                [
+                                                  _c(
+                                                    "b-input-group-prepend",
+                                                    [
+                                                      _c("b-input-group-text", [
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "icon-list"
+                                                        })
+                                                      ])
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "b-form-select",
+                                                    {
+                                                      attrs: {
+                                                        plain: "",
+                                                        id: "scholarship",
+                                                        options:
+                                                          _vm.scholarshipOptions,
+                                                        state:
+                                                          _vm.stateScholarship
+                                                      },
+                                                      model: {
+                                                        value:
+                                                          _vm.input
+                                                            .scholarship_id,
+                                                        callback: function(
+                                                          $$v
+                                                        ) {
+                                                          _vm.$set(
+                                                            _vm.input,
+                                                            "scholarship_id",
+                                                            $$v
+                                                          )
+                                                        },
+                                                        expression:
+                                                          "input.scholarship_id"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "template",
+                                                        { slot: "first" },
+                                                        [
+                                                          _c(
+                                                            "option",
+                                                            {
+                                                              attrs: {
+                                                                disabled: ""
+                                                              },
+                                                              domProps: {
+                                                                value: null
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "-- Please select program --"
+                                                              )
+                                                            ]
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    2
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-button",
+                                    {
+                                      attrs: {
+                                        disabled: _vm.isDisabled,
+                                        type: "submit",
+                                        variant: "success",
+                                        block: ""
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value: _vm.isDisabled,
+                                            expression: "isDisabled"
+                                          }
+                                        ],
+                                        staticClass: "fa fa-spinner fa-spin"
+                                      }),
+                                      _vm._v("\n              Submit")
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c("faq-modal")
+        ],
+        1
+      )
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/nonreg/views/auth/AuthRegisterFaq.vue?vue&type=template&id=710b774b&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/nonreg/views/auth/AuthRegisterFaq.vue?vue&type=template&id=710b774b& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "b-tooltip",
+              rawName: "v-b-tooltip.hover.left",
+              value: "Term Conditions & FAQ",
+              expression: "'Term Conditions & FAQ'",
+              modifiers: { hover: true, left: true }
+            }
+          ],
+          staticClass: "float-button",
+          on: {
+            click: function($event) {
+              _vm.faqModal = true
+            }
+          }
+        },
+        [_c("i", { staticClass: "fa fa-question" })]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            "hide-footer": true,
+            "no-close-on-esc": true,
+            "hide-header-close": false,
+            "no-close-on-backdrop": false,
+            size: "xl",
+            title: "Term, Conditions, & Frequently Asked Question"
+          },
+          model: {
+            value: _vm.faqModal,
+            callback: function($$v) {
+              _vm.faqModal = $$v
+            },
+            expression: "faqModal"
+          }
+        },
+        [
+          _c("strong", [
+            _vm._v("Pastikan kamu memenuhi syarat dan ketentuan dibawah ini")
+          ]),
+          _vm._v(" "),
+          _c("ol", [
+            _c("li", [
+              _vm._v(
+                "Mahasiswa Departemen Teknik Sipil, Universitas Indonesia."
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _vm._v(
+                "Telah melakukan sidang seminar dan sedang mengambil mata kuliah skripsi"
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _vm._v(
+                "Tidak menerima bantuan pendanaan dari pihak lain terkait penelitian tugas akhir"
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("strong", [
+            _vm._v(
+              "Kemudian, siapkan persyaratan berikut sebagai berkas pendaftaran"
+            )
+          ]),
+          _vm._v(" "),
+          _c("ol", [
+            _c("li", [_vm._v("CV / Riwayat Hidup")]),
+            _vm._v(" "),
+            _c("li", [
+              _vm._v(
+                "Proposal penelitan dengan isi; latar belakang, tujuan, metodologi, RAB, referensi "
+              ),
+              _c("strong", [
+                _vm._v(
+                  "(Format diberikan di halaman upload setelah melakukan registrasi)"
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _vm._v("Surat keterangan tidak menerima beasiswa riset lainnya "),
+              _c("strong", [
+                _vm._v(
+                  "(Format diberikan di halaman upload setelah melakukan registrasi)"
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("li", [_vm._v("Print out halaman ringkasan dan riwayat SIAKNG")])
+          ]),
+          _vm._v(" "),
+          _c("strong", [_vm._v("Tunggu konfirmasi dari Tim Recruitment SEED")]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Kandidat terpilih untuk mendapatkan beasiswa akan kami hubungi untuk mengikuti wawancara"
+            )
+          ])
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/nonreg/views/auth/AuthRegister.vue":
+/*!****************************************************************!*\
+  !*** ./resources/assets/js/nonreg/views/auth/AuthRegister.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AuthRegister_vue_vue_type_template_id_b911d20a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AuthRegister.vue?vue&type=template&id=b911d20a& */ "./resources/assets/js/nonreg/views/auth/AuthRegister.vue?vue&type=template&id=b911d20a&");
+/* harmony import */ var _AuthRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AuthRegister.vue?vue&type=script&lang=js& */ "./resources/assets/js/nonreg/views/auth/AuthRegister.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AuthRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AuthRegister_vue_vue_type_template_id_b911d20a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AuthRegister_vue_vue_type_template_id_b911d20a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/assets/js/nonreg/views/auth/AuthRegister.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/nonreg/views/auth/AuthRegister.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/assets/js/nonreg/views/auth/AuthRegister.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AuthRegister.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/nonreg/views/auth/AuthRegister.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/nonreg/views/auth/AuthRegister.vue?vue&type=template&id=b911d20a&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/assets/js/nonreg/views/auth/AuthRegister.vue?vue&type=template&id=b911d20a& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegister_vue_vue_type_template_id_b911d20a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AuthRegister.vue?vue&type=template&id=b911d20a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/nonreg/views/auth/AuthRegister.vue?vue&type=template&id=b911d20a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegister_vue_vue_type_template_id_b911d20a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegister_vue_vue_type_template_id_b911d20a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/nonreg/views/auth/AuthRegisterFaq.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/assets/js/nonreg/views/auth/AuthRegisterFaq.vue ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AuthRegisterFaq_vue_vue_type_template_id_710b774b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AuthRegisterFaq.vue?vue&type=template&id=710b774b& */ "./resources/assets/js/nonreg/views/auth/AuthRegisterFaq.vue?vue&type=template&id=710b774b&");
+/* harmony import */ var _AuthRegisterFaq_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AuthRegisterFaq.vue?vue&type=script&lang=js& */ "./resources/assets/js/nonreg/views/auth/AuthRegisterFaq.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AuthRegisterFaq_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AuthRegisterFaq_vue_vue_type_template_id_710b774b___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AuthRegisterFaq_vue_vue_type_template_id_710b774b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/assets/js/nonreg/views/auth/AuthRegisterFaq.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/nonreg/views/auth/AuthRegisterFaq.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************!*\
+  !*** ./resources/assets/js/nonreg/views/auth/AuthRegisterFaq.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegisterFaq_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AuthRegisterFaq.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/nonreg/views/auth/AuthRegisterFaq.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegisterFaq_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/nonreg/views/auth/AuthRegisterFaq.vue?vue&type=template&id=710b774b&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/assets/js/nonreg/views/auth/AuthRegisterFaq.vue?vue&type=template&id=710b774b& ***!
+  \**************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegisterFaq_vue_vue_type_template_id_710b774b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AuthRegisterFaq.vue?vue&type=template&id=710b774b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/nonreg/views/auth/AuthRegisterFaq.vue?vue&type=template&id=710b774b&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegisterFaq_vue_vue_type_template_id_710b774b___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthRegisterFaq_vue_vue_type_template_id_710b774b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

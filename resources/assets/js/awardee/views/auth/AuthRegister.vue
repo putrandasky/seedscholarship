@@ -1,9 +1,25 @@
 <template>
   <div class="app flex-row align-items-center">
-        <loading class="text-center"  :active="isDisabled" :can-cancel="false" :opacity="0.9" :height="60"   loader='dots' transition='fade'  background-color="rgba(0,0,0,.85)" color="rgba(255,255,255,.9)" :is-full-page="true">
-            <div class="text-center" slot="after" style="color:rgba(255,255,255,.9)">Mohon Tunggu...</div>
+    <loading class="text-center" :active="isDisabled" :can-cancel="false" :opacity="0.9" :height="60" loader='dots'
+      transition='fade' background-color="rgba(0,0,0,.85)" color="rgba(255,255,255,.9)" :is-full-page="true">
+      <div class="text-center" slot="after" style="color:rgba(255,255,255,.9)">Mohon Tunggu...</div>
     </loading>
-    <div class="container" v-show="loaded">
+    <div class="container" v-if="isClosed">
+      <b-row class="justify-content-center">
+        <b-col sm="8">
+          <div class="text-center">
+            <img src="/images/Seedlogo2.png" alt="" style="max-height:150px">
+          </div>
+          <header class="text-center my-2" id="header">
+            <h1><strong>PENDAFTARAN DITUTUP</strong></h1>
+          </header>
+          <div class="text-center">
+            <p>Silahkan mencoba dilain kesempatan.</p>
+          </div>
+        </b-col>
+      </b-row>
+    </div>
+    <div class="container" v-if="!isClosed" v-show="loaded">
       <b-row class="justify-content-center">
         <b-col lg="6" md="8">
           <b-card no-body class="mx-4">
@@ -39,8 +55,8 @@
                       <b-input-group-prepend>
                         <b-input-group-text><i class="icon-calendar"></i></b-input-group-text>
                       </b-input-group-prepend>
-                      <b-input autocomplete="off" type="number" :min="minYear" :max="maxYear" class="form-control" placeholder="Year (Angkatan)"
-                        v-model="input.year" :state="stateYear" />
+                      <b-input autocomplete="off" type="number" :min="minYear" :max="maxYear" class="form-control"
+                        placeholder="Year (Angkatan)" v-model="input.year" :state="stateYear" />
                     </b-input-group>
                   </b-form-group>
                 </b-col>
@@ -107,7 +123,8 @@
               </b-form-group> -->
 
               </b-row>
-              <b-button :disabled="isDisabled" type="submit" variant="success" block><i v-show="isDisabled" class="fa fa-spinner fa-spin"></i> Submit</b-button>
+              <b-button :disabled="isDisabled" type="submit" variant="success" block><i v-show="isDisabled" class="fa fa-spinner fa-spin"></i>
+                Submit</b-button>
             </form>
 
           </b-card>
@@ -126,6 +143,7 @@
     },
     data: function () {
       return {
+        isClosed: true,
         isDisabled: false,
         periodOptions: [],
         departmentOptions: [],
@@ -156,10 +174,10 @@
       this.getDepartment()
     },
     computed: {
-            maxYear(){
+      maxYear() {
         return (new Date()).getFullYear() - 1
       },
-            minYear(){
+      minYear() {
         return (new Date()).getFullYear() - 7
       },
       loaded() {
@@ -246,7 +264,7 @@
                 id: response.data.id,
                 email: response.data.email,
                 registration_code: response.data.registration_code,
-                period_id:response.data.period_id
+                period_id: response.data.period_id
               }
             })
           })

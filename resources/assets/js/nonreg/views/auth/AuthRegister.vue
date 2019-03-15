@@ -3,7 +3,22 @@
     <loading class="text-center"  :active="isDisabled" :can-cancel="false" :opacity="0.9" :height="60"   loader='dots' transition='fade'  background-color="rgba(0,0,0,.85)" color="rgba(255,255,255,.9)" :is-full-page="true">
             <div class="text-center" slot="after" style="color:rgba(255,255,255,.9)">Mohon Tunggu...</div>
     </loading>
-    <div class="container">
+    <div class="container" v-if="isClosed">
+      <b-row class="justify-content-center">
+        <b-col sm="8">
+          <div class="text-center">
+            <img src="/images/Seedlogo2.png" alt="" style="max-height:150px">
+          </div>
+          <header class="text-center my-2" id="header">
+            <h1><strong>PENDAFTARAN DITUTUP</strong></h1>
+          </header>
+          <div class="text-center">
+            <p>Silahkan mencoba dilain kesempatan.</p>
+          </div>
+        </b-col>
+      </b-row>
+    </div>
+    <div class="container"  v-if="!isClosed" v-show="loaded">
       <b-row class="justify-content-center">
         <b-col lg="6" md="8">
           <b-card no-body class="mx-4">
@@ -128,6 +143,7 @@
     },
     data: function () {
       return {
+        isClosed:true,
         isDisabled: false,
         scholarshipOptions: [],
         departmentOptions: [],

@@ -48,7 +48,7 @@ class AuthController extends Controller
     {
         $rules = [
             'name' => 'required|string',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:awardee_nonregs',
             // 'password' => 'required|confirmed|min:6',
             'phone' => 'required|numeric|min:6',
             'year' => 'required|digits:4',

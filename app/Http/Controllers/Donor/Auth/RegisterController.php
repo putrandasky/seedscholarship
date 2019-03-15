@@ -19,7 +19,7 @@ class RegisterController extends Controller
     public function newRegister(Request $request)
     {
         $rules = [
-            'name' => 'required|string',
+            'name' => 'required|string|min:6',
             'email' => 'required|email|unique:donors',
             // 'password' => 'required|confirmed|min:6',
             'phone' => 'required|numeric|min:6',
