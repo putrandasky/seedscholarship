@@ -1,5 +1,10 @@
 # CHANGE LOG
 
+15-03-2019
+
+### FIXED
+- Pagination Donors index
+
 11-03-2019
 
 ### CHANGE

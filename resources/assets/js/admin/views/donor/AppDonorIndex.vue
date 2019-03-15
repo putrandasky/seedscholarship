@@ -95,7 +95,7 @@
     components:{panel},
     data: function () {
       return {
-        routeName: 'AppDonorIndex',
+        routeName: 'AccountDonorIndex',
         loaded: false,
         panel:{
           user:null,
