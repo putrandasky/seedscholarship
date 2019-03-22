@@ -37,12 +37,14 @@ class AuthController extends Controller
             'name' => 'required|string|',
             'initial' => 'required|string|max:4',
             'email' => 'required|email|unique:admins',
+            'year' => 'required|numeric|min:4',
             'password' => 'required|confirmed|min:6',
             'department_id' => 'required',
         ]);
         $user = new App\Admin();
         $user->name = ucwords($request->name);
         $user->email = $request->email;
+        $user->year = $request->year;
         $user->initial = strtoupper($request->initial);
         $user->department_id = $request->department_id;
         $user->password = Hash::make($request->password);

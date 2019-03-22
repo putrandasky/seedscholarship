@@ -42,6 +42,8 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::post('donor/update', 'Donor\Auth\AuthController@Update');
     Route::get('donor', 'Donor\Auth\AuthController@index');
+    Route::post('donor/register/email-post-register/{userId}', 'Donor\Auth\RegisterController@resendEmailPostRegistered');
+
 });
 Route::group(['prefix' => 'file'], function () {
     Route::post('blog-cover-image/{blogId}', 'Common\Blog\BlogCoverImageController@store');
@@ -70,6 +72,8 @@ Route::apiResource('user-admin', 'Admin\Auth\UserController');
 Route::post('user-donor/{periodYear}/{userId}/assign-pco', 'Donor\Auth\UserController@assignPco');
 Route::post('user-donor/{periodYear}/{userId}/assign-pr', 'Donor\Auth\UserController@assignPr');
 Route::apiResource('user-donor', 'Donor\Auth\UserController');
+Route::patch('user-donor/update-single/{userId}', 'Donor\Auth\UserController@updateSingle');
+
 Route::post('blog-category/reordering', 'Admin\Blog\BlogCategoryController@reorder');
 Route::post('blog-tag/reordering', 'Admin\Blog\BlogTagController@reorder');
 

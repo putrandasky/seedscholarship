@@ -22,7 +22,15 @@
                     <b-input type="text" class="form-control" placeholder="Initial" v-model="input.initial" :state="stateInitial" />
                   </b-input-group>
                </b-form-group>
-              <b-form-group :invalid-feedback="errors.department" :state="stateDepartment">
+                <b-form-group :invalid-feedback="errors.year" :state="stateYear">
+                  <b-input-group class="">
+                    <b-input-group-prepend>
+                      <b-input-group-text><i class="icon-calendar"></i></b-input-group-text>
+                    </b-input-group-prepend>
+                    <b-input type="number" class="form-control" placeholder="Angkatan" v-model="input.year" :state="stateYear" />
+                  </b-input-group>
+                </b-form-group>
+                <b-form-group :invalid-feedback="errors.department" :state="stateDepartment">
                 <b-input-group class="">
                   <b-input-group-prepend>
                     <b-input-group-text><i class="icon-list"></i></b-input-group-text>
@@ -77,12 +85,14 @@
           name: '',
           initial: '',
           email: '',
+          year:'',
           department_id: '',
           password: '',
         },
         input: {
           name: '',
           initial: '',
+          year:null,
           department_id: null,
           email: '',
           password: '',
@@ -102,6 +112,9 @@
       },
       stateEmail() {
         return this.errors.email == 'no-error' ? true : this.errors.email ? false : null
+      },
+      stateYear() {
+        return this.errors.year == 'no-error' ? true : this.errors.year ? false : null
       },
       stateDepartment() {
         return this.errors.department == 'no-error' ? true : this.errors.department ? false : null
@@ -135,6 +148,7 @@
               this.input.initial = '',
               this.input.department = null,
               this.input.email = '',
+              this.input.year = '',
               this.input.password = '',
               this.input.password_confirmation = ''
               this.$router.push({
@@ -147,6 +161,7 @@
             // console.log(errors.name);
             this.errors.name = errors.name ? errors.name[0] : 'no-error';
             this.errors.email = errors.email ? errors.email[0] : 'no-error';
+            this.errors.year = errors.year ? errors.year[0] : 'no-error';
             this.errors.department = errors.department ? errors.department[0] : 'no-error';
             this.errors.initial = errors.initial ? errors.initial[0] : 'no-error';
             this.errors.password = errors.password ? errors.password[0] : 'no-error';

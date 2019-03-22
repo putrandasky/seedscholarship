@@ -3,35 +3,80 @@
     <b-row v-if="loaded">
       <b-col cols="12">
         <b-card>
-          <div slot="header" class="text-center">
-            <strong>Profile Donatur</strong>
-            <router-link tag="button" class="btn btn-sm btn-primary btn-sm float-left" :to="{name:'AccountDonorIndex',params:{periodYear:$route.params.periodYear}}">
+          <div slot="header" class=" d-sm-flex w-sm-100 justify-content-sm-between">
+            <router-link tag="button" class="btn btn-sm btn-primary btn-sm"
+              :to="{name:'AccountDonorIndex',params:{periodYear:$route.params.periodYear}}">
               <i class="fa fa-arrow-left"></i>
               BACK
             </router-link>
+            <strong>User Profile</strong>
           </div>
           <b-row>
             <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
-                <h5><i class="fa fa-user"></i> Full Name</h5>
+                <h5><i class="fa fa-user"></i> Full Name
+                  <b-button class="btn--corner-15 btn--xs" size="sm" variant="success"
+                  @click="triggerEditProfileModal(
+                    'Edit Full Name',
+                    'name',
+                    'text',
+                    data.name
+                  )"
+                    v-b-tooltip.hover="'Edit Full Name'">
+                    <i class="fa fa-edit"></i>
+                    </b-button>
+                </h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.name}}</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
-                <h5><i class="fa fa-envelope"></i> Email Address</h5>
+                <h5><i class="fa fa-envelope"></i> Email Address
+                  <b-button class="btn--corner-15 btn--xs" size="sm" variant="success"
+                  @click="triggerEditProfileModal(
+                    'Edit Email Address',
+                    'email',
+                    'text',
+                    data.email
+                  )"
+                    v-b-tooltip.hover="'Edit Email Address'">
+                    <i class="fa fa-edit"></i>
+                    </b-button>
+                </h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.email}}</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
-                <h5><i class="fa fa-calendar"></i> Year of Period (Angkatan)</h5>
+                <h5><i class="fa fa-calendar"></i> Year of Period (Angkatan)
+                  <b-button class="btn--corner-15 btn--xs" size="sm" variant="success"
+                  @click="triggerEditProfileModal(
+                    'Edit Year Of Period (Angkatan)',
+                    'year',
+                    'number',
+                    data.year
+                  )"
+                    v-b-tooltip.hover="'Edit Year Of Period (Angkatan)'">
+                    <i class="fa fa-edit"></i>
+                    </b-button>
+                </h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.year}}</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
-                <h5><i class="fa fa-phone"></i> Phone Number</h5>
+                <h5><i class="fa fa-phone"></i> Phone Number
+                  <b-button class="btn--corner-15 btn--xs" size="sm" variant="success"
+                  @click="triggerEditProfileModal(
+                    'Edit Phone Number',
+                    'phone',
+                    'number',
+                    data.phone
+                  )"
+                    v-b-tooltip.hover="'Edit Phone Number'">
+                    <i class="fa fa-edit"></i>
+                    </b-button>
+                </h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.phone}}</span>
             </b-col>
@@ -43,16 +88,45 @@
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
-                <h5><i class="fa fa-address-book"></i> Address</h5>
+                <h5><i class="fa fa-address-book"></i> Address
+                  <b-button class="btn--corner-15 btn--xs" size="sm" variant="success"
+                  @click="triggerEditProfileModal(
+                    'Edit Address',
+                    'address',
+                    'text',
+                    data.address
+                  )"
+                    v-b-tooltip.hover="'Edit Address'">
+                    <i class="fa fa-edit"></i>
+                    </b-button>
+                </h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.address}}</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
-                <h5><i class="fa fa-address-book"></i> Zip Code</h5>
+                <h5><i class="fa fa-address-book"></i> Zip Code
+                  <b-button class="btn--corner-15 btn--xs" size="sm" variant="success"
+                  @click="triggerEditProfileModal(
+                    'Edit Zip Code',
+                    'zip_code',
+                    'number',
+                    data.zip_code
+                  )"
+                    v-b-tooltip.hover="'Edit Zip Code'">
+                    <i class="fa fa-edit"></i>
+                    </b-button>
+                </h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.zip_code}}</span>
             </b-col>
+          </b-row>
+        </b-card>
+        <b-card>
+          <div slot="header" class="text-right">
+            <strong>Donation Profile</strong>
+          </div>
+          <b-row>
             <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-list-alt"></i> Donation Category</h5>
@@ -82,8 +156,12 @@
                 </h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{data.donor_periods[0].is_contract_agreed}}
-                <b-button @click="seeContract" v-if="data.donor_periods[0].is_contract_agreed == 'AGREED'" class="btn--corner-15 btn--xs"
-                  size="sm" variant="warning" v-b-tooltip.hover="'See Contract'"><i class="fa fa-search"></i></b-button>
+                <b-button @click="seeContract" v-if="data.donor_periods[0].is_contract_agreed == 'AGREED'"
+                  class="btn--corner-15 btn--xs" size="sm" variant="warning" v-b-tooltip.hover="'See Contract'"><i
+                    class="fa fa-search"></i></b-button>
+                <b-button @click="resendEmailPostRegister" v-if="data.donor_periods[0].is_contract_agreed !== 'AGREED'"
+                  class="btn--corner-15 btn--xs" size="sm" variant="success" v-b-tooltip.hover="'Resend Email Confirmation'"><i
+                    class="fa fa-send"></i></b-button>
               </span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
@@ -101,14 +179,21 @@
               </div>
               <span style="font-size:large;padding-left:20px">{{data.donor_periods[0].created_at}}</span>
             </b-col>
-            <collection-officer :dataProps="data.donor_periods[0].pco"/>
-            <pr-officer :dataProps="data.donor_periods[0].pr"/>
+            <collection-officer :dataProps="data.donor_periods[0].pco" />
+            <pr-officer :dataProps="data.donor_periods[0].pr" />
           </b-row>
         </b-card>
       </b-col>
       <b-col sm="12">
         <transaction-history :transactions="data.donor_transactions" />
       </b-col>
+      <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true"
+        :title="editProfileModalTitle" v-model="editProfileModal" @ok="onConfirmEditProfileModal">
+        <b-form-group :invalid-feedback="selectedEditProfileData.error" :state="selectedEditProfileData.state">
+          <b-input :type="editProfileTypeModal" class="form-control" placeholder="Please Input Data"
+            v-model="selectedEditProfileData.input" :state="selectedEditProfileData.state" />
+        </b-form-group>
+      </b-modal>
     </b-row>
   </slide-y-up-transition>
 </template>
@@ -126,6 +211,16 @@
     data: function () {
       return {
         loaded: false,
+        editProfileModal: false,
+        editProfileTypeModal:'text',
+        editProfileModalTitle: '',
+        editProfileModalState: '',
+        selectedEditProfileData: {
+          input: '',
+          error: null,
+          state: null,
+          key:'',
+        },
         files: {},
         data: {
           name: '',
@@ -145,6 +240,42 @@
 
     },
     methods: {
+      triggerEditProfileModal(title,key,type,data){
+        this.editProfileModalTitle = title
+        this.selectedEditProfileData.input = data
+        this.selectedEditProfileData.key = key
+        this.editProfileTypeModal = type
+        this.editProfileModal = true
+      },
+      onConfirmEditProfileModal(){
+        axios.patch(`api/user-donor/update-single/${this.$route.params.userId}`,{
+          value: this.selectedEditProfileData.input, key:this.selectedEditProfileData.key
+        })
+        .then((response) => {
+        console.log(response.data)
+        this.data[this.selectedEditProfileData.key] = this.selectedEditProfileData.input;
+              this.$snotify.success(response.data.message, "SUCCESS");
+
+        })
+        .catch((error) => {
+        console.log(error);
+              this.$snotify.error(error.response.data.status, "ERROR");
+        })
+      },
+      resendEmailPostRegister(){
+        this.$store.dispatch('stateLoadingFull', true)
+        axios.post(`api/auth/donor/register/email-post-register/${this.$route.params.userId}`,{periodId:this.data.donor_periods[0].period_id})
+        .then((response) => {
+        this.$store.dispatch('stateLoadingFull', false)
+            this.$snotify.success(response.data.status, "SUCCESS");
+
+        })
+        .catch((error) => {
+          console.log(error);
+        this.$store.dispatch('stateLoadingFull', false)
+            this.$snotify.error(error.response.data.message, "ERROR");
+        })
+      },
       seeContract() {
         let self = this
         window.open(

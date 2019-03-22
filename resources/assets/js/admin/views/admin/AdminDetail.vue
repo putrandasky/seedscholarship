@@ -33,6 +33,10 @@
             :state="stateName">
             <b-form-input id="name" type="text" :state="stateName" v-model="data.name"></b-form-input>
           </b-form-group>
+          <b-form-group label="Angkatan" label-for="angkatan" :label-cols="3" :horizontal="true" :invalid-feedback="errors.year"
+            :state="stateYear">
+            <b-form-input id="angkatan" type="text" :state="stateYear" v-model="data.year"></b-form-input>
+          </b-form-group>
           <b-form-group label="Email" label-for="email" :label-cols="3" :horizontal="true" :invalid-feedback="errors.email"
             :state="stateEmail">
             <b-form-input id="email" type="email" :state="stateEmail" v-model="data.email"></b-form-input>
@@ -75,12 +79,14 @@
           email: '',
           phone: '',
           department_id: null,
+          year: null,
           created_at: null,
           updated_at: null,
           photo: null,
         },
         errors: {
           name: '',
+          year:'',
           email: '',
           department_id: null,
         },
@@ -102,6 +108,9 @@
       },
       stateEmail() {
         return this.errors.email == 'no-error' ? true : this.errors.email ? false : null
+      },
+      stateYear() {
+        return this.errors.year == 'no-error' ? true : this.errors.year ? false : null
       },
       statePhone() {
         return this.errors.phone == 'no-error' ? true : this.errors.phone ? false : null

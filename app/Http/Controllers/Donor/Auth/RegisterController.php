@@ -109,6 +109,28 @@ class RegisterController extends Controller
             'status' => 'Successfully register new donor',
         ], 200);
     }
+    public function resendEmailPostRegistered(Request $request, $userId)
+    {
+
+        $user = App\Donor::whereHas('donorPeriods', function ($query) use ($request) {
+            $query->where('period_id', '=', $request->periodId);
+        })
+            ->where('id',  $userId)
+            ->with([
+                'collegeDepartment',
+                'donorPeriods' => function ($query) use ($request) {
+                    $query->where('period_id', '=', $request->periodId);
+                },
+                'donorPeriods.period' => function ($query) use ($request) {
+                    $query->where('id', '=', $request->periodId);
+                },
+            ])->first();
+        // $when = now()->addMinutes(1);
+        $user->notify(new PostRegistered($user));
+        return response()->json([
+            'status' => 'Email Confirmation Resent',
+        ], 200);
+    }
     public function contractAgreed(Request $request)
     {
         $data = App\Donor::whereHas(

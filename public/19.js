@@ -1,1 +1,294 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[19],{433:function(a,e,t){"use strict";t.r(e);t(86),t(307),t(308),t(29),t(133),t(140),t(141),t(142);var i={name:"AuthRegisterFaq",data:function(){return{faqModal:!1}},created:function(){},methods:{}},r=t(0),n={name:"AuthRegister",components:{FaqModal:Object(r.a)(i,function(){var a=this,e=a.$createElement,t=a._self._c||e;return t("div",[t("div",{directives:[{name:"b-tooltip",rawName:"v-b-tooltip.hover.left",value:"Term Conditions & FAQ",expression:"'Term Conditions & FAQ'",modifiers:{hover:!0,left:!0}}],staticClass:"float-button",on:{click:function(e){a.faqModal=!0}}},[t("i",{staticClass:"fa fa-question"})]),a._v(" "),t("b-modal",{attrs:{"hide-footer":!0,"no-close-on-esc":!0,"hide-header-close":!1,"no-close-on-backdrop":!1,size:"xl",title:"Term, Conditions, & Frequently Asked Question"},model:{value:a.faqModal,callback:function(e){a.faqModal=e},expression:"faqModal"}},[t("strong",[a._v("Pastikan kamu memenuhi persyaratan dibawah ini")]),a._v(" "),t("ol",[t("li",[a._v("Mahasiswa tahun pertama Departemen Teknik Sipil, Universitas Indonesia.")]),a._v(" "),t("li",[a._v("Memiliki keterbatasan finansial dan berkeinginan tinggi untuk belajar.")]),a._v(" "),t("li",[a._v("Bersedia mengikuti program pengembangan diri selama menerima beasiswa.")])]),a._v(" "),t("strong",[a._v("Kemudian, siapkan berkas pendaftaran")]),a._v(" "),t("ol",[t("li",[a._v("CV (format bebas dengan informasi yang wajib ada yaitu: data diri, riwayat pendidikan, kemampuan bahasa, pengalaman kerja, status pekerjaan/pendidikan anggota keluarga)")]),a._v(" "),t("li",[a._v("Essai dengan topik : Mengapa saya pantas mendapatkan beasiswa SEED (300-500 kata)")]),a._v(" "),t("li",[a._v("Salinan slip gaji orangtua dan/atau rekening listrik")]),a._v(" "),t("li",[a._v("Print out halaman ringkasan dan riwayat SIAKNG")])]),a._v(" "),t("strong",[a._v("Tunggu konfirmasi dari Tim Recruitment SEED")]),a._v(" "),t("p",[a._v("Kandidat terpilih untuk mendapatkan beasiswa akan kami hubungi untuk mengikuti wawancara")]),a._v(" "),t("hr"),a._v(" "),t("strong",[a._v("Q : Kapan pembukaan pendaftaran penerima beasiswa?")]),a._v(" "),t("p",[a._v("A : Pendaftaran akan dibuka pada akhir semester 1")]),a._v(" "),t("strong",[a._v("Q : Apa saja tahap seleksi Calon Penerima Beasiswa?")]),a._v(" "),t("p",[a._v("A : Seleksi terdiri dari 2 tahapan yaitu seleksi administrasi dan interview.")]),a._v(" "),t("strong",[a._v("Q : Apa saja tahap syarat administrasi untuk seleksi Calon Penerima Beasiswa?")]),a._v(" "),t("p",[a._v("A : Team Recruitment akan melakukan screening dari CV, Essay, Transkrip Nilai dan data kondisi finansial keluarga yang didukung dengan data berupa slip gaji orang tua dan atau rekening listrik. Apabila tidak ada slip gaji maka dilengkapi juga essay mengenai kondisi finansial keluarga.")]),a._v(" "),t("strong",[a._v("Q : Berapa jumlah Penerima Beasiswa ?")]),a._v(" "),t("p",[a._v("Jumlah mahasiswa yang akan menerima beasiswa akan disesuaikan dengan hasil proses seleksi. SEED Scholarship memiliki kuota penerima beasiswa hingga 10 awardee")]),a._v(" "),t("strong",[a._v("Q : Berapa jumlah besaran beasiswa diberikan?")]),a._v(" "),t("p",[a._v("A : Besaran beasiswa yang diberikan oleh SEEDS adalah sebesar Rp 3.600.000,- untuk satu semester.")]),a._v(" "),t("strong",[a._v("Q : Kapan beasiswa diberikan kepada Penerima Beasiswa?")]),a._v(" "),t("p",[a._v("A : Beasiswa akan diberikan pada bulan pertama atau paling lambat bulan kedua dari awal semester berjalan")])])],1)},[],!1,null,null,null).exports},data:function(){return{isClosed:!0,isDisabled:!1,periodOptions:[],departmentOptions:[],errors:{name:"",year:"",phone:"",email:"",period_id:"",department_id:"",initial:"",password:""},input:{name:"",year:"",phone:"",period_id:null,department_id:null,email:"",password:"",password_confirmation:""}}},created:function(){this.getPeriod(),this.getDepartment()},computed:{maxYear:function(){return(new Date).getFullYear()-1},minYear:function(){return(new Date).getFullYear()-7},loaded:function(){return!(!this.periodOptions||!this.departmentOptions)},stateName:function(){return"no-error"==this.errors.name||!this.errors.name&&null},stateEmail:function(){return"no-error"==this.errors.email||!this.errors.email&&null},statePhone:function(){return"no-error"==this.errors.phone||!this.errors.phone&&null},statePeriod:function(){return"no-error"==this.errors.period_id||!this.errors.period_id&&null},stateYear:function(){return"no-error"==this.errors.year||!this.errors.year&&null},stateInitial:function(){return"no-error"==this.errors.initial||!this.errors.initial&&null},statePassword:function(){return"no-error"==this.errors.password||!this.errors.password&&null},stateDepartment:function(){return"no-error"==this.errors.department_id||!this.errors.department_id&&null}},methods:{getPeriod:function(){var a=this;axios.get("api/period").then(function(e){e.data.forEach(function(a){a.value=a.id,a.text="Seedscholarship #".concat(a.period," - Year ").concat(a.year),delete a.id,delete a.period,delete a.year}),a.periodOptions=e.data,console.log(a.periodOptions)}).catch(function(a){console.log(a)})},getDepartment:function(){var a=this;axios.get("api/college-department").then(function(e){e.data.forEach(function(a){a.value=a.id,a.text=a.department,delete a.id,delete a.department,delete a.awardees_count}),a.departmentOptions=e.data}).catch(function(a){console.log(a)})},register:function(){var a=this;this.isDisabled=!0,axios.post("api/auth/awardee/register",this.input).then(function(e){a.$snotify.success("New Awardee Registered","SUCCESS"),a.input.name="",a.input.period_id=null,a.input.department_id=null,a.input.email="",a.input.password="",a.input.password_confirmation="",a.isDisabled=!1,a.$router.replace({name:"RegistrationUpload",query:{id:e.data.id,email:e.data.email,registration_code:e.data.registration_code,period_id:e.data.period_id}})}).catch(function(e){a.$snotify.error(e.response.data.message,"ERROR"),a.isDisabled=!1;var t=e.response.data.errors;a.errors.name=t.name?t.name[0]:"no-error",a.errors.email=t.email?t.email[0]:"no-error",a.errors.phone=t.phone?t.phone[0]:"no-error",a.errors.year=t.year?t.year[0]:"no-error",a.errors.period_id=t.period_id?t.period_id[0]:"no-error",a.errors.department_id=t.department_id?t.department_id[0]:"no-error",a.errors.password=t.password?t.password[0]:"no-error"})}}},s=Object(r.a)(n,function(){var a=this,e=a.$createElement,t=a._self._c||e;return t("div",{staticClass:"app flex-row align-items-center"},[t("loading",{staticClass:"text-center",attrs:{active:a.isDisabled,"can-cancel":!1,opacity:.9,height:60,loader:"dots",transition:"fade","background-color":"rgba(0,0,0,.85)",color:"rgba(255,255,255,.9)","is-full-page":!0}},[t("div",{staticClass:"text-center",staticStyle:{color:"rgba(255,255,255,.9)"},attrs:{slot:"after"},slot:"after"},[a._v("Mohon Tunggu...")])]),a._v(" "),a.isClosed?t("div",{staticClass:"container"},[t("b-row",{staticClass:"justify-content-center"},[t("b-col",{attrs:{sm:"8"}},[t("div",{staticClass:"text-center"},[t("img",{staticStyle:{"max-height":"150px"},attrs:{src:"/images/Seedlogo2.png",alt:""}})]),a._v(" "),t("header",{staticClass:"text-center my-2",attrs:{id:"header"}},[t("h1",[t("strong",[a._v("PENDAFTARAN DITUTUP")])])]),a._v(" "),t("div",{staticClass:"text-center"},[t("p",[a._v("Silahkan mencoba dilain kesempatan.")])])])],1)],1):a._e(),a._v(" "),a.isClosed?a._e():t("div",{directives:[{name:"show",rawName:"v-show",value:a.loaded,expression:"loaded"}],staticClass:"container"},[t("b-row",{staticClass:"justify-content-center"},[t("b-col",{attrs:{lg:"6",md:"8"}},[t("b-card",{staticClass:"mx-4",attrs:{"no-body":""}},[t("form",{staticClass:"card-body p-4",attrs:{autocomplete:"off"},on:{submit:function(e){return e.preventDefault(),a.register(e)}}},[t("h1",[a._v("Awardee Registration")]),a._v(" "),t("b-row",{staticClass:"form-group"},[t("b-col",{attrs:{sm:"12"}},[t("b-form-group",{attrs:{"invalid-feedback":a.errors.name,state:a.stateName}},[t("b-input-group",[t("b-input-group-prepend",[t("b-input-group-text",[t("i",{staticClass:"icon-user"})])],1),a._v(" "),t("b-input",{staticClass:"form-control",attrs:{autocomplete:"off",type:"text",placeholder:"Full Name",state:a.stateName},model:{value:a.input.name,callback:function(e){a.$set(a.input,"name",e)},expression:"input.name"}})],1)],1)],1),a._v(" "),t("b-col",{attrs:{sm:"12"}},[t("b-form-group",{attrs:{"invalid-feedback":a.errors.email,state:a.stateEmail}},[t("b-input-group",{},[t("b-input-group-prepend",[t("b-input-group-text",[a._v("@")])],1),a._v(" "),t("b-input",{staticClass:"form-control",attrs:{autocomplete:"off",type:"text",placeholder:"Active Email",state:a.stateEmail},model:{value:a.input.email,callback:function(e){a.$set(a.input,"email",e)},expression:"input.email"}})],1)],1)],1),a._v(" "),t("b-col",{attrs:{sm:"6"}},[t("b-form-group",{attrs:{"invalid-feedback":a.errors.year,state:a.stateYear}},[t("b-input-group",{},[t("b-input-group-prepend",[t("b-input-group-text",[t("i",{staticClass:"icon-calendar"})])],1),a._v(" "),t("b-input",{staticClass:"form-control",attrs:{autocomplete:"off",type:"number",min:a.minYear,max:a.maxYear,placeholder:"Year (Angkatan)",state:a.stateYear},model:{value:a.input.year,callback:function(e){a.$set(a.input,"year",e)},expression:"input.year"}})],1)],1)],1),a._v(" "),t("b-col",{attrs:{sm:"6"}},[t("b-form-group",{attrs:{"invalid-feedback":a.errors.phone,state:a.statePhone}},[t("b-input-group",{},[t("b-input-group-prepend",[t("b-input-group-text",[t("i",{staticClass:"icon-phone"})])],1),a._v(" "),t("b-input",{staticClass:"form-control",attrs:{autocomplete:"off",type:"number",placeholder:"Phone Number",state:a.statePhone},model:{value:a.input.phone,callback:function(e){a.$set(a.input,"phone",e)},expression:"input.phone"}})],1)],1)],1),a._v(" "),t("b-col",{attrs:{sm:"12"}},[t("b-form-group",{attrs:{"invalid-feedback":a.errors.department_id,state:a.stateDepartment}},[t("b-input-group",{},[t("b-input-group-prepend",[t("b-input-group-text",[t("i",{staticClass:"icon-list"})])],1),a._v(" "),t("b-form-select",{attrs:{plain:"",id:"department",options:a.departmentOptions,state:a.stateDepartment},model:{value:a.input.department_id,callback:function(e){a.$set(a.input,"department_id",e)},expression:"input.department_id"}},[t("template",{slot:"first"},[t("option",{attrs:{disabled:""},domProps:{value:null}},[a._v("-- Please select field of study --")])])],2)],1)],1)],1),a._v(" "),t("b-col",{attrs:{sm:"12"}},[t("b-form-group",{attrs:{"invalid-feedback":a.errors.period_id,state:a.statePeriod}},[t("b-input-group",{},[t("b-input-group-prepend",[t("b-input-group-text",[t("i",{staticClass:"icon-list"})])],1),a._v(" "),t("b-form-select",{attrs:{plain:"",id:"period",options:a.periodOptions,state:a.statePeriod},model:{value:a.input.period_id,callback:function(e){a.$set(a.input,"period_id",e)},expression:"input.period_id"}},[t("template",{slot:"first"},[t("option",{attrs:{disabled:""},domProps:{value:null}},[a._v("-- Please select period --")])])],2)],1)],1)],1)],1),a._v(" "),t("b-button",{attrs:{disabled:a.isDisabled,type:"submit",variant:"success",block:""}},[t("i",{directives:[{name:"show",rawName:"v-show",value:a.isDisabled,expression:"isDisabled"}],staticClass:"fa fa-spinner fa-spin"}),a._v("\n              Submit")])],1)])],1)],1)],1),a._v(" "),t("faq-modal")],1)},[],!1,null,null,null);e.default=s.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[19],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/auth/AuthForgotPassword.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/awardee/views/auth/AuthForgotPassword.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_promise__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime-corejs2/core-js/promise */ "./node_modules/@babel/runtime-corejs2/core-js/promise.js");
+/* harmony import */ var C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_promise__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_promise__WEBPACK_IMPORTED_MODULE_0__);
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'AuthForgotPassword',
+  data: function data() {
+    return {
+      isDisabled: false,
+      loaded: false,
+      input: {
+        email: ''
+      },
+      errors: {
+        email: ''
+      }
+    };
+  },
+  created: function created() {},
+  computed: {
+    stateEmail: function stateEmail() {
+      return this.errors.email == 'no-error' ? true : this.errors.email ? false : null;
+    }
+  },
+  methods: {
+    sendForgotPasswordEmail: function sendForgotPasswordEmail() {
+      var _this = this;
+
+      this.isDisabled = true;
+      var self = this;
+      this.$snotify.async('Creating Link for Reseting Password', 'Please Wait', function () {
+        return new C_xampp_htdocs_seedscholarship_node_modules_babel_runtime_corejs2_core_js_promise__WEBPACK_IMPORTED_MODULE_0___default.a(function (resolve, reject) {
+          return axios.post("api/forgot/password", {
+            email: _this.input.email
+          }).then(function (response) {
+            console.log(response.data.status);
+            self.isDisabled = false;
+            self.input.email = '';
+            resolve({
+              title: 'Success!!!',
+              body: response.data.status,
+              config: {
+                closeOnClick: true
+              }
+            });
+          }).catch(function (error) {
+            self.isDisabled = false;
+            reject({
+              title: 'Error!!!',
+              body: error.response.data.status,
+              config: {
+                closeOnClick: true
+              }
+            });
+          });
+        });
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/auth/AuthForgotPassword.vue?vue&type=template&id=9c887950&":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/awardee/views/auth/AuthForgotPassword.vue?vue&type=template&id=9c887950& ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "app flex-row align-items-center" }, [
+    _c(
+      "div",
+      { staticClass: "container" },
+      [
+        _c(
+          "b-row",
+          { staticClass: "justify-content-center" },
+          [
+            _c(
+              "b-col",
+              { attrs: { md: "6", sm: "8" } },
+              [
+                _c("b-card", { staticClass: "mx-4" }, [
+                  _c(
+                    "form",
+                    {
+                      staticClass: "card-body p-4",
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          _vm.sendForgotPasswordEmail()
+                        }
+                      }
+                    },
+                    [
+                      _c("h1", [_vm._v("FORGOT PASSWORD")]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "text-muted" }, [
+                        _vm._v("Send link to reset password")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            "invalid-feedback": _vm.errors.email,
+                            state: _vm.stateEmail
+                          }
+                        },
+                        [
+                          _c(
+                            "b-input-group",
+                            {},
+                            [
+                              _c(
+                                "b-input-group-prepend",
+                                [
+                                  _c("b-input-group-text", [
+                                    _c("i", { staticClass: "icon-envelope" })
+                                  ])
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("b-input", {
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "email",
+                                  placeholder: "Your Email",
+                                  state: _vm.stateEmail
+                                },
+                                model: {
+                                  value: _vm.input.email,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.input, "email", $$v)
+                                  },
+                                  expression: "input.email"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-button",
+                        {
+                          attrs: {
+                            disabled: _vm.isDisabled,
+                            type: "submit",
+                            variant: "success",
+                            block: ""
+                          }
+                        },
+                        [_vm._v("Send Link")]
+                      )
+                    ],
+                    1
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/awardee/views/auth/AuthForgotPassword.vue":
+/*!***********************************************************************!*\
+  !*** ./resources/assets/js/awardee/views/auth/AuthForgotPassword.vue ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AuthForgotPassword_vue_vue_type_template_id_9c887950___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AuthForgotPassword.vue?vue&type=template&id=9c887950& */ "./resources/assets/js/awardee/views/auth/AuthForgotPassword.vue?vue&type=template&id=9c887950&");
+/* harmony import */ var _AuthForgotPassword_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AuthForgotPassword.vue?vue&type=script&lang=js& */ "./resources/assets/js/awardee/views/auth/AuthForgotPassword.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AuthForgotPassword_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AuthForgotPassword_vue_vue_type_template_id_9c887950___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AuthForgotPassword_vue_vue_type_template_id_9c887950___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/assets/js/awardee/views/auth/AuthForgotPassword.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/awardee/views/auth/AuthForgotPassword.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************!*\
+  !*** ./resources/assets/js/awardee/views/auth/AuthForgotPassword.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthForgotPassword_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AuthForgotPassword.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/auth/AuthForgotPassword.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthForgotPassword_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/awardee/views/auth/AuthForgotPassword.vue?vue&type=template&id=9c887950&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/assets/js/awardee/views/auth/AuthForgotPassword.vue?vue&type=template&id=9c887950& ***!
+  \******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthForgotPassword_vue_vue_type_template_id_9c887950___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AuthForgotPassword.vue?vue&type=template&id=9c887950& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/awardee/views/auth/AuthForgotPassword.vue?vue&type=template&id=9c887950&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthForgotPassword_vue_vue_type_template_id_9c887950___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthForgotPassword_vue_vue_type_template_id_9c887950___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

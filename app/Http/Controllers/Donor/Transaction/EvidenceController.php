@@ -30,6 +30,18 @@ class EvidenceController extends Controller
         // if (!($this->registrantAuthenticate($request->id, $request->registration_code, $request->period_id))) {
         //     return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
         // }
+        $rules = [
+            'file' => 'required|max:1000|mimes:jpeg,png,pdf',
+            // 'invoice_no' => $request->invoice_no?'unique:donor_transactions':'',
+
+        ];
+        $messages = [
+            'file.required' => 'Mohon melampirkan bukti transfer',
+            'file.max' => 'File tidak lebih dari 1 MB',
+            'file.mimes' => 'File dalam pdf/jpeg/png',
+            // 'invoice_no.unique' => 'This invoice number already exist',
+        ];
+        $this->validate($request, $rules, $messages);
         $donorPeriod = App\DonorPeriod::whereHas(
             'period', function ($query) use ($request) {
                 $query->where('year', '=', $request->periodYear);
@@ -47,7 +59,7 @@ class EvidenceController extends Controller
         // return $donorTransaction->evidence ?? 0;
         $lastEvidenceTitle = $donorTransaction ? explode('.',$donorTransaction): null;
         $series =  $lastEvidenceTitle ? $lastEvidenceTitle[1]+1:1;
-        $evidenceTitle = $contractNo .'.'.$series.'.pdf';
+        $evidenceTitle = $contractNo .'.'.$series.$request->file('file')->getClientOriginalExtension();
 
         $save = $request->file('file')->storeAs("transaction/{$request->periodYear}/{$request->userId}/{$request->id}/evidence", $evidenceTitle);
 

@@ -53,6 +53,15 @@ class UserController extends Controller
         $user->save();
         return response()->json(['message' => 'Successfully update donor data'], 200);
     }
+    public function updateSingle(Request $request, $userId)
+    {
+        $content = App\Donor::where('id', $userId)->update([$request['key'] => $request['value']]);
+        if ($content) {
+          return response()->json(['message' => 'Successfully update donor data'], 200);
+        }
+          return response()->json(['error' => 'Server Error', 'message' => 'Oops Something Error'], 500);
+    }
+
     public function assignPco(Request $request,$periodYear, $userId)
     {
         $user = App\DonorPeriod::whereHas(

@@ -1,5 +1,18 @@
 # CHANGE LOG
 
+22-03-2019
+
+### ADDED
+- Function edit User Donors database
+- Function for resend confirmation email
+- input year (angkatan) for admin
+- edit year for admin in admin detail
+- validation input evidence transacion history in admin panel
+
+### FIXED
+- Fixed name of head finance in "bukti penerimaan donasi"
+- Naming for evidence (extention fixed)
+
 15-03-2019
 
 ### FIXED

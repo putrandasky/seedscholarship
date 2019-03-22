@@ -152,7 +152,7 @@ if ($nilai < 0) { $hasil="minus " . trim(penyebut($nilai)); } else { $hasil=trim
               <img style="height:100px" src="{{ config('app.url').'/images/sign-hf.png'}}"> </td>
           </tr>
           <tr>
-            <td class="text-center">Zoraya Rahmi</td>
+            <td class="text-center">Zoraya Rachmi Pratiwi</td>
           </tr>
         </tbody>
       </table>
