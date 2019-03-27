@@ -78,7 +78,7 @@ class DonationReminder extends Command
             $hasMoreDonation = $users[$i]['total_donation'] >= $users[$i]['plan_todate'];
             $hasRecentTransaction = $users[$i]['last_donate'] > Carbon::today()->day(25)->SubMonthsNoOverflow(1)->format('Y-m-d H:i:s');
 
-            if (!$hasMoreDonation && $currentDay == 27) {
+            if (!$hasMoreDonation && $currentDay == 25) {
                 Notification::route('mail', $users[$i]->email)->notify(new SendReminderDonation($users[$i]));
             }
             if (!$hasRecentTransaction && !$hasMoreDonation && $currentDay == 3) {
