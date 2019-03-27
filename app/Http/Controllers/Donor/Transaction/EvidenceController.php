@@ -59,7 +59,7 @@ class EvidenceController extends Controller
         // return $donorTransaction->evidence ?? 0;
         $lastEvidenceTitle = $donorTransaction ? explode('.',$donorTransaction): null;
         $series =  $lastEvidenceTitle ? $lastEvidenceTitle[1]+1:1;
-        $evidenceTitle = $contractNo .'.'.$series.$request->file('file')->getClientOriginalExtension();
+        $evidenceTitle = $contractNo .'.'.$series.'.'.$request->file('file')->getClientOriginalExtension();
 
         $save = $request->file('file')->storeAs("transaction/{$request->periodYear}/{$request->userId}/{$request->id}/evidence", $evidenceTitle);
 

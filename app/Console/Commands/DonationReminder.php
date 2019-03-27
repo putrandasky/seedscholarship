@@ -51,7 +51,6 @@ class DonationReminder extends Command
         $users = App\Donor::whereHas('donorPeriods', function ($query) use ($period) {
             $query->where([
               'period_id'=> $period->id,
-              'donation_category'=> 'AKTIF',
               'is_contract_agreed'=> 'AGREED'
               ]);
         })
@@ -63,7 +62,6 @@ class DonationReminder extends Command
                 'donorPeriods AS plan_todate' => function ($query) use ($currentMonth,$period) {
                     $query->where([
                       'period_id'=> $period->id,
-                      'donation_category'=> 'AKTIF',
                       'is_contract_agreed'=> 'AGREED'
                       ])->select(DB::raw("(amount/10 * ({$currentMonth} - 1))"));
                     // $query->where(['period_id'=> $period->id,'donation_category'=> 'AKTIF'])->select(DB::raw("(amount/12 * {$currentMonth})"));
@@ -80,10 +78,10 @@ class DonationReminder extends Command
             $hasMoreDonation = $users[$i]['total_donation'] >= $users[$i]['plan_todate'];
             $hasRecentTransaction = $users[$i]['last_donate'] > Carbon::today()->day(25)->SubMonthsNoOverflow(1)->format('Y-m-d H:i:s');
 
-            if (!$hasMoreDonation && $currentDay == 25) {
+            if (!$hasMoreDonation && $currentDay == 27) {
                 Notification::route('mail', $users[$i]->email)->notify(new SendReminderDonation($users[$i]));
             }
-            if (!$hasRecentTransaction && !$hasMoreDonation && $currentDay == 5) {
+            if (!$hasRecentTransaction && !$hasMoreDonation && $currentDay == 3) {
                 Notification::route('mail', $users[$i]->email)->notify(new SendReminderDonation($users[$i]));
             }
             // Notification::route('mail', $data->email)->notify(new SendReminderDonation($data));

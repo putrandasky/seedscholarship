@@ -51,8 +51,26 @@ class ConfirmationController extends Controller
         ];
         $this->validate($request, $rules, $messages);
 
+        $donorPeriod = App\DonorPeriod::whereHas(
+            'period', function ($query) use ($request) {
+                $query->where('year', '=', $request->year);
+            })
+            ->where([
+                'donor_id' => $request->id,
+            ])->first();
+        $contractNo = $donorPeriod->contract_number;
+        $donorTransaction = App\DonorTransaction::where([
+            'donor_id' => $request->id,
+            'period_year' => $request->year,
+        ])
+            ->where('evidence', '<>', false)
+            ->get()->max('evidence');
+        $lastEvidenceTitle = $donorTransaction ? explode('.', $donorTransaction) : null;
+        $series = $lastEvidenceTitle ? $lastEvidenceTitle[1] + 1 : 1;
+        $evidenceTitle = $contractNo . '.' . $series . '.' . $request->file('file')->getClientOriginalExtension();
+
         $transaction = new App\DonorTransaction();
-        $transaction->trx_date = Carbon::parse($request[$request->trx_date])->format('Y-m-d');
+        $transaction->trx_date = Carbon::parse($request->trx_date)->format('Y-m-d');
         $transaction->amount = $request->amount;
         $transaction->verification = 'UNVERIFIED';
         $transaction->invoice_no = '';
@@ -61,9 +79,9 @@ class ConfirmationController extends Controller
         $transaction->period_year = $request->year;
         $transaction->save();
 
-        $save = $request->file('file')->storeAs("transaction/{$request->year}/{$request->id}/{$transaction->id}/evidence", $request->file('file')->getClientOriginalName());
+        $save = $request->file('file')->storeAs("transaction/{$request->year}/{$request->id}/{$transaction->id}/evidence", $evidenceTitle);
         $user = App\DonorTransaction::find($transaction->id);
-        $user->evidence = $request->file('file')->getClientOriginalName();
+        $user->evidence = $evidenceTitle;
         $user->save();
         return response()->json(['message' => 'Confirmation Sent'], 200);
     }

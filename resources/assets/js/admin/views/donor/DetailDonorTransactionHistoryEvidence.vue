@@ -16,10 +16,14 @@
     </template>
 
     <div v-if="fileName">
-      <span @click="deleteFile"><i class="fa fa-trash" v-b-tooltip.hover="'Delete'" style="color:red;cursor:pointer"></i></span>
+      <span @click="confirmModal = true"><i class="fa fa-trash" v-b-tooltip.hover="'Delete'" style="color:red;cursor:pointer"></i></span>
       <b-link href="#" @click.stop="openFile">{{fileName}}</b-link>
     </div>
-  </div>
+    <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" title="Delete Evidence"
+      v-model="confirmModal" @ok="deleteFile">
+      Are you sure want to delete this evidence?? This action can't be undone.
+    </b-modal>
+    </div>
 </template>
 <script>
   export default {
@@ -27,6 +31,7 @@
     props: ['propsDataId', 'propsIndex', 'propsFileName','propsUserId'],
     data: function () {
       return {
+        confirmModal:false,
         file: [],
         fileName: this.propsFileName,
         index: this.propsIndex,
