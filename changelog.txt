@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+06-04-2019
+### FIXED
+- Evidence attachment for donation in table not updating
+- index number in list donation not updating
+
+
 27-03-2019
 
 ### ADDED

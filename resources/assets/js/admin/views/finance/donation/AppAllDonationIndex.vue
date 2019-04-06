@@ -55,7 +55,7 @@
               class="fa fa-info-circle" style="cursor: pointer"></i>
           </template>
           <template slot="no" slot-scope="data">
-            {{data.index+1}}
+            {{data.index+1+((currentPage-1)*perPage)}}
           </template>
           <template slot="amount" slot-scope="data">
             Rp. {{data.item.amount|currency}}

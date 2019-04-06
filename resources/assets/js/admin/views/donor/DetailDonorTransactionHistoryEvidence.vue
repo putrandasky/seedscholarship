@@ -1,8 +1,8 @@
 <template>
   <div>
-    <b-form-file plain v-if="!fileName && file.length == 0" accept="image/jpeg, image/png, image/gif, application/pdf" ref="upload"
-      v-model="file" @change="onFileChange($event,dataId)" placeholder="Choose a file..." />
-    <template v-if="file.length !== 0 && !fileName">
+    <b-form-file plain v-if="!propsFileName && file.length == 0" accept="image/jpeg, image/png, image/gif, application/pdf" ref="upload"
+      v-model="file" @change="onFileChange($event,propsDataId)" placeholder="Choose a file..." />
+    <template v-if="file.length !== 0 && !propsFileName">
       <div>
         <span v-show="uploadPercentage == 0" @click="resetFile"><i class="fa fa-close" v-b-tooltip.hover="'Cancel'"
             style="color:red;cursor:pointer"></i></span>
@@ -15,9 +15,9 @@
       </div>
     </template>
 
-    <div v-if="fileName">
+    <div v-if="propsFileName">
       <span @click="confirmModal = true"><i class="fa fa-trash" v-b-tooltip.hover="'Delete'" style="color:red;cursor:pointer"></i></span>
-      <b-link href="#" @click.stop="openFile">{{fileName}}</b-link>
+      <b-link href="#" @click.stop="openFile">{{propsFileName}}</b-link>
     </div>
     <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" title="Delete Evidence"
       v-model="confirmModal" @ok="deleteFile">
@@ -33,10 +33,7 @@
       return {
         confirmModal:false,
         file: [],
-        fileName: this.propsFileName,
-        index: this.propsIndex,
-        dataId: this.propsDataId,
-        userId: this.propsUserId,
+
 
         uploadPercentage: 0,
         new_file: '',
@@ -49,6 +46,20 @@
       }
     },
     created() {},
+    watch:{
+      // propsFileName(val){
+      //   this.fileName = val
+      // },
+      // propsIndex(val){
+      //   this.index = val
+      // },
+      // propsDataId(val){
+      //   this.dataId = val
+      // },
+      // propsUserId(val){
+      //   this.userId = val
+      // },
+    },
     methods: {
       onFileChange(e, id) {
         const file = e.target.files[0];
@@ -69,7 +80,7 @@
       openFile() {
         let self = this
         window.open(
-          `/api/file/donor-transaction/evidence/${this.userId}?id=${this.dataId}&periodYear=${this.$route.params.periodYear}&fileName=${this.fileName}`,
+          `/api/file/donor-transaction/evidence/${this.propsUserId}?id=${this.propsDataId}&periodYear=${this.$route.params.periodYear}&fileName=${this.propsFileName}`,
           self.data.name,
           `window,width=${screen.availWidth},height=${screen.availHeight},resizeable,left=200,top=100,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0`
         );
@@ -81,9 +92,9 @@
         formData.append('file', this.file)
         axios.post(`api/file/donor-transaction/evidence`, formData, {
             params: {
-              id: this.dataId,
+              id: this.propsDataId,
               periodYear: this.$route.params.periodYear,
-              userId: this.userId,
+              userId: this.propsUserId,
             },
             headers: {
               'Content-Type': 'multipart/form-data'
@@ -94,7 +105,7 @@
           })
           .then((response) => {
             console.log(response.data)
-            self.fileName = response.data.filename
+            self.propsFileName = response.data.filename
             self.new_file = null
             self.uploadPercentage = 0
 
@@ -112,11 +123,11 @@
 
         let self = this
         axios.delete(
-            `api/file/donor-transaction/evidence/${this.userId}?id=${this.dataId}&periodYear=${this.$route.params.periodYear}&fileName=${this.fileName}`
+            `api/file/donor-transaction/evidence/${this.propsUserId}?id=${this.propsDataId}&periodYear=${this.$route.params.periodYear}&fileName=${this.propsFileName}`
           )
           .then((response) => {
             console.log(response.data)
-            self.fileName = ''
+            self.propsFileName = ''
             this.$snotify.success(`Succesfully Deleted`, "DELETED");
             self.file = []
           })

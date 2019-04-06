@@ -22,11 +22,7 @@
     props: ['invoiceNo', 'dataId', 'index', 'hasInvoice','userId'],
     data: function () {
       return {
-        index: this.propsIndex,
-        dataId: this.propsDataId,
-        userId: this.propsUserId,
-        invoiceNo: this.propsInvoiceNo,
-        hasInvoice: this.propsHasInvoice,
+
         isDisabled: false,
         confirmModal: false,
         confirmModalTitle: '',
