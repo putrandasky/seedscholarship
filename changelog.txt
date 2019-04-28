@@ -1,5 +1,12 @@
 # CHANGE LOG
 
+28-04-2019
+### FIXED
+- Action for edit in donor transaction not work properly
+### CHANGE
+- Subject Email for Payment receipt donation
+- bcc on email
+
 06-04-2019
 ### FIXED
 - Evidence attachment for donation in table not updating

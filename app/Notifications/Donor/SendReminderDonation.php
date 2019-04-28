@@ -42,6 +42,7 @@ class SendReminderDonation extends Notification
         $url = 'hello@seedscholarship.org';
         return (new MailMessage)
             ->from($url, 'SEED Scholarship')
+            ->bcc('bcc@seedschorlarship.org')
             ->subject('Reminder Donasi')
             ->markdown('email.DonorReminderDonation', ['data' => $this->data]);
 

@@ -43,7 +43,8 @@ class SendPaymentReceipt extends Notification
 $url = 'hello@seedscholarship.org';
         return (new MailMessage)
             ->from($url,'SEED Scholarship')
-            ->subject("Payment Receipt #{$this->data->donorTransactions[0]->invoice_no}")
+            ->bcc('bcc@seedschorlarship.org')
+            ->subject("Terimakasih Atas Donasinya | Receipt #{$this->data->donorTransactions[0]->invoice_no}")
             ->markdown('email.DonorPaymentReceipt', ['data' => $this->data])
             ->attach(storage_path('app')."/transaction/{$this->data->donorPeriods[0]->period->year}/{$this->data->id}/{$this->data->donorTransactions[0]->id}/invoice/{$this->data->donorTransactions[0]->invoice_no}.pdf");
 

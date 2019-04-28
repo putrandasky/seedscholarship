@@ -79,15 +79,15 @@
           </template>
           <template slot="actions" slot-scope="data">
             <b-btn-group>
-              <b-btn variant="primary" size="sm" v-b-tooltip.hover="'Edit'" @click="handleEditTransaction(data.index)">
+              <b-btn variant="primary" size="sm" v-b-tooltip.hover="'Edit'" @click="handleEditTransaction(data.index+((currentPage-1)*perPage))">
                 <i class="fa fa-edit"></i>
               </b-btn>
-              <b-btn :disabled="!sendInvoiceAvailable(data.index)" variant="success" size="sm" v-b-tooltip.hover="'Send Payment Receipt'"
+              <b-btn :disabled="!sendInvoiceAvailable(data.index+((currentPage-1)*perPage))" variant="success" size="sm" v-b-tooltip.hover="'Send Payment Receipt'"
                 @click="triggerConfirmModal(
             'Send Payment Receipt',
             'Are You Sure To Send Payment Receipt for This Transaction?',
             'sendInvoice',
-            {id:data.item.id,donor_id:data.item.donor_id,index:data.index}
+            {id:data.item.id,donor_id:data.item.donor_id,index:data.index+((currentPage-1)*perPage)}
              )"><i
                   class="fa fa-send"></i>
                   </b-btn>
@@ -95,7 +95,7 @@
             'Delete Transaction',
             'Are You Sure To Delete This Transaction? All related data, inc evidence and invoice, will be deleted',
             'deleteTransaction',
-            {id:data.item.id,donor_id:data.item.donor_id,index:data.index}
+            {id:data.item.id,donor_id:data.item.donor_id,index:data.index+((currentPage-1)*perPage)}
              )">
                 <i class="fa fa-trash"></i>
               </b-btn>
@@ -278,6 +278,7 @@
         this.input.id = this.filteredItemsData[index].id
         this.transactionTableIndex = index
         console.log(this.input.id);
+        console.log(index);
 
         this.transactionModal = true
         this.transactionModalTitle = 'Edit Transaction'
@@ -321,7 +322,7 @@
           .then((response) => {
             console.log(response.data)
             self.filteredItemsData.splice(this.confirmModalTempValue.index, 1)
-            this.getData()
+            // this.getData()
           })
           .catch((error) => {
             console.log(error);
@@ -364,6 +365,8 @@
             }
             this.itemsData = editData(response.data)
             this.loaded = true
+            console.log(this.itemsData);
+
           })
           .catch((error) => {
             console.log(error);

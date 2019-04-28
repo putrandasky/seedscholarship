@@ -44,6 +44,7 @@ class PostRegistered extends Notification
 $url = 'hello@seedscholarship.org';
         return (new MailMessage)
             ->from($url,'SEED Scholarship')
+            ->bcc('bcc@seedschorlarship.org')
             ->subject('Selamat Bergabung di SEEDS')
             ->markdown('email.DonorPostRegistered', ['data' => $this->data]);
             // ->attach(storage_path('app')."/contract/donor/{$this->data->periods[0]->period}/{$this->data->id}/Surat Perjanjian Kerja Sama {$this->data->name}.pdf");

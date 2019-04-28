@@ -94,7 +94,7 @@ if ($nilai < 0) { $hasil="minus " . trim(penyebut($nilai)); } else { $hasil=trim
   <body style="margin:20px">
     <div>
       <img style="max-height:75px;text-align:center; max-width:100%" src="{{ config('app.url').'/images/Seedlogo2.png'}}">
-      <span style="float:right;border-style:solid;padding:5px 40px">{{$donor->donorTransactions[0]->invoice_no}}</span>
+      <span style="float:right;border-style:solid;padding:5px 40px">INV-DON-{{$donor->donorTransactions[0]->invoice_no}}</span>
     </div>
 
     <div class="text-center">

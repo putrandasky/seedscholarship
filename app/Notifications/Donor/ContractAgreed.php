@@ -44,6 +44,7 @@ class ContractAgreed extends Notification
 $url = 'hello@seedscholarship.org';
         return (new MailMessage)
             ->from($url,'SEED Scholarship')
+            ->bcc('bcc@seedschorlarship.org')
             ->subject("Kontrak Kerja Sama SEEDS #{$this->data->donorPeriods[0]->period->period}")
             ->markdown('email.DonorContractAgreed', ['data' => $this->data])
             ->attach(storage_path('app')."/contract/donor/{$this->data->donorPeriods[0]->period->period}/{$this->data->id}/Surat Perjanjian Kerja Sama {$this->data->name}.pdf");
