@@ -47,7 +47,8 @@ Route::group(['prefix' => 'donor'], function () {
 
 //     $markdown = new Markdown(view(), config('mail.markdown'));
 
-//     return $markdown->render('email.DonorPostRegistered');
+//     return $markdown->render('email.DonorReminderDonation');
+//     // return $markdown->render('email.DonorPostRegistered');
 // });
 
 // Route::get('/', function () {

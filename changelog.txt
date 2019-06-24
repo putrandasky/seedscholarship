@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+24-05-2019
+### ADDED
+- Instagram Link on Reminder Donation
+
 28-04-2019
 ### FIXED
 - Action for edit in donor transaction not work properly

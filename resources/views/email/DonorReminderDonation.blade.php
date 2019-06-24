@@ -15,20 +15,20 @@ Donasi dapat dilakukan dengan cara transfer ke
 @component('mail::panel')<table style="border-spacing:0px">
       <tbody>
         <tr>
-          <td style="padding-left:35px">Nomor Rekening </td>
-          <td style="padding-left:20px">: 0343806044</td>
+          <td style="padding-left:5px">Nomor Rekening </td>
+          <td style="padding-left:10px">: 0343806044</td>
         </tr>
         <tr>
-          <td style="padding-left:35px">Nama Bank</td>
-          <td style="padding-left:20px">: BNI</td>
+          <td style="padding-left:5px">Nama Bank</td>
+          <td style="padding-left:10px">: BNI</td>
         </tr>
         <tr>
-          <td style="padding-left:35px">Cabang</td>
-          <td style="padding-left:20px">: Kantor Cabang Kementerian PU</td>
+          <td style="padding-left:5px">Cabang</td>
+          <td style="padding-left:10px">: Kantor Cabang Kementerian PU</td>
         </tr>
         <tr>
-          <td style="padding-left:35px">Nama Pemilik Rekening</td>
-          <td style="padding-left:20px">: a.n. Desy Rahayu Hertanti</td>
+          <td style="padding-left:5px">Nama Pemilik Rekening</td>
+          <td style="padding-left:10px">: a.n. Desy Rahayu Hertanti</td>
         </tr>
       </tbody>
     </table>
@@ -36,6 +36,7 @@ Donasi dapat dilakukan dengan cara transfer ke
 
 Apabila transaksi sudah dilakukan, silahkan mengirimkan bukti transfer ke:
 
+{{-- @component('mail::button', ['url' => config('app.url')."/donor#/donation-confirmation"]) --}}
 @component('mail::button', ['url' => config('app.url')."/donor#/donation-confirmation?id={$data->id}&year={$data->donorPeriods[0]->period->year}&email={$data->email}&donation_token={$data->donorPeriods[0]->donation_token}"])
 Konfirmasi Pembayaran @endcomponent
 
@@ -48,6 +49,11 @@ Terimakasih,<br/>
 <br/>
 <img style="height:5%" src="{{ config('app.url').'/images/heart.png'}}">
 <strong>SEED Scholarship</strong>
+
+<div style="text-align:center;margin-bottom:15px;margin-top:50px">Follow IG kami untuk informasi update kegiatan</div>
+
+<a href="https://instagram.com/seedscholarship/" target="_blank"><img style="margin-left:auto;margin-right:auto;display:block" src="{{ config('app.url').'/images/Instagram.png'}}"></a>
+<div style="text-align:center"><a href="https://instagram.com/seedscholarship/" target="_blank"><strong>IG: @seedscholarship</strong></a></div>
 
 @slot('footer')
 @component('mail::footer')
