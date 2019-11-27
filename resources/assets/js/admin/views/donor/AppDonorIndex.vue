@@ -167,6 +167,8 @@
                 temp['contract'] = temp.donor_periods[0].is_contract_agreed
                 temp['last_donate'] = temp.last_donate
                 temp['total_donation'] = temp.total_donation
+                temp['pr'] = temp.donor_periods[0].pr ? temp.donor_periods[0].pr.name : ""
+                temp['pco'] = temp.donor_periods[0].pco ? temp.donor_periods[0].pco.name : ""
                 temp['plan'] = this.getPlanToDate(temp.donor_periods[0].amount,temp.donor_periods[0].donation_category)
                 temp['_rowVariant'] = this.getBadgeLastDonate(temp.last_donate)
                 // temp.name = 'my name '+temp.name;

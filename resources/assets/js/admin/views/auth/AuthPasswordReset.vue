@@ -74,7 +74,7 @@
       reset() {
         this.errors.password = null
         this.isDisabled = true
-        axios.post('api/reset/password', this.input)
+        axios.post('auth/reset/password/admin', this.input)
           .then((response) => {
             this.$snotify.success(response.data.status, "SUCCESS");
             this.input.password = '',
@@ -90,7 +90,7 @@
               let errors = error.response.data.errors
             this.errors.password = errors.password ? errors.password[0] : 'no-error';
             this.$snotify.error(errors.password[0], "ERROR");
-              
+
             }else{
               this.$snotify.error(error.response.data.status, "ERROR");
             }
@@ -100,7 +100,7 @@
       checkHasAuthorize() {
         let getToken = this.$route.query.token
         let getEmail = this.$route.query.email
-        axios.get(`api/reset/password?email=${getEmail}&token=${getToken}`)
+        axios.get(`auth/reset/password?email=${getEmail}&token=${getToken}`)
           .then((response) => {
             this.input.token = getToken
             this.input.email = getEmail

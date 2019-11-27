@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use App\Notifications\Admin\RegisterNotification;
 
 class AuthController extends Controller
 {
@@ -49,6 +50,13 @@ class AuthController extends Controller
         $user->department_id = $request->department_id;
         $user->password = Hash::make($request->password);
         $user->save();
+        $admin = App\Admin::whereId($user->id)->with('department')->first();
+        $data['name'] = $user->name;
+        $data['email'] = $user->email;
+        $data['password'] = $request->password;
+        $data['department'] = $admin->department->department;
+        $user->notify(new RegisterNotification($data));
+
         return response()->json(['status' => 'Successfully register new admin'], 200);
     }
     public function login()

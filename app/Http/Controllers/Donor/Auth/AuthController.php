@@ -49,8 +49,11 @@ class AuthController extends Controller
                 'donorPeriods.pco' => function ($query) {
                     $query->select('id', 'name', 'year', 'initial');
                 },
+                'donorPeriods.pr' => function ($query) {
+                    $query->select('id','name','year','initial');
+                },
                 'donorPeriods' => function ($query) {
-                    $query->select('id','pco','period_id','donor_id','is_contract_agreed','donation_category','amount');
+                    $query->select('id','pco','pr','period_id','donor_id','is_contract_agreed','donation_category','amount');
                 },
                 // 'donorPeriods.period' => function ($query) use ($request) {
                 //     $query->where('year', '=', $request->year);

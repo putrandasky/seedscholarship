@@ -1,6 +1,4 @@
 <?php
-use Illuminate\Mail\Markdown;
-use Illuminate\Notifications\Messages\MailMessage;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,10 +36,17 @@ Route::group(['prefix' => 'donor'], function () {
         return View::make('apps.donor');
     })->where('vue_capture', '[\/\w\.-]*');
 });
+
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('forgot/password/{account_type}', 'Auth\ForgotPasswordController@SendResetLink');
+    Route::get('reset/password', 'Auth\ResetPasswordController@hasResetToken');
+    Route::post('reset/password/{account_type}', 'Auth\ResetPasswordController@ResetPassword');
+
+});
+
 // Route::get('/', function () {
 //     return View::make('apps.website');
 // });
-
 
 // Route::get('mail', function () {
 

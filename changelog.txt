@@ -1,5 +1,14 @@
 # CHANGE LOG
 
+
+
+27-11-2019
+### ADDED
+- Forgot Password Feature
+- Send Notification after register new admin
+- sort by PCO & PR
+
+
 24-05-2019
 ### ADDED
 - Instagram Link on Reminder Donation

@@ -50,7 +50,7 @@
         let self = this
         this.$snotify.async('Creating Link for Reseting Password', 'Please Wait', () => {
           return new Promise((resolve, reject) => {
-            return axios.post(`api/forgot/password`, {
+            return axios.post(`auth/forgot/password/admin`, {
                 email: this.input.email
               })
               .then(function (response) {
