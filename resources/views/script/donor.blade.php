@@ -1,1 +1,1 @@
-<script src="{{ asset('js/script-donor.js') }}"></script>
+<script src="{{ mix('/js/script-donor.js') }}"></script>

@@ -21,7 +21,7 @@ Route::get('test/sendreminder', 'TestController@sendreminder');
 
 Route::group([
 
-    // 'middleware' => 'jwt.verify',
+    'middleware' => 'jwt.verify',
 
 ], function ($router) {
 

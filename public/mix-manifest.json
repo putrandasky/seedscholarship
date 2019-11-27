@@ -1,6 +1,6 @@
 {
-    "/js/script-admin.js": "/js/script-admin.js",
-    "/js/script-awardee.js": "/js/script-awardee.js",
-    "/js/script-donor.js": "/js/script-donor.js",
-    "/js/script-nonreg.js": "/js/script-nonreg.js"
+    "/js/script-admin.js": "/js/script-admin.js?id=aa02ba7181d92e3c4e06",
+    "/js/script-awardee.js": "/js/script-awardee.js?id=66784d8a65a55855c785",
+    "/js/script-donor.js": "/js/script-donor.js?id=6aa83e8489499c75dca0",
+    "/js/script-nonreg.js": "/js/script-nonreg.js?id=375cab784c1682b49ea6"
 }

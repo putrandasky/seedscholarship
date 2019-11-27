@@ -1,1 +1,1 @@
-<script src="{{ asset('js/script-admin.js') }}"></script>
+<script src="{{ mix('/js/script-admin.js') }}"></script>

@@ -18,6 +18,19 @@ mix.js('resources/assets/js/awardee/app.js', 'public/js/script-awardee.js')
 .js('resources/assets/js/nonreg/app.js', 'public/js/script-nonreg.js')
 .js('resources/assets/js/donor/app.js', 'public/js/script-donor.js');
 
+if (mix.inProduction()) {
+  mix.version();
+  mix.options({
+    terser: {
+      terserOptions: {
+        compress: {
+          drop_console: true
+        }
+      }
+    }
+  });
+}
+
 
 // mix.js('resources/assets/js/awardee/app.js', 'public/js/awardee/script-awardee.js').sourceMaps(true, 'source-map')
 // .js('resources/assets/js/admin/app.js', 'public/js/admin/script-admin.js').sourceMaps(true, 'source-map')
