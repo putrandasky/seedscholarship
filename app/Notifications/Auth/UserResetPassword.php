@@ -40,6 +40,7 @@ class UserResetPassword extends Notification
      */
     public function toMail($notifiable)
     {
+$url = 'hello@seedscholarship.org';
         return (new MailMessage)
             ->from($url,'SEED Scholarship')
             ->bcc('bcc@seedscholarship.org')
