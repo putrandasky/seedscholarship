@@ -4,13 +4,13 @@
       <div slot="header" class="text-center">
         <strong>Transaksi Donatur</strong>
       </div>
-      <div>
+      <!-- <div>
         <b-button-group>
           <router-link v-for="(v) in periods" :key="v.id" tag="button" class="btn btn-outline-primary btn-sm" :to="{name:'AllDonationIndex', params:{periodYear: v.year}}">
             Seedscholarship #{{v.period}} - year {{v.year}}
           </router-link>
         </b-button-group>
-      </div>
+      </div> -->
       <div>
         <router-view></router-view>
       </div>

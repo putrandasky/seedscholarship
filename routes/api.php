@@ -42,6 +42,7 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::post('donor/update', 'Donor\Auth\AuthController@Update');
     Route::get('donor', 'Donor\Auth\AuthController@index');
+    Route::get('donor-index', 'Admin\Donor\DonorIndexController@index');
     Route::post('donor/register/email-post-register/{userId}', 'Donor\Auth\RegisterController@resendEmailPostRegistered');
 
 });
@@ -61,6 +62,7 @@ Route::group(['prefix' => 'file'], function () {
     Route::apiResource('donor-transaction/evidence','Donor\Transaction\EvidenceController');
 });
 
+Route::get('donor-transaction/year-index', 'Donor\Transaction\TransactionHistoryController@yearIndex');
 Route::apiResource('donor-transaction', 'Donor\Transaction\TransactionHistoryController');
 Route::apiResource('donor-transaction/collection-officer', 'Donor\Transaction\CollectionOfficerController');
 Route::apiResource('department', 'Admin\Auth\DepartmentController');

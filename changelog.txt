@@ -1,6 +1,9 @@
 # CHANGE LOG
 
-
+28-11-2019
+### IMPROVE
+- Better Summary Index in donor page
+- Better Summary Index in transaction history page
 
 27-11-2019
 ### ADDED

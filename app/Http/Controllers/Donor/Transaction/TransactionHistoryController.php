@@ -6,6 +6,7 @@ use App;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
@@ -16,18 +17,49 @@ class TransactionHistoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function yearIndex(Request $request)
+    {
+        $data = App\Period::
+            withCount([
+            'donorTransactions AS total_transaction',
+            'donorTransactions AS verified_amount' => function ($query) {
+                $query->where('verification', 'VERIFIED');
+                $query->select(DB::raw("SUM(amount) as verified_amount"));
+            },
+            'donorTransactions AS unverified_amount' => function ($query) {
+                $query->where('verification', 'UNVERIFIED');
+                $query->select(DB::raw("SUM(amount) as unverified_amount"));
+            },
+            'donorTransactions AS total_amount' => function ($query) {
+                $query->select(DB::raw("SUM(amount) as total_amount"));
+            },
+            'donorTransactions AS verified_transaction' => function ($query) {
+                $query->where('verification', 'VERIFIED');
+            },
+            'donorTransactions AS unverified_transaction' => function ($query) {
+                $query->where('verification', 'UNVERIFIED');
+            },
+            'donorTransactions AS not_sent_invoice' => function ($query) use ($request) {
+                $query->where('status_invoice', 'NOT SENT');
+                $query->where('verification', 'VERIFIED');
+            },
+        ])
+            ->orderBy('year', 'desc')
+            ->get();
+
+        return $data;
+    }
     public function index(Request $request)
     {
-        $data = App\DonorTransaction::where('period_year',$request->periodYear)
-        ->with([
-          'donor'=>function($query){
-            $query->select(['id','name','year']);
-          }
-        ])
-        ->latest()
-        ->get();
+        $data = App\DonorTransaction::where('period_year', $request->periodYear)
+            ->with([
+                'donor' => function ($query) {
+                    $query->select(['id', 'name', 'year']);
+                },
+            ])
+            ->latest()
+            ->get();
         return $data;
-
     }
 
     /**
@@ -91,7 +123,7 @@ class TransactionHistoryController extends Controller
             'amount' => 'required|numeric',
             'verification' => 'required',
             'status_invoice' => 'required',
-            'invoice_no' => $request->invoice_no? Rule::unique('donor_transactions')->ignore($id):'',
+            'invoice_no' => $request->invoice_no ? Rule::unique('donor_transactions')->ignore($id) : '',
 
         ];
         $messages = [
@@ -116,7 +148,7 @@ class TransactionHistoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
         Storage::deleteDirectory("transaction/{$request->period_year}/{$request->donor_id}/{$id}");
         $user = App\DonorTransaction::find($id);
@@ -124,7 +156,7 @@ class TransactionHistoryController extends Controller
         return response()->json(['status' => 'File Deleted Successfuly'], 200);
 
     }
-    public function sendInvoice(Request $request,$id)
+    public function sendInvoice(Request $request, $id)
     {
         $user = App\DonorTransaction::find($id);
         $user->delete();

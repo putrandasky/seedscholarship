@@ -1,6 +1,9 @@
 <template>
   <slide-y-up-transition>
-    <div v-show="loaded" class="mt-3">
+    <div v-show="loaded">
+            <b-btn class="mb-2" @click="handleClickBackButton" size="sm">
+        Back
+      </b-btn>
       <b-row>
         <b-col xl="4" md="6" class="mb-3">
           <b-input-group>
@@ -242,6 +245,11 @@
     },
 
     methods: {
+            handleClickBackButton() {
+        this.$router.push({
+          name: 'AllDonationDefault',
+        })
+      },
       onConfirmModal() {
         if (this.confirmModalState == 'deleteTransaction') {
           this.deleteTransaction()

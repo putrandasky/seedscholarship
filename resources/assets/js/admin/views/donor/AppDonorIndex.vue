@@ -1,20 +1,23 @@
 <template>
   <slide-y-up-transition>
-    <div v-show="loaded" class="mt-3">
-    <b-row>
-      <b-col sm="6" md="3">
-        <panel :data="panel.user" title='total donor' />
-      </b-col>
-      <b-col sm="6" md="3">
-        <panel :data="panel.plan" title='target donation' />
-      </b-col>
-      <b-col sm="6" md="3">
-        <panel :data="panel.actual" title='actual to date' />
-      </b-col>
-      <b-col sm="6" md="3">
-        <panel :data="panel.remaining" title='remaining' />
-      </b-col>
-    </b-row>
+    <div v-show="loaded">
+      <b-btn class="mb-2" @click="handleClickBackButton" size="sm">
+        Back
+      </b-btn>
+      <b-row>
+        <b-col sm="6" md="3">
+          <panel :data="panel.user" title='total donor' />
+        </b-col>
+        <b-col sm="6" md="3">
+          <panel :data="panel.plan" title='target donation' />
+        </b-col>
+        <b-col sm="6" md="3">
+          <panel :data="panel.actual" title='actual to date' />
+        </b-col>
+        <b-col sm="6" md="3">
+          <panel :data="panel.remaining" title='remaining' />
+        </b-col>
+      </b-row>
       <b-row>
         <b-col xl="4" md="6" class="mb-3">
           <b-input-group>
@@ -34,20 +37,22 @@
         </b-col>
       </b-row>
       <div style="overflow-y:auto">
-        <b-table stacked="sm" stack style="animation-duration: 1s" hover :fields="FieldTableItems" :items="filteredItemsData"
-          thead-class="thead-light" :sort-by.sync="querySortBy" :sort-desc.sync="querySortDesc" @sort-changed="sortingChanged"
-          :current-page="currentPage" :per-page="perPage" @row-clicked="handleRowClicked">
+        <b-table stacked="sm" stack style="animation-duration: 1s" hover :fields="FieldTableItems"
+          :items="filteredItemsData" thead-class="thead-light" :sort-by.sync="querySortBy"
+          :sort-desc.sync="querySortDesc" @sort-changed="sortingChanged" :current-page="currentPage" :per-page="perPage"
+          @row-clicked="handleRowClicked">
 
-            <template slot="HEAD_unverified_transactions" slot-scope="data">
-              <span>
-              <i v-b-tooltip.top.hover title="Unverified Transactions"  class="fa fa-check" style="cursor: pointer;color:limegreen"></i>
-              </span>
-            </template>
-            <template slot="HEAD_not_sent_invoice" slot-scope="data">
-              <span>
-              <i v-b-tooltip.top.hover title="Payment receipt to send"  class="fa fa-send" style="cursor: pointer"></i>
-              </span>
-            </template>
+          <template slot="HEAD_unverified_transactions" slot-scope="data">
+            <span>
+              <i v-b-tooltip.top.hover title="Unverified Transactions" class="fa fa-check"
+                style="cursor: pointer;color:limegreen"></i>
+            </span>
+          </template>
+          <template slot="HEAD_not_sent_invoice" slot-scope="data">
+            <span>
+              <i v-b-tooltip.top.hover title="Payment receipt to send" class="fa fa-send" style="cursor: pointer"></i>
+            </span>
+          </template>
           <template slot="no" slot-scope="data">
             {{data.index+1+((currentPage-1)*perPage)}}
           </template>
@@ -62,11 +67,12 @@
             </b-badge>
           </template>
           <template slot="total_donation" slot-scope="data">
-            <span :style="{'color':moreDonationColor(data.item.total_donation, data.item.donor_periods[0].amount,data.item.donor_periods[0].donation_category)}">
+            <span
+              :style="{'color':moreDonationColor(data.item.total_donation, data.item.donor_periods[0].amount,data.item.donor_periods[0].donation_category)}">
               Rp. {{data.item.total_donation | currency}}</span>
           </template>
           <template slot="plan" slot-scope="data">
-              Rp. {{data.item.plan | currency}}
+            Rp. {{data.item.plan | currency}}
           </template>
           <!-- <template slot="last_donate" slot-scope="data">
             <b-badge :variant="getBadgeLastDonate(data.item.last_donate)">
@@ -92,16 +98,18 @@
   export default {
     name: 'AppDonorIndex',
     mixins: [AppDonorFieldTableData, instantSearch, OperationPage],
-    components:{panel},
+    components: {
+      panel
+    },
     data: function () {
       return {
         routeName: 'AccountDonorIndex',
         loaded: false,
-        panel:{
-          user:null,
-          plan:null,
-          actual:null,
-          remaining:null
+        panel: {
+          user: null,
+          plan: null,
+          actual: null,
+          remaining: null
         }
       }
     },
@@ -110,34 +118,39 @@
       '$route.params.periodYear': 'getData'
     },
     methods: {
-      moreDonationColor(actual,plan,category){
+      handleClickBackButton() {
+        this.$router.push({
+          name: 'AccountDonorDefault',
+        })
+      },
+      moreDonationColor(actual, plan, category) {
         // let thisDate = dayjs()
         let today = (new Date()).getDate()
         let day = (new Date()).getDate()
         let month = (new Date()).getMonth() + 1
         let lastMonth = (new Date()).getMonth()
         if (category === 'AKTIF') {
-          return 1 <= today && today < 25?
-          actual == (plan/10 )* (lastMonth - 2) ? 'black':actual > (plan/10 )* (lastMonth - 2) ? 'blue':'red'
-          // actual == (plan/12 )* lastMonth ? 'black':actual > (plan/12 )* lastMonth ? 'blue':'red'
-          :
-          actual == (plan/10 )* (month - 2) ? 'black':actual > (plan/10 )* (month - 2) ? 'blue':'red'
+          return 1 <= today && today < 25 ?
+            actual == (plan / 10) * (lastMonth - 2) ? 'black' : actual > (plan / 10) * (lastMonth - 2) ? 'blue' : 'red'
+            // actual == (plan/12 )* lastMonth ? 'black':actual > (plan/12 )* lastMonth ? 'blue':'red'
+            :
+            actual == (plan / 10) * (month - 2) ? 'black' : actual > (plan / 10) * (month - 2) ? 'blue' : 'red'
           // actual == (plan/12 )* month ? 'black':actual > (plan/12 )* month ? 'blue':'red'
-        }else{
-          return actual == plan ? 'black'  :actual > plan? 'blue':'red'
+        } else {
+          return actual == plan ? 'black' : actual > plan ? 'blue' : 'red'
         }
 
       },
-      getPlanToDate(plan,category){
+      getPlanToDate(plan, category) {
         // let thisDate = dayjs()
         let today = (new Date()).getDate()
         let day = (new Date()).getDate()
         let month = (new Date()).getMonth() + 1
         let lastMonth = (new Date()).getMonth()
         if (category === 'AKTIF') {
-          return 1 <= today && today < 25?(plan/10 )* (lastMonth - 2):(plan/10 )* (month - 2)
+          return 1 <= today && today < 25 ? (plan / 10) * (lastMonth - 2) : (plan / 10) * (month - 2)
           // return 1 <= today && today < 25?(plan/12 )* (lastMonth ):(plan/12 )* (month )
-        }else{
+        } else {
           return plan
         }
 
@@ -169,7 +182,8 @@
                 temp['total_donation'] = temp.total_donation
                 temp['pr'] = temp.donor_periods[0].pr ? temp.donor_periods[0].pr.name : ""
                 temp['pco'] = temp.donor_periods[0].pco ? temp.donor_periods[0].pco.name : ""
-                temp['plan'] = this.getPlanToDate(temp.donor_periods[0].amount,temp.donor_periods[0].donation_category)
+                temp['plan'] = this.getPlanToDate(temp.donor_periods[0].amount, temp.donor_periods[0]
+                  .donation_category)
                 temp['_rowVariant'] = this.getBadgeLastDonate(temp.last_donate)
                 // temp.name = 'my name '+temp.name;
                 return temp;
@@ -177,10 +191,10 @@
             }
             this.itemsData = editData(response.data.user)
             this.panel = {
-              user :response.data.total_user,
-              plan :response.data.plan_donation,
-              actual :response.data.actual_donation,
-              remaining :response.data.remaining,
+              user: response.data.total_user,
+              plan: response.data.plan_donation,
+              actual: response.data.actual_donation,
+              remaining: response.data.remaining,
             }
             this.loaded = true
           })
@@ -202,19 +216,17 @@
         let day = (new Date()).getDate()
         let month = (new Date()).getMonth()
         let year = (new Date()).getFullYear()
-        let dayEndOfMont = new Date(2019,1,0)
-        let startPeriod1 = dayjs(new Date(year,month,25)).subtract(1,'month')
-        let endPeriod1 = dayjs(new Date(year,month,25))
-        let startPeriod2 = dayjs(new Date(year,month,25))
-        let endPeriod2 = dayjs(new Date(year,month,25)).add(1,'month')
+        let dayEndOfMont = new Date(2019, 1, 0)
+        let startPeriod1 = dayjs(new Date(year, month, 25)).subtract(1, 'month')
+        let endPeriod1 = dayjs(new Date(year, month, 25))
+        let startPeriod2 = dayjs(new Date(year, month, 25))
+        let endPeriod2 = dayjs(new Date(year, month, 25)).add(1, 'month')
         let endOfMonth = dayjs(new Date).endOf('month').date()
-        return 1 <= today && today < 25?
-        startPeriod1<= thisDate && thisDate <= endPeriod1 ? 'success':''
-        :
-        25 <= today && today <= endOfMonth?
-        startPeriod2 <= thisDate && thisDate <= endPeriod2 ? 'success':''
-        :
-        ''
+        return 1 <= today && today < 25 ?
+          startPeriod1 <= thisDate && thisDate <= endPeriod1 ? 'success' : '' :
+          25 <= today && today <= endOfMonth ?
+          startPeriod2 <= thisDate && thisDate <= endPeriod2 ? 'success' : '' :
+          ''
 
 
 

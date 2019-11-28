@@ -5,11 +5,11 @@
         <strong>List Donatur</strong>
       </div>
       <div>
-        <b-button-group>
+        <!-- <b-button-group>
           <router-link v-for="(v) in periods" :key="v.id" tag="button" class="btn btn-outline-primary btn-sm" :to="{name:'AccountDonorIndex', params:{periodYear: v.year}}">
             Seedscholarship #{{v.period}} - year {{v.year}}
           </router-link>
-        </b-button-group>
+        </b-button-group> -->
       </div>
       <div>
         <router-view></router-view>
