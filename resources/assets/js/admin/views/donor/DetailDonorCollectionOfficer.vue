@@ -6,9 +6,9 @@
           v-b-tooltip.hover="'Add/Edit Collection Officer'"><i class="fa fa-plus"></i></b-button>
       </h5>
     </div>
-    <span v-if="data" style="font-size:large;padding-left:20px">
+    <div v-if="data" style="font-size:large;padding-left:20px">
       {{data.name }} ({{data.year }})
-    </span>
+    </div>
     <b-modal :ok-disabled="checkOkEditPco" :no-close-on-esc="true" :hide-header-close="true"
       :no-close-on-backdrop="true" title="Assign Payment and Collection Officer" v-model="editPcoModal" @cancel="selectedUser = null" @ok="sendData">
       <b-form-group>

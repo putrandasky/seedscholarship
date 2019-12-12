@@ -8,62 +8,62 @@
     <div style="overflow-y:auto">
       <b-table stacked="sm" stack small :fields="FieldTableItems" :items="transactions" thead-class="thead-light"
         @row-clicked="handleRowClicked">
-          <template slot="HEAD_created_at" slot-scope="data">
+          <template v-slot:head(created_at)="data">
             <span>Input Date
             </span>
             <i v-b-tooltip.top.hover title="Tanggal submit/penerimaan konfirmasi donasi" style="cursor: pointer" class="fa fa-info-circle">
             </i>
           </template>
-          <template slot="HEAD_trx_date" slot-scope="data">
+          <template v-slot:head(trx_date)="data">
             <span>Trx Date
             </span>
             <i v-b-tooltip.top.hover title="Tanggal actual transaksi" class="fa fa-info-circle" style="cursor: pointer"></i>
           </template>
-          <template slot="HEAD_evidence" slot-scope="data">
+          <template v-slot:head(evidence)="data">
             <span>Evidence
             </span>
             <i v-b-tooltip.top.hover title="Bukti transfer" class="fa fa-info-circle" style="cursor: pointer"></i>
           </template>
-          <template slot="HEAD_verification" slot-scope="data">
+          <template v-slot:head(verification)="data">
             <span>Verification
             </span>
             <i v-b-tooltip.top.hover title="Status verifikasi transaksi" class="fa fa-info-circle" style="cursor: pointer"></i>
           </template>
-          <template slot="HEAD_invoice_no" slot-scope="data">
+          <template v-slot:head(invoice_no)="data">
             <span>Invoice
             </span>
             <i v-b-tooltip.top.hover title="Nomor invoice dan bukti penerimaan donasi" class="fa fa-info-circle" style="cursor: pointer"></i>
           </template>
-          <template slot="HEAD_status_invoice" slot-scope="data">
+          <template v-slot:head(status_invoice)="data">
             <span>Status
             </span>
             <i v-b-tooltip.top.hover title="Untuk menginformasikan status bukti penerimaan donasi sudah terkirim ke donatur atau belum"
               class="fa fa-info-circle" style="cursor: pointer"></i>
           </template>
-        <template slot="no" slot-scope="data">
+        <template v-slot:cell(no)="data">
           {{data.index+1}}
         </template>
-        <template slot="amount" slot-scope="data">
+        <template v-slot:cell(amount)="data">
           Rp. {{data.item.amount|currency}}
         </template>
-        <template slot="evidence" slot-scope="data">
+        <template v-slot:cell(evidence)="data">
           <evidence :propsFileName="data.item.evidence" :propsDataId="data.item.id" :propsIndex="data.index" :propsUserId="$route.params.userId" />
         </template>
-        <template slot="verification" slot-scope="data">
+        <template v-slot:cell(verification)="data">
           <b-badge :variant="getBadgeVerification(data.item.verification)">
             {{data.item.verification}}
           </b-badge>
         </template>
-        <template slot="invoice_no" slot-scope="data">
+        <template v-slot:cell(invoice_no)="data">
           <invoice :invoiceNo="data.item.invoice_no" :dataId="data.item.id" :index="data.index" :hasInvoice="data.item.has_invoice" :userId="$route.params.userId"
             @hasInvoice=" data.item.has_invoice = $event " />
         </template>
-        <template slot="status_invoice" slot-scope="data">
+        <template v-slot:cell(status_invoice)="data">
           <b-badge :variant="getBadgeStatus(data.item.status_invoice)">
             {{data.item.status_invoice}}
           </b-badge>
         </template>
-        <template slot="actions" slot-scope="data">
+        <template v-slot:cell(actions)="data">
           <b-btn-group>
             <b-btn variant="primary" size="sm" v-b-tooltip.hover="'Edit'" @click="handleEditTransaction(data.index)">
               <i class="fa fa-edit"></i>

@@ -155,9 +155,9 @@
                   </b-button>
                 </h5>
               </div>
-              <span style="font-size:large;padding-left:20px">{{
+              <div style="font-size:large;padding-left:20px">{{
                 data.address
-              }}</span>
+              }}</div>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">

@@ -6,6 +6,9 @@
 - UI Layout for title page
 - Back button placement
 
+### Revised
+- Code for Table Component due to updating bootstrap vue
+
 28-11-2019
 ### IMPROVE
 - Better Summary Index in donor page
