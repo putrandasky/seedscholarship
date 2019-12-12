@@ -28,15 +28,15 @@ export const AppDonorFieldTableData = {
 
         //     sortable: true
         // },
-        {
-          key: 'department',
-          label: 'Department',
-          thStyle: {
-            minWidth: '120px',
-            width: '120px'
-          },
-          sortable: true
-        },
+        // {
+        //   key: 'department',
+        //   label: 'Department',
+        //   thStyle: {
+        //     minWidth: '120px',
+        //     width: '120px'
+        //   },
+        //   sortable: true
+        // },
         {
           key: 'year',
           label: 'Year',
@@ -122,6 +122,24 @@ export const AppDonorFieldTableData = {
           thStyle: {
             minWidth: '120px',
             width: '120px'
+          },
+          sortable: true
+        },
+        {
+          key: 'pr_initial',
+          label: 'PR',
+          thStyle: {
+            minWidth: '50px',
+            width: '50px'
+          },
+          sortable: true
+        },
+        {
+          key: 'pco_initial',
+          label: 'PCO',
+          thStyle: {
+            minWidth: '50px',
+            width: '50px'
           },
           sortable: true
         },

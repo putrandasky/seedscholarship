@@ -1,9 +1,9 @@
 <template>
   <slide-y-up-transition>
     <b-card v-show="loaded">
-      <div slot="header" class="text-center">
+      <!-- <div slot="header" class="text-center">
         <strong>All ADMIN USER</strong>
-      </div>
+      </div> -->
       <b-row>
         <b-col xl="4" md="6" class="mb-3">
           <b-input-group>
@@ -26,10 +26,10 @@
         <b-table stacked="sm" stack style="animation-duration: 1s" hover :fields="FieldTableItems" :items="filteredItemsData"
           thead-class="thead-light" :sort-by.sync="querySortBy" :sort-desc.sync="querySortDesc" @sort-changed="sortingChanged"
           :current-page="currentPage" :per-page="perPage" @row-clicked="handleRowClicked">
-          <template slot="no" slot-scope="data">
+          <template v-slot:cell(no)="data">
             {{data.index+1+((currentPage-1)*perPage)}}
           </template>
-          <template slot="status" slot-scope="data">
+          <template  v-slot:cell(status)="data">
             <b-badge :variant="getBadge(data.item.moderations[0].mod_status)">
               {{data.item.moderations[0].mod_status}}
             </b-badge>
@@ -58,7 +58,12 @@
         loaded: false,
       }
     },
-    created() {},
+    created() {
+    this.$store.dispatch("storeBreadcrumbData", {
+      linkBackButton: "",
+      currentPageName: "All Admin User"
+    });      
+    },
     methods: {
       handleRowClicked(record) {
         this.$router.push({

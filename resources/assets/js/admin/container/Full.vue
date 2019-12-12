@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <vue-snotify></vue-snotify>
+    <!-- <vue-snotify></vue-snotify> -->
     <AppHeader />
     <div class="app-body">
       <Sidebar :navItems="nav" />

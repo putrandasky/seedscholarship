@@ -1,6 +1,6 @@
 <template>
   <b-card>
-    <h4 class="card-title d-sm-flex w-sm-100 justify-content-sm-between">
+    <h4 class="card-title d-flex w-sm-100 justify-content-between">
       <span>Transaction History</span>
       <b-button variant="primary"  size="sm" @click="handleNewTransaction"><i class="fa fa-plus"></i>
         Add Data</b-button>

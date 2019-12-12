@@ -11,6 +11,10 @@
             }
         },
         created(){
+    this.$store.dispatch("storeBreadcrumbData", {
+      linkBackButton: "",
+      currentPageName: `Awardee Nonreg`
+    });
         },
         methods:{
         },

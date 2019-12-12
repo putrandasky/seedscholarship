@@ -3,7 +3,10 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+import Vue from 'vue'
 import VueRouter from 'vue-router';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import {
   store
 } from './store';
@@ -32,7 +35,7 @@ import VueMq from 'vue-mq'
 import Transitions from 'vue2-transitions'
 require('./bootstrap');
 require('vue2-animate/dist/vue2-animate.min.css')
-window.Vue = require('vue');
+// window.Vue = require('vue');
 sync(store, router);
 Vue.use(BootstrapVue)
 Vue.use(VueFilter);
@@ -46,7 +49,7 @@ const options = {
   toast: {
     position: SnotifyPosition.rightTop,
     showProgressBar: false,
-    timeout: 500,
+    timeout: 2000,
   }
 }
 Vue.use(Snotify, options)

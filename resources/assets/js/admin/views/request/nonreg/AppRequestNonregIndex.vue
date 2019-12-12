@@ -55,7 +55,12 @@
         loaded: false,
       }
     },
-    created() {},
+    created() {
+    this.$store.dispatch("storeBreadcrumbData", {
+      linkBackButton: "/request/nonreg",
+      currentPageName: `List of Awardee Nonreg ${this.$route.params.periodYear}`
+    });
+    },
     watch:{
       '$route.params.scholarshipId':'getData'
     },

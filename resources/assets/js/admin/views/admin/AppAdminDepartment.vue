@@ -110,6 +110,10 @@
     },
     created() {
       this.getData()
+    this.$store.dispatch("storeBreadcrumbData", {
+      linkBackButton: "",
+      currentPageName: "Department Register"
+    });
     },
     methods: {
       onConfirmModal() {

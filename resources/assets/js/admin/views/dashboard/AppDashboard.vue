@@ -11,6 +11,10 @@ This Page to be developed later
             }
         },
         created(){
+                this.$store.dispatch("storeBreadcrumbData", {
+      linkBackButton: "",
+      currentPageName: `Dashboard`
+    });
         },
         methods:{
         },

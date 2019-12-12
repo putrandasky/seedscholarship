@@ -1,9 +1,9 @@
 <template>
   <slide-y-up-transition>
     <b-card v-show="loaded">
-      <div slot="header" class="text-center">
+      <!-- <div slot="header" class="text-center">
         <strong>Transaksi Donatur</strong>
-      </div>
+      </div> -->
       <!-- <div>
         <b-button-group>
           <router-link v-for="(v) in periods" :key="v.id" tag="button" class="btn btn-outline-primary btn-sm" :to="{name:'AllDonationIndex', params:{periodYear: v.year}}">

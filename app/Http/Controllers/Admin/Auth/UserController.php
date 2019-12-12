@@ -19,6 +19,7 @@ class UserController extends Controller
         $user->name = $request['name'];
         $user->email = $request['email'];
         $user->phone = $request['phone'];
+        $user->year = $request['year'];
         $user->department_id = $request['department_id'];
         $user->save();
         return response()->json(['status' => 'Successfully update user admin data'], 200);

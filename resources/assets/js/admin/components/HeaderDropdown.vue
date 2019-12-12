@@ -23,7 +23,7 @@
       handleLogout() {
       axios.post(`api/auth/logout`)
       .then((response) => {
-            // this.$snotify.info(`Good Bye`, "LOGGED OUT");
+            this.$snotify.info(`You're Logged Out`, "GOOD BYE");
               this.$store.dispatch('logout')
             setTimeout(() => {
               this.$router.push('/login')

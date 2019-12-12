@@ -73,10 +73,20 @@
         // this.$store.commit('PENDING', true)
         let self = this;
         let params = Object.assign({}, self.input);
+        this.$store.dispatch('stateLoadingFull', true)
         axios.post('/api/auth/login', params)
           .then((response) => {
+                    this.$store.dispatch('stateLoadingFull', false)
+
             this.$store.dispatch("login", response.data)
             this.$store.dispatch("checkToken")
+        //     this.$bvToast.toast('Toast body content', {
+        //   title: `You're Logged In`,
+        //   autoHideDelay: 10000,
+        //   variant: 'success',
+        //   toaster:'b-toaster-top-center',
+        //   solid: true
+        // })
             this.$snotify.info(`You're Logged In`, "WELCOME");
             setTimeout(() => {
               this.$router.push('/dashboard')
@@ -87,6 +97,7 @@
           })
           .catch((error) => {
             // console.log(error);
+        this.$store.dispatch('stateLoadingFull', false)
             if (error.response.status == 401) {
               this.$snotify.error("Your Email or Password is Invalid", "ERROR");
               return

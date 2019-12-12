@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+12-12-2019
+### IMPROVE
+- Popup Notification
+- UI Layout for title page
+- Back button placement
+
 28-11-2019
 ### IMPROVE
 - Better Summary Index in donor page

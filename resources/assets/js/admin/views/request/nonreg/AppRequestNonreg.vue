@@ -1,9 +1,9 @@
 <template>
   <slide-y-up-transition>
     <b-card v-show="loaded">
-      <div slot="header" class="text-center">
+      <!-- <div slot="header" class="text-center">
         <strong>Awardee Non Reguler Request</strong>
-      </div>
+      </div> -->
       <div>
         <b-button-group>
           <router-link v-for="(v) in scholarships" :key="v.id" tag="button" class="btn btn-outline-primary btn-sm" :to="{name:'RequestNonregIndex', params:{scholarshipId: v.id}}">

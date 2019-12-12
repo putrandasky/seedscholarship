@@ -12,6 +12,7 @@ const LOGOUT = "LOGOUT";
 const LOADING = "LOADING";
 const LOADINGFULL = "LOADINGFULL";
 const LOADINGOVERLAY = "LOADINGOVERLAY";
+const BREADCRUMBDATA = "BREADCRUMBDATA"
 const SIDEBARDATA = "SIDEBARDATA";
 
 export const store = new Vuex.Store({
@@ -24,6 +25,8 @@ export const store = new Vuex.Store({
     loadingFull: false,
     loadingOverlay: false,
     sidebarData:{},
+    linkBackButton:'',
+    currentPageName:'',
     user: {
       id: null,
       name: '',
@@ -74,6 +77,10 @@ export const store = new Vuex.Store({
     },
     [LOADINGOVERLAY](state, n) {
       state.loadingOverlay = n;
+    },
+    [BREADCRUMBDATA](state, n) {
+      state.linkBackButton = n.linkBackButton;
+      state.currentPageName = n.currentPageName;
     }
   },
   actions: {
@@ -87,6 +94,11 @@ export const store = new Vuex.Store({
     }, isLoading) {
       commit(LOADINGFULL, isLoading)
     },
+    storeBreadcrumbData({
+      commit
+    }, data) {
+      commit(BREADCRUMBDATA, data)
+    },
     login({
       commit
     }, creds) {
@@ -99,7 +111,6 @@ export const store = new Vuex.Store({
         expires: time
       });
       commit(LOGIN_SUCCESS);
-
     },
     logout({
       commit

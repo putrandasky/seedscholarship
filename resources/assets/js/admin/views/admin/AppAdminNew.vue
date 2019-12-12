@@ -102,6 +102,10 @@
     },
     created() {
       this.getDepartment()
+    this.$store.dispatch("storeBreadcrumbData", {
+      linkBackButton: "",
+      currentPageName: "New Admin Register"
+    });
     },
     computed: {
       stateName() {
