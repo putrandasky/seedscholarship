@@ -13,7 +13,7 @@ class BlogController extends Controller
 
     public function index()
     {
-        $posts = App\Blog::with('blogCategory','tags',)->where('status', 'PUBLISH')->latest()
+        $posts = App\Blog::with('blogCategory','tags')->where('status', 'PUBLISH')->latest()
         ->paginate(5);
 
         // return $posts;
@@ -31,7 +31,7 @@ class BlogController extends Controller
         // //paginator($array, $total,$perpage, $page)
         // $array = $data->chunk(1)->collapse()->toArray();
         // $itemSliced = array_slice($array,$page-1,$limit);
-        // $item = new Paginator($itemSliced , count($array), $limit, $page,);
+        // $item = new Paginator($itemSliced , count($array), $limit, $page);
         // // return $data;
         // return view('apps.blogs', compact('item'));
     }

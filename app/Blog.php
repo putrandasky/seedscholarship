@@ -39,7 +39,7 @@ class Blog extends Model
 
     public function scopePublished($query)
     {
-        return $query->with('blogCategory','tags',)->where('status', 'PUBLISH');
+        return $query->with('blogCategory','tags')->where('status', 'PUBLISH');
     }
 
 }
