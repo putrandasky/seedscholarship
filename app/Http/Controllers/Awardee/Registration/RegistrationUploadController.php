@@ -37,10 +37,8 @@ class RegistrationUploadController extends Controller
             $file['name'] = $basename;
             $file['date'] = Carbon::createFromTimestamp(Storage::lastModified($dirname . '/' . $basename))->format('d-M-y');
             return $file;
-
         }
         return response()->json(['status' => 'File not found'], 200);
-
     }
     public function show(Request $request, $id)
     {
@@ -50,7 +48,6 @@ class RegistrationUploadController extends Controller
 
         $newpathToFile = Storage::disk('local')->getDriver()->getAdapter()->applyPathPrefix("registration/awardee/{$request->period_id}/{$id}/{$request->folder}/{$request->filename}");
         return response()->file($newpathToFile);
-
     }
     public function store(Request $request)
     {
@@ -61,8 +58,22 @@ class RegistrationUploadController extends Controller
             'file' => 'mimes:jpeg,png,pdf|max:1024'
         ]);
         $save = $request->file('file')->storeAs("registration/awardee/{$request->period_id}/{$request->id}/{$request->folder}", $request->file('file')->getClientOriginalName());
-        return response()->json(['status' => 'File Succesfuly Uploaded'], 200);
 
+        $cv = Storage::files("registration/awardee/{$request->period_id}/{$request->id}/cv");
+        $siakng = Storage::files("registration/awardee/{$request->period_id}/{$request->id}/siakng");
+        $essay = Storage::files("registration/awardee/{$request->period_id}/{$request->id}/essay");
+        $slip = Storage::files("registration/awardee/{$request->period_id}/{$request->id}/slip");
+
+        if ($cv && $siakng && $essay && $slip) {
+            $data = App\AwardeePeriod::where([
+                'awardee_id' => $request->id,
+                'period_id' => $request->period_id
+            ])->first();
+            $data->status = "SUBMITTED";
+            $data->save();
+        }
+
+        return response()->json(['status' => 'File Uploaded'], 200);
     }
     public function destroy(Request $request, $id)
     {
@@ -70,17 +81,26 @@ class RegistrationUploadController extends Controller
             return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
         }
         if (Storage::delete("registration/awardee/{$request->period_id}/{$id}/{$request->folder}/{$request->filename}")) {
-            # code...
-            return response()->json(['status' => 'File Deleted Successfuly'], 200);
+            $data = App\AwardeePeriod::where([
+                'awardee_id' => $id,
+                'period_id' => $request->period_id
+                ])->first();
+            if ($data->status == "SUBMITTED") {
+                # code...
+                    $data->status = "IN PROGRESS";
+                    $data->save();
+                }
+
+            return response()->json(['status' => 'File Deleted'], 200);
         }
         // return response()->json(['error' => 'File not deleted'], 401);
     }
     public function registrantAuthenticate($id, $registration_code, $period_id)
     {
         $RegisterExist = App\AwardeePeriod::where([
-          'awardee_id'=>$id,
-          'registration_code'=>$registration_code,
-          'period_id'=>$period_id,
+            'awardee_id' => $id,
+            'registration_code' => $registration_code,
+            'period_id' => $period_id,
         ])->exists();
         return $RegisterExist;
     }

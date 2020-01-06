@@ -6,6 +6,7 @@ use App;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+
 class DepartmentController extends Controller
 {
     /**
@@ -15,7 +16,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $data = App\Department::orderBy('department','asc')->withCount('admins')->get();
+        $data = App\Department::with('roles')->orderBy('order', 'asc')->withCount('admins')->get();
 
         return $data;
     }
@@ -34,7 +35,7 @@ class DepartmentController extends Controller
         $data = new App\Department();
         $data->department = $request['department'];
         $data->save();
-        return response()->json(['status' => 'Successfully register new department'], 200);
+        return response()->json(['message' => 'New Department Added'], 200);
 
     }
 
@@ -64,9 +65,19 @@ class DepartmentController extends Controller
         $data = App\Department::find($id);
         $data->department = $request['department'];
         $data->save();
-        return response()->json(['status' => 'Successfully update department name'], 200);
+        return response()->json(['message' => 'Department Updated'], 200);
     }
-
+    public function reorder(Request $request)
+    {
+        // dd(count($request['data']));
+        for ($i = 0; $i < count($request['data']); $i++) {
+            $department = App\Department::find($request['data'][$i]['id']);
+            $department->order = $i + 1;
+            $department->save();
+            # code...
+        }
+        return response()->json(['message' => 'Department Reordered'], 200);
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -75,8 +86,18 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        $data = App\Department::find($id);
-        $data->delete();
-        return response()->json(['status' => 'Successfully delete department'], 200);
+        $department = App\Department::find($id);
+        $department->admins()->update(['department_id' => null]);
+        $roles = App\Role::where('department_id', $id)->get();
+
+        foreach ($roles as $role) {
+            $role = App\Role::find($role->id);
+            $role->permissions()->detach();
+            $role->admins()->update(['role_id' => null]);
+            $role->delete();
+        }
+        $department->delete();
+
+        return response()->json(['message' => 'Department Deleted'], 200);
     }
 }

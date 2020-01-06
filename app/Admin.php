@@ -46,6 +46,10 @@ class Admin extends Authenticatable implements JWTSubject
     {
         return $this->belongsTo('App\Department');
     }
+    public function role()
+    {
+        return $this->belongsTo('App\Role');
+    }
     public function donorPeriods()
     {
         return $this->hasMany('App\DonorPeriods','pco');
@@ -54,6 +58,7 @@ class Admin extends Authenticatable implements JWTSubject
     {
         return $this->morphToMany('App\Period', 'periodable')->withPivot('status')->withTimestamps();
     }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();

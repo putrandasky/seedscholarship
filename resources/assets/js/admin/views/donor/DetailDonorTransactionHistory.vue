@@ -2,7 +2,7 @@
   <b-card>
     <h4 class="card-title d-flex w-sm-100 justify-content-between">
       <span>Transaction History</span>
-      <b-button variant="primary"  size="sm" @click="handleNewTransaction"><i class="fa fa-plus"></i>
+      <b-button v-if="permission(3)" variant="primary"  size="sm" @click="handleNewTransaction"><i class="fa fa-plus"></i>
         Add Data</b-button>
     </h4>
     <div style="overflow-y:auto">
@@ -68,7 +68,7 @@
             <b-btn variant="primary" size="sm" v-b-tooltip.hover="'Edit'" @click="handleEditTransaction(data.index)">
               <i class="fa fa-edit"></i>
             </b-btn>
-            <b-btn :disabled="!sendInvoiceAvailable(data.index)" variant="success" size="sm" v-b-tooltip.hover="'Send Payment Receipt'"
+            <b-btn v-if="permission(5) && sendInvoiceAvailable(data.index)" variant="success" size="sm" v-b-tooltip.hover="'Send Payment Receipt'"
               @click="triggerConfirmModal(
             'Send Payment Receipt',
             'Are You Sure To Send Payment Receipt for This Transaction?',
@@ -76,7 +76,7 @@
             {id:data.item.id,index:data.index}
              )"><i
                 class="fa fa-send"></i></b-btn>
-            <b-btn variant="danger" size="sm" v-b-tooltip.hover="'Delete'" @click="triggerConfirmModal(
+            <b-btn v-if="permission(5)"  variant="danger" size="sm" v-b-tooltip.hover="'Delete'" @click="triggerConfirmModal(
             'Delete Transaction',
             'Are You Sure To Delete This Transaction? All related data, inc evidence and invoice, will be deleted',
             'deleteTransaction',
@@ -90,8 +90,8 @@
       <strong>Total Verified Donations: Rp. {{ total | currency}}</strong>
     </div>
     <b-modal :title="transactionModalTitle" :no-close-on-esc="true" :hide-header-close="false" :no-close-on-backdrop="false"
-      @hidden="handleHiddenModal" size="md" v-model="transactionModal" @ok="sendTransactionData">
-
+      @hidden="handleHiddenModal" size="md" v-model="transactionModal" @ok="sendTransactionData"
+      :ok-disabled="!(permission(3) || permission(4))">
       <b-form-group :invalid-feedback="errors.trx_date" :state="stateTrxDate">
         <b-input-group>
           <b-input-group-prepend>
@@ -107,7 +107,8 @@
           <b-input-group-prepend>
             <b-input-group-text>Rp</b-input-group-text>
           </b-input-group-prepend>
-          <b-input type="number" class="form-control" placeholder="Transaction Amount" v-model="input.amount" :state="stateAmount" />
+          <b-input :disabled="!permission(3)"
+ type="number" class="form-control" placeholder="Transaction Amount" v-model="input.amount" :state="stateAmount" />
         </b-input-group>
       </b-form-group>
       <b-form-group v-if="transactionModalState == 'editTransaction'" :invalid-feedback="errors.verification" :state="stateVerification">
@@ -115,7 +116,9 @@
           <b-input-group-prepend>
             <b-input-group-text><i class="icon-check"></i></b-input-group-text>
           </b-input-group-prepend>
-          <b-form-select plain id="verfication" :options="[
+          <b-form-select 
+             :disabled="!permission(4)"
+ plain id="verfication" :options="[
             {value:'UNVERIFIED',text:'UNVERIFIED'},
             {value:'VERIFIED',text:'VERIFIED'}]"
             v-model="input.verification" :state="stateVerification">
@@ -132,7 +135,7 @@
           </b-input-group-prepend>
     <!--       <b-input type="text" class="form-control" placeholder="Invoice Number (If Ready)" v-model="input.invoice_no"
             :state="stateInvoiceNumber" /> -->
-          <b-input :disabled="transactions[transactionTableIndex].has_invoice?true:false" type="text" class="form-control" placeholder="Invoice Number (If Ready)" v-model="input.invoice_no"
+          <b-input :disabled="!permission(3) || transactions[transactionTableIndex].has_invoice?true:false" type="text" class="form-control" placeholder="Invoice Number (If Ready)" v-model="input.invoice_no"
             :state="stateInvoiceNumber" />
         </b-input-group>
       </b-form-group>
@@ -187,7 +190,9 @@
         transactionModalTitle: '',
         transactionModalState: '',
         configCalendar: {
-          dateFormat: 'd-M-y'
+          dateFormat: 'd-M-y',
+          clickOpens:this.permission(3)
+
         },
         input: {
           id: null,

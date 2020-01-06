@@ -1,57 +1,71 @@
 <template>
   <slide-y-up-transition>
-    <b-row v-show="loaded">
+    <b-row v-if="loaded">
       <b-col cols="12">
         <b-card>
           <div slot="header" class="text-center">
             <strong>Profile Awardee</strong>
-            <router-link tag="button" class="btn btn-sm btn-primary btn-sm float-left" :to="{name:'RequestAwardeeIndex',params:{periodYear:$route.params.periodYear}}">
+            <!-- <router-link tag="button" class="btn btn-sm btn-primary btn-sm float-left" :to="{name:'RequestAwardeeIndex',params:{periodYear:$route.params.periodYear}}">
               <i class="fa fa-arrow-left"></i>
               BACK
-            </router-link>
+            </router-link> -->
           </div>
           <b-row>
-            <b-col md="3" sm="6"  class="pb-3">
+            <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-user"></i> Full Name</h5>
               </div>
-              <span style="font-size:large;padding-left:20px">{{data.name}}</span>
+              <span style="font-size:large;padding-left:20px">{{
+                data.name
+              }}</span>
             </b-col>
-            <b-col md="3" sm="6"  class="pb-3">
+            <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-envelope"></i> Email Address</h5>
               </div>
-              <span style="font-size:large;padding-left:20px">{{data.email}}</span>
+              <span style="font-size:large;padding-left:20px">{{
+                data.email
+              }}</span>
             </b-col>
-            <b-col md="3" sm="6"  class="pb-3">
+            <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-calendar"></i> Year of Period</h5>
               </div>
-              <span style="font-size:large;padding-left:20px">{{data.year}}</span>
+              <span style="font-size:large;padding-left:20px">{{
+                data.year
+              }}</span>
             </b-col>
-            <b-col md="3" sm="6"  class="pb-3">
+            <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-phone"></i> Phone Number</h5>
               </div>
-              <span style="font-size:large;padding-left:20px">{{data.phone}}</span>
+              <span style="font-size:large;padding-left:20px">{{
+                data.phone
+              }}</span>
             </b-col>
-            <b-col md="3" sm="6"  class="pb-3">
+            <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-list"></i> Department</h5>
               </div>
-              <span style="font-size:large;padding-left:20px">{{data.college_department.department}}</span>
+              <span style="font-size:large;padding-left:20px">{{
+                data.college_department.department
+              }}</span>
             </b-col>
-            <b-col md="3" sm="6"  class="pb-3">
+            <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-check"></i> Status Approval</h5>
               </div>
-              <span style="font-size:large;padding-left:20px">{{data.awardee_periods[0].status}}</span>
+              <span style="font-size:large;padding-left:20px">{{
+                data.awardee_periods[0].status
+              }}</span>
             </b-col>
-            <b-col md="3" sm="6"  class="pb-3">
+            <b-col md="3" sm="6" class="pb-3">
               <div class="border-bottom">
                 <h5><i class="fa fa-calendar-check-o"></i> Date Registered</h5>
               </div>
-              <span style="font-size:large;padding-left:20px">{{data.created_at}}</span>
+              <span style="font-size:large;padding-left:20px">{{
+                data.created_at
+              }}</span>
             </b-col>
             <!-- <b-col sm="9"></b-col>
           <b-col sm="3"><strong>Email Address</strong></b-col>
@@ -72,73 +86,179 @@
       <b-col cols="12">
         <b-row>
           <b-col lg="3" sm="6">
-            <file-card title="Curriculum Vitae" :periodId="data.awardee_periods[0].period_id" :registrationCode="data.awardee_periods[0].registration_code"
-              folder="cv" :data="files.cv" />
+            <file-card
+              title="Curriculum Vitae"
+              :periodId="data.awardee_periods[0].period_id"
+              :registrationCode="data.awardee_periods[0].registration_code"
+              folder="cv"
+              :data="files.cv"
+            />
           </b-col>
           <b-col lg="3" sm="6">
-            <file-card title="Essay" folder="essay" :periodId="data.awardee_periods[0].period_id" :registrationCode="data.awardee_periods[0].registration_code"
-              :data="files.essay" />
+            <file-card
+              title="Essay"
+              folder="essay"
+              :periodId="data.awardee_periods[0].period_id"
+              :registrationCode="data.awardee_periods[0].registration_code"
+              :data="files.essay"
+            />
           </b-col>
           <b-col lg="3" sm="6">
-            <file-card title="Slip Gaji/Rekening Listrik" :periodId="data.awardee_periods[0].period_id" :registrationCode="data.awardee_periods[0].registration_code"
-              folder="slip" :data="files.slip" />
+            <file-card
+              title="Slip Gaji/Rekening Listrik"
+              :periodId="data.awardee_periods[0].period_id"
+              :registrationCode="data.awardee_periods[0].registration_code"
+              folder="slip"
+              :data="files.slip"
+            />
           </b-col>
           <b-col lg="3" sm="6">
-            <file-card title="SiakNG" folder="siakng" :periodId="data.awardee_periods[0].period_id" :registrationCode="data.awardee_periods[0].registration_code"
-              :data="files.siakng" />
+            <file-card
+              title="SiakNG"
+              folder="siakng"
+              :periodId="data.awardee_periods[0].period_id"
+              :registrationCode="data.awardee_periods[0].registration_code"
+              :data="files.siakng"
+            />
+          </b-col>
+        </b-row>
+        <b-row v-if="data.awardee_periods[0].status == 'SUBMITTED' ">
+          <b-col cols="12" class="text-right">
+            <b-button
+              variant="danger"
+              @click="
+                triggerConfirmModal(
+                  'Set Approval Status',
+                  'Are you sure to set status approval to NOT APPROVED? This action can not be undone',
+                  'setStatus',
+                  {
+                    awardeePeriodId: data.awardee_periods[0].id,
+                    status: `NOT APPROVED`
+                  }
+                )
+              "
+            >
+              Not Approved
+            </b-button>
+            <b-button
+              variant="success"
+              @click="
+                triggerConfirmModal(
+                  'Set Approval Status',
+                  'Are you sure to set status approval to APPROVED? This action can not be undone',
+                  'setStatus',
+                  {
+                    awardeePeriodId: data.awardee_periods[0].id,
+                    status: `APPROVED`
+                  }
+                )
+              "
+            >
+              Approved
+            </b-button>
           </b-col>
         </b-row>
       </b-col>
+    <b-modal
+      :no-close-on-esc="true"
+      :hide-header-close="true"
+      :no-close-on-backdrop="true"
+      :title="confirmModalTitle"
+      v-model="confirmModal"
+      @ok="onConfirmModal"
+    >
+      {{ confirmModalBody }}
+    </b-modal>
     </b-row>
   </slide-y-up-transition>
 </template>
 <script>
-  import FileCard from './DetailRequestAwardeeUploadCard'
-  export default {
-    name: 'DetailRequestAwardee',
-    components: {
-      FileCard
-    },
-    data: function () {
-      return {
-        loaded: false,
-        files: {},
-        data: {
-          name: '',
-          email: '',
-          phone: '',
-          year: null,
-          department: null,
-          created_at: null,
-          updated_at: null,
+import FileCard from './DetailRequestAwardeeUploadCard';
+export default {
+  name: 'DetailRequestAwardee',
+  components: {
+    FileCard
+  },
+  data: function() {
+    return {
+      loaded: false,
+      files: {},
+      confirmModal:false,
+      confirmModalTitle: '',
+      confirmModalBody: '',
+      confirmModalTempValue: '',
+      confirmModalState: '',
+      data: {
+        name: '',
+        email: '',
+        phone: '',
+        year: null,
+        college_department: {
+          department:''
         },
-
+        created_at: null,
+        updated_at: null,
+      }
+    };
+  },
+  created() {
+    this.getData();
+    this.$store.dispatch('storeBreadcrumbData', {
+      linkBackButton: `/request/awardee/${this.$route.params.periodYear}`,
+      currentPageName: 'Detail Awardee'
+    });
+  },
+  computed: {
+  },
+  methods: {
+    triggerConfirmModal(title, body, state, value = '') {
+      console.log('test');
+      this.confirmModalTitle = title;
+      this.confirmModalBody = body;
+      this.confirmModal = true;
+      this.confirmModalState = state;
+      this.confirmModalTempValue = value;
+      console.log(this.confirmModalTempValue);
+    },
+    onConfirmModal() {
+      if (this.confirmModalState == 'setStatus') {
+        this.setStatus();
       }
     },
-    created() {
-      this.getData()
+    setStatus() {
+      axios
+        .post(
+          `api/admin/awardee/request/set-status`,
+          this.confirmModalTempValue
+        )
+        .then(response => {
+          this.$snotify.success(response.data.message, 'SUCCESS');
+          this.data.awardee_periods[0].status = this.confirmModalTempValue.status
+          this.confirmModalTempValue.status = ''
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
-    computed: {},
-    methods: {
+    getData() {
+      let self = this;
+      axios
+        .get(
+          `api/registration-awardee/${this.$route.params.userId}?year=${this.$route.params.periodYear}`
+        )
+        .then(response => {
+          // console.log(response.data)
+          self.data = response.data.user;
+          self.files = response.data.files;
+          console.log(self.data);
 
-      getData() {
-        let self = this
-        axios.get(`api/registration-awardee/${this.$route.params.userId}?year=${this.$route.params.periodYear}`)
-          .then((response) => {
-            // console.log(response.data)
-            self.data = response.data.user
-            self.files = response.data.files
-            this.loaded = true
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-      },
-
-
-    },
+          this.loaded = true;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   }
-
+};
 </script>
-<style>
-</style>
+<style></style>

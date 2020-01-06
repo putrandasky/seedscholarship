@@ -157,8 +157,8 @@
                 <i class="fa fa-edit"></i>
               </b-btn>
               <b-btn
-                :disabled="
-                  !sendInvoiceAvailable(
+                v-if="permission(5) &&
+                  sendInvoiceAvailable(
                     data.index + (currentPage - 1) * perPage
                   )
                 "
@@ -179,7 +179,7 @@
                 "
                 ><i class="fa fa-send"></i>
               </b-btn>
-              <b-btn
+              <b-btn v-if="permission(5)" 
                 variant="danger"
                 size="sm"
                 v-b-tooltip.hover="'Delete'"
@@ -210,6 +210,7 @@
         @hidden="handleHiddenModal"
         size="md"
         v-model="transactionModal"
+        :ok-disabled="!(permission(3) || permission(4))"
         @ok="sendTransactionData"
       >
         <b-form-group :invalid-feedback="errors.trx_date" :state="stateTrxDate">
@@ -246,6 +247,7 @@
               placeholder="Transaction Amount"
               v-model="input.amount"
               :state="stateAmount"
+              :disabled="!permission(3)"
             />
           </b-input-group>
         </b-form-group>
@@ -269,6 +271,7 @@
               ]"
               v-model="input.verification"
               :state="stateVerification"
+              :disabled="!permission(4)"
             >
               <template slot="first">
                 <option :value="null" disabled>-- Is It Verified? --</option>
@@ -287,7 +290,7 @@
             </b-input-group-prepend>
             <b-input
               type="text"
-              :disabled="
+              :disabled="!permission(3) ||
                 filteredItemsData[transactionTableIndex].has_invoice
                   ? true
                   : false
@@ -344,7 +347,8 @@ export default {
       transactionModalTitle: "",
       transactionModalState: "",
       configCalendar: {
-        dateFormat: "d-M-y"
+        dateFormat: "d-M-y",
+        clickOpens:this.permission(3)
       },
       input: {
         id: null,
@@ -470,6 +474,11 @@ export default {
     },
     sendTransactionData(e) {
       e.preventDefault();
+      if (!this.permission(3) || !this.permission(4)) {
+        this.$snotify.error('You are not allowed to edit', "ERROR");
+        this.transactionModal = false;
+        return
+      }
       if (this.transactionModalState == "editTransaction") {
         let self = this;
         axios

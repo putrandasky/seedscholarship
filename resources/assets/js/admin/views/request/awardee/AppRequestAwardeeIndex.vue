@@ -51,10 +51,10 @@
           :per-page="perPage"
           @row-clicked="handleRowClicked"
         >
-          <template slot="no" slot-scope="data">
+          <template v-slot:cell(no)="data">
             {{ data.index + 1 + (currentPage - 1) * perPage }}
           </template>
-          <template slot="status" slot-scope="data">
+          <template v-slot:cell(status)="data">
             <b-badge
               :variant="getBadgeApproval(data.item.awardee_periods[0].status)"
             >

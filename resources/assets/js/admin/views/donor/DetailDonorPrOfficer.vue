@@ -2,14 +2,14 @@
   <b-col md="3" sm="6" class="pb-3">
     <div class="border-bottom">
       <h5><i class="fa fa-briefcase"></i> PR Officer
-        <b-button class="btn--corner-15 btn--xs" size="sm" variant="success" @click="editPrModal = true"
+        <b-button  v-if="permission(13)" class="btn--corner-15 btn--xs" size="sm" variant="success" @click="editPrModal = true"
           v-b-tooltip.hover="'Add/Edit PR Officer'"><i class="fa fa-plus"></i></b-button>
       </h5>
     </div>
     <div v-if="data" style="font-size:large;padding-left:20px">
       {{data.name }} ({{data.year }})
     </div>
-    <b-modal :ok-disabled="checkOkEditPr" :no-close-on-esc="true" :hide-header-close="true"
+    <b-modal  v-if="permission(13)" :ok-disabled="checkOkEditPr" :no-close-on-esc="true" :hide-header-close="true"
       :no-close-on-backdrop="true" title="Assign Payment and PR Officer" v-model="editPrModal" @cancel="selectedUser = null" @ok="sendData">
       <b-form-group>
         <vue-bootstrap-typeahead @keyup.native="onKeyUpSearchUser" class="mb-4" v-model="userSearch" :data="users"

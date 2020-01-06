@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use App\Notifications\Admin\RegisterNotification;
+use App\JobS\Admin\ProcessSendEmailAdminRegister;
 
 class AuthController extends Controller
 {
@@ -46,6 +47,8 @@ class AuthController extends Controller
         $user->name = ucwords($request->name);
         $user->email = $request->email;
         $user->year = $request->year;
+        $user->status = $request->status;
+        $user->featured = $request->featured;
         $user->initial = strtoupper($request->initial);
         $user->department_id = $request->department_id;
         $user->password = Hash::make($request->password);
@@ -55,7 +58,8 @@ class AuthController extends Controller
         $data['email'] = $user->email;
         $data['password'] = $request->password;
         $data['department'] = $admin->department->department;
-        $user->notify(new RegisterNotification($data));
+        dispatch(new ProcessSendEmailAdminRegister($data));
+        // $user->notify(new RegisterNotification($data));
 
         return response()->json(['status' => 'Successfully register new admin'], 200);
     }
@@ -97,11 +101,12 @@ class AuthController extends Controller
     {
 
         $user = auth('admin-api')->user();
-
+        $role  = $user->role_id? App\Role::where('id',$user->role_id)->with('permissions')->first():null;
         return response()->json([
             'id' => $user->id,
             'name' => $user->name,
-        ]);
+            'permissions' => $user->role_id? $role->permissions->pluck('id'):array(),
+            ]);
     }
 
     /**

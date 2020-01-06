@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-if="invoiceNo && !hasInvoice">
-      <span @click="createInvoice"><i class="fa fa-refresh" :class="{'fa-spin':isDisabled}" v-b-tooltip.hover="'Create Payment Receipt'"
+      <span v-if="permission(3)" @click="createInvoice"><i class="fa fa-refresh" :class="{'fa-spin':isDisabled}" v-b-tooltip.hover="'Create Payment Receipt'"
           style="color:blue;cursor:pointer"></i>
       </span>
       <span>
@@ -9,7 +9,7 @@
       </span>
     </template>
     <template v-if="hasInvoice">
-      <span @click="deleteInvoice">
+      <span  v-if="permission(3)"  @click="deleteInvoice">
         <i class="fa fa-trash" v-b-tooltip.hover="'Delete Payment Receipt'" style="color:red;cursor:pointer"></i>
       </span>
       <b-link href="#" @click.stop="openInvoice">{{invoiceNo}}</b-link>

@@ -20,9 +20,12 @@ class UserController extends Controller
         $user->email = $request['email'];
         $user->phone = $request['phone'];
         $user->year = $request['year'];
+        $user->status = $request['status'];
+        $user->featured = $request['featured'];
         $user->department_id = $request['department_id'];
+        $user->role_id = $request['role_id'];
         $user->save();
-        return response()->json(['status' => 'Successfully update user admin data'], 200);
+        return response()->json(['status' => 'User Data Updated'], 200);
     }
     public function search(Request $request)
     {

@@ -30,8 +30,15 @@
             {{data.index+1+((currentPage-1)*perPage)}}
           </template>
           <template  v-slot:cell(status)="data">
-            <b-badge :variant="getBadge(data.item.moderations[0].mod_status)">
-              {{data.item.moderations[0].mod_status}}
+            <b-badge :variant="getBadgeActive(data.item.status)">
+              <span v-if="(data.item.status)">Active</span>
+              <span v-if="(!data.item.status)">Unactive</span>
+            </b-badge>
+          </template>
+          <template  v-slot:cell(featured)="data">
+            <b-badge :variant="getBadgeActive(data.item.featured)">
+              <span v-if="(data.item.featured)">True</span>
+              <span v-if="(!data.item.featured)">False</span>
             </b-badge>
           </template>
         </b-table>
@@ -62,9 +69,12 @@
     this.$store.dispatch("storeBreadcrumbData", {
       linkBackButton: "",
       currentPageName: "All Admin User"
-    });      
+    });
     },
     methods: {
+      getStatus(status){
+        return 'test';
+      },
       handleRowClicked(record) {
         this.$router.push({
           name: 'AccountAdminDetail',
@@ -81,7 +91,7 @@
             const editData = (data) => {
               return data.map(item => {
                 var temp = Object.assign({}, item);
-                temp['department'] = temp.department.department
+                temp['department'] = temp.department?temp.department.department:''
                 // temp.name = 'my name '+temp.name;
                 return temp;
               });

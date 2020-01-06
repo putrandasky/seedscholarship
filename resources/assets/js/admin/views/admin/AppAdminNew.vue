@@ -1,83 +1,89 @@
 <template>
-    <div class="container">
-      <b-row class="justify-content-center">
-        <b-col md="6" sm="8">
-          <b-card no-body class="mx-4">
-            <form class="card-body p-4" @submit.prevent="register">
-              <h1>Register</h1>
-              <p class="text-muted">Create new admin account</p>
-              <b-form-group :invalid-feedback="errors.name" :state="stateName">
-                <b-input-group>
-                  <b-input-group-prepend>
-                    <b-input-group-text><i class="icon-user"></i></b-input-group-text>
-                  </b-input-group-prepend>
-                  <b-input type="text" class="form-control" placeholder="Full Name" v-model="input.name" :state="stateName" />
-                </b-input-group>
-              </b-form-group>
-              <b-form-group :invalid-feedback="errors.initial" :state="stateInitial">
-                  <b-input-group class="">
-                    <b-input-group-prepend>
-                      <b-input-group-text><i class="icon-user"></i></b-input-group-text>
-                    </b-input-group-prepend>
-                    <b-input type="text" class="form-control" placeholder="Initial" v-model="input.initial" :state="stateInitial" />
-                  </b-input-group>
-               </b-form-group>
-                <b-form-group :invalid-feedback="errors.year" :state="stateYear">
-                  <b-input-group class="">
-                    <b-input-group-prepend>
-                      <b-input-group-text><i class="icon-calendar"></i></b-input-group-text>
-                    </b-input-group-prepend>
-                    <b-input type="number" class="form-control" placeholder="Angkatan" v-model="input.year" :state="stateYear" />
-                  </b-input-group>
-                </b-form-group>
-                <b-form-group :invalid-feedback="errors.department" :state="stateDepartment">
-                <b-input-group class="">
-                  <b-input-group-prepend>
-                    <b-input-group-text><i class="icon-list"></i></b-input-group-text>
-                  </b-input-group-prepend>
-                  <b-form-select plain id="department" :options="departmentOptions" v-model="input.department_id" :state="stateDepartment">
-                    <template slot="first">
-                      <option :value="null" disabled>-- Please select department --</option>
-                    </template>
-                  </b-form-select>
-                </b-input-group>
-              </b-form-group>
-              <b-form-group :invalid-feedback="errors.email" :state="stateEmail">
-                <b-input-group class="">
-                  <b-input-group-prepend>
-                    <b-input-group-text>@</b-input-group-text>
-                  </b-input-group-prepend>
-                  <b-input type="text" class="form-control" placeholder="Email" v-model="input.email" :state="stateEmail" />
-                </b-input-group>
-              </b-form-group>
-              <b-form-group :invalid-feedback="errors.password" :state="statePassword">
-                <b-input-group class="">
-                  <b-input-group-prepend>
-                    <b-input-group-text><i class="icon-lock"></i></b-input-group-text>
-                  </b-input-group-prepend>
-                  <b-input type="password" class="form-control" placeholder="Password" v-model="input.password" :state="statePassword" />
-                </b-input-group>
-              </b-form-group>
-              <b-form-group :invalid-feedback="errors.password" :state="statePassword">
-                <b-input-group class="mb-1">
-                  <b-input-group-prepend>
-                    <b-input-group-text><i class="icon-lock"></i></b-input-group-text>
-                  </b-input-group-prepend>
-                  <b-input type="password" class="form-control" placeholder="Repeat password" v-model="input.password_confirmation"
-                    :state="statePassword" />
-                </b-input-group>
-              </b-form-group>
-              <b-button type="submit" variant="success" block>Create Account</b-button>
-            </form>
-
-          </b-card>
-        </b-col>
-      </b-row>
-    </div>
+  <b-row class="justify-content-center">
+    <restricted-area  v-if="!permission(1)" />
+    <b-col v-if="permission(1)"  lg="6" md="8" sm="10" >
+      <b-card no-body class="">
+        <form class="card-body" @submit.prevent="register">
+          <h1>Register</h1>
+          <p class="text-muted">Create new admin account</p>
+          <b-form-group :invalid-feedback="errors.name" :state="stateName">
+            <b-input-group>
+              <b-input-group-prepend>
+                <b-input-group-text><i class="icon-user"></i></b-input-group-text>
+              </b-input-group-prepend>
+              <b-input type="text" class="form-control" placeholder="Full Name" v-model="input.name" :state="stateName" />
+            </b-input-group>
+          </b-form-group>
+          <b-form-group :invalid-feedback="errors.initial" :state="stateInitial">
+              <b-input-group class="">
+                <b-input-group-prepend>
+                  <b-input-group-text><i class="icon-user"></i></b-input-group-text>
+                </b-input-group-prepend>
+                <b-input type="text" class="form-control" placeholder="Initial" v-model="input.initial" :state="stateInitial" />
+              </b-input-group>
+            </b-form-group>
+            <b-form-group :invalid-feedback="errors.year" :state="stateYear">
+              <b-input-group class="">
+                <b-input-group-prepend>
+                  <b-input-group-text><i class="icon-calendar"></i></b-input-group-text>
+                </b-input-group-prepend>
+                <b-input type="number" class="form-control" placeholder="Angkatan" v-model="input.year" :state="stateYear" />
+              </b-input-group>
+            </b-form-group>
+            <b-form-group :invalid-feedback="errors.department" :state="stateDepartment">
+            <b-input-group class="">
+              <b-input-group-prepend>
+                <b-input-group-text><i class="icon-list"></i></b-input-group-text>
+              </b-input-group-prepend>
+              <b-form-select plain id="department" :options="departmentOptions" v-model="input.department_id" :state="stateDepartment">
+                <template slot="first">
+                  <option :value="null" disabled>-- Please select department --</option>
+                </template>
+              </b-form-select>
+            </b-input-group>
+          </b-form-group>
+          <b-form-group :invalid-feedback="errors.email" :state="stateEmail">
+            <b-input-group class="">
+              <b-input-group-prepend>
+                <b-input-group-text>@</b-input-group-text>
+              </b-input-group-prepend>
+              <b-input type="text" class="form-control" placeholder="Email" v-model="input.email" :state="stateEmail" />
+            </b-input-group>
+          </b-form-group>
+          <b-form-group :invalid-feedback="errors.password" :state="statePassword">
+            <b-input-group class="">
+              <b-input-group-prepend>
+                <b-input-group-text><i class="icon-lock"></i></b-input-group-text>
+              </b-input-group-prepend>
+              <b-input type="password" class="form-control" placeholder="Password" v-model="input.password" :state="statePassword" />
+            </b-input-group>
+          </b-form-group>
+          <b-form-group :invalid-feedback="errors.password" :state="statePassword">
+            <b-input-group class="mb-1">
+              <b-input-group-prepend>
+                <b-input-group-text><i class="icon-lock"></i></b-input-group-text>
+              </b-input-group-prepend>
+              <b-input type="password" class="form-control" placeholder="Repeat password" v-model="input.password_confirmation"
+                :state="statePassword" />
+            </b-input-group>
+          </b-form-group>
+          <b-button type="submit" variant="success" block>Create Account</b-button>
+        </form>
+      </b-card>
+    </b-col>
+  </b-row>
 </template>
 <script>
+  // import {
+  //   checkPermission
+  // } from "../_share/mixins/CheckPermission";
+  // import RestrictedArea from "../_share/components/RestrictedArea"
   export default {
     name: 'AuthRegister',
+    // mixins: [checkPermission],ß
+    components:{
+      // RestrictedArea
+    },
     data: function () {
       return {
         departmentOptions: [],
@@ -101,11 +107,15 @@
       }
     },
     created() {
-      this.getDepartment()
-    this.$store.dispatch("storeBreadcrumbData", {
+
+      this.$store.dispatch("storeBreadcrumbData", {
       linkBackButton: "",
       currentPageName: "New Admin Register"
     });
+    },
+    mounted(){
+      console.log(this.permission(1));
+      this.permission(1) ? this.getDepartment() : ''
     },
     computed: {
       stateName() {
@@ -129,6 +139,7 @@
     },
     methods: {
       getDepartment() {
+         
         axios.get(`api/department`)
           .then((response) => {
             response.data.forEach(function (obj) {

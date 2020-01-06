@@ -10,7 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
-Route::redirect('/', '/donor#/register');
+Route::get('/', 'Main\WebsiteController@homePage');
+Route::get('/blogs', 'Main\BlogController@index');
+Route::get('/blog/{category}/{slug}', 'Main\BlogController@show');
+Route::get('/team', 'Main\TeamMemberController@index');
+// Route::redirect('/', '/donor#/register');
 Route::redirect('/admin-login', '/admin#/login');
 Route::redirect('/register-awardee', '/awardee#/register');
 Route::redirect('/register-beasiswa-penelitian', '/nonreg#/register');

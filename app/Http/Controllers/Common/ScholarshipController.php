@@ -13,4 +13,9 @@ class ScholarshipController extends Controller
         $data = App\Scholarship::get(['id','name','year','is_active']);
         return $data;
     }
+    public function active()
+    {
+        $data = App\Scholarship::where('is_active',1)->get(['id','name','year','is_active']);
+        return $data;
+    }
 }

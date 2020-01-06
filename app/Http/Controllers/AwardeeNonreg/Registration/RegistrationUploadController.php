@@ -57,9 +57,25 @@ class RegistrationUploadController extends Controller
             return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
         }
         $this->validate($request, [
-            'file' => 'mimes:jpeg,png,pdf|max:1024'
+            'file' => 'mimes:jpeg,png,pdf|max:1024',
         ]);
+
         $save = $request->file('file')->storeAs("registration/nonreg/$request->scholarship_id/{$request->id}/{$request->folder}", $request->file('file')->getClientOriginalName());
+
+        $cv = Storage::files("registration/nonreg/{$request->scholarship_id}/{$request->id}/cv");
+        $siakng = Storage::files("registration/nonreg/{$request->scholarship_id}/{$request->id}/siakng");
+        $proposal = Storage::files("registration/nonreg/{$request->scholarship_id}/{$request->id}/proposal");
+        $sktmb = Storage::files("registration/nonreg/{$request->scholarship_id}/{$request->id}/sktmb");
+
+        if ($cv && $siakng && $proposal && $sktmb) {
+            $data = App\AwardeeNonregScholarship::where([
+                'awardee_nonreg_id' => $request->id,
+                'scholarship_id' => $request->scholarship_id,
+            ])->first();
+            $data->status = "SUBMITTED";
+            $data->save();
+        }
+
         return response()->json(['status' => 'File Succesfuly Uploaded'], 200);
 
     }
@@ -70,8 +86,16 @@ class RegistrationUploadController extends Controller
         }
 
         if (Storage::delete("registration/nonreg/$request->scholarship_id/{$id}/{$request->folder}/{$request->filename}")) {
-            # code...
-            return response()->json(['status' => 'File Deleted Successfuly'], 200);
+            $data = App\AwardeePeriod::where([
+                'awardee_nonreg_id' => $id,
+                'scholarship_id' => $request->scholarship_id,
+            ])->first();
+            if ($data->status == "SUBMITTED") {
+                # code...
+                $data->status = "IN PROGRESS";
+                $data->save();
+            }
+            return response()->json(['status' => 'File Deleted'], 200);
         }
     }
 

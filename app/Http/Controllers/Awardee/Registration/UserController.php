@@ -15,7 +15,7 @@ class UserController extends Controller
         $data['user'] = App\Awardee::whereHas('awardeePeriods.period', function ($query) use ($request) {
             $query->where('year', '=', $request->year);
         })
-        ->where('id', $id)
+            ->where('id', $id)
             ->with([
                 'collegeDepartment',
                 'awardeePeriods.period' => function ($query) use ($request) {
@@ -48,7 +48,6 @@ class UserController extends Controller
                 $data['files'][$folder_name]['name'] = '';
                 $data['files'][$folder_name]['date'] = '';
             }
-
         }
 
         return $data;

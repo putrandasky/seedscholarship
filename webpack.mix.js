@@ -36,4 +36,3 @@ if (mix.inProduction()) {
 // .js('resources/assets/js/admin/app.js', 'public/js/admin/script-admin.js').sourceMaps(true, 'source-map')
 // .js('resources/assets/js/nonreg/app.js', 'public/js/nonreg/script-nonreg.js').sourceMaps(true, 'source-map')
 // .js('resources/assets/js/donor/app.js', 'public/js/donor/script-donor.js').sourceMaps(true, 'source-map')
-// .js('resources/assets/js/website/main.js', 'public/js/website/script.js').sourceMaps(true, 'source-map');

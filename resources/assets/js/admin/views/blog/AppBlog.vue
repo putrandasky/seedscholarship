@@ -1,8 +1,9 @@
 <template>
+  <slide-y-up-transition>
   <b-card v-show="loaded">
-    <div slot="header" class="text-center">
+    <!-- <div slot="header" class="text-center">
       <strong>All BLOG</strong>
-    </div>
+    </!-->
     <b-row>
       <b-col xl="4" md="6" class="mb-3">
         <b-input-group>
@@ -25,17 +26,23 @@
       <b-table stacked="sm" stack style="animation-duration: 1s" hover :fields="FieldTableItems" :items="filteredItemsData"
         thead-class="thead-light" :sort-by.sync="querySortBy" :sort-desc.sync="querySortDesc" @sort-changed="sortingChanged"
         :current-page="currentPage" :per-page="perPage" @row-clicked="handleRowClicked">
-        <template slot="no" slot-scope="data">
+        <template  v-slot:cell(no)="data">
           {{data.index+1+((currentPage-1)*perPage)}}
         </template>
-        <template slot="status" slot-scope="data">
-          <b-badge :variant="getBadge(data.item.moderations[0].mod_status)">
-            {{data.item.moderations[0].mod_status}}
+        <template  v-slot:cell(author)="data">
+            <span v-b-tooltip.top.hover :title="data.item.author">
+              {{data.item.author_initial}}
+            </span>
+        </template>
+        <template  v-slot:cell(status)="data">
+          <b-badge :variant="getBadge(data.item.status)">
+            {{data.item.status}}
           </b-badge>
         </template>
       </b-table>
     </div>
   </b-card>
+  </slide-y-up-transition>
 </template>
 <script>
   import {
@@ -56,7 +63,12 @@
       loaded:false,
       }
     },
-    created() {},
+    created() {
+          this.$store.dispatch('storeBreadcrumbData', {
+      linkBackButton: ``,
+      currentPageName: `Blogs`
+    });
+    },
     methods: {
       handleRowClicked(record){
         this.$router.push({
@@ -75,6 +87,7 @@
               return data.map(item => {
                 var temp = Object.assign({}, item);
                 temp['author'] = temp.authorable.name
+                temp['author_initial'] = temp.authorable.initial
                 temp['category'] = temp.blog_category.category
                 // temp.name = 'my name '+temp.name;
                 return temp;

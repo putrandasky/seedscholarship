@@ -1,0 +1,11 @@
+General Settings
+- Period 
+- Head seed name
+- title head seed
+- Head finance
+- title head finance
+- name seed
+- cp email
+- no rekening
+
+cek periode di lampiran (contractdonaturaktif)

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <b-form-file plain v-if="!propsFileName && file.length == 0" accept="image/jpeg, image/png, image/gif, application/pdf" ref="upload"
+    <b-form-file plain v-if="!propsFileName && file.length == 0 && permission(3)" accept="image/jpeg, image/png, image/gif, application/pdf" ref="upload"
       v-model="file" @change="onFileChange($event,propsDataId)" placeholder="Choose a file..." />
-    <template v-if="file.length !== 0 && !propsFileName">
+    <template v-if="file.length !== 0 && !propsFileName && permission(3)">
       <div>
         <span v-show="uploadPercentage == 0" @click="resetFile"><i class="fa fa-close" v-b-tooltip.hover="'Cancel'"
             style="color:red;cursor:pointer"></i></span>
@@ -16,10 +16,10 @@
     </template>
 
     <div v-if="propsFileName">
-      <span @click="confirmModal = true"><i class="fa fa-trash" v-b-tooltip.hover="'Delete'" style="color:red;cursor:pointer"></i></span>
+      <span v-if="permission(3)" @click="confirmModal = true"><i class="fa fa-trash" v-b-tooltip.hover="'Delete'" style="color:red;cursor:pointer"></i></span>
       <b-link href="#" @click.stop="openFile">{{propsFileName}}</b-link>
     </div>
-    <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" title="Delete Evidence"
+    <b-modal v-if="permission(3)" :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" title="Delete Evidence"
       v-model="confirmModal" @ok="deleteFile">
       Are you sure want to delete this evidence?? This action can't be undone.
     </b-modal>

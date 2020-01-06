@@ -20,7 +20,7 @@ class BlogTagController extends Controller
         }
         $countTag = App\Tag::count();
         $tag = new App\Tag;
-        $tag->name = $request->tag;
+        $tag->name = strtolower($request->tag);
         $tag->description = $request->description;
         $tag->order = $countTag + 1;
         $tag->save();
@@ -33,7 +33,7 @@ class BlogTagController extends Controller
             return response()->json(['status' => 'This blog tag already exist', 'error' => 'Unprocessable Entity'], 422);
         }
         $tag = App\Tag::find($tagId);
-        $tag->name = $request->tag;
+        $tag->name = strtolower($request->tag);
         $tag->description = $request->description;
         $tag->save();
         return response()->json(['status' => 'Successfully update blog tag'], 201);
@@ -52,6 +52,7 @@ class BlogTagController extends Controller
     public function destroy($tagId)
     {
         $tag = App\Tag::find($tagId);
+        $tag->blogs()->detach();
         $tag->delete();
         return response()->json(['status' => 'Successfully deleted tag document'], 200);
     }

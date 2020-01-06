@@ -21,7 +21,7 @@ class BlogCategoryController extends Controller
         }
         $countBlogCategory = App\BlogCategory::count();
         $category = new App\BlogCategory;
-        $category->category = $request->category;
+        $category->category = strtolower(str_slug($request->category));
         $category->description = $request->description;
         $category->order = $countBlogCategory + 1;
         $category->save();
@@ -34,7 +34,7 @@ class BlogCategoryController extends Controller
             return response()->json(['status' => 'This blog category already exist', 'error' => 'Unprocessable Entity'], 422);
         }
         $category = App\BlogCategory::find($categoryId);
-        $category->category = $request->category;
+        $category->category = strtolower(str_slug($request->category));
         $category->description = $request->description;
         $category->save();
         return response()->json(['status' => 'Successfully update blog category'], 201);
@@ -53,6 +53,8 @@ class BlogCategoryController extends Controller
     public function destroy($categoryId)
     {
         $category = App\BlogCategory::find($categoryId);
+
+        $category->blogs()->update(['blog_category_id'=>0]);
         $category->delete();
         return response()->json(['status' => 'Successfully deleted category document'], 200);
     }

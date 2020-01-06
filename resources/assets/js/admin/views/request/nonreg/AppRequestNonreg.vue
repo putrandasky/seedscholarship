@@ -4,13 +4,13 @@
       <!-- <div slot="header" class="text-center">
         <strong>Awardee Non Reguler Request</strong>
       </div> -->
-      <div>
+      <!-- <div>
         <b-button-group>
           <router-link v-for="(v) in scholarships" :key="v.id" tag="button" class="btn btn-outline-primary btn-sm" :to="{name:'RequestNonregIndex', params:{scholarshipId: v.id}}">
             {{v.name}} - Year {{v.year}}
           </router-link>
         </b-button-group>
-      </div>
+      </div> -->
       <div>
         <router-view></router-view>
       </div>
@@ -23,11 +23,11 @@
     data: function () {
       return {
         scholarships: [],
-        loaded: false,
+        loaded: true,
       }
     },
     created() {
-      this.getPeriods()
+      // this.getPeriods()
 
     },
     methods: {

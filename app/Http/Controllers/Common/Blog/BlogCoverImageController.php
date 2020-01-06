@@ -28,15 +28,20 @@ class BlogCoverImageController extends Controller
     public function store(Request $request, $blogId)
     {
         // );
+        if ($request->file('file') == NULL)  {
+          return response()->json(['message' => 'No Blog Cover Image Added'], 200);
+        }
         $path = 'blog/' . $blogId . '/cover';
+        $filename = str_replace(' ', '-', $request->file('file')->getClientOriginalName());
+
         // $path  = 'blog/' . Carbon::now()->year . '/' . Carbon::now()->month . '/' . $blogId . '/cover';
         // Storage::disk('public')->put($path, $request->file('file'));
-        $save = $request->file('file')->storeAs('public/' . $path, $request->file('file')->getClientOriginalName());
+        $save = $request->file('file')->storeAs('public/' . $path, $filename);
 
         $blog = App\Blog::find($blogId);
-        $blog->cover_image = $request->file('file')->getClientOriginalName();
+        $blog->cover_image = $filename;
         $blog->save();
-        return response()->json(['status' => 'Blog Cover Image Added Successfuly'], 200);
+        return response()->json(['message' => 'Blog Cover Image Added'], 200);
     }
 
     /**
@@ -60,13 +65,17 @@ class BlogCoverImageController extends Controller
      */
     public function update(Request $request, $blogId)
     {
+      if ($request->file('file') == NULL)  {
+        return response()->json(['message' => 'No Blog Cover Image Added'], 200);
+      }
       $path = 'blog/' . $blogId . '/cover';
+      $filename = str_replace(' ', '-', $request->file('file')->getClientOriginalName());
         $blog = App\Blog::find($blogId);
         Storage::delete('public/' . $path . '/' . $blog->cover_image);
-        $save = $request->file('file')->storeAs('public/' . $path, $request->file('file')->getClientOriginalName());
-        $blog->cover_image = $request->file('file')->getClientOriginalName();
+        $save = $request->file('file')->storeAs('public/' . $path, $filename);
+        $blog->cover_image = $filename;
         $blog->save();
-        return response()->json(['status' => 'Blog Cover Image Updated Successfuly'], 200);
+        return response()->json(['message' => 'Blog Cover Image Updated'], 200);
 
     }
 
@@ -83,6 +92,6 @@ class BlogCoverImageController extends Controller
         Storage::delete('public/' . $path . '/' . $blog->cover_image);
         $blog->cover_image = null;
         $blog->save();
-        return response()->json(['status' => 'Blog Cover Image Deleted Successfuly'], 200);
+        return response()->json(['message' => 'Blog Cover Image Deleted'], 200);
     }
 }

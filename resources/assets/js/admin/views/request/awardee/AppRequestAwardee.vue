@@ -4,13 +4,13 @@
       <!-- <div slot="header" class="text-center">
         <strong>Awardee Request</strong>
       </div> -->
-      <div>
+      <!-- <div>
         <b-button-group v-show="loaded">
           <router-link v-for="(v) in periods" :key="v.id" tag="button" class="btn btn-outline-primary btn-sm" :to="{name:'RequestAwardeeIndex', params:{periodYear: v.year}}">
             Seedscholarship #{{v.period}} - Year {{v.year}}
           </router-link>
         </b-button-group>
-      </div>
+      </div> -->
       <div>
         <router-view></router-view>
       </div>
@@ -27,8 +27,14 @@
       }
     },
     created() {
-      this.getPeriods()
+      // this.getPeriods()
 
+    },
+    mounted(){
+      setTimeout(() => {
+        
+        this.loaded = true
+      }, 100);
     },
     methods: {
       getPeriods() {

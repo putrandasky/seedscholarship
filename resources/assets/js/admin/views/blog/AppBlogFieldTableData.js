@@ -24,8 +24,8 @@ export const AppBlogFieldTableData = {
                     label: 'Author',
                     'class': 'text-center',
                     thStyle: {
-                        minWidth: '150px',
-                        width: '150px'
+                        minWidth: '100px',
+                        width: '100px'
                     },
 
                     sortable: true
@@ -55,8 +55,8 @@ export const AppBlogFieldTableData = {
                     label: 'Created',
                     'class': 'text-center',
                     thStyle: {
-                        minWidth: '25px',
-                        width: '25px'
+                        minWidth: '100px',
+                        width: '100px'
                     },
                     sortable: true
                 },
@@ -65,8 +65,8 @@ export const AppBlogFieldTableData = {
                     label: 'Updated',
                     'class': 'text-center',
                     thStyle: {
-                        minWidth: '25px',
-                        width: '25px'
+                        minWidth: '100px',
+                        width: '100px'
                     },
                     sortable: true
                 },

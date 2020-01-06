@@ -18,6 +18,11 @@ class PeriodController extends Controller
         $data = App\Period::latest()->get(['id','period','year']);
         return $data;
     }
+    public function active()
+    {
+        $data = App\Period::where('is_active',1)->get(['id','period','year']);
+        return $data;
+    }
 
     /**
      * Store a newly created resource in storage.

@@ -25,7 +25,7 @@
               <div class="border-bottom">
                 <h5>
                   <i class="fa fa-user"></i> Full Name
-                  <b-button
+                  <b-button v-if="permission(11)"
                     class="btn--corner-15 btn--xs"
                     size="sm"
                     variant="success"
@@ -51,7 +51,7 @@
               <div class="border-bottom">
                 <h5>
                   <i class="fa fa-envelope"></i> Email Address
-                  <b-button
+                  <b-button  v-if="permission(11)"
                     class="btn--corner-15 btn--xs"
                     size="sm"
                     variant="success"
@@ -77,7 +77,7 @@
               <div class="border-bottom">
                 <h5>
                   <i class="fa fa-calendar"></i> Year of Period (Angkatan)
-                  <b-button
+                  <b-button  v-if="permission(11)"
                     class="btn--corner-15 btn--xs"
                     size="sm"
                     variant="success"
@@ -103,7 +103,7 @@
               <div class="border-bottom">
                 <h5>
                   <i class="fa fa-phone"></i> Phone Number
-                  <b-button
+                  <b-button  v-if="permission(11)"
                     class="btn--corner-15 btn--xs"
                     size="sm"
                     variant="success"
@@ -137,7 +137,7 @@
               <div class="border-bottom">
                 <h5>
                   <i class="fa fa-address-book"></i> Address
-                  <b-button
+                  <b-button  v-if="permission(11)"
                     class="btn--corner-15 btn--xs"
                     size="sm"
                     variant="success"
@@ -163,7 +163,7 @@
               <div class="border-bottom">
                 <h5>
                   <i class="fa fa-address-book"></i> Zip Code
-                  <b-button
+                  <b-button  v-if="permission(11)"
                     class="btn--corner-15 btn--xs"
                     size="sm"
                     variant="success"

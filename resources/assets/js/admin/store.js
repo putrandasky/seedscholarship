@@ -1,37 +1,37 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 // import router from './router/index';
 
 Vue.use(Vuex);
 
-const LOGIN = "LOGIN";
-const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-const USER_INFO = "USER_INFO";
-const LOGOUT = "LOGOUT";
-const LOADING = "LOADING";
-const LOADINGFULL = "LOADINGFULL";
-const LOADINGOVERLAY = "LOADINGOVERLAY";
-const BREADCRUMBDATA = "BREADCRUMBDATA"
-const SIDEBARDATA = "SIDEBARDATA";
+const LOGIN = 'LOGIN';
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+const USER_INFO = 'USER_INFO';
+const TOKEN_CHECKED = 'TOKEN_CHECKED';
+const LOGOUT = 'LOGOUT';
+const LOADING = 'LOADING';
+const LOADINGFULL = 'LOADINGFULL';
+const LOADINGOVERLAY = 'LOADINGOVERLAY';
+const BREADCRUMBDATA = 'BREADCRUMBDATA';
 
 export const store = new Vuex.Store({
   state: {
-    isLoggedIn: !!Cookies.get("token"),
-    isLoggedOut: !Cookies.get("token"),
-    token: Cookies.get("token"),
+    isLoggedIn: !!Cookies.get('token'),
+    isLoggedOut: !Cookies.get('token'),
+    token: Cookies.get('token'),
     sidebar: false,
     loading: false,
     loadingFull: false,
     loadingOverlay: false,
-    sidebarData:{},
-    linkBackButton:'',
-    currentPageName:'',
+    sidebarData: {},
+    linkBackButton: '',
+    currentPageName: '',
+    tokenChecked: false,
     user: {
       id: null,
       name: '',
-    //   superAdmin: false,
-    //   permissions: []
+      permissions: []
     }
     // [{
     //   name:'Piling',
@@ -50,24 +50,25 @@ export const store = new Vuex.Store({
   mutations: {
     [LOGIN](state) {
       state.loading = true;
-
     },
     [LOGIN_SUCCESS](state) {
       state.isLoggedIn = true;
       state.isLoggedOut = false;
       state.loading = false;
-      state.token = Cookies.get("token");
+      state.token = Cookies.get('token');
     },
     [USER_INFO](state, n) {
       state.user.id = n.id;
       state.user.name = n.name;
-      state.user.superAdmin = n.super_admin;
       state.user.permissions = n.permissions;
     },
     [LOGOUT](state) {
       state.isLoggedIn = false;
       state.isLoggedOut = true;
       state.token = '';
+    },
+    [TOKEN_CHECKED](state) {
+      state.tokenChecked = true;
     },
     [LOADING](state, n) {
       state.loading = n;
@@ -84,86 +85,75 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
-    stateLoading({
-      commit
-    }, isLoading) {
-      commit(LOADING, isLoading)
+    stateLoading({ commit }, isLoading) {
+      commit(LOADING, isLoading);
     },
-    stateLoadingFull({
-      commit
-    }, isLoading) {
-      commit(LOADINGFULL, isLoading)
+    stateLoadingFull({ commit }, isLoading) {
+      commit(LOADINGFULL, isLoading);
     },
-    storeBreadcrumbData({
-      commit
-    }, data) {
-      commit(BREADCRUMBDATA, data)
+    storeBreadcrumbData({ commit }, data) {
+      commit(BREADCRUMBDATA, data);
     },
-    login({
-      commit
-    }, creds) {
+    login({ commit }, creds) {
       commit(LOGIN); // show spinner
       let token = creds.access_token;
       let duration = creds.expires_in;
       let time = duration / 86400;
 
-      Cookies.set("token", token, {
+      Cookies.set('token', token, {
         expires: time
       });
       commit(LOGIN_SUCCESS);
     },
-    logout({
-      commit
-    }) {
-      Cookies.remove("token");
+    logout({ commit }) {
+      Cookies.remove('token');
       commit(LOGOUT);
     },
     //   checkProjectId({ commit }) {
     //    commit(PROJECTID);
     //  },
 
-
-
-    checkToken({commit,state}) {
+    checkToken({ commit, state }) {
       if (state.isLoggedIn && state.token) {
-        axios.post('api/auth/admin/me', '')
-          .then((response) => {
+        axios
+          .post('api/auth/admin/me', '')
+          .then(response => {
             let user_info = {
               id: response.data.id,
               name: response.data.name,
-              super_admin: response.data.super_admin,
               permissions: response.data.permissions
-            }
+            };
             commit(USER_INFO, user_info);
-            // console.log(response.data);
-            console.log(response.data);
+            commit(TOKEN_CHECKED);
 
+            // console.log(response.data);
           })
-          .catch((error) => {
+          .catch(error => {
             console.log(error);
             // console.log('not checked');
-          })
+          });
+      } else {
+        commit(TOKEN_CHECKED);
       }
     }
   },
   getters: {
     isLoggedIn: state => {
-
-      return state.isLoggedIn
+      return state.isLoggedIn;
     },
     isLoggedOut: state => {
-      return state.isLoggedOut
+      return state.isLoggedOut;
     },
     token: state => {
-      return state.token
+      return state.token;
     },
     loading: state => {
-      return state.loading
+      return state.loading;
     },
 
     user: state => {
-      return state.user
-    },
+      return state.user;
+    }
 
     // checkToken: state=>{
     // 	  axios.post('/api/auth/admin/me','',
@@ -176,7 +166,6 @@ export const store = new Vuex.Store({
     // }
   }
 });
-
 
 // let tagName = ['piling', 'marine', 'piping']
 

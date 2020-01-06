@@ -30,8 +30,8 @@
     </strong>
       <header-dropdown />
     </b-navbar-nav>
-    <loading :active.sync="this.$store.state.loading" :can-cancel="false" :height=20 :opacity=0 loader='spinner'
-      transition='none' :is-full-page="false" />
+    <!-- <loading :active.sync="this.$store.state.loading" :can-cancel="false" :height=20 :opacity=0 loader='spinner'
+      transition='none' :is-full-page="false" /> -->
 
   </header>
 </template>

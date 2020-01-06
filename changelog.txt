@@ -1,5 +1,28 @@
 # CHANGE LOG
 
+
+06-1-2020
+### ADDED
+- Role & Permission
+- Assign role to element
+- Blog system
+- New Main Website (Home Page, Blog, Team Member)
+- New Blog system
+- New Settings Menu
+- Assign Ordering for Department and role
+- Add Active and featured Admin
+- Assigning queue process for send email after admin registration
+- Add new Column department_id in table roles
+- Add new Column status in blogs
+- Add new Column order in department
+- Add summary to blogs for meta description
+- Add Column Status and Featured for admin
+### Revised
+- Table Name to Admin Permission and Row name to admin_id
+- Table Name admmin_permission to permission_role and Column admin_id to role_id
+
+
+
 12-12-2019
 ### IMPROVE
 - Popup Notification
