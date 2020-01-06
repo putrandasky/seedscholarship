@@ -10,7 +10,7 @@ class WebsiteController extends Controller
 {
     public function homePage()
     {
-      $blogs = App\Blog::published()->latest()->take(4)->get();
+      $blogs = App\Blog::with('blogCategory','tags',)->where('status', 'PUBLISH')->latest()->take(4)->get();
       $teams = App\Department::with([
         'roles' => function ($query) {
             $query->orderBy('order', 'ASC');

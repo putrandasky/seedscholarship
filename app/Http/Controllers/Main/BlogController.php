@@ -13,7 +13,7 @@ class BlogController extends Controller
 
     public function index()
     {
-        $posts = App\Blog::published()->latest()
+        $posts = App\Blog::with('blogCategory','tags',)->where('status', 'PUBLISH')->latest()
         ->paginate(5);
 
         // return $posts;
