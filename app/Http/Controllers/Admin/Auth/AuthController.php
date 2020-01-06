@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use App\Notifications\Admin\RegisterNotification;
-use App\JobS\Admin\ProcessSendEmailAdminRegister;
+use App\Jobs\Admin\ProcessSendEmailAdminRegister;
 
 class AuthController extends Controller
 {
