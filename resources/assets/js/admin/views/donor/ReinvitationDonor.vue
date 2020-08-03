@@ -2,7 +2,7 @@
   <slide-y-up-transition>
     <restricted-area v-if="!permission(19)" />
 
-    <b-card v-show="loaded" v-if="!permission(19)">
+    <b-card v-show="loaded" v-if="permission(19)">
       <div v-if="filteredItemsData.length == 0">
         <b-alert show variant="info">
           <h4 class="alert-heading">Belum Ada Undangan Yang Dikirim</h4>
