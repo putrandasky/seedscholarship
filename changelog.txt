@@ -1,6 +1,11 @@
 # CHANGE LOG
 
 3 Aug 2020
+2.2.1 hotfix 1
+
+### FIXED
+- awardee scholarship index
+
 2.2.1
 
 ### FIXED

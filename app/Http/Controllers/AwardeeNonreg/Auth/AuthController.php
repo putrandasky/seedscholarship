@@ -43,7 +43,7 @@ class AuthController extends Controller
         //         }])
         //     ->orderBy('created_at', 'desc')->get();
 
-        $user = App\AwardeeNonregScholarship::where('id', $request->id)
+        $user = App\AwardeeNonregScholarship::where('scholarship_id', $request->id)
             ->with([
                 'awardeeNonreg' => function ($query) {
                     $query->select('id', 'name', 'email', 'year', 'college_department_id', 'created_at');
