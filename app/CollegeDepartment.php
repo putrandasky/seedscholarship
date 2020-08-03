@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CollegeDepartment extends Model
 {
+  public $timestamps = false;
     public function awardees()
     {
       return $this->hasMany('App\Awardee');

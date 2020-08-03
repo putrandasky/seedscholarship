@@ -1,0 +1,4 @@
+- make start and end month per period/year (all function related to this issue will be checked and solved)
+- start and end month to as new data in donor index back end
+- apply relative duration period in donor index front end
+- apply to check year on donation plan to date per donor

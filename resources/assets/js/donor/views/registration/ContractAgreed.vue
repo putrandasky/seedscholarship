@@ -18,7 +18,7 @@
 
           <div class="text-center">
             <i class="fa fa-heart display-1" id="checkmark" style="color:red"></i>
-            <p>Terima kasih telah begabung bersama kami menjadi donatur di SEED Scholarship Periode ke-5. Kami telah
+            <p>Terima kasih telah begabung bersama kami menjadi donatur di SEED Scholarship Periode ke-{{this.$route.query.period}}. Kami telah
               mengirimkan kontrak kerja sama, mohon cek email anda. Kontribusi anda sangat berharga bagi adik-adik kita
               di Departemen Teknik Sipil UI. Tim kami akan segera menghubungi Anda</p>
           </div>

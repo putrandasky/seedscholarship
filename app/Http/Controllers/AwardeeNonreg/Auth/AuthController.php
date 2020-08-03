@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -32,15 +31,27 @@ class AuthController extends Controller
      */
     public function index(Request $request)
     {
-        $user = App\AwardeeNonreg::whereHas('awardeeNonregScholarships', function ($query) use ($request) {
-            $query->where('scholarship_id', '=', $request->id);
+        // $user = App\AwardeeNonreg::whereHas('awardeeNonregScholarships', function ($query) use ($request) {
+        //     $query->where('scholarship_id', '=', $request->id);
 
-        })
+        // })
+        //     ->with([
+
+        //         'collegeDepartment',
+        //         'awardeeNonregScholarships.scholarship' => function ($query) use ($request) {
+        //             $query->where('id', '=', $request->id);
+        //         }])
+        //     ->orderBy('created_at', 'desc')->get();
+
+        $user = App\AwardeeNonregScholarship::where('id', $request->id)
             ->with([
-                'collegeDepartment',
-                'awardeeNonregScholarships.scholarship' => function ($query) use ($request) {
-                    $query->where('id', '=', $request->id);
-                }])
+                'awardeeNonreg' => function ($query) {
+                    $query->select('id', 'name', 'email', 'year', 'college_department_id', 'created_at');
+                },
+                'awardeeNonreg.collegeDepartment',
+                'scholarship',
+
+            ])
             ->orderBy('created_at', 'desc')->get();
         return $user;
     }

@@ -1,9 +1,7 @@
 @component('mail::layout')
 {{-- Header --}}
 @slot('header')
-@component('mail::header', ['url' => config('app.url')])
-<!-- header here -->
-<img class="img-header" src="{{ config('app.url').'/images/Seedlogo2.png'}}">
+@component('email.header')
 @endcomponent
 @endslot
 
@@ -60,16 +58,7 @@ Terimakasih,<br />
 
 {{-- Footer --}}
 @slot('footer')
-@component('mail::footer')
-<!-- footer here -->
-{{-- <strong>CONTACT : </strong> --}}
-Anggit Cahyo S’08 : 085697274479 |
-Janitra Hendra L’08 : 081290001300
-<br />
-Bentuk kontribusi alumni Departemen Teknik Sipil Universitas Indonesia <br />
-© {{ config('app.name') }}, 2014 - 2019 | Oleh Alumni Department Teknik Sipil UI <br />
-EMAIL : hello@seedsholarship.org
-seedscholarship.org
+@component('email.footer',['cp_email'=> $cp_email])
 @endcomponent
 @endslot
 @endcomponent

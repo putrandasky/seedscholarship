@@ -2,10 +2,10 @@
 
 namespace App;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Donor extends Authenticatable implements JWTSubject
 {
@@ -37,15 +37,15 @@ class Donor extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token'
+        'password', 'remember_token',
     ];
     public function blogs()
     {
         return $this->morphMany('App\Blog', 'authorable');
     }
-        public function collegeDepartment()
+    public function collegeDepartment()
     {
-      return $this->belongsTo('App\CollegeDepartment');
+        return $this->belongsTo('App\CollegeDepartment');
     }
     //     public function periods()
     // {
@@ -54,11 +54,15 @@ class Donor extends Authenticatable implements JWTSubject
 
     public function donorPeriods()
     {
-      return $this->hasMany('App\DonorPeriod');
+        return $this->hasMany('App\DonorPeriod');
     }
     public function donorTransactions()
     {
-      return $this->hasMany('App\DonorTransaction');
+        return $this->hasMany('App\DonorTransaction');
+    }
+    public function broadcast_readers()
+    {
+        return $this->morphMany('App\BroadcastReader', 'accountable');
     }
     public function getJWTIdentifier()
     {

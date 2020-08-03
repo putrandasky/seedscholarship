@@ -27,15 +27,19 @@ class AwardeeNonreg extends Authenticatable implements JWTSubject
     ];
     public function scholarships()
     {
-    return $this->belongsToMany('App\Scholarship')->withPivot('status', 'registration_code')->withTimestamps();
+        return $this->belongsToMany('App\Scholarship')->withPivot('status', 'registration_code')->withTimestamps();
     }
-        public function collegeDepartment()
+    public function collegeDepartment()
     {
-      return $this->belongsTo('App\CollegeDepartment');
+        return $this->belongsTo('App\CollegeDepartment');
     }
     public function awardeeNonregScholarships()
     {
-      return $this->hasMany('App\AwardeeNonregScholarship');
+        return $this->hasMany('App\AwardeeNonregScholarship');
+    }
+    public function broadcast_readers()
+    {
+        return $this->morphMany('App\BroadcastReader', 'accountable');
     }
     public function getJWTIdentifier()
     {

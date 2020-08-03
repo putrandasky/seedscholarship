@@ -11,7 +11,7 @@ export const AppDonorFieldTableData = {
           },
         },
         {
-          key: 'name',
+          key: 'donor.name',
           label: 'Name',
           tdClass: 'truncate-cell',
           sortable: true,
@@ -38,7 +38,7 @@ export const AppDonorFieldTableData = {
         //   sortable: true
         // },
         {
-          key: 'year',
+          key: 'donor.year',
           label: 'Year',
           thStyle: {
             minWidth: '50px',
@@ -67,7 +67,7 @@ export const AppDonorFieldTableData = {
           sortable: true
         },
         {
-          key: 'unverified_transactions',
+          key: 'donor.unverified_transactions',
           label: 'Unverified',
           'class': 'text-center',
           thStyle: {
@@ -76,7 +76,7 @@ export const AppDonorFieldTableData = {
           sortable: true
         },
         {
-          key: 'not_sent_invoice',
+          key: 'donor.not_sent_invoice',
           label: 'To Invoice',
           'class': 'text-center',
           thStyle: {
@@ -196,22 +196,22 @@ export const AppDonorFieldTableData = {
     filteredItemsData() {
       if (this.selectedInputSearch == 'name') {
         return this.itemsData.filter(result =>
-          result.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+          result.donor.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         )
       }
       if (this.selectedInputSearch == 'email') {
         return this.itemsData.filter(result =>
-          result.email.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+          result.donor.email.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         )
       }
       if (this.selectedInputSearch == 'department') {
         return this.itemsData.filter(result =>
-          result.department.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+          result.donor.department.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         )
       }
       if (this.selectedInputSearch == 'year') {
         return this.itemsData.filter(result =>
-          result.year.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+          result.donor.year.toString().toLowerCase().indexOf(this.search.toLowerCase()) > -1
         )
       }
       if (this.selectedInputSearch == 'contract') {

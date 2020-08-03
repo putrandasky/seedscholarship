@@ -18,7 +18,7 @@ Vue.use(Router)
 
 export default new Router({
   // mode: 'history',
-  base: '/nonreg',
+  base: '/scholarship',
   linkActiveClass: 'open active',
   // scrollBehavior: () => ({
   //   y: 0

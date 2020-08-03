@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 @php
-setlocale(LC_TIME, 'id');
+ setlocale(LC_TIME, 'id');
 @endphp
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{$data->donorPeriods[0]->contract_number}}</title>
+  <title>{{$data->contract_number}}</title>
   <style>
     body {
       font-family: Arial, "Helvetica Neue", Helvetica, sans-serif
@@ -77,7 +77,7 @@ setlocale(LC_TIME, 'id');
   <br />
   <div>
     <div class="text-center bold" style="font-size:24px">SURAT PERJANJIAN KERJASAMA</div>
-    <div class="text-center font-14">Nomor: {{$series}}/SEEDS/DP/{{$data->donorPeriods[0]->period->year}}</div>
+    <div class="text-center font-14">Nomor: {{$series}}/SEEDS/DP/{{$data->period->year}}</div>
     <br />
 
     <div class="text-center">Pemberian Donasi Bantuan Dana Pendidikan dan Pengembangan Diri Mahasiswa Departemen Teknik
@@ -85,8 +85,8 @@ setlocale(LC_TIME, 'id');
     <br />
     <br />
 
-    <div class="text-center bold">Anggit Cahyo</div>
-    <div class="text-center italic font-14">(Selanjutnya disebut “Ketua Pengurus SEED Scholarship”)</div>
+    <div class="text-center bold">{{$general->where('key','Head of Seedscholarship Name')->first()->value}}</div>
+    <div class="text-center italic font-14">(Selanjutnya disebut “{{$general->where('key','Head of Seedscholarship Title')->first()->value}}”)</div>
     <br />
     <div class="text-justify">
       menerima Formulir Pendaftaran Donatur SEED Scholarship beserta semua keterangan dan pernyataan bersedia menjadi
@@ -94,9 +94,9 @@ setlocale(LC_TIME, 'id');
     </div>
     <br />
     <div class="text-center">
-      <div class="bold">[Nama Donatur]</div>
+      <div class="bold">{{$data->donor->name}}</div>
       <div class="italic font-14">(Selanjutnya disebut “Donatur Pasif”)</div>
-      NO. KONTRAK : {{$data->donorPeriods[0]->contract_number}}
+      NO. KONTRAK : {{$data->contract_number}}
     </div>
     <br />
     <div class="text-justify">
@@ -109,16 +109,17 @@ setlocale(LC_TIME, 'id');
     <br />
     <br />
     <br />
-    <div>Jakarta, {{Carbon\Carbon::parse($data->donorPeriods[0]->created_at)->formatLocalized('%d %B %Y')}}</div>
+    <div>Jakarta, {{Carbon\Carbon::parse($data->created_at)->formatLocalized('%d %B %Y')}}</div>
 <div>
       <img style="max-height:100px; max-width:100%" src="{{ config('app.url').'/images/sign-ketua-biru.jpeg'}}">
     </div>
         <div class="underline">
-      Anggit Cahyo U.
+          {{$general->where('key','Head of Seedscholarship Name')->first()->value}}
+
     </div>
     <div>
       <small>
-        Ketua Pengurus SEED Scholarship
+        {{$general->where('key','Head of Seedscholarship Title')->first()->value}}
       </small>
     </div>
   </div>
@@ -134,19 +135,19 @@ setlocale(LC_TIME, 'id');
       <tbody>
         <tr>
           <td>No Kontrak</td>
-          <td style="padding-left:20px">: {{$data->donorPeriods[0]->contract_number}}</td>
+          <td style="padding-left:20px">: {{$data->contract_number}}</td>
         </tr>
         <tr>
           <td>Nama</td>
-          <td style="padding-left:20px">: {{$data->name}}</td>
+          <td style="padding-left:20px">: {{$data->donor->name}}</td>
         </tr>
         <tr>
           <td>Alumni Program Studi</td>
-          <td style="padding-left:20px">: {{$data->collegeDepartment->department}}</td>
+          <td style="padding-left:20px">: {{$data->donor->collegeDepartment->department}}</td>
         </tr>
         <tr>
           <td>Angkatan</td>
-          <td style="padding-left:20px">: {{$data->year}}</td>
+          <td style="padding-left:20px">: {{$data->donor->year}}</td>
         </tr>
         <tr>
           <td>Status</td>
@@ -154,7 +155,7 @@ setlocale(LC_TIME, 'id');
         </tr>
         <tr>
           <td>Terdaftar pada tanggal</td>
-          <td style="padding-left:20px">: {{Carbon\Carbon::parse($data->donorPeriods[0]->created_at)->formatLocalized('%d %B %Y')}}</td>
+          <td style="padding-left:20px">: {{Carbon\Carbon::parse($data->created_at)->formatLocalized('%d %B %Y')}}</td>
         </tr>
       </tbody>
     </table>
@@ -177,7 +178,7 @@ setlocale(LC_TIME, 'id');
       <br/>
     <li class="bold">Periode Donasi </li>
     <div class="text-justify" style="text-indent:35px">
-      Donatur Pasif membayarkan donasi minimal satu kali terhitung dari Maret {{$data->donorPeriods[0]->period->year}} hingga Desember {{$data->donorPeriods[0]->period->year}}.
+      Donatur Pasif membayarkan donasi minimal satu kali terhitung dari {{Carbon\Carbon::create()->month($data->period->start_month)->formatLocalized('%B')}} {{$data->period->year}} hingga {{Carbon\Carbon::create()->month($data->period->end_month)->formatLocalized('%B')}} {{$data->period->end_year}}.
     </div>
     {{-- <div class="text-justify" style="text-indent:35px">
       Donatur Pasif membayarkan donasi minimal satu kali dalam periode 12 bulan terhitung dari Januari {{$data->donorPeriods[0]->period->year}} hingga Desember {{$data->donorPeriods[0]->period->year}}.
@@ -196,19 +197,19 @@ setlocale(LC_TIME, 'id');
       <tbody>
         <tr>
           <td style="padding-left:35px">Nomor Rekening </td>
-          <td style="padding-left:20px">: 0343806044</td>
+          <td style="padding-left:20px">: {{$general->where('key','Account Number')->first()->value}}</td>
         </tr>
         <tr>
           <td style="padding-left:35px">Nama Bank</td>
-          <td style="padding-left:20px">: BNI</td>
+          <td style="padding-left:20px">: {{$general->where('key','Account Bank')->first()->value}}</td>
         </tr>
         <tr>
           <td style="padding-left:35px">Cabang</td>
-          <td style="padding-left:20px">: Kantor Cabang Kementerian PU</td>
+          <td style="padding-left:20px">: {{$general->where('key','Account Address')->first()->value}}</td>
         </tr>
         <tr>
           <td style="padding-left:35px">Nama Pemilik Rekening</td>
-          <td style="padding-left:20px">: a.n. Desy Rahayu Hertanti</td>
+          <td style="padding-left:20px">: a.n. {{$general->where('key','Account Name')->first()->value}}</td>
         </tr>
       </tbody>
     </table>

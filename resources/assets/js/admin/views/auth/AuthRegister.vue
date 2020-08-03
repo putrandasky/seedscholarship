@@ -6,7 +6,7 @@
           <slide-y-up-transition>
             <b-card no-body class="mx-4" v-show="loaded">
               <form class="card-body p-4" @submit.prevent="register">
-                <h1>Register</h1>
+                <h3>Register</h3>
                 <p class="text-muted">Create New Admin Account</p>
                 <b-form-group :invalid-feedback="errors.name" :state="stateName">
                   <b-input-group>
@@ -37,8 +37,7 @@
                     <b-input-group-prepend>
                       <b-input-group-text><i class="icon-list"></i></b-input-group-text>
                     </b-input-group-prepend>
-                    <b-form-select plain id="department" :options="departmentOptions" v-model="input.department_id"
-                      :state="stateDepartment">
+                    <b-form-select plain id="department" :options="departmentOptions" v-model="input.department_id" :state="stateDepartment">
                       <template slot="first">
                         <option :value="null" disabled>-- Please select department --</option>
                       </template>
@@ -58,8 +57,7 @@
                     <b-input-group-prepend>
                       <b-input-group-text><i class="icon-lock"></i></b-input-group-text>
                     </b-input-group-prepend>
-                    <b-input type="password" class="form-control" placeholder="Password" v-model="input.password"
-                      :state="statePassword" />
+                    <b-input type="password" class="form-control" placeholder="Password" v-model="input.password" :state="statePassword" />
                   </b-input-group>
                 </b-form-group>
                 <b-form-group :invalid-feedback="errors.password" :state="statePassword">
@@ -67,8 +65,7 @@
                     <b-input-group-prepend>
                       <b-input-group-text><i class="icon-lock"></i></b-input-group-text>
                     </b-input-group-prepend>
-                    <b-input type="password" class="form-control" placeholder="Repeat password" v-model="input.password_confirmation"
-                      :state="statePassword" />
+                    <b-input type="password" class="form-control" placeholder="Repeat password" v-model="input.password_confirmation" :state="statePassword" />
                   </b-input-group>
                 </b-form-group>
                 <b-button type="submit" variant="success" block>Create Account</b-button>
@@ -83,7 +80,7 @@
 <script>
   export default {
     name: 'AuthRegister',
-    data: function () {
+    data: function() {
       return {
         loaded: false,
         departmentOptions: [],
@@ -91,7 +88,7 @@
           name: '',
           email: '',
           initial: '',
-          year:'',
+          year: '',
           department_id: '',
           initial: '',
           password: '',
@@ -100,7 +97,7 @@
           name: '',
           initial: '',
           department_id: null,
-          year:'',
+          year: '',
           email: '',
           password: '',
           password_confirmation: '',
@@ -134,7 +131,7 @@
       getDepartment() {
         axios.get(`api/department`)
           .then((response) => {
-            response.data.forEach(function (obj) {
+            response.data.forEach(function(obj) {
               obj.value = obj.id
               obj.text = obj.department
               delete obj.id
@@ -159,9 +156,9 @@
               this.input.year = '',
               this.input.password = '',
               this.input.password_confirmation = ''
-              this.$router.push({
-                name:'AccountAdmin'
-              })
+            this.$router.push({
+              name: 'AccountAdmin'
+            })
           })
           .catch((error) => {
             // console.log(error.response.data);
@@ -178,7 +175,6 @@
       }
     },
   }
-
 </script>
 <style>
 </style>

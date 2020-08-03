@@ -13,22 +13,35 @@ class UserController extends Controller
     public function show(Request $request, $id)
     {
 
-        $data['user'] = App\AwardeeNonreg::whereHas('awardeeNonregScholarships', function ($query) use ($request) {
-            $query->where('scholarship_id', '=', $request->id);
-        })
-            ->where('id', $id)
-            ->with([
-                'collegeDepartment',
-                'awardeeNonregScholarships.scholarship' => function ($query) use ($request) {
-                    $query->where('id', '=', $request->id);
-                },
-            ])->first();
+        // $data['user'] = App\AwardeeNonreg::whereHas('awardeeNonregScholarships', function ($query) use ($request) {
+        //     $query->where('scholarship_id', '=', $request->id);
+        // })
+        //     ->where('id', $id)
+        //     ->with([
+        //         'collegeDepartment',
+        //         'awardeeNonregScholarships.scholarship' => function ($query) use ($request) {
+        //             $query->where('id', '=', $request->id);
+        //         },
+        //     ])->first();
 
+            $data['user'] = App\AwardeeNonregScholarship::where([
+              'awardee_nonreg_id'=> $id,
+              'scholarship_id'=> $request->id,
+            ])
+                ->with([
+                    'awardeeNonreg' => function ($query) {
+                        $query->select('id', 'name', 'email', 'year', 'college_department_id', 'created_at','phone');
+                    },
+                    'awardeeNonreg.collegeDepartment',
+                    'scholarship'])
+
+                // ->select('id', 'awardee_id', 'period_id', 'created_at', 'status')
+                ->orderBy('created_at', 'desc')->first();
         if (!$data['user']) {
             return response()->json(['error' => 'Not Found', 'message' => 'User Not Found For This Scholarship'], 404);
         }
 
-        $folders = Storage::directories("registration/nonreg/{$data['user']->awardeeNonregScholarships[0]->scholarship_id}/{$id}");
+        $folders = Storage::directories("registration/nonreg/{$request->id}/{$id}");
         for ($i = 0; $i < count($folders); $i++) {
             # code...
             $filesInFolder = Storage::files($folders[$i]);

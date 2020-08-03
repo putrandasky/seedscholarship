@@ -12,7 +12,7 @@ export const AppRequestAwardeeFieldTableData = {
           }
         },
         {
-          key: 'name',
+          key: 'awardee.name',
           label: 'Name',
           tdClass: 'truncate-cell',
           sortable: true,
@@ -21,7 +21,7 @@ export const AppRequestAwardeeFieldTableData = {
           }
         },
         {
-          key: 'email',
+          key: 'awardee.email',
           label: 'Email',
           thStyle: {
             minWidth: '150px',
@@ -84,13 +84,13 @@ export const AppRequestAwardeeFieldTableData = {
       if (this.selectedInputSearch == 'name') {
         return this.itemsData.filter(
           result =>
-            result.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+            result.awardee.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         );
       }
       if (this.selectedInputSearch == 'email') {
         return this.itemsData.filter(
           result =>
-            result.email.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+            result.awardee.email.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         );
       }
       if (this.selectedInputSearch == 'department') {

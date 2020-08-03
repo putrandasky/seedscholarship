@@ -5,6 +5,7 @@ namespace App\Notifications\Auth;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App;
 
 class UserResetPassword extends Notification
 {
@@ -40,6 +41,9 @@ class UserResetPassword extends Notification
      */
     public function toMail($notifiable)
     {
+      $general = App\General::get();
+      $cp_email[0] = $general->where('key','Contact Person Email 1')->first()->value;
+      $cp_email[1] = $general->where('key','Contact Person Email 2')->first()->value;
 $url = 'hello@seedscholarship.org';
         return (new MailMessage)
             ->from($url,'SEED Scholarship')

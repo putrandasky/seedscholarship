@@ -14,6 +14,7 @@ const PasswordReset = () => import('../views/auth/AuthPasswordReset')
 const ForgotPassword = () => import('../views/auth/AuthForgotPassword')
 const Register = () => import('../views/auth/AuthRegister')
 const ContractAgreed = () => import('../views/registration/ContractAgreed')
+const ReRegistration = () => import('../views/registration/ReRegistration')
 const DonationConfirmation = () => import('../views/confirmation/DonationConfirmation.vue')
 Vue.use(Router)
 
@@ -98,8 +99,15 @@ export default new Router({
         path: '',
         name:'ContractAgreed',
         component: ContractAgreed,
-
-
+      }]
+    },
+    {
+      path: '/re-registration',
+      component: Plain,
+      children: [{
+        path: '',
+        name:'ReRegistration',
+        component: ReRegistration,
       }]
     },
     {

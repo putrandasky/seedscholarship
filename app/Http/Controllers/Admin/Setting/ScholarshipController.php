@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Setting;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class ScholarshipController extends Controller
 {
@@ -31,6 +31,7 @@ class ScholarshipController extends Controller
         $period->name = $request->name;
         $period->year = $request->year;
         $period->is_active = 0;
+        $period->is_open_registration = 0;
         $period->save();
         return response()->json(['status' => 'New Scholarship Added'], 200);
 
@@ -52,11 +53,29 @@ class ScholarshipController extends Controller
         //     $data->save();
         // }
 
-        $store = App\Scholarship::where('id',$id)->first();
+        $store = App\Scholarship::where('id', $id)->first();
         $store->is_active = $request->is_active;
         $store->save();
 
         return response()->json(['status' => 'Activation Scholarship Edited'], 200);
+
+    }
+
+    public function open(Request $request, $id)
+    {
+
+        // $data = App\Scholarship::where('is_active',1)->first();
+        // if ($data) {
+        //     # code...
+        //     $data->is_active = 0;
+        //     $data->save();
+        // }
+
+        $store = App\Scholarship::where('id', $id)->first();
+        $store->is_open_registration = $request->is_open_registration;
+        $store->save();
+
+        return response()->json(['status' => 'Open Registration Scholarship Edited'], 200);
 
     }
 
@@ -75,7 +94,6 @@ class ScholarshipController extends Controller
         $period->save();
         return response()->json(['status' => 'The Period Edited'], 200);
     }
-
 
     /**
      * Remove the specified resource from storage.

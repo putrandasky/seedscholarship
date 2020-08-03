@@ -56,7 +56,7 @@
           </template>
           <template v-slot:cell(status)="data">
             <b-badge
-              :variant="getBadgeApproval(data.item.awardee_periods[0].status)"
+              :variant="getBadgeApproval(data.item.status)"
             >
               {{ data.item.status }}
             </b-badge>
@@ -93,7 +93,7 @@ export default {
       this.$router.push({
         name: "DetailRequestAwardee",
         params: {
-          userId: record.id,
+          userId: record.awardee.id,
           periodYear: this.$route.params.periodYear
         }
       });
@@ -108,8 +108,8 @@ export default {
           const editData = data => {
             return data.map(item => {
               var temp = Object.assign({}, item);
-              temp["department"] = temp.college_department.department;
-              temp["status"] = temp.awardee_periods[0].status;
+              temp["department"] = temp.awardee.college_department.department;
+              temp["status"] = temp.status;
               temp["registered"] = temp.created_at;
               // temp.name = 'my name '+temp.name;
               return temp;

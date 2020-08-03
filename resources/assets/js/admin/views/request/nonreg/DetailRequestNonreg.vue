@@ -16,7 +16,7 @@
                 <h5><i class="fa fa-user"></i> Full Name</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{
-                data.name
+                data.awardee_nonreg.name
               }}</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
@@ -24,7 +24,7 @@
                 <h5><i class="fa fa-envelope"></i> Email Address</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{
-                data.email
+                data.awardee_nonreg.email
               }}</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
@@ -32,7 +32,7 @@
                 <h5><i class="fa fa-calendar"></i> Year of Period</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{
-                data.year
+                data.awardee_nonreg.year
               }}</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
@@ -40,7 +40,7 @@
                 <h5><i class="fa fa-phone"></i> Phone Number</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{
-                data.phone
+                data.awardee_nonreg.phone
               }}</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
@@ -48,7 +48,7 @@
                 <h5><i class="fa fa-list"></i> Department</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{
-                data.college_department.department
+                data.awardee_nonreg.college_department.department
               }}</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
@@ -56,7 +56,7 @@
                 <h5><i class="fa fa-check"></i> Status Approval</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{
-                data.awardee_nonreg_scholarships[0].status
+                data.status
               }}</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
@@ -89,10 +89,10 @@
             <file-card
               title="Curriculum Vitae"
               :scholarshipId="
-                data.awardee_nonreg_scholarships[0].scholarship_id
+                data.scholarship_id
               "
               :registrationCode="
-                data.awardee_nonreg_scholarships[0].registration_code
+                data.registration_code
               "
               folder="cv"
               :data="files.cv"
@@ -103,10 +103,10 @@
               title="Proposal"
               folder="proposal"
               :scholarshipId="
-                data.awardee_nonreg_scholarships[0].scholarship_id
+                data.scholarship_id
               "
               :registrationCode="
-                data.awardee_nonreg_scholarships[0].registration_code
+                data.registration_code
               "
               :data="files.proposal"
             />
@@ -116,10 +116,10 @@
               title="Surat Keterangan"
               folder="sktmb"
               :scholarshipId="
-                data.awardee_nonreg_scholarships[0].scholarship_id
+                data.scholarship_id
               "
               :registrationCode="
-                data.awardee_nonreg_scholarships[0].registration_code
+                data.registration_code
               "
               :data="files.sktmb"
             />
@@ -129,10 +129,10 @@
               title="SiakNG"
               folder="siakng"
               :scholarshipId="
-                data.awardee_nonreg_scholarships[0].scholarship_id
+                data.scholarship_id
               "
               :registrationCode="
-                data.awardee_nonreg_scholarships[0].registration_code
+                data.registration_code
               "
               :data="files.siakng"
             />
@@ -140,7 +140,7 @@
         </b-row>
       </b-col>
       <b-col cols="12">
-        <b-row v-if="data.awardee_nonreg_scholarships[0].status == 'SUBMITTED'">
+        <b-row v-if="data.status == 'SUBMITTED'">
           <b-col cols="12" class="text-right">
             <b-button
               variant="danger"
@@ -150,7 +150,8 @@
                   'Are you sure to set status approval to NOT APPROVED? This action can not be undone',
                   'setStatus',
                   {
-                    awardeeScholarshipId: data.awardee_nonreg_scholarships[0].id,
+                    awardeeScholarshipId:
+                      data.id,
                     status: `NOT APPROVED`
                   }
                 )
@@ -166,7 +167,8 @@
                   'Are you sure to set status approval to APPROVED? This action can not be undone',
                   'setStatus',
                   {
-                    awardeeScholarshipId: data.awardee_nonreg_scholarships[0].id,
+                    awardeeScholarshipId:
+                      data.id,
                     status: `APPROVED`
                   }
                 )
@@ -207,11 +209,13 @@ export default {
       confirmModalTempValue: '',
       confirmModalState: '',
       data: {
-        name: '',
-        email: '',
-        phone: '',
-        year: null,
-        department: null,
+        awardee_nonreg: {
+          name: '',
+          email: '',
+          phone: '',
+          year: null,
+          department: null
+        },
         created_at: null,
         updated_at: null
       }
@@ -248,8 +252,8 @@ export default {
         )
         .then(response => {
           this.$snotify.success(response.data.message, 'SUCCESS');
-          this.data.awardee_nonreg_scholarships[0].status = this.confirmModalTempValue.status;
-          console.log(this.data.awardee_nonreg_scholarships[0].status);
+          this.data.status = this.confirmModalTempValue.status;
+          console.log(this.data.status);
 
           this.confirmModalTempValue.status = '';
         })
@@ -264,7 +268,7 @@ export default {
           `api/registration-awardee-nonreg/${this.$route.params.userId}?id=${this.$route.params.scholarshipId}`
         )
         .then(response => {
-          console.log(response.data)
+          console.log(response.data);
           self.data = response.data.user;
           self.files = response.data.files;
           this.loaded = true;

@@ -94,7 +94,7 @@ if ($nilai < 0) { $hasil="minus " . trim(penyebut($nilai)); } else { $hasil=trim
   <body style="margin:20px">
     <div>
       <img style="max-height:75px;text-align:center; max-width:100%" src="{{ config('app.url').'/images/Seedlogo2.png'}}">
-      <span style="float:right;border-style:solid;padding:5px 40px">INV-DON-{{$donor->donorTransactions[0]->invoice_no}}</span>
+      <span style="float:right;border-style:solid;padding:5px 40px">INV-DON-{{$data->donor->donorTransactions[0]->invoice_no}}</span>
     </div>
 
     <div class="text-center">
@@ -106,15 +106,15 @@ if ($nilai < 0) { $hasil="minus " . trim(penyebut($nilai)); } else { $hasil=trim
         <tbody>
           <tr>
             <td>No Kontrak</td>
-            <td style="padding-left:30px">: {{$donor->donorPeriods[0]->contract_number}}</tdc>
+            <td style="padding-left:30px">: {{$data->contract_number}}</tdc>
           </tr>
           <tr>
             <td>Nama Donatur</td>
-            <td style="padding-left:30px">: {{$donor->name}}</td>
+            <td style="padding-left:30px">: {{$data->donor->name}}</td>
           </tr>
           <tr>
             <td>Kategori Donatur</td>
-            <td style="padding-left:30px">: {{$donor->donorPeriods[0]->donation_category}}</td>
+            <td style="padding-left:30px">: {{$data->donation_category}}</td>
           </tr>
           {{-- <tr>
             <td>No. Bukti Pembayaran</td>
@@ -129,13 +129,13 @@ if ($nilai < 0) { $hasil="minus " . trim(penyebut($nilai)); } else { $hasil=trim
         <tbody>
           <tr>
             <td style="width:250px">Tanggal Donasi</td>
-            <td style="padding-left:30px;font-weight:bold">{{Carbon\Carbon::parse($donor->donorTransactions[0]->trx_date)->formatLocalized('%d %B %Y')}}</td>
+            <td style="padding-left:30px;font-weight:bold">{{Carbon\Carbon::parse($data->donor->donorTransactions[0]->trx_date)->formatLocalized('%d %B %Y')}}</td>
           </tr>
           <tr>
             <td style="width:250px">Jumlah Donasi</td>
             <td style="padding-left:30px;font-weight:bold">Rp
-              {{number_format($donor->donorTransactions[0]->amount,0,",",".")}},-
-              ({{ucwords(terbilang($donor->donorTransactions[0]->amount))}} Rupiah)</td>
+              {{number_format($data->donor->donorTransactions[0]->amount,0,",",".")}},-
+              ({{ucwords(terbilang($data->donor->donorTransactions[0]->amount))}} Rupiah)</td>
           </tr>
         </tbody>
       </table>

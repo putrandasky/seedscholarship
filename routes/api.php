@@ -17,10 +17,11 @@
 
 Route::get('attachment-contract', 'Donor\File\AttachmentContractController@view');
 Route::get('test/sendreminder', 'TestController@sendreminder');
+Route::get('test/sendreminder2', 'TestController@sendReminder2');
 
 Route::group([
 
-    'middleware' => 'jwt.verify',
+    // 'middleware' => 'jwt.verify',
 
 ], function ($router) {
 
@@ -50,6 +51,7 @@ Route::group([
             Route::get('scholarship', 'Admin\Setting\ScholarshipController@index');
             Route::post('scholarship', 'Admin\Setting\ScholarshipController@store');
             Route::patch('scholarship/active/{id}', 'Admin\Setting\ScholarshipController@active');
+            Route::patch('scholarship/open/{id}', 'Admin\Setting\ScholarshipController@open');
             Route::patch('scholarship/{id}', 'Admin\Setting\ScholarshipController@update');
 
         });
@@ -57,10 +59,22 @@ Route::group([
             Route::get('request/index', 'Admin\Awardee\AwardeeIndexController@index');
             Route::post('request/set-status', 'Admin\Awardee\DetailController@setStatus');
 
-          });
-          Route::group(['prefix' => 'scholarship'], function () {
+        });
+        Route::group(['prefix' => 'scholarship'], function () {
             Route::get('request/index', 'Admin\Scholarship\ScholarshipIndexController@index');
             Route::post('request/set-status', 'Admin\Scholarship\DetailController@setStatus');
+
+        });
+        Route::group(['prefix' => 'broadcast'], function () {
+            // Route::get('index', 'Admin\Broadcast\ReInviteDonorController@index');
+            Route::get('attachment/{broadcast_id}', 'Admin\Broadcast\MailController@showBroadcastAttachment');
+            Route::get('index/status/{broadcast_id}', 'Admin\Broadcast\MailController@indexReader');
+            Route::get('index/{broadcast_type_id}', 'Admin\Broadcast\MailController@indexBroadcast');
+            Route::get('index/{broadcast_type_id}/{broadcast_id}', 'Admin\Broadcast\MailController@getBroadcastDetail');
+            Route::get('compose', 'Admin\Broadcast\MailController@composeData');
+            Route::post('compose', 'Admin\Broadcast\MailController@postBroadcast');
+            Route::post('reinvite-donor', 'Admin\Broadcast\ReInviteDonorController@sendBroadcastEmail');
+            Route::get('reinvite-donor/{periodYear}', 'Admin\Broadcast\ReInviteDonorController@getData');
 
         });
 
@@ -141,9 +155,18 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('donor/contract-agreed', 'Donor\Auth\RegisterController@contractAgreed');
 
 });
+Route::group(['prefix' => 'donor'], function () {
+
+    Route::get('registration/choices', 'Donor\Auth\RegisterController@choices');
+    // Route::get('registration/re-registration', 'Donor\Registration\ReRegistrationController@index');
+    Route::post('registration/re-registration', 'Donor\Registration\ReRegistrationController@store');
+    Route::post('registration/re-registration/self-invite', 'Donor\Registration\ReRegistrationController@selfInvite');
+    Route::get('registration/re-registration/authorized', 'Donor\Registration\ReRegistrationController@authorized');
+});
 Route::group(['prefix' => 'common'], function () {
     Route::get('open-registration/awardee', 'Common\OpenRegistrationController@awardee');
     Route::get('open-registration/scholarship', 'Common\OpenRegistrationController@scholarship');
+    Route::get('open-registration/donor', 'Common\OpenRegistrationController@donor');
 });
 Route::get('donor-transaction/confirmation/authorized', 'Donor\Transaction\ConfirmationController@authorized');
 Route::apiResource('donor-transaction/confirmation', 'Donor\Transaction\ConfirmationController');
@@ -151,6 +174,7 @@ Route::apiResource('college-department', 'Common\CollegeDepartmentController');
 Route::get('period-active', 'Common\PeriodController@active');
 Route::apiResource('period', 'Common\PeriodController');
 Route::get('scholarship-active', 'Common\ScholarshipController@active');
+Route::get('get-scholarship-open-registration', 'Common\ScholarshipController@open_registration');
 Route::apiResource('scholarship', 'Common\ScholarshipController');
 Route::get('registration-awardee/upload/authorized', 'Awardee\Registration\RegistrationUploadController@authorized');
 Route::apiResource('registration-awardee/upload', 'Awardee\Registration\RegistrationUploadController');

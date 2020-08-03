@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Donor\Auth;
 
 use App;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -29,64 +30,72 @@ class AuthController extends Controller
      */
     public function index(Request $request)
     {
-      $data['plan_donation'] = App\DonorPeriod::whereHas('period', function ($query) use ($request) {
-            $query->where('year', '=', $request->year);
-      })->sum('amount');
-      $data['actual_donation'] = App\DonorTransaction::where([
-        'period_year'=>$request->year,
-        'verification'=>'VERIFIED'
-        ])->sum('amount');
-      $data['remaining'] = $data['actual_donation'] - $data['plan_donation'];
-        $data['user'] = App\Donor::whereHas('donorPeriods.period', function ($query) use ($request) {
-            $query->where('year', '=', $request->year);
+        $data['period'] = $period = App\Period::where('year', $request->year)->first();
 
-        })
-        ->select('id','name','email','college_department_id','year')
+        $start_period = Carbon::parse("{$period->year}-{$period->start_month}");
+        $end_period = Carbon::parse("{$period->end_year}-{$period->end_month}")->endOfMonth();
+        $duration_period = $start_period->diffInMonths($end_period) + 1;
+        $duration_uptolastmonth = $start_period->diffInMonths(Carbon::now()->endOfMonth());
+        $duration_uptomonth = $duration_uptolastmonth + 1;
+
+        $data['plan_donation'] = App\DonorPeriod::whereHas('period', function ($query) use ($request) {
+            $query->where('year', '=', $request->year);
+        })->sum('amount');
+        $data['actual_donation'] = App\DonorTransaction::where([
+            'period_year' => $request->year,
+            'verification' => 'VERIFIED',
+        ])->sum('amount');
+        $data['remaining'] = $data['actual_donation'] - $data['plan_donation'];
+
+        $data['start_period'] = $start_period->format('Y-m-d');
+        $data['end_period'] = $end_period->format('Y-m-d');
+        $data['duration_period'] = $duration_period;
+        $data['duration_uptomonth'] = $duration_uptomonth;
+        $data['duration_uptolastmonth'] = $duration_uptolastmonth;
+        $data['user'] = App\DonorPeriod::where('period_id', $period->id)
             ->with([
-                'collegeDepartment' => function ($query) {
-                    $query->select('id', 'department');
-                },
-                'donorPeriods.pco' => function ($query) {
+                'period',
+                'pco' => function ($query) {
                     $query->select('id', 'name', 'year', 'initial');
                 },
-                'donorPeriods.pr' => function ($query) {
-                    $query->select('id','name','year','initial');
+                'pr' => function ($query) {
+                    $query->select('id', 'name', 'year', 'initial');
                 },
-                'donorPeriods' => function ($query) {
-                    $query->select('id','pco','pr','period_id','donor_id','is_contract_agreed','donation_category','amount');
+                'donor.donorTransactions' => function ($query) use ($request) {
+                    $query->where('period_year', '=', $request->year);
                 },
-                // 'donorPeriods.period' => function ($query) use ($request) {
-                //     $query->where('year', '=', $request->year);
-                // },
-                // 'donorTransactions' => function ($query) use ($request) {
-                //     $query->where('period_year', '=', $request->year);
-                //     $query->select('id', 'period_year', 'trx_date', 'donor_id');
-                //     $query->orderBy('trx_date', 'desc');
-                // },
-            ])
-            ->orderBy('created_at', 'desc')
-            ->withCount([
-                'donorTransactions AS unverified_transactions' => function ($query)  use ($request) {
-                    $query->where('period_year', '=', $request->year)
-                    ->where('verification', 'UNVERIFIED');
+                'donor.collegeDepartment' => function ($query) {
+                    $query->select('id', 'department');
                 },
-                'donorTransactions AS not_sent_invoice' => function ($query) use ($request)  {
-                    $query->where('period_year', '=', $request->year)
-                    ->where('status_invoice', 'NOT SENT')
-                    ->where('verification', 'VERIFIED');
-                },
-                'donorTransactions AS total_donation' => function ($query)  use ($request) {
-                    $query->where('period_year', '=', $request->year)
-                    ->where('verification', 'VERIFIED')
-                    ->select(DB::raw("SUM(amount) as verified"));
-                },
-                'donorTransactions AS last_donate' => function ($query) use ($request) {
-                    $query->where('period_year',$request->year)
-                    ->select(DB::raw('DATE_FORMAT(max(trx_date), "%d-%b-%y")'));
+                'donor' => function ($query) use ($request) {
+                    $query->orderBy('created_at', 'desc');
+                    $query->select('id', 'name', 'email', 'college_department_id', 'year');
+                    $query->withCount([
+                        'donorTransactions AS unverified_transactions' => function ($query) use ($request) {
+                            $query->where('period_year', '=', $request->year)
+                                ->where('verification', 'UNVERIFIED');
+                        },
+                        'donorTransactions AS not_sent_invoice' => function ($query) use ($request) {
+                            $query->where('period_year', '=', $request->year)
+                                ->where('status_invoice', 'NOT SENT')
+                                ->where('verification', 'VERIFIED');
+                        },
+                        'donorTransactions AS total_donation' => function ($query) use ($request) {
+                            $query->where('period_year', '=', $request->year)
+                                ->where('verification', 'VERIFIED')
+                                ->select(DB::raw("SUM(amount) as verified"));
+                        },
+                        'donorTransactions AS last_donate' => function ($query) use ($request) {
+                            $query->where('period_year', $request->year)
+                                ->select(DB::raw('DATE_FORMAT(max(trx_date), "%d-%b-%y")'));
+                        },
+                    ]);
                 },
             ])
             ->get();
-$data['total_user'] = count($data['user']);
+
+        $data['total_user'] = count($data['user']);
+
         return $data;
     }
 

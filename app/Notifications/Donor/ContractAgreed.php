@@ -2,10 +2,13 @@
 
 namespace App\Notifications\Donor;
 
+use App;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ContractAgreed extends Notification
 {
@@ -41,13 +44,30 @@ class ContractAgreed extends Notification
      */
     public function toMail($notifiable)
     {
-$url = 'hello@seedscholarship.org';
+        $general = App\General::get();
+        $cp_email[0] = $general->where('key', 'Contact Person Email 1')->first()->value;
+        $cp_email[1] = $general->where('key', 'Contact Person Email 2')->first()->value;
+        // $general['head_name'] = $generalData->where('key','Head of Seedscholarship Name')->first();
+        $start_period = Carbon::parse("{$this->data['period']['year']}-{$this->data['period']['start_month']}");
+        $end_period = Carbon::parse("{$this->data['period']['end_year']}-{$this->data['period']['end_month']}")->endOfMonth();
+        $duration_period = $start_period->diffInMonths($end_period) + 1;
+
+        $series = substr($this->data->contract_number, 3);
+        $attachmentTemplate = $this->data->donation_category == 'AKTIF' ? 'attachment.ContractDonaturAktif' : 'attachment.ContractDonaturPasif';
+        $pdf = app('dompdf.wrapper');
+        $pdf->getDomPDF()->set_option("enable_php", true);
+        $pdf->loadView($attachmentTemplate, ['data' => $this->data, 'series' => $series, 'general' => $general, 'duration_period' => $duration_period]);
+        $pdf->setPaper('a4');
+        Log::debug("error in contractagreed:  {$this->data['period']['period']}");
+
+        Storage::put("contract/donor/{$this->data['period']['period']}/{$this->data['donor']['id']}/Surat Perjanjian Kerja Sama {$this->data['donor']['name']}.pdf", $pdf->output());
+        $url = 'hello@seedscholarship.org';
         return (new MailMessage)
-            ->from($url,'SEED Scholarship')
+            ->from($url, 'SEED Scholarship')
             ->bcc('bcc@seedscholarship.org')
-            ->subject("Kontrak Kerja Sama SEEDS #{$this->data->donorPeriods[0]->period->period}")
-            ->markdown('email.DonorContractAgreed', ['data' => $this->data])
-            ->attach(storage_path('app')."/contract/donor/{$this->data->donorPeriods[0]->period->period}/{$this->data->id}/Surat Perjanjian Kerja Sama {$this->data->name}.pdf");
+            ->subject("Kontrak Kerja Sama SEEDS #{$this->data['period']['period']} Tahun {$this->data['period']['year']}")
+            ->markdown('email.DonorContractAgreed', ['data' => $this->data, 'cp_email' => $cp_email, 'duration_period' => $duration_period])
+            ->attach(storage_path('app') . "/contract/donor/{$this->data['period']['period']}/{$this->data['donor']['id']}/Surat Perjanjian Kerja Sama {$this->data['donor']['name']}.pdf");
 
     }
 

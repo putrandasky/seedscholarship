@@ -16,7 +16,7 @@
                 <h5><i class="fa fa-user"></i> Full Name</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{
-                data.name
+                data.awardee.name
               }}</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
@@ -24,7 +24,7 @@
                 <h5><i class="fa fa-envelope"></i> Email Address</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{
-                data.email
+                data.awardee.email
               }}</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
@@ -32,7 +32,7 @@
                 <h5><i class="fa fa-calendar"></i> Year of Period</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{
-                data.year
+                data.awardee.year
               }}</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
@@ -40,7 +40,7 @@
                 <h5><i class="fa fa-phone"></i> Phone Number</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{
-                data.phone
+                data.awardee.phone
               }}</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
@@ -48,7 +48,7 @@
                 <h5><i class="fa fa-list"></i> Department</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{
-                data.college_department.department
+                data.awardee.college_department.department
               }}</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
@@ -56,7 +56,7 @@
                 <h5><i class="fa fa-check"></i> Status Approval</h5>
               </div>
               <span style="font-size:large;padding-left:20px">{{
-                data.awardee_periods[0].status
+                data.status
               }}</span>
             </b-col>
             <b-col md="3" sm="6" class="pb-3">
@@ -88,8 +88,8 @@
           <b-col lg="3" sm="6">
             <file-card
               title="Curriculum Vitae"
-              :periodId="data.awardee_periods[0].period_id"
-              :registrationCode="data.awardee_periods[0].registration_code"
+              :periodId="data.period_id"
+              :registrationCode="data.registration_code"
               folder="cv"
               :data="files.cv"
             />
@@ -98,16 +98,16 @@
             <file-card
               title="Essay"
               folder="essay"
-              :periodId="data.awardee_periods[0].period_id"
-              :registrationCode="data.awardee_periods[0].registration_code"
+              :periodId="data.period_id"
+              :registrationCode="data.registration_code"
               :data="files.essay"
             />
           </b-col>
           <b-col lg="3" sm="6">
             <file-card
               title="Slip Gaji/Rekening Listrik"
-              :periodId="data.awardee_periods[0].period_id"
-              :registrationCode="data.awardee_periods[0].registration_code"
+              :periodId="data.period_id"
+              :registrationCode="data.registration_code"
               folder="slip"
               :data="files.slip"
             />
@@ -116,13 +116,13 @@
             <file-card
               title="SiakNG"
               folder="siakng"
-              :periodId="data.awardee_periods[0].period_id"
-              :registrationCode="data.awardee_periods[0].registration_code"
+              :periodId="data.period_id"
+              :registrationCode="data.registration_code"
               :data="files.siakng"
             />
           </b-col>
         </b-row>
-        <b-row v-if="data.awardee_periods[0].status == 'SUBMITTED' ">
+        <b-row v-if="data.status == 'SUBMITTED'">
           <b-col cols="12" class="text-right">
             <b-button
               variant="danger"
@@ -132,7 +132,7 @@
                   'Are you sure to set status approval to NOT APPROVED? This action can not be undone',
                   'setStatus',
                   {
-                    awardeePeriodId: data.awardee_periods[0].id,
+                    awardeePeriodId: data.id,
                     status: `NOT APPROVED`
                   }
                 )
@@ -148,7 +148,7 @@
                   'Are you sure to set status approval to APPROVED? This action can not be undone',
                   'setStatus',
                   {
-                    awardeePeriodId: data.awardee_periods[0].id,
+                    awardeePeriodId: data.id,
                     status: `APPROVED`
                   }
                 )
@@ -159,16 +159,16 @@
           </b-col>
         </b-row>
       </b-col>
-    <b-modal
-      :no-close-on-esc="true"
-      :hide-header-close="true"
-      :no-close-on-backdrop="true"
-      :title="confirmModalTitle"
-      v-model="confirmModal"
-      @ok="onConfirmModal"
-    >
-      {{ confirmModalBody }}
-    </b-modal>
+      <b-modal
+        :no-close-on-esc="true"
+        :hide-header-close="true"
+        :no-close-on-backdrop="true"
+        :title="confirmModalTitle"
+        v-model="confirmModal"
+        @ok="onConfirmModal"
+      >
+        {{ confirmModalBody }}
+      </b-modal>
     </b-row>
   </slide-y-up-transition>
 </template>
@@ -183,21 +183,23 @@ export default {
     return {
       loaded: false,
       files: {},
-      confirmModal:false,
+      confirmModal: false,
       confirmModalTitle: '',
       confirmModalBody: '',
       confirmModalTempValue: '',
       confirmModalState: '',
       data: {
-        name: '',
-        email: '',
-        phone: '',
-        year: null,
-        college_department: {
-          department:''
+        awardee: {
+          name: '',
+          email: '',
+          phone: '',
+          year: null,
+          college_department: {
+            department: ''
+          }
         },
         created_at: null,
-        updated_at: null,
+        updated_at: null
       }
     };
   },
@@ -208,8 +210,7 @@ export default {
       currentPageName: 'Detail Awardee'
     });
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     triggerConfirmModal(title, body, state, value = '') {
       console.log('test');
@@ -233,8 +234,8 @@ export default {
         )
         .then(response => {
           this.$snotify.success(response.data.message, 'SUCCESS');
-          this.data.awardee_periods[0].status = this.confirmModalTempValue.status
-          this.confirmModalTempValue.status = ''
+          this.data.status = this.confirmModalTempValue.status;
+          this.confirmModalTempValue.status = '';
         })
         .catch(error => {
           console.log(error);
@@ -247,7 +248,7 @@ export default {
           `api/registration-awardee/${this.$route.params.userId}?year=${this.$route.params.periodYear}`
         )
         .then(response => {
-          // console.log(response.data)
+          console.log(response.data.user.awardee);
           self.data = response.data.user;
           self.files = response.data.files;
           console.log(self.data);

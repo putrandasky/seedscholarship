@@ -4,22 +4,19 @@
 @section('meta')
 <title>Seedscholarship</title>
 
-  <meta name="description"
-    content="Seedscholarship - Bentuk kontribusi alumni Departement Teknik Sipil Universitas Indonesia">
-  <meta name="author" content="Radityo Putra Paripurna">
-  <meta name="keywords" content="seedscholarship beasiswa teknik sipil universitas indonesia">
-  <meta property="og:title" content="Seedscholarship" />
-  <meta property="og:url" content="https:/seedscholarship.org" />
-  <meta property="og:description"
-    content="Seedscholarship - Bentuk kontribusi alumni Departement Teknik Sipil Universitas Indonesia">
-  <meta property="og:image" content="{{ asset('images/Seedlogo.png') }}">
-  <meta property="og:type" content="landing page" />
+<meta name="description" content="Seedscholarship - Bentuk kontribusi alumni Departement Teknik Sipil Universitas Indonesia">
+<meta name="author" content="Radityo Putra Paripurna">
+<meta name="keywords" content="seedscholarship beasiswa teknik sipil universitas indonesia">
+<meta property="og:title" content="Seedscholarship" />
+<meta property="og:url" content="https:/seedscholarship.org" />
+<meta property="og:description" content="Seedscholarship - Bentuk kontribusi alumni Departement Teknik Sipil Universitas Indonesia">
+<meta property="og:image" content="{{ asset('images/Seedlogo.png') }}">
+<meta property="og:type" content="landing page" />
 @endsection
 
 @section('content')
 <section id="intro" class="intro-homepage">
-  <div class="jumbotron d-flex justify-content-center align-items-center text-center"
-    style="background-image:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url({{ asset('images/website/main-bg-1.jpeg') }})">
+  <div class="jumbotron d-flex justify-content-center align-items-center text-center" style="background-image:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url({{ asset('images/website/main-bg-1.jpeg') }})">
     <div>
       <h2 class="text-white display-4 font-weight-bold">HIDUP UNTUK BELAJAR DAN MENGABDI</h2>
       <p class="text-white mx-md-5 px-md-5">Seed Scholarship merupakan bentuk kontribusi alumni Departemen Teknik Sipil
@@ -31,8 +28,7 @@
   </div>
 </section>
 <section id="about-us" class="
-parallax"
-  style="background-image:linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),url({{ asset('images/website/about-bg.jpg') }})">
+parallax" style="background-image:linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),url({{ asset('images/website/about-bg.jpg') }})">
   <div class="container py-5">
     <header class="text-center mb-5">
       <h2 class="font-weight-bold">Tentang kami</h2>
@@ -165,8 +161,7 @@ parallax"
   </div>
 </section>
 
-<section id="achievement" class="parallax"
-  style="background-image:linear-gradient(rgba(255,255,255, 0.8), rgba(255,255,255, 0.8)),url({{ asset('images/website/achievement-bg.jpg') }})">
+<section id="achievement" class="parallax" style="background-image:linear-gradient(rgba(255,255,255, 0.8), rgba(255,255,255, 0.8)),url({{ asset('images/website/achievement-bg.jpg') }})">
   <div class="container py-5">
     <header class="text-center mb-5">
       <h2 class="font-weight-bold">Pencapaian Kami</h2>
@@ -200,8 +195,7 @@ parallax"
       <p>Kontribusi angkatan DTS UI dalam mendukung Seedscholarship.</p>
     </header>
     <div class="progress mb-3" style="height: 35px;">
-      <div class="progress-bar px-3" role="progressbar" style="width: 60%" aria-valuenow="25" aria-valuemin="0"
-        aria-valuemax="100">
+      <div class="progress-bar px-3" role="progressbar" style="width: 60%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
         <div class="d-flex justify-content-between">
           <span>1984-2008</span>
           <span>60%</span>
@@ -209,8 +203,7 @@ parallax"
       </div>
     </div>
     <div class="progress mb-3" style="height: 35px;">
-      <div class="progress-bar px-3" role="progressbar" style="width: 15%" aria-valuenow="25" aria-valuemin="0"
-        aria-valuemax="100">
+      <div class="progress-bar px-3" role="progressbar" style="width: 15%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
         <div class="d-flex justify-content-between">
           <span>2009-2010</span>
           <span>15%</span>
@@ -218,8 +211,7 @@ parallax"
       </div>
     </div>
     <div class="progress mb-3" style="height: 35px;">
-      <div class="progress-bar px-3" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
-        aria-valuemax="100">
+      <div class="progress-bar px-3" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
         <div class="d-flex justify-content-between">
           <span>2011-2013</span>
           <span>25%</span>
@@ -231,8 +223,7 @@ parallax"
 
 
 <section id="call-to-action" class="
-parallax text-white"
-  style="background-image:linear-gradient(rgba(51, 122, 183, 0.9)0%, rgba(51, 122, 183, 1)100%),url({{ asset('images/website/cta-bg.jpg') }})">
+parallax text-white" style="background-image:linear-gradient(rgba(51, 122, 183, 0.9)0%, rgba(51, 122, 183, 1)100%),url({{ asset('images/website/cta-bg.jpg') }})">
   <div class="container py-5">
     <header class="text-center mb-5">
       <h2 class="font-weight-bold">Bergabung Menjadi Keluarga Besar Kami</h2>
@@ -278,8 +269,7 @@ parallax text-white"
           </div>
           <div class="card-footer ">
             <div class="text-right">
-              <a href='{{url("blog/{$blog->blogCategory->category}/{$blog->slug}")}}'
-                class="btn btn-outline-secondary btn-sm">Lanjut Baca</a>
+              <a href='{{url("blog/{$blog->blogCategory->category}/{$blog->slug}")}}' class="btn btn-outline-secondary btn-sm">Lanjut Baca</a>
             </div>
           </div>
         </div>
@@ -297,32 +287,28 @@ parallax text-white"
       <div class="my-slider">
 
         <div class="text-center">
-          <img style="width:120px" src="{{ asset('images/website/testimonial-1.jpeg') }}"
-            class="testimonial-img rounded-circle img-thumbnail" alt="">
+          <img style="width:120px" src="{{ asset('images/website/testimonial-1.jpeg') }}" class="testimonial-img rounded-circle img-thumbnail" alt="">
           <blockquote class="blockquote text-center">
             <p class="mb-0">"SEED bukan hanya membantu dengan materi. Namun juga dalam pengembangan diri setiap orang"</p>
             <footer class="blockquote-footer">Widi <cite title="Source Title">DTS 2016</cite></footer>
           </blockquote>
         </div>
         <div class="text-center">
-          <img style="width:120px" src="{{ asset('images/website/testimonial-2.jpeg') }}"
-            class="testimonial-img rounded-circle img-thumbnail" alt="">
+          <img style="width:120px" src="{{ asset('images/website/testimonial-2.jpeg') }}" class="testimonial-img rounded-circle img-thumbnail" alt="">
           <blockquote class="blockquote text-center">
             <p class="mb-0">"SEED membantu saya untuk lebih tahu dunia Teknik Sipil seperti apa melalui sharing alumni-alumni DTS UI"</p>
             <footer class="blockquote-footer">Munif <cite title="Source Title">DTS 2016</cite></footer>
           </blockquote>
         </div>
         <div class="text-center">
-          <img style="width:120px" src="{{ asset('images/website/testimonial-3.jpeg') }}"
-            class="testimonial-img rounded-circle img-thumbnail" alt="">
+          <img style="width:120px" src="{{ asset('images/website/testimonial-3.jpeg') }}" class="testimonial-img rounded-circle img-thumbnail" alt="">
           <blockquote class="blockquote text-center">
             <p class="mb-0">"SEED patut diapresiasi karena membantu mahasiswa berkembang dan merasa siap untuk menghadapi dunia kerja."</p>
             <footer class="blockquote-footer">Amel <cite title="Source Title">DTS 2016</cite></footer>
           </blockquote>
         </div>
         <div class="text-center">
-          <img style="width:120px" src="{{ asset('images/website/testimonial-4.jpeg') }}"
-            class="testimonial-img rounded-circle img-thumbnail" alt="">
+          <img style="width:120px" src="{{ asset('images/website/testimonial-4.jpeg') }}" class="testimonial-img rounded-circle img-thumbnail" alt="">
           <blockquote class="blockquote text-center">
             <p class="mb-0">"Beasiswa ini membantu keuangan saya dan dengan SEED solidnya alumni DTS UI sangat terlihat."</p>
             <footer class="blockquote-footer">Erdwin <cite title="Source Title">DTS 2016</cite></footer>
@@ -358,7 +344,7 @@ parallax text-white"
       @endforeach
       @endforeach
       @endforeach
-  </div>
+    </div>
   </div>
 </section>
 

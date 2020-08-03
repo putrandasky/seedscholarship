@@ -1,20 +1,18 @@
 @component('mail::layout')
-    {{-- Header --}}
-    @slot('header')
-        @component('mail::header', ['url' => config('app.url')])
-            <!-- header here -->
-            <img class="img-header" src="{{ config('app.url').'/images/Seedlogo2.png'}}">
-        @endcomponent
-    @endslot
+{{-- Header --}}
+@slot('header')
+@component('email.header')
+@endcomponent
+@endslot
 
-    {{-- Body --}}
-    <!-- Body here -->
+{{-- Body --}}
+<!-- Body here -->
 {{-- Terima kasih {{$data->name}}, --}}
 
 Hai <strong>{{$data->name}}</strong>,
 
 Kamu telah mendaftar sebagai :
-    {{-- Subcopy --}}
+{{-- Subcopy --}}
 @component('mail::panel')
 Calon Awardee  untuk <strong>{{$data->awardeeNonregScholarships[0]->scholarship->name}}</strong> tahun <strong>{{$data->awardeeNonregScholarships[0]->scholarship->year}}</strong>
 @endcomponent
@@ -55,18 +53,9 @@ Terimakasih,<br/>
 <strong>SEED Scholarship</strong>
 
 
-    {{-- Footer --}}
-    @slot('footer')
-        @component('mail::footer')
-            <!-- footer here -->
-{{-- <strong>CONTACT : </strong> --}}
-Anggit Cahyo S’08 : 085697274479 |
-Janitra Hendra L’08 : 081290001300
-<br/>
-Bentuk kontribusi alumni Departemen Teknik Sipil Universitas Indonesia <br/>
-© {{ config('app.name') }}, 2014 - 2019 | Oleh Alumni Department Teknik Sipil UI <br/>
-EMAIL : hello@seedsholarship.org
-seedscholarship.org
+{{-- Footer --}}
+@slot('footer')
+@component('email.footer',['cp_email'=> $cp_email])
 @endcomponent
-    @endslot
+@endslot
 @endcomponent

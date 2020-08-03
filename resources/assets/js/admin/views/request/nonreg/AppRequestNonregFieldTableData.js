@@ -11,7 +11,7 @@ export const AppRequestNonregFieldTableData = {
                     },
                 },
                 {
-                    key: 'name',
+                    key: 'awardee_nonreg.name',
                     label: 'Name',
                     tdClass: 'truncate-cell',
                     sortable: true,
@@ -20,7 +20,7 @@ export const AppRequestNonregFieldTableData = {
                     },
                 },
                 {
-                    key: 'email',
+                    key: 'awardee_nonreg.email',
                     label: 'Email',
                     thStyle: {
                         minWidth: '150px',
@@ -82,12 +82,12 @@ export const AppRequestNonregFieldTableData = {
         filteredItemsData() {
             if (this.selectedInputSearch == 'name') {
                 return this.itemsData.filter(result =>
-                    result.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+                    result.awardee_nonreg.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
                 )
             }
             if (this.selectedInputSearch == 'email') {
                 return this.itemsData.filter(result =>
-                    result.email.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+                    result.awardee_nonreg.email.toLowerCase().indexOf(this.search.toLowerCase()) > -1
                 )
             }
             if (this.selectedInputSearch == 'department') {

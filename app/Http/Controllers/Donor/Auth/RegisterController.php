@@ -4,20 +4,42 @@ namespace App\Http\Controllers\Donor\Auth;
 
 use App;
 use App\Http\Controllers\Controller;
+use App\Jobs\Donor\ProcessSendEmailDonorContractAgreed;
+// use App\Notifications\Donor\PostRegistered;
+use App\Jobs\Donor\ProcessSendEmailDonorRegister;
 use App\Notifications\Donor\ContractAgreed;
-use App\Notifications\Donor\PostRegistered;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
+    public function choices()
+    {
+        $data['period'] = App\Period::where('is_active', 1)->get(['id', 'period', 'year']);
+        $data['department'] = App\CollegeDepartment::get(['id', 'department']);
+        $data['open_form'] = App\General::where('key', 'Form Donor Open')->first()->value;
+        $data['donor_passive_mode'] = App\General::where('key', 'Form Donor Passive Open')->first()->value;
+        $data['cp1'] = App\General::where('key', 'Contact Person Email 1')->first()->value;
+        $data['cp2'] = App\General::where('key', 'Contact Person Email 2')->first()->value;
+
+        return $data;
+
+    }
     public function newRegister(Request $request)
     {
+
+        $donor_exist = App\Donor::where('email', $request->email)->first();
+        if ($donor_exist) {
+            return response()->json([
+                'status' => 'Unauthorized',
+                'message' => 'Email address already exist!',
+            ], 501);
+
+        }
+
         $rules = [
             'name' => 'required|string|min:6',
             'email' => 'required|email|unique:donors',
@@ -41,9 +63,9 @@ class RegisterController extends Controller
         ];
         $this->validate($request, $rules, $messages);
 
-        $getSeedscholarshipPeriod = App\Period::find($request->period);
+        $period = App\Period::find($request->period);
         $getTotalDonorPerPeriod = App\DonorPeriod::where('period_id', $request->period)->count();
-        $contract_number = $getSeedscholarshipPeriod->period . substr($request->year, 2) . str_pad($getTotalDonorPerPeriod + 1, 4, 0, STR_PAD_LEFT);
+        $contract_number = $period->period . substr($request->year, 2) . str_pad($getTotalDonorPerPeriod + 1, 4, 0, STR_PAD_LEFT);
 
         $user = new App\Donor();
         $user->name = ucwords($request->name);
@@ -57,9 +79,14 @@ class RegisterController extends Controller
         // $user->password = Hash::make($request->password);
         $token = Str::random(100);
         $donation_token = Str::random(100);
+        $start_period = Carbon::parse("{$period->year}-{$period->start_month}");
+        $end_period = Carbon::parse("{$period->end_year}-{$period->end_month}")->endOfMonth();
+        $difference_month = $start_period->diffInMonths($end_period);
         if ($request->donation_category == "AKTIF") {
             // $amount = $request->amount * 12;
-            $amount = $request->amount * 10;
+            $duration_period = $difference_month + 1;
+
+            $amount = $request->amount * $duration_period;
         } elseif ($request->amount) {
             $amount = $request->amount;
         } else {
@@ -82,25 +109,29 @@ class RegisterController extends Controller
             $donor_period->donation_token = $donation_token;
             $donor_period->save();
 
-            $data = App\Donor::whereHas('donorPeriods', function ($query) use ($request, $token) {
-                $query->where('period_id', '=', $request->period);
-                $query->where('token', $token);
-            })
-                ->where('id', $user->id)
-                ->with([
-                    'collegeDepartment',
-                    'donorPeriods' => function ($query) use ($request, $token) {
-                        $query->where('period_id', '=', $request->period);
-                        $query->where('token', $token);
+            $data = App\DonorPeriod::where('id', $donor_period->id)->with('donor.collegeDepartment', 'period')->first();
 
-                    },
-                    'donorPeriods.period' => function ($query) use ($request, $token) {
-                        $query->where('id', '=', $request->period);
+            // $data = App\Donor::whereHas('donorPeriods', function ($query) use ($request, $token) {
+            //     $query->where('period_id', '=', $request->period);
+            //     $query->where('token', $token);
+            // })
+            //     ->where('id', $user->id)
+            //     ->with([
+            //         'collegeDepartment',
+            //         'donorPeriods' => function ($query) use ($request, $token) {
+            //             $query->where('period_id', '=', $request->period);
+            //             $query->where('token', $token);
 
-                    },
-                ])->first();
+            //         },
+            //         'donorPeriods.period' => function ($query) use ($request, $token) {
+            //             $query->where('id', '=', $request->period);
+
+            //         },
+            //     ])->first();
             // $when = now()->addMinutes(1);
-            $user->notify(new PostRegistered($data));
+            dispatch(new ProcessSendEmailDonorRegister($data));
+
+            // $user->notify(new PostRegistered($data));
             // $user->notify((new PostRegistered($data))->delay($when));
 
         });
@@ -115,7 +146,7 @@ class RegisterController extends Controller
         $user = App\Donor::whereHas('donorPeriods', function ($query) use ($request) {
             $query->where('period_id', '=', $request->periodId);
         })
-            ->where('id',  $userId)
+            ->where('id', $userId)
             ->with([
                 'collegeDepartment',
                 'donorPeriods' => function ($query) use ($request) {
@@ -131,53 +162,65 @@ class RegisterController extends Controller
             'status' => 'Email Confirmation Resent',
         ], 200);
     }
+    public function existingRegister(Request $request)
+    {
+
+    }
     public function contractAgreed(Request $request)
     {
-        $data = App\Donor::whereHas(
-            'donorPeriods.period', function ($query) use ($request) {
-                $query->where('period', '=', $request->period);
+        // $data = App\Donor::whereHas(
+        //     'donorPeriods.period', function ($query) use ($request) {
+        //         $query->where('period', '=', $request->period);
+        //     })
+        //     ->whereHas(
+        //         'donorPeriods', function ($query) use ($request) {
+        //             $query->where('is_contract_agreed', '<>', 'AGREED');
+        //             $query->where('token', $request->token);
+        //         })
+        //     ->where([
+        //         'id' => $request->id,
+        //         'email' => $request->email,
+        //     ])
+        //     ->with([
+        //         'collegeDepartment',
+        //         'donorPeriods.period' => function ($query) use ($request) {
+        //             $query->where('periods.period', '=', $request->period);
+        //         },
+        //         'donorPeriods' => function ($query) use ($request) {
+        //             $query->where('is_contract_agreed', '<>', 'AGREED');
+        //             $query->where('token', $request->token);
+        //         },
+        //     ])->first();
+
+        $data = App\DonorPeriod::whereHas(
+            'donor', function ($query) use ($request) {
+                $query->where('id', '=', $request->id);
+                $query->where('email', '=', $request->email);
             })
             ->whereHas(
-                'donorPeriods', function ($query) use ($request) {
-                    $query->where('is_contract_agreed', '<>', 'AGREED');
-                    $query->where('token', $request->token);
+                'period', function ($query) use ($request) {
+                    $query->where('period', '=', $request->period);
                 })
-            ->where([
-                'id' => $request->id,
-                'email' => $request->email,
-            ])
-            ->with([
-                'collegeDepartment',
-                'donorPeriods.period' => function ($query) use ($request) {
-                    $query->where('periods.period', '=', $request->period);
-                },
-                'donorPeriods' => function ($query) use ($request) {
-                    $query->where('is_contract_agreed', '<>', 'AGREED');
-                    $query->where('token', $request->token);
-                },
-            ])->first();
+            ->where('is_contract_agreed', '<>', 'AGREED')
+            ->where('token', $request->token)
+            ->with('donor.collegeDepartment', 'period')
+            ->first();
+
         if (!$data) {
             return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
         }
         // return $data;
-
-        DB::transaction(function () use ($request, $data) {
-            $series = substr($data->donorPeriods[0]->contract_number, 3);
-            $attachmentTemplate = $data->donorPeriods[0]->donation_category == 'AKTIF' ? 'attachment.ContractDonaturAktif' : 'attachment.ContractDonaturPasif';
-            $pdf = app('dompdf.wrapper');
-            $pdf->getDomPDF()->set_option("enable_php", true);
-            $pdf->loadView($attachmentTemplate, compact('data', 'series'));
-            $pdf->setPaper('a4');
-            $donor_period = App\DonorPeriod::find($data->donorPeriods[0]->id);
-            $donor_period->is_contract_agreed = 'AGREED';
-            $donor_period->token = '';
-            $donor_period->agreed_at = Carbon::now();
-            $donor_period->save();
-            Storage::put("contract/donor/{$data->donorPeriods[0]->period->period}/{$data->id}/Surat Perjanjian Kerja Sama {$data->name}.pdf", $pdf->output());
-            // $when = now()->addMinutes(1);
-            Notification::route('mail', $request->email)->notify(new ContractAgreed($data));
-            // Notification::route('mail', $request->email)->notify((new ContractAgreed($data))->delay($when));
-        });
+        dispatch(new ProcessSendEmailDonorContractAgreed($data));
+        $donor_period = App\DonorPeriod::find($data->id);
+        $donor_period->is_contract_agreed = 'AGREED';
+        $donor_period->token = '';
+        $donor_period->agreed_at = Carbon::now();
+        $donor_period->save();
+        // DB::transaction(function () use ($request, $data) {
+        // $when = now()->addMinutes(1);
+        // Notification::route('mail', $request->email)->notify(new ContractAgreed($data));
+        // Notification::route('mail', $request->email)->notify((new ContractAgreed($data))->delay($when));
+        // });
 
     }
 }

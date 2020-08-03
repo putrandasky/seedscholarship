@@ -1,7 +1,6 @@
 @component('mail::layout')
 @slot('header')
-@component('mail::header', ['url' => config('app.url')])
-<img class="img-header" src="{{ config('app.url').'/images/Seedlogo2.png'}}">
+@component('email.header')
 @endcomponent
 @endslot
 
@@ -31,33 +30,26 @@ below.
 @component('mail::button', ['url' => config('app.url')."/admin#/forgot-password"])
 Click here @endcomponent
 
-Terima kasih banyak atas partisipasinya.
-
-Kontribusi anda sangat berharga untuk Department Teknik Sipil UI.
-
-Terimakasih,<br />
-
+Thank you for your participation, we appreciate for all your contribution
+<br />
+Regards,
 <br />
 <img style="height:5%" src="{{ config('app.url').'/images/heart.png'}}">
 <strong>SEED Scholarship</strong>
 
 <div style="text-align:center;margin-bottom:15px;margin-top:50px">Follow IG kami untuk informasi update kegiatan</div>
 
-<a href="https://instagram.com/seedscholarship/" target="_blank"><img
-    style="margin-left:auto;margin-right:auto;display:block" src="{{ config('app.url').'/images/Instagram.png'}}"></a>
-<div style="text-align:center"><a href="https://instagram.com/seedscholarship/" target="_blank"><strong>IG:
-      @seedscholarship</strong></a></div>
+<a href="https://instagram.com/seedscholarship/" target="_blank">
+<img style="margin-left:auto;margin-right:auto;display:block" src="{{ config('app.url').'/images/Instagram.png'}}">
+</a>
+<div style="text-align:center">
+<a href="https://instagram.com/seedscholarship/" target="_blank">
+<strong>IG: @seedscholarship</strong>
+</a>
+</div>
 
 @slot('footer')
-@component('mail::footer')
-
-Anggit Cahyo S’08 : 085697274479 |
-Janitra Hendra L’08 : 081290001300
-<br />
-Bentuk kontribusi alumni Departemen Teknik Sipil Universitas Indonesia <br />
-© {{ config('app.name') }}, 2014 - 2019 | Oleh Alumni Department Teknik Sipil UI <br />
-EMAIL : hello@seedsholarship.org
-seedscholarship.org
+@component('email.footer',['cp_email'=> $cp_email])
 @endcomponent
 @endslot
 @endcomponent

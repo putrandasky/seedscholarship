@@ -31,16 +31,27 @@ class AuthController extends Controller
      */
     public function index(Request $request)
     {
-        $user = App\Awardee::whereHas('awardeePeriods.period', function ($query) use ($request) {
-            $query->where('year', '=', $request->year);
+        // $user = App\Awardee::whereHas('awardeePeriods.period', function ($query) use ($request) {
+        //     $query->where('year', '=', $request->year);
 
-        })
+        // })
+        //     ->with([
+        //         'collegeDepartment',
+        //         'awardeePeriods.period' => function ($query) use ($request) {
+        //             $query->where('year', '=', $request->year);
+        //         }])
+        //     ->orderBy('created_at', 'desc')->get();
+            $period = App\Period::where('year',$request->year)->first();
+            $user = App\AwardeePeriod::where('period_id',$period->id)
             ->with([
-                'collegeDepartment',
-                'awardeePeriods.period' => function ($query) use ($request) {
-                    $query->where('year', '=', $request->year);
-                }])
-            ->orderBy('created_at', 'desc')->get();
+              'awardee'=>function($query)
+              {
+                $query->select('id','name','email','year','college_department_id','created_at');
+              },
+              'awardee.collegeDepartment',
+              'period'])
+              ->select('id','awardee_id','period_id','created_at','status')
+              ->orderBy('created_at', 'desc')->get();
         return $user;
     }
     public function register(Request $request)

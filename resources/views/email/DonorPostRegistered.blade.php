@@ -10,6 +10,9 @@
     {{-- Body --}}
     <!-- Body here -->
 {{-- Terima kasih {{$data->name}}, --}}
+<pre>
+  {{print_r($data)}}
+</pre>
 
 Terima kasih <strong>{{$data->name}}</strong>,
 
@@ -36,7 +39,7 @@ Rencana Donasi : Rp. {{number_format($data->donorPeriods[0]->amount,0,",",".")}}
 @endif --}}
 @if($data->donorPeriods[0]->donation_category == 'AKTIF')
 {{-- Akan ditagihkan : Rp. {{number_format($data->donorPeriods[0]->amount / 12,0,",",".")}} / bulan<br/> --}}
-Rencana Donasi : Rp. {{number_format($data->donorPeriods[0]->amount / 10,0,",",".")}} / bulan<br/>
+Rencana Donasi : Rp. {{number_format($data->donorPeriods[0]->amount / ($duration_period),0,",",".")}} / bulan<br />
 @endif
 @if($data->donorPeriods[0]->donation_category == 'PASIF')
 Rencana Donasi : Rp. {{number_format($data->donorPeriods[0]->amount,0,",",".")}} / periode<br/>
@@ -70,7 +73,7 @@ Anggit Cahyo S’08 : 085697274479 |
 Janitra Hendra L’08 : 081290001300
 <br/>
 Bentuk kontribusi alumni Departemen Teknik Sipil Universitas Indonesia <br/>
-© {{ config('app.name') }}, 2014 - 2019 | Oleh Alumni Department Teknik Sipil UI <br/>
+© {{ config('app.name') }}, 2014 - {{date("Y")}} | Oleh Alumni Department Teknik Sipil UI <br />
 EMAIL : hello@seedsholarship.org
 seedscholarship.org
 @endcomponent

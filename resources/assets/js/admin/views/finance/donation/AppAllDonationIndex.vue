@@ -3,11 +3,10 @@
     <div v-show="loaded">
       <!-- <b-btn class="mb-2" @click="handleClickBackButton" size="sm">
         Back
-      </!--> 
+      </!-->
       <b-row>
         <b-col xl="4" md="6" class="mb-3">
-          <b-input-group
-            >
+          <b-input-group>
             <b-input-group-prepend>
               <b-form-select
                 plain
@@ -157,10 +156,11 @@
                 <i class="fa fa-edit"></i>
               </b-btn>
               <b-btn
-                v-if="permission(5) &&
-                  sendInvoiceAvailable(
-                    data.index + (currentPage - 1) * perPage
-                  )
+                v-if="
+                  permission(5) &&
+                    sendInvoiceAvailable(
+                      data.index + (currentPage - 1) * perPage
+                    )
                 "
                 variant="success"
                 size="sm"
@@ -179,7 +179,8 @@
                 "
                 ><i class="fa fa-send"></i>
               </b-btn>
-              <b-btn v-if="permission(5)" 
+              <b-btn
+                v-if="permission(5)"
                 variant="danger"
                 size="sm"
                 v-b-tooltip.hover="'Delete'"
@@ -290,7 +291,8 @@
             </b-input-group-prepend>
             <b-input
               type="text"
-              :disabled="!permission(3) ||
+              :disabled="
+                !permission(3) ||
                 filteredItemsData[transactionTableIndex].has_invoice
                   ? true
                   : false
@@ -317,16 +319,16 @@
   </slide-y-up-transition>
 </template>
 <script>
-import Evidence from "../../donor/DetailDonorTransactionHistoryEvidence";
-import Invoice from "../../donor/DetailDonorTransactionHistoryInvoice";
-import flatPickr from "vue-flatpickr-component";
-import "flatpickr/dist/flatpickr.css";
+import Evidence from '../../donor/DetailDonorTransactionHistoryEvidence';
+import Invoice from '../../donor/DetailDonorTransactionHistoryInvoice';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
 
-import { FieldTableData } from "./AppAllDonationIndexFieldTableData";
-import { instantSearch } from "../../_share/mixins/instantSearch";
-import { OperationPage } from "../../_share/mixins/OperationPage";
+import { FieldTableData } from './AppAllDonationIndexFieldTableData';
+import { instantSearch } from '../../_share/mixins/instantSearch';
+import { OperationPage } from '../../_share/mixins/OperationPage';
 export default {
-  name: "AppAllDonationIndex",
+  name: 'AppAllDonationIndex',
   components: {
     flatPickr,
     Evidence,
@@ -335,76 +337,76 @@ export default {
   mixins: [FieldTableData, instantSearch, OperationPage],
   data: function() {
     return {
-      routeName: "AllDonationIndex",
+      routeName: 'AllDonationIndex',
       loaded: false,
       confirmModal: false,
-      confirmModalTitle: "",
-      confirmModalBody: "",
-      confirmModalTempValue: "",
-      confirmModalState: "",
+      confirmModalTitle: '',
+      confirmModalBody: '',
+      confirmModalTempValue: '',
+      confirmModalState: '',
       transactionTableIndex: null,
       transactionModal: false,
-      transactionModalTitle: "",
-      transactionModalState: "",
+      transactionModalTitle: '',
+      transactionModalState: '',
       configCalendar: {
-        dateFormat: "d-M-y",
-        clickOpens:this.permission(3)
+        dateFormat: 'd-M-y',
+        clickOpens: this.permission(3)
       },
       input: {
         id: null,
         trx_date: null,
         amount: null,
         verification: null,
-        invoice_no: "",
+        invoice_no: '',
         status_invoice: null
       },
       errors: {
         trx_date: null,
         amount: null,
         verification: null,
-        invoice_no: "",
+        invoice_no: '',
         status_invoice: null
       }
     };
   },
   created() {
-    this.getData();
-    this.$store.dispatch("storeBreadcrumbData", {
+    // this.getData();
+    this.$store.dispatch('storeBreadcrumbData', {
       linkBackButton: `/finances/donations`,
       currentPageName: `List Transaksi Donatur ${this.$route.params.periodYear}`
     });
   },
   computed: {
     stateTrxDate() {
-      return this.errors.trx_date == "no-error"
+      return this.errors.trx_date == 'no-error'
         ? true
         : this.errors.trx_date
         ? false
         : null;
     },
     stateAmount() {
-      return this.errors.amount == "no-error"
+      return this.errors.amount == 'no-error'
         ? true
         : this.errors.amount
         ? false
         : null;
     },
     stateVerification() {
-      return this.errors.verification == "no-error"
+      return this.errors.verification == 'no-error'
         ? true
         : this.errors.verification
         ? false
         : null;
     },
     stateStatusInvoice() {
-      return this.errors.status_invoice == "no-error"
+      return this.errors.status_invoice == 'no-error'
         ? true
         : this.errors.status_invoice
         ? false
         : null;
     },
     stateInvoiceNumber() {
-      return this.errors.invoice_no == "no-error"
+      return this.errors.invoice_no == 'no-error'
         ? true
         : this.errors.invoice_no
         ? false
@@ -414,31 +416,31 @@ export default {
       return index =>
         this.filteredItemsData[index].has_invoice &&
         this.filteredItemsData[index].invoice_no &&
-        this.filteredItemsData[index].verification == "VERIFIED"
+        this.filteredItemsData[index].verification == 'VERIFIED'
           ? true
           : false;
     }
   },
   watch: {
-    "$route.params.periodYear": "getData"
+    '$route.params.periodYear': 'getData'
   },
 
   methods: {
     handleClickBackButton() {
       this.$router.push({
-        name: "AllDonationDefault"
+        name: 'AllDonationDefault'
       });
     },
     onConfirmModal() {
-      if (this.confirmModalState == "deleteTransaction") {
+      if (this.confirmModalState == 'deleteTransaction') {
         this.deleteTransaction();
       }
-      if (this.confirmModalState == "sendInvoice") {
+      if (this.confirmModalState == 'sendInvoice') {
         this.sendInvoice();
       }
     },
-    triggerConfirmModal(title, body, state, value = "") {
-      console.log("test");
+    triggerConfirmModal(title, body, state, value = '') {
+      console.log('test');
 
       this.confirmModalTitle = title;
       this.confirmModalBody = body;
@@ -469,55 +471,54 @@ export default {
       console.log(index);
 
       this.transactionModal = true;
-      this.transactionModalTitle = "Edit Transaction";
-      this.transactionModalState = "editTransaction";
+      this.transactionModalTitle = 'Edit Transaction';
+      this.transactionModalState = 'editTransaction';
     },
     sendTransactionData(e) {
       e.preventDefault();
       if (!this.permission(3) || !this.permission(4)) {
-        this.$snotify.error('You are not allowed to edit', "ERROR");
+        this.$snotify.error('You are not allowed to edit', 'ERROR');
         this.transactionModal = false;
-        return
+        return;
       }
-      if (this.transactionModalState == "editTransaction") {
+      if (this.transactionModalState == 'editTransaction') {
         let self = this;
         axios
           .put(`api/donor-transaction/${this.input.id}}`, this.input)
           .then(response => {
-            console.log(response.data);
-            (self.filteredItemsData[self.transactionTableIndex].trx_date =
-              self.input.trx_date),
-              (self.filteredItemsData[self.transactionTableIndex].amount =
-                self.input.amount),
-              (self.filteredItemsData[self.transactionTableIndex].verification =
-                self.input.verification),
-              (self.filteredItemsData[self.transactionTableIndex].invoice_no =
-                self.input.invoice_no),
-              (self.filteredItemsData[self.transactionTableIndex].has_invoice =
-                self.input.has_invoice),
-              (self.filteredItemsData[
-                self.transactionTableIndex
-              ].status_invoice = self.input.status_invoice);
-            self.$snotify.success(response.data.message, "SUCCESS");
+            // console.log(response.data);
+            self.filteredItemsData[self.transactionTableIndex].trx_date =
+              self.input.trx_date;
+            self.filteredItemsData[self.transactionTableIndex].amount =
+              self.input.amount;
+            self.filteredItemsData[self.transactionTableIndex].verification =
+              self.input.verification;
+            self.filteredItemsData[self.transactionTableIndex].invoice_no =
+              self.input.invoice_no;
+            self.filteredItemsData[self.transactionTableIndex].has_invoice =
+              self.input.has_invoice;
+            self.filteredItemsData[self.transactionTableIndex].status_invoice =
+              self.input.status_invoice;
+            self.$snotify.success(response.data.message, 'SUCCESS');
             self.transactionModal = false;
           })
           .catch(error => {
             console.log(error);
             let errors = error.response.data.errors;
-            this.$snotify.error(error.response.data.message, "ERROR");
+            this.$snotify.error(error.response.data.message, 'ERROR');
             this.errors.trx_date = errors.trx_date
               ? errors.trx_date[0]
-              : "no-error";
-            this.errors.amount = errors.amount ? errors.amount[0] : "no-error";
+              : 'no-error';
+            this.errors.amount = errors.amount ? errors.amount[0] : 'no-error';
             this.errors.verification = errors.verification
               ? errors.verification[0]
-              : "no-error";
+              : 'no-error';
             this.errors.invoice_no = errors.invoice_no
               ? errors.invoice_no[0]
-              : "no-error";
+              : 'no-error';
             this.errors.status_invoice = errors.status_invoice
               ? errors.status_invoice[0]
-              : "no-error";
+              : 'no-error';
           });
       }
     },
@@ -537,7 +538,7 @@ export default {
         });
     },
     sendInvoice() {
-      this.$store.dispatch("stateLoadingFull", true);
+      this.$store.dispatch('stateLoadingFull', true);
       let self = this;
       axios
         .post(`api/file/donor-transaction/payment-receipt/send`, {
@@ -549,14 +550,14 @@ export default {
           console.log(response.data);
           self.filteredItemsData[
             this.confirmModalTempValue.index
-          ].status_invoice = "SENT";
-          self.$snotify.success(response.data.message, "SUCCESS");
-          this.$store.dispatch("stateLoadingFull", false);
+          ].status_invoice = 'SENT';
+          self.$snotify.success(response.data.message, 'SUCCESS');
+          this.$store.dispatch('stateLoadingFull', false);
         })
         .catch(error => {
           console.log(error);
-          self.$snotify.error(error.response.data.message, "ERROR");
-          this.$store.dispatch("stateLoadingFull", false);
+          self.$snotify.error(error.response.data.message, 'ERROR');
+          this.$store.dispatch('stateLoadingFull', false);
         });
     },
     getData() {
@@ -570,8 +571,8 @@ export default {
           const editData = data => {
             return data.map(item => {
               var temp = Object.assign({}, item);
-              temp["name"] = temp.donor.name;
-              temp["year"] = temp.donor.year;
+              temp['name'] = temp.donor.name;
+              temp['year'] = temp.donor.year;
               // temp.name = 'my name '+temp.name;
               return temp;
             });
@@ -585,18 +586,18 @@ export default {
         });
     },
     getBadgeVerification(status) {
-      return status === "VERIFIED"
-        ? "success"
-        : status === "UNVERIFIED"
-        ? "secondary"
-        : "primary";
+      return status === 'VERIFIED'
+        ? 'success'
+        : status === 'UNVERIFIED'
+        ? 'secondary'
+        : 'primary';
     },
     getBadgeStatus(status) {
-      return status === "SENT"
-        ? "success"
-        : status === "NOT SENT"
-        ? "secondary"
-        : "primary";
+      return status === 'SENT'
+        ? 'success'
+        : status === 'NOT SENT'
+        ? 'secondary'
+        : 'primary';
     }
   }
 };

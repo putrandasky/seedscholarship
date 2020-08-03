@@ -16,9 +16,9 @@ Route::get('/blog/{category}/{slug}', 'Main\BlogController@show');
 Route::get('/team', 'Main\TeamMemberController@index');
 // Route::redirect('/', '/donor#/register');
 Route::redirect('/admin-login', '/admin#/login');
-Route::redirect('/register-awardee', '/awardee#/register');
-Route::redirect('/register-beasiswa-penelitian', '/nonreg#/register');
-Route::redirect('/register-donatur', '/donor#/register');
+Route::redirect('/daftar-awardee', '/awardee#/register');
+Route::redirect('/daftar-beasiswa', '/scholarship#/register');
+Route::redirect('/daftar-donatur', '/donor#/register');
 
 Route::group(['prefix' => 'awardee'], function () {
     Route::get('/{vue_capture?}', function () {
@@ -30,7 +30,7 @@ Route::group(['prefix' => 'admin'], function () {
         return View::make('apps.admin');
     })->where('vue_capture', '[\/\w\.-]*');
 });
-Route::group(['prefix' => 'nonreg'], function () {
+Route::group(['prefix' => 'scholarship'], function () {
     Route::get('/{vue_capture?}', function () {
         return View::make('apps.nonreg');
     })->where('vue_capture', '[\/\w\.-]*');
@@ -47,6 +47,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('reset/password/{account_type}', 'Auth\ResetPasswordController@ResetPassword');
 
 });
+Route::get('/{path}', 'Admin\Setting\UrlRedirectionController@redirect');
 
 // Route::get('/', function () {
 //     return View::make('apps.website');

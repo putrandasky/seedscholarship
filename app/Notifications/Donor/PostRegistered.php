@@ -2,10 +2,11 @@
 
 namespace App\Notifications\Donor;
 
+use App;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class PostRegistered extends Notification
 {
@@ -41,13 +42,24 @@ class PostRegistered extends Notification
      */
     public function toMail($notifiable)
     {
-$url = 'hello@seedscholarship.org';
+        $general = App\General::get();
+        $cp_email[0] = $general->where('key', 'Contact Person Email 1')->first()->value;
+        $cp_email[1] = $general->where('key', 'Contact Person Email 2')->first()->value;
+        $start_period = Carbon::parse("{$this->data['period']['year']}-{$this->data['period']['start_month']}");
+        $end_period = Carbon::parse("{$this->data['period']['end_year']}-{$this->data['period']['end_month']}")->endOfMonth();
+        $duration_period = $start_period->diffInMonths($end_period) + 1;
+
+        $url = 'hello@seedscholarship.org';
         return (new MailMessage)
-            ->from($url,'SEED Scholarship')
+            ->from($url, 'SEED Scholarship')
             ->bcc('bcc@seedscholarship.org')
-            ->subject('Selamat Bergabung di SEEDS')
-            ->markdown('email.DonorPostRegistered', ['data' => $this->data]);
-            // ->attach(storage_path('app')."/contract/donor/{$this->data->periods[0]->period}/{$this->data->id}/Surat Perjanjian Kerja Sama {$this->data->name}.pdf");
+            ->subject("Selamat Bergabung di SEEDS #{$this->data['period']['period']} Tahun {$this->data['period']['year']} ")
+            ->markdown('email.DonorPostRegistered2', [
+                'data' => $this->data,
+                'cp_email' => $cp_email,
+                'duration_period' => $duration_period,
+            ]);
+        // ->attach(storage_path('app')."/contract/donor/{$this->data->periods[0]->period}/{$this->data->id}/Surat Perjanjian Kerja Sama {$this->data->name}.pdf");
 
     }
 

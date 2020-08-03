@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App;
 
 class PostRegistered extends Notification
 {
@@ -41,11 +42,14 @@ class PostRegistered extends Notification
      */
     public function toMail($notifiable)
     {
+      $general = App\General::get();
+      $cp_email[0] = $general->where('key','Contact Person Email 1')->first()->value;
+      $cp_email[1] = $general->where('key','Contact Person Email 2')->first()->value;
         $url = 'hello@seedscholarship.org';
         return (new MailMessage)
             ->from($url,'SEED Scholarship')
             ->subject("Hai Calon Awardee")
-            ->markdown('email.AwardeePostRegistered', ['data' => $this->data]);
+            ->markdown('email.AwardeePostRegistered', ['data' => $this->data, 'cp_email'=>$cp_email]);
 
     }
 

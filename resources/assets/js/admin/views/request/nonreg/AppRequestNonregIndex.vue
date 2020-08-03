@@ -58,7 +58,7 @@
             <b-badge
               :variant="
                 getBadgeApproval(
-                  data.item.awardee_nonreg_scholarships[0].status
+                  data.item.status
                 )
               "
             >
@@ -97,7 +97,7 @@ export default {
       this.$router.push({
         name: 'DetailRequestNonreg',
         params: {
-          userId: record.id,
+          userId: record.awardee_nonreg.id,
           scholarshipId: this.$route.params.scholarshipId
         }
       });
@@ -112,8 +112,8 @@ export default {
           const editData = data => {
             return data.map(item => {
               var temp = Object.assign({}, item);
-              temp['department'] = temp.college_department.department;
-              temp['status'] = temp.awardee_nonreg_scholarships[0].status;
+              temp['department'] = temp.awardee_nonreg.college_department.department;
+              temp['status'] = temp.status;
               temp['registered'] = temp.created_at;
               // temp.name = 'my name '+temp.name;
               return temp;

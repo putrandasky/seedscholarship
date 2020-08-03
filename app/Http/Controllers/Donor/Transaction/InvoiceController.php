@@ -8,7 +8,7 @@ use App\Notifications\Donor\SendPaymentReceipt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
+
 class InvoiceController extends Controller
 {
     /**
@@ -32,19 +32,31 @@ class InvoiceController extends Controller
         // if (!($this->registrantAuthenticate($request->id, $request->registration_code, $request->period_id))) {
         //     return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
         // }
-        $donor = App\Donor::whereId($request->userId)
+        // $donor = App\Donor::whereId($request->userId)
+        //     ->with([
+        //         'collegeDepartment',
+        //         'donorPeriods.period' => function ($query) use ($request) {
+        //             $query->where('year', '=', $request->periodYear);
+        //         },
+        //         'donorTransactions' => function ($query) use ($request) {
+        //             $query->where('id', '=', $request->id);
+        //         },
+        //     ])->first();
+        $period = App\Period::where('year', $request->periodYear)->first();
+        $data = App\DonorPeriod::where([
+            'period_id' => $period->id,
+            'donor_id' => $request->userId,
+        ])
             ->with([
-                'collegeDepartment',
-                 'donorPeriods.period' => function ($query) use ($request) {
-                    $query->where('year', '=', $request->periodYear);
-                },
-                'donorTransactions' => function ($query) use ($request) {
+              'donor.collegeDepartment',
+                'period',
+                'donor.donorTransactions' => function ($query) use ($request) {
                     $query->where('id', '=', $request->id);
                 },
             ])->first();
         $pdf = app('dompdf.wrapper');
         $pdf->getDomPDF()->set_option("enable_php", true);
-        $pdf->loadView('pdf.PaymentReceipt', compact('donor'));
+        $pdf->loadView('pdf.PaymentReceipt', compact('data'));
         $pdf->setPaper('b5', 'landscape');
 
         Storage::put("transaction/{$request->periodYear}/{$request->userId}/{$request->id}/invoice/{$request->invoice_no}.pdf", $pdf->output());
@@ -95,25 +107,45 @@ class InvoiceController extends Controller
     }
     public function sendInvoice(Request $request)
     {
-        $donor = App\Donor::whereId($request->userId)
+        $period = App\Period::where('year', $request->periodYear)->first();
+        // $donor = App\Donor::whereId($request->userId)
+        //     ->with([
+        //         'collegeDepartment',
+        //          'donorPeriods.period' => function ($query) use ($request) {
+        //             $query->where('year', '=', $request->periodYear);
+        //         },
+        //         'donorTransactions' => function ($query) use ($request) {
+        //             $query->where('id', '=', $request->id);
+        //         },
+        //     ])
+        //     ->withCount(['donorTransactions AS total_donation' => function ($query) {
+        //         $query->select(DB::raw("SUM(amount) as verified"))->where('verification', 'VERIFIED');
+        //     },
+        //     ])
+        //     ->first();
+        $data = App\DonorPeriod::where([
+            'period_id' => $period->id,
+            'donor_id' => $request->userId,
+        ])
             ->with([
-                'collegeDepartment',
-                 'donorPeriods.period' => function ($query) use ($request) {
-                    $query->where('year', '=', $request->periodYear);
+                'donor' => function ($query) use ($request) {
+                    $query->withCount([
+                        'donorTransactions AS total_donation' => function ($query) use ($request) {
+                            $query->where('period_year', '=', $request->periodYear);
+                            $query->select(DB::raw("SUM(amount) as verified"))->where('verification', 'VERIFIED');
+                        },
+                    ]);
                 },
-                'donorTransactions' => function ($query) use ($request) {
+                'donor.collegeDepartment',
+                'period',
+                'donor.donorTransactions' => function ($query) use ($request) {
                     $query->where('id', '=', $request->id);
                 },
-            ])
-            ->withCount(['donorTransactions AS total_donation' => function ($query) {
-                $query->select(DB::raw("SUM(amount) as verified"))->where('verification', 'VERIFIED');
-            },
-            ])
-            ->first();
-            // return $donor;
-        DB::transaction(function () use ($request, $donor) {
-            // $when = Carbon::now()->addMinutes(1);
-            $donor->notify(new SendPaymentReceipt($donor));
+            ])->first();
+
+        // return $data;
+        DB::transaction(function () use ($request, $data) {
+            $data->donor->notify(new SendPaymentReceipt($data));
             $transaction = App\DonorTransaction::find($request->id);
             $transaction->status_invoice = 'SENT';
             $transaction->save();

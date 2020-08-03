@@ -1,5 +1,37 @@
 # CHANGE LOG
 
+3 Aug 2020
+2.2.0
+
+### NEW FEATURES
+- Broadcast for sending reinvitaton to donor
+- Broadcast system for sending message
+- Old registered donor can re register for new period
+- Mode for Passive Donor Only category available in settings
+- Toggle Open/close registration available in settings
+- Redirection URL system (UI not provided, but system is already)
+
+### IMRPROVEMENTS
+- MONTH and YEAR per period can be applied in system (UI not yet provided but system is already)
+
+
+### NOTES during development
+###ADDED
+- Add new column re-register token in donor
+- column status in table broadcast_reader
+- column broadcst_type_id in table broadcast
+- broadcast_type for consider groups (awardee, scholarship, donors)
+- add data for broadcast_type
+- add table for DonorRegistration
+- Start / End for Month / Year period in table Generals (consider to be deprecated)
+- column start_month & end_month in period table
+- column is_open_registration in scholarship table
+- row 'form donor open' and 'form donor passive mode'  in general table
+###CHANGE
+- Period data type in broadcast to INT instead YEAR
+###REMOVED
+- accountable_type in table broadcast
+
 
 06-1-2020
 ### ADDED

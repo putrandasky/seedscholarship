@@ -2,10 +2,10 @@
 
 namespace App;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Awardee extends Authenticatable implements JWTSubject
 {
@@ -20,7 +20,6 @@ class Awardee extends Authenticatable implements JWTSubject
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-M-y');
     }
     // protected $guard = ['admin'];
-
 
     /**
      * The attributes that are mass assignable.
@@ -37,7 +36,7 @@ class Awardee extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token'
+        'password', 'remember_token',
     ];
     public function blogs()
     {
@@ -45,15 +44,19 @@ class Awardee extends Authenticatable implements JWTSubject
     }
     public function periods()
     {
-        return $this->morphToMany('App\Period', 'periodable')->withPivot('status','registration_code')->withTimestamps();;
+        return $this->morphToMany('App\Period', 'periodable')->withPivot('status', 'registration_code')->withTimestamps();
     }
     public function collegeDepartment()
     {
-      return $this->belongsTo('App\CollegeDepartment');
+        return $this->belongsTo('App\CollegeDepartment');
     }
     public function awardeePeriods()
     {
-      return $this->hasMany('App\AwardeePeriod');
+        return $this->hasMany('App\AwardeePeriod');
+    }
+    public function broadcast_readers()
+    {
+        return $this->morphMany('App\BroadcastReader', 'accountable');
     }
     public function getJWTIdentifier()
     {

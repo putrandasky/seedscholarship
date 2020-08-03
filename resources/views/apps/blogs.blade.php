@@ -19,7 +19,7 @@
 @section('content')
 <header id="intro" class="intro-blog">
   <div class="jumbotron d-flex justify-content-center align-items-center"
-    style="background-image:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url({{ asset('images/blog/header.jpeg') }})">
+    style="background-image:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url({{ asset('images/blog/header-blog-seedscholarship.jpeg') }})">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto py-5">

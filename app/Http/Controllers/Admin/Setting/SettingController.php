@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Setting;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
@@ -31,13 +31,12 @@ class SettingController extends Controller
         // $data->where('key','Seed Name')->first()->value;
         // return $request[1]['value'];
         // return count($request->all());
-        for ($i=0; $i < count($request->all()); $i++) { 
-            $data = App\General::where('id',$request[$i]['id'])->first();
+        for ($i = 0; $i < count($request->all()); $i++) {
+            $data = App\General::where('id', $request[$i]['id'])->first();
             $data->value = $request[$i]['value'];
             $data->save();
         }
         return response()->json(['message' => 'General Setting Edited'], 200);
-
     }
 
     /**
@@ -60,7 +59,6 @@ class SettingController extends Controller
      */
     public function update(Request $request)
     {
-
 
     }
 

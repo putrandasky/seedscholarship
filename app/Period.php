@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Period extends Model
 {
+    public $timestamps = false;
     public function getCreatedAtAttribute($date)
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-M-y');
