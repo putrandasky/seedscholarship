@@ -1,7 +1,11 @@
 # CHANGE LOG
 
 3 Aug 2020
-2.2.3
+2.2.3 hotfix 1
+### IMPROVE
+- Compress image in 2.2.3
+
+2.2.3 hot
 ### ADDED
 - Image in header blogs and Team
 - image in about Us
