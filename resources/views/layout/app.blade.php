@@ -47,7 +47,7 @@
         <a class="nav-link {{ (request()->is('/')) ? 'active' : '' }} "href="{{url("")}}">Home</a>
         <a class="nav-link {{ (request()->is('blogs')) ? 'active' : '' }}" href="{{url("blogs")}}">Blog</a>
         <a class="nav-link {{ (request()->is('team')) ? 'active' : '' }} " href="{{url("team")}}">Pengurus</a>
-        <a class="nav-link" href="#">Daftar</a>
+        {{-- <a class="nav-link" href="#call-to-action">Daftar</a> --}}
       </div>
       <ul class="nav justify-content-end d-flex d-md-none">
         <button type="button" id="mobile-nav-button">

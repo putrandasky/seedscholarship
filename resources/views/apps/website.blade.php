@@ -230,8 +230,8 @@ parallax text-white" style="background-image:linear-gradient(rgba(51, 122, 183, 
       <p>Bergabunglah bersama kami, karena kontribusi anda sangat berharga, apapun peran anda.</p>
     </header>
     <div class="row d-flex  justify-content-center ">
-      <a class="btn btn-outline-light mx-3 mb-1" href="#">Daftar Awardee</a>
-      <a class="btn btn-outline-light mx-3 mb-1" href="#">Daftar Donatur</a>
+      <a class="btn btn-outline-light mx-3 mb-1" href="/daftar-awardee">Daftar Awardee</a>
+      <a class="btn btn-outline-light mx-3 mb-1" href="/daftar-donatur">Daftar Donatur</a>
       <a class="btn btn-outline-light mx-3 mb-1" href="#">Daftar Pengurus</a>
     </div>
   </div>

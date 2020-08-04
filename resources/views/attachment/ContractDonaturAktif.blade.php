@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 @php
- setlocale(LC_TIME, 'id');
+ setlocale(LC_TIME, 'id_ID');
  @endphp
 <html lang="en">
 

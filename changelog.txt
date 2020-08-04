@@ -1,6 +1,10 @@
 # CHANGE LOG
 
 3 Aug 2020
+2.2.3
+### ADDED
+- Image in header blogs and Team
+- image in about Us
 2.2.2
 ### ADDED
 - empty state on awardee request

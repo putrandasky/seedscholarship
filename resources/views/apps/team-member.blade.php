@@ -16,7 +16,7 @@
 
 @section('content')
 <header id="intro" class="intro-team">
-  <div class="jumbotron bg-light" style="background-image:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7))">
+  <div class="jumbotron d-flex justify-content-center align-items-center" style="background-image:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url({{ asset('images/website/header-team-member-seedscholarship.jpeg') }})">
     <div class="my-5 py-5">
       <h2 class="text-white display-4 font-weight-bold text-center">PENGURUS SEED SCHOLARSHIP</h2>
     </div>

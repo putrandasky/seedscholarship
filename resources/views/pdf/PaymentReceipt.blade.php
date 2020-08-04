@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 @php
-setlocale(LC_TIME, 'id');
+setlocale(LC_TIME, 'id_ID');
 function terbilang($nilai)
 {
 if ($nilai < 0) { $hasil="minus " . trim(penyebut($nilai)); } else { $hasil=trim(penyebut($nilai)); } return $hasil; }
