@@ -34,8 +34,8 @@ class AuthController extends Controller
 
         $start_period = Carbon::parse("{$period->year}-{$period->start_month}");
         $end_period = Carbon::parse("{$period->end_year}-{$period->end_month}")->endOfMonth();
-        $duration_period = $start_period->diffInMonths($end_period) + 1;
-        $duration_uptolastmonth = $start_period->diffInMonths(Carbon::now()->endOfMonth());
+        $duration_period = (($period->end_year - $period->year) * 12) + ($period->end_month - $period->start_month) + 1;
+        $duration_uptolastmonth = ((Carbon::today()->year - $period->year) * 12) + (Carbon::today()->month - $period->start_month);
         $duration_uptomonth = $duration_uptolastmonth + 1;
 
         $data['plan_donation'] = App\DonorPeriod::whereHas('period', function ($query) use ($request) {

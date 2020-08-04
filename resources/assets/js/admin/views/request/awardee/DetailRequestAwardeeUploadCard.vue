@@ -1,7 +1,7 @@
 <template>
   <b-card no-body>
     <div slot="header" class="text-center">
-      <strong>{{title}}  <i class="fa fa-info-circle" v-b-tooltip.hover="information"></i></strong>
+      <strong>{{title}} <i class="fa fa-info-circle" v-b-tooltip.hover="information"></i></strong>
     </div>
     <!-- <b-card-img src="/images/default-file.png" style="border-radius:unset" /> -->
     <!-- <b-card-body class="" style="height:30vh;display:grid;align-content:center;align-self:center">
@@ -35,7 +35,7 @@
         {{data.date}}
       </b-list-group-item>
     </b-list-group>
-    <b-button v-if="data.name" block fluid variant="primary" style="border-radius:unset" @click="openFile"><i class="fa fa-search"></i>
+    <b-button v-if="data.name && permission(21)" block fluid variant="primary" style="border-radius:unset" @click="openFile"><i class="fa fa-search"></i>
       See File
     </b-button>
   </b-card>
@@ -44,22 +44,21 @@
   export default {
     name: 'RegistrationUploadCard',
     props: [
-      'title', 'folder', 'data','periodId','registrationCode'
+      'title', 'folder', 'data', 'periodId', 'registrationCode'
     ],
-    data: function () {
+    data: function() {
       return {
 
 
       }
     },
-    created() {
-    },
-    computed:{
-      information(){
-        return this.folder == 'cv'? 'Riwayat hidup dengan format bebas dengan informasi wajib berupa data diri dan riwayat pendidikan':
-        this.folder == 'essay'? 'Esai dengan topik : Mengapa saya pantas mendapatkan beasiswa SEED (300-500 kata)':
-        this.folder == 'slip'? 'Salinan slip gaji orangtua dan/atau rekening listrik':
-        this.folder == 'siakng'? 'Print Out Ringkasan / Riwayat Akademis  SIAK NG': ''
+    created() {},
+    computed: {
+      information() {
+        return this.folder == 'cv' ? 'Riwayat hidup dengan format bebas dengan informasi wajib berupa data diri dan riwayat pendidikan' :
+          this.folder == 'essay' ? 'Esai dengan topik : Mengapa saya pantas mendapatkan beasiswa SEED (300-500 kata)' :
+          this.folder == 'slip' ? 'Salinan slip gaji orangtua dan/atau rekening listrik' :
+          this.folder == 'siakng' ? 'Print Out Ringkasan / Riwayat Akademis  SIAK NG' : ''
       }
     },
     methods: {
@@ -73,7 +72,6 @@
       },
     },
   }
-
 </script>
 <style>
 </style>

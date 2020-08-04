@@ -81,11 +81,8 @@ class RegisterController extends Controller
         $donation_token = Str::random(100);
         $start_period = Carbon::parse("{$period->year}-{$period->start_month}");
         $end_period = Carbon::parse("{$period->end_year}-{$period->end_month}")->endOfMonth();
-        $difference_month = $start_period->diffInMonths($end_period);
+        $duration_period = (($period->end_year - $period->year) * 12) + ($period->end_month - $period->start_month) + 1;
         if ($request->donation_category == "AKTIF") {
-            // $amount = $request->amount * 12;
-            $duration_period = $difference_month + 1;
-
             $amount = $request->amount * $duration_period;
         } elseif ($request->amount) {
             $amount = $request->amount;

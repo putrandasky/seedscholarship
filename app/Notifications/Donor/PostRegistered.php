@@ -3,7 +3,6 @@
 namespace App\Notifications\Donor;
 
 use App;
-use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -45,9 +44,7 @@ class PostRegistered extends Notification
         $general = App\General::get();
         $cp_email[0] = $general->where('key', 'Contact Person Email 1')->first()->value;
         $cp_email[1] = $general->where('key', 'Contact Person Email 2')->first()->value;
-        $start_period = Carbon::parse("{$this->data['period']['year']}-{$this->data['period']['start_month']}");
-        $end_period = Carbon::parse("{$this->data['period']['end_year']}-{$this->data['period']['end_month']}")->endOfMonth();
-        $duration_period = $start_period->diffInMonths($end_period) + 1;
+        $duration_period = (($this->data['period']['end_year'] - $this->data['period']['year']) * 12) + ($this->data['period']['end_month'] - $this->data['period']['start_month']) + 1;
 
         $url = 'hello@seedscholarship.org';
         return (new MailMessage)

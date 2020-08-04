@@ -50,7 +50,7 @@ class DonationReminder extends Command
 
         $start_period = Carbon::parse("{$period->year}-{$period->start_month}");
         $end_period = Carbon::parse("{$period->end_year}-{$period->end_month}")->endOfMonth();
-        $duration_period = $start_period->diffInMonths($end_period) + 1;
+        $duration_period = (($period->end_year - $period->year) * 12) + ($period->end_month - $period->start_month) + 1;
 
         // $currentToday = Carbon::today()->addMonths(1);
         $currentToday = Carbon::today();

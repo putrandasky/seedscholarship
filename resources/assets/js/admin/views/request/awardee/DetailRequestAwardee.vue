@@ -86,47 +86,21 @@
       <b-col cols="12">
         <b-row>
           <b-col lg="3" sm="6">
-            <file-card
-              title="Curriculum Vitae"
-              :periodId="data.period_id"
-              :registrationCode="data.registration_code"
-              folder="cv"
-              :data="files.cv"
-            />
+            <file-card title="Curriculum Vitae" :periodId="data.period_id" :registrationCode="data.registration_code" folder="cv" :data="files.cv" />
           </b-col>
           <b-col lg="3" sm="6">
-            <file-card
-              title="Essay"
-              folder="essay"
-              :periodId="data.period_id"
-              :registrationCode="data.registration_code"
-              :data="files.essay"
-            />
+            <file-card title="Essay" folder="essay" :periodId="data.period_id" :registrationCode="data.registration_code" :data="files.essay" />
           </b-col>
           <b-col lg="3" sm="6">
-            <file-card
-              title="Slip Gaji/Rekening Listrik"
-              :periodId="data.period_id"
-              :registrationCode="data.registration_code"
-              folder="slip"
-              :data="files.slip"
-            />
+            <file-card title="Slip Gaji/Rekening Listrik" :periodId="data.period_id" :registrationCode="data.registration_code" folder="slip" :data="files.slip" />
           </b-col>
           <b-col lg="3" sm="6">
-            <file-card
-              title="SiakNG"
-              folder="siakng"
-              :periodId="data.period_id"
-              :registrationCode="data.registration_code"
-              :data="files.siakng"
-            />
+            <file-card title="SiakNG" folder="siakng" :periodId="data.period_id" :registrationCode="data.registration_code" :data="files.siakng" />
           </b-col>
         </b-row>
-        <b-row v-if="data.status == 'SUBMITTED'">
+        <b-row v-if="data.status == 'SUBMITTED' && permission(20)">
           <b-col cols="12" class="text-right">
-            <b-button
-              variant="danger"
-              @click="
+            <b-button variant="danger" @click="
                 triggerConfirmModal(
                   'Set Approval Status',
                   'Are you sure to set status approval to NOT APPROVED? This action can not be undone',
@@ -136,13 +110,10 @@
                     status: `NOT APPROVED`
                   }
                 )
-              "
-            >
+              ">
               Not Approved
             </b-button>
-            <b-button
-              variant="success"
-              @click="
+            <b-button variant="success" @click="
                 triggerConfirmModal(
                   'Set Approval Status',
                   'Are you sure to set status approval to APPROVED? This action can not be undone',
@@ -152,114 +123,106 @@
                     status: `APPROVED`
                   }
                 )
-              "
-            >
+              ">
               Approved
             </b-button>
           </b-col>
         </b-row>
       </b-col>
-      <b-modal
-        :no-close-on-esc="true"
-        :hide-header-close="true"
-        :no-close-on-backdrop="true"
-        :title="confirmModalTitle"
-        v-model="confirmModal"
-        @ok="onConfirmModal"
-      >
+      <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" :title="confirmModalTitle" v-model="confirmModal" @ok="onConfirmModal">
         {{ confirmModalBody }}
       </b-modal>
     </b-row>
   </slide-y-up-transition>
 </template>
 <script>
-import FileCard from './DetailRequestAwardeeUploadCard';
-export default {
-  name: 'DetailRequestAwardee',
-  components: {
-    FileCard
-  },
-  data: function() {
-    return {
-      loaded: false,
-      files: {},
-      confirmModal: false,
-      confirmModalTitle: '',
-      confirmModalBody: '',
-      confirmModalTempValue: '',
-      confirmModalState: '',
-      data: {
-        awardee: {
-          name: '',
-          email: '',
-          phone: '',
-          year: null,
-          college_department: {
-            department: ''
-          }
-        },
-        created_at: null,
-        updated_at: null
-      }
-    };
-  },
-  created() {
-    this.getData();
-    this.$store.dispatch('storeBreadcrumbData', {
-      linkBackButton: `/request/awardee/${this.$route.params.periodYear}`,
-      currentPageName: 'Detail Awardee'
-    });
-  },
-  computed: {},
-  methods: {
-    triggerConfirmModal(title, body, state, value = '') {
-      console.log('test');
-      this.confirmModalTitle = title;
-      this.confirmModalBody = body;
-      this.confirmModal = true;
-      this.confirmModalState = state;
-      this.confirmModalTempValue = value;
-      console.log(this.confirmModalTempValue);
+  import FileCard from './DetailRequestAwardeeUploadCard';
+  export default {
+    name: 'DetailRequestAwardee',
+    components: {
+      FileCard
     },
-    onConfirmModal() {
-      if (this.confirmModalState == 'setStatus') {
-        this.setStatus();
-      }
+    data: function() {
+      return {
+        loaded: false,
+        files: {},
+        confirmModal: false,
+        confirmModalTitle: '',
+        confirmModalBody: '',
+        confirmModalTempValue: '',
+        confirmModalState: '',
+        data: {
+          awardee: {
+            name: '',
+            email: '',
+            phone: '',
+            year: null,
+            college_department: {
+              department: ''
+            }
+          },
+          created_at: null,
+          updated_at: null
+        }
+      };
     },
-    setStatus() {
-      axios
-        .post(
-          `api/admin/awardee/request/set-status`,
-          this.confirmModalTempValue
-        )
-        .then(response => {
-          this.$snotify.success(response.data.message, 'SUCCESS');
-          this.data.status = this.confirmModalTempValue.status;
-          this.confirmModalTempValue.status = '';
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    created() {
+      this.getData();
+      this.$store.dispatch('storeBreadcrumbData', {
+        linkBackButton: `/request/awardee/${this.$route.params.periodYear}`,
+        currentPageName: 'Detail Awardee'
+      });
     },
-    getData() {
-      let self = this;
-      axios
-        .get(
-          `api/registration-awardee/${this.$route.params.userId}?year=${this.$route.params.periodYear}`
-        )
-        .then(response => {
-          console.log(response.data.user.awardee);
-          self.data = response.data.user;
-          self.files = response.data.files;
-          console.log(self.data);
+    computed: {},
+    methods: {
+      triggerConfirmModal(title, body, state, value = '') {
+        console.log('test');
+        this.confirmModalTitle = title;
+        this.confirmModalBody = body;
+        this.confirmModal = true;
+        this.confirmModalState = state;
+        this.confirmModalTempValue = value;
+        console.log(this.confirmModalTempValue);
+      },
+      onConfirmModal() {
+        if (this.confirmModalState == 'setStatus') {
+          this.setStatus();
+        }
+      },
+      setStatus() {
+        axios
+          .post(
+            `api/admin/awardee/request/set-status`,
+            this.confirmModalTempValue
+          )
+          .then(response => {
+            this.$snotify.success(response.data.message, 'SUCCESS');
+            this.data.status = this.confirmModalTempValue.status;
+            this.confirmModalTempValue.status = '';
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      },
+      getData() {
+        let self = this;
+        axios
+          .get(
+            `api/registration-awardee/${this.$route.params.userId}?year=${this.$route.params.periodYear}`
+          )
+          .then(response => {
+            console.log(response.data.user.awardee);
+            self.data = response.data.user;
+            self.files = response.data.files;
+            console.log(self.data);
 
-          this.loaded = true;
-        })
-        .catch(error => {
-          console.log(error);
-        });
+            this.loaded = true;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
     }
-  }
-};
+  };
 </script>
 <style></style>
