@@ -1,6 +1,12 @@
 # CHANGE LOG
 
-4 Aug 2020
+6 Aug 2020
+2.2.5
+### ADD
+- bg image on registration and admin login
+- logo on registration page
+
+5 Aug 2020
 2.2.4
 ### ADD
 - Loading state & error notification

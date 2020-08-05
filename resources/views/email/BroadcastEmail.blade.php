@@ -13,7 +13,7 @@
 echo htmlspecialchars_decode($broadcast['content'])
 @endphp
 
-<img style="height:5%" src="{{ config('app.url').'/images/heart.png'}}">
+<img style="height:5%" src="{{ config('app.url').'/images/heart-small.png'}}">
 <strong>SEED Scholarship</strong>
 
 <div style="text-align:center;margin-bottom:15px;margin-top:50px">Follow IG kami untuk informasi update kegiatan</div>

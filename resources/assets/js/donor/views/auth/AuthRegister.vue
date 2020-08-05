@@ -1,9 +1,9 @@
 <template>
-  <div class="app flex-row align-items-center">
+  <div class="app bg-image-full flex-row align-items-center">
     <loading class="text-center" :active="isDisabled" :can-cancel="false" :opacity="0.9" :height="60" loader='dots' transition='fade' background-color="rgba(0,0,0,.85)" color="rgba(255,255,255,.9)" :is-full-page="true">
       <div class="text-center" slot="after" style="color:rgba(255,255,255,.9)">Mohon Tunggu...</div>
     </loading>
-    <div class="container" v-if="isClosed">
+    <div class="container text-white" v-if="isClosed">
       <b-row class="justify-content-center">
         <b-col sm="8">
           <div class="text-center">
@@ -14,14 +14,15 @@
           </header>
           <div class="text-center">
             <p>Silahkan menghubungi contact person dibawah ini untuk informasi lebih lanjut</p>
-            <div v-for="(v,i) in cp" :key="'cp'+i">{{v}}</div>
+            <div>{{cp1}}</div>
+            <div>{{cp2}}</div>
           </div>
         </b-col>
       </b-row>
     </div>
     <div class="container" v-if="!isClosed" v-show="loaded">
       <b-row class="justify-content-center">
-        <b-col sm="8" v-if="registered">
+        <b-col sm="8" v-if="registered" class="text-white">
           <header class="text-center" id="header">
             <h1><strong>TERIMA KASIH</strong></h1>
           </header>
@@ -30,16 +31,19 @@
             <i class="fa fa-heart display-1" id="checkmark" style="color:red"></i>
             <p>Terima kasih telah mendaftar menjadi donatur di SEED Scholarship. Mohon cek email anda, untuk menyetujui
               data yang sudah anda berikan agar kontrak kerja sama bisa segera kami kirimkan.</p>
+            <img class="mt-4" src="/images/Seedlogo-small.png" alt="" style="max-height:150px" />
           </div>
+
         </b-col>
         <b-col lg="6" md="8" v-if="!registered">
 
-          <b-card no-body class="mt-3">
-            <div class="card-body" v-if="showIntroForm">
+          <b-card no-body class="p-4">
+            <div class="text-center mb-2">
+              <img class="mb-4" src="/images/Seedlogo-small.png" alt="" style="max-height:150px" />
+              <h3>Pendaftaran Donatur Seedscholarship</h3>
+            </div>
+            <div class="card-body p-0" v-if="showIntroForm">
               <b-row>
-                <b-col cols="12" class="mb-3">
-                  <h3 class="text-center">Pendaftaran Donatur Seedscholarship</h3>
-                </b-col>
                 <b-col cols="12">
                   <p class="text-muted">Klik tombol berikut jika <b> belum pernah mendaftar</b> periode sebelumnya. </p>
                   <b-button variant="success" block @click="handleIntroFormButton(1)">
@@ -56,10 +60,10 @@
                 </b-col>
               </b-row>
             </div>
-            <form class="card-body" @submit.prevent="postOldRegister" autocomplete="off" v-if="showOldDonorForm">
+            <form class="card-body p-0" @submit.prevent="postOldRegister" autocomplete="off" v-if="showOldDonorForm">
               <b-row class="form-group ">
                 <b-col sm="12">
-                  <h3 class="text-center">Daftar Donatur Lama</h3>
+                  <!-- <h3 class="text-center">Daftar Donatur Lama</h3> -->
                   <p class="text-muted">Silahkan memasukan email yang pernah dimasukan pada periode sebelumnya untuk mendaftar ulang sebagai donatur pada periode ini. </p>
                 </b-col>
                 <b-col sm="12">
@@ -86,10 +90,10 @@
                 </b-col>
               </b-row>
             </form>
-            <form class="card-body" @submit.prevent="postNewRegister" autocomplete="off" v-if="showNewDonorForm">
+            <form class="card-body p-0" @submit.prevent="postNewRegister" autocomplete="off" v-if="showNewDonorForm">
               <b-row class="form-group">
                 <b-col sm="12">
-                  <h3 class="text-center">Daftar Donatur Baru</h3>
+                  <!-- <h3 class="text-center">Daftar Donatur Baru</h3> -->
                   <p class="text-muted">Silahkan mengisi form berikut untuk menjadi donatur baru kami. </p>
 
                 </b-col>
@@ -275,7 +279,8 @@
         showIntroForm: true,
         errorEmailExistModal: false,
         errorEmailUnexistModal: false,
-        cp: [],
+        cp1: '',
+        cp2: '',
         options: {
           donationCategory: [{
               value: 'AKTIF',
@@ -330,7 +335,7 @@
         }
       }
     },
-    created() {
+    mounted() {
 
       // this.chechOpenRegistration()
       this.getChoices()
@@ -420,11 +425,11 @@
         }
       },
       getChoices() {
+        let self = this
         axios.get(`api/donor/registration/choices`)
           .then((response) => {
-            this.cp[0] = response.data.cp1;
-            this.cp[1] = response.data.cp2;
-            console.log(!!response.data.open_form);
+
+            // console.log(this.cp);
             if (response.data.open_form == "0") {
 
               this.isClosed = true
@@ -454,6 +459,8 @@
             this.periodOptions = response.data.period;
             console.log(this.periodOptions)
             this.loaded = true
+            self.cp1 = response.data.cp1;
+            self.cp2 = response.data.cp2;
           })
           .catch((error) => {
             console.log(error);
@@ -532,5 +539,14 @@
     },
   }
 </script>
-<style>
+<style scoped>
+  .bg-image-full {
+    /* Full height */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(/images/bg-donor-registration.jpg);
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 </style>

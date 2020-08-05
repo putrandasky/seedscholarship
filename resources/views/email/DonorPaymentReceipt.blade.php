@@ -37,7 +37,7 @@ Kontribusi anda sangat berharga untuk Department Teknik Sipil UI.
 Terimakasih,<br/>
 
 <br/>
-<img style="height:5%" src="{{ config('app.url').'/images/heart.png'}}">
+<img style="height:5%" src="{{ config('app.url').'/images/heart-small.png'}}">
 <strong>SEED Scholarship</strong>
 
 @slot('footer')

@@ -1,11 +1,11 @@
 <template>
-  <div class="app flex-row align-items-center">
+  <div class="app bg-image-full flex-row align-items-center">
     <loading class="text-center" :active="isDisabled" :can-cancel="false" :opacity="0.9" :height="60" loader="dots" transition="fade" background-color="rgba(0,0,0,.85)" color="rgba(255,255,255,.9)" :is-full-page="true">
       <div class="text-center" slot="after" style="color:rgba(255,255,255,.9)">
         Mohon Tunggu...
       </div>
     </loading>
-    <div class="container" v-if="isClosed">
+    <div class="container text-white" v-if="isClosed">
       <b-row class="justify-content-center">
         <b-col sm="8">
           <div class="text-center">
@@ -23,10 +23,13 @@
     <div class="container" v-if="!isClosed" v-show="loaded">
       <b-row class="justify-content-center">
         <b-col lg="6" md="8">
-          <b-card no-body class="mx-4">
-            <form class="card-body p-4" @submit.prevent="register" autocomplete="off">
+          <b-card no-body class="p-4">
+            <div class="text-center mb-2">
+              <img class="mb-4" src="/images/Seedlogo-small.png" alt="" style="max-height:150px" />
+              <h3>Scholarship Awardee Registration</h3>
+            </div>
+            <form class="card-body p-0" @submit.prevent="register" autocomplete="off">
 
-              <h3 class="mb-3 text-center">Scholarship Awardee Registration</h3>
               <!-- <p class="text-muted">Create your first account</p> -->
               <b-row class="form-group">
                 <b-col sm="12">
@@ -344,4 +347,14 @@
     }
   };
 </script>
-<style></style>
+<style scoped>
+  .bg-image-full {
+    /* Full height */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(/images/bg-scholarship-registration.jpeg);
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>

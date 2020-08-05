@@ -49,7 +49,7 @@ Segera setelah kamu upload semua file yang dibutuhkan, tim kami akan menghubungi
 Terimakasih,<br/>
 
 <br/>
-<img style="height:5%" src="{{ config('app.url').'/images/heart.png'}}">
+<img style="height:5%" src="{{ config('app.url').'/images/heart-small.png'}}">
 <strong>SEED Scholarship</strong>
 
 

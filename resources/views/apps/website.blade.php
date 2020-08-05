@@ -10,7 +10,7 @@
 <meta property="og:title" content="Seedscholarship" />
 <meta property="og:url" content="https:/seedscholarship.org" />
 <meta property="og:description" content="Seedscholarship - Bentuk kontribusi alumni Departement Teknik Sipil Universitas Indonesia">
-<meta property="og:image" content="{{ asset('images/Seedlogo.png') }}">
+<meta property="og:image" content="{{ asset('images/screenshot-web-seeds.png') }}">
 <meta property="og:type" content="landing page" />
 @endsection
 

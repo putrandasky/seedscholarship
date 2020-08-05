@@ -57,7 +57,7 @@ Tim kami akan menghubungi anda untuk melakukan konfirmasi jika Anda tidak menyet
 Terimakasih,<br/>
 
 <br/>
-<img style="height:5%" src="{{ config('app.url').'/images/heart.png'}}">
+<img style="height:5%" src="{{ config('app.url').'/images/heart-small.png'}}">
 <strong>SEED Scholarship</strong>
 
 
