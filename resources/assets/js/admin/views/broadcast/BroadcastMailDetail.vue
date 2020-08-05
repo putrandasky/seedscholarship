@@ -109,7 +109,7 @@
         );
       },
       getData() {
-
+        this.$store.dispatch('stateLoadingFull', true);
         axios.get(`api/admin/broadcast/index/${this.broadcastTypeId}/${this.broadcastId}`)
           .then((response) => {
             this.loaded = true
@@ -123,8 +123,14 @@
             this.data.created = response.data.created_at
             this.data.attachments = response.data.attachments
             console.log(response.data)
+            this.$store.dispatch('stateLoadingFull', false);
           })
           .catch((error) => {
+            this.$store.dispatch('stateLoadingFull', false);
+            this.$snotify.error(
+              "Ooops, There's Something Error, Try Again Later",
+              'ERROR'
+            );
             console.log(error);
           })
       },

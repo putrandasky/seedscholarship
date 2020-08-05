@@ -102,6 +102,7 @@
     },
     methods: {
       getData() {
+        this.$store.dispatch('stateLoadingFull', true);
         this.loaded = false;
         axios
           .get(`api/admin/broadcast/index/status/${this.broadcastId}`)
@@ -119,9 +120,15 @@
             // };
             this.filteredItemsData = response.data;
             this.loaded = true;
+            this.$store.dispatch('stateLoadingFull', false);
           })
           .catch(error => {
             console.log(error);
+            this.$store.dispatch('stateLoadingFull', false);
+            this.$snotify.error(
+              "Ooops, There's Something Error, Try Again Later",
+              'ERROR'
+            );
           });
       },
       getBadgeStatus(status) {

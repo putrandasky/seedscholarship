@@ -37,7 +37,7 @@ parallax" style="background-image:linear-gradient(rgba(255, 255, 255, 0.7), rgba
     </header>
     <div class="row">
       <div class="col-md-4 mb-3">
-        <div class="card shadow">
+        <div class="card shadow h-100">
           <img src="{{ asset('images/website/about-vision.jpg') }}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title font-weight-bold text-center">Visi Kami</h5>
@@ -48,7 +48,7 @@ parallax" style="background-image:linear-gradient(rgba(255, 255, 255, 0.7), rgba
         </div>
       </div>
       <div class="col-md-4 mb-3">
-        <div class="card shadow">
+        <div class="card shadow h-100">
           <img src="{{ asset('images/website/about-mission.jpg') }}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title font-weight-bold text-center">Misi Kami</h5>
@@ -59,7 +59,7 @@ parallax" style="background-image:linear-gradient(rgba(255, 255, 255, 0.7), rgba
         </div>
       </div>
       <div class="col-md-4 mb-3">
-        <div class="card shadow">
+        <div class="card shadow h-100">
           <img src="{{ asset('images/website/about-plan.jpg') }}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title font-weight-bold text-center">Rencana Kami</h5>
@@ -247,7 +247,7 @@ parallax text-white" style="background-image:linear-gradient(rgba(51, 122, 183, 
     <div class="row">
       @foreach ($blogs as $blog)
       <div class="col-lg-3 col-sm-6 mb-3">
-        <div class="card shadow">
+        <div class="card shadow  h-100">
           <img src="{{
             $blog->cover_image?
             url("storage/blog/{$blog->id}/cover/{$blog->cover_image}"):asset('/images/default-blog-cover.jpg')

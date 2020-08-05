@@ -205,6 +205,7 @@
         }
       },
       postBroadcast() {
+        this.$store.dispatch('stateLoadingFull', true);
         let itemInput = JSON.stringify(this.input);
         let form = new FormData();
         form.append("itemInput", itemInput);
@@ -225,6 +226,11 @@
             this.pushRouterToDetail(response.data.broadcast_id)
           })
           .catch((error) => {
+            this.$store.dispatch('stateLoadingFull', false);
+            this.$snotify.error(
+              "Ooops, There's Something Error, Try Again Later",
+              'ERROR'
+            );
             console.log(error);
           })
       },

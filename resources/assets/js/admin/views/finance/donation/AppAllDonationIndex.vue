@@ -440,6 +440,7 @@
       },
       getData() {
         this.loaded = false;
+        this.$store.dispatch('stateLoadingFull', true);
         axios
           .get(
             `api/donor-transaction?periodYear=${this.$route.params.periodYear}`
@@ -458,8 +459,14 @@
             this.itemsData = editData(response.data);
             this.loaded = true;
             console.log(this.itemsData);
+            this.$store.dispatch('stateLoadingFull', false);
           })
           .catch(error => {
+            this.$store.dispatch('stateLoadingFull', false);
+            this.$snotify.error(
+              "Ooops, There's Something Error, Try Again Later",
+              'ERROR'
+            );
             console.log(error);
           });
       },

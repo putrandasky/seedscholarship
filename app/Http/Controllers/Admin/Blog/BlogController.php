@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin\Blog;
 
 use App;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BlogResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,14 +11,20 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $data =  App\Blog::with(['authorable', 'blogCategory', 'tags',
-                // 'moderations' => function ($query) {
-                //     $query->orderBy('created_at', 'desc');
-                // },
-                // 'moderations.moderateable',
-            ])
-        ->orderBy('created_at', 'desc')
-        ->get();
+        $data = App\Blog::with([
+            'authorable' => function ($query) {
+                $query->select('admins.id', 'name', 'initial');
+            },
+            'blogCategory' => function ($query) {
+                $query->select('blog_categories.id', 'category');
+            },
+            'tags' => function ($query) {
+                $query->select('tags.id', 'name');
+            },
+        ])
+            ->orderBy('created_at', 'desc')
+            ->select('id', 'title', 'created_at', 'updated_at', 'status', 'blog_category_id', 'authorable_id', 'authorable_type')
+            ->get();
 
         return $data;
     }
@@ -47,13 +52,13 @@ class BlogController extends Controller
         $blog->title = $request['title'];
         $blog->body = $request['body'];
         $blog->summary = $request['summary'];
-        $blog->blog_category_id = $request['blog_category_id']??0;
+        $blog->blog_category_id = $request['blog_category_id'] ?? 0;
         $blog->status = $request['mod_status'];
         // $blog->cover_image = NULL;
         $blog->authorable_id = auth('admin-api')->user()->id;
         $blog->authorable_type = 'App\Admin';
         $blog->save();
-        $blog->slug = strtolower(str_slug($request['title']). '-'.$blog->id);
+        $blog->slug = strtolower(str_slug($request['title']) . '-' . $blog->id);
         $tags = collect($request['tags']);
         $tagsId = $tags->pluck('id');
         $blog->tags()->sync($tagsId->all());
@@ -76,17 +81,17 @@ class BlogController extends Controller
         $mod->moderateable_type = 'App\Admin';
         $mod->save();
         switch ($blog->status) {
-          case "PUBLISH":
-            return response()->json(['message' => 'New Blog Created And Published', 'blog_id' => $blog->id], 200);
-          break;
+            case "PUBLISH":
+                return response()->json(['message' => 'New Blog Created And Published', 'blog_id' => $blog->id], 200);
+                break;
 
-          case "DRAFT":
-            return response()->json(['message' => 'New Blog Created As Draft', 'blog_id' => $blog->id], 200);
-          break;
+            case "DRAFT":
+                return response()->json(['message' => 'New Blog Created As Draft', 'blog_id' => $blog->id], 200);
+                break;
 
-          default:
-            # code...
-            break;
+            default:
+                # code...
+                break;
         }
     }
     public function update(Request $request, $id)
@@ -94,7 +99,7 @@ class BlogController extends Controller
         $blog = App\Blog::find($id);
         $blog->title = $request['data']['title'];
         if ($blog->slug != str_slug($request['data']['slug'])) {
-          $blog->slug = strtolower(str_slug($request['data']['slug']). '-'.$blog->id);
+            $blog->slug = strtolower(str_slug($request['data']['slug']) . '-' . $blog->id);
         }
         $blog->body = $request['data']['body'];
         $blog->summary = $request['data']['summary'];
@@ -114,19 +119,18 @@ class BlogController extends Controller
         $mod->moderateable_type = 'App\Admin';
         $mod->save();
         switch ($blog->status) {
-          case "PUBLISH":
-            return response()->json(['message' => 'Blog Edited and Published'], 200);
-          break;
+            case "PUBLISH":
+                return response()->json(['message' => 'Blog Edited and Published'], 200);
+                break;
 
-          case "DRAFT":
-            return response()->json(['message' => 'Blog Edited as Draft'], 200);
-          break;
+            case "DRAFT":
+                return response()->json(['message' => 'Blog Edited as Draft'], 200);
+                break;
 
-          default:
-            # code...
-            break;
+            default:
+                # code...
+                break;
         }
-
 
         // return $request['category']['id'];
     }
@@ -137,8 +141,8 @@ class BlogController extends Controller
         $blog->tags()->detach();
         $blog->delete();
         $mod->delete();
-        $path = 'blog/' . $id ;
-        Storage::deleteDirectory('public/' . $path );
+        $path = 'blog/' . $id;
+        Storage::deleteDirectory('public/' . $path);
         return response()->json(['message' => 'Blog Deleted'], 200);
     }
     public function storeCoverPhoto(Request $request, $blogId)

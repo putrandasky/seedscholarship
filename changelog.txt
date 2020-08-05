@@ -1,5 +1,14 @@
 # CHANGE LOG
 
+4 Aug 2020
+2.2.4
+### ADD
+- Loading state & error notification
+- add h-100 on card in homepage
+
+### IMPROVE
+- selecting necessary data for query donor index, blog index
+
 3 Aug 2020
 2.2.3 hotfix 1
 ### IMPROVE

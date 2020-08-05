@@ -107,6 +107,7 @@
         });
       },
       getData() {
+        this.$store.dispatch('stateLoadingFull', true);
         this.loaded = false;
         axios
           .get(`api/admin/broadcast/index/${this.$route.params.broadcastTypeId}`)
@@ -125,8 +126,14 @@
             };
             this.itemsData = editData(response.data);
             this.loaded = true;
+            this.$store.dispatch('stateLoadingFull', false);
           })
           .catch(error => {
+            this.$store.dispatch('stateLoadingFull', false);
+            this.$snotify.error(
+              "Ooops, There's Something Error, Try Again Later",
+              'ERROR'
+            );
             console.log(error);
           });
       }

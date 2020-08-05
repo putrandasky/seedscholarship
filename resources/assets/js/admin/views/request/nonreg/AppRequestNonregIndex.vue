@@ -89,6 +89,7 @@
       },
       getData() {
         this.loaded = false;
+        this.$store.dispatch('stateLoadingFull', true);
         axios
           .get(`api/auth/nonreg?id=${this.$route.params.scholarshipId}`)
           .then(response => {
@@ -106,8 +107,14 @@
             };
             this.itemsData = editData(response.data);
             this.loaded = true;
+            this.$store.dispatch('stateLoadingFull', false);
           })
           .catch(error => {
+            this.$store.dispatch('stateLoadingFull', false);
+            this.$snotify.error(
+              "Ooops, There's Something Error, Try Again Later",
+              'ERROR'
+            );
             console.log(error);
           });
       }

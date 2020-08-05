@@ -237,6 +237,7 @@
       },
       getData() {
         this.loaded = false;
+        this.$store.dispatch('stateLoadingFull', true);
         axios
           .get(`api/auth/donor?year=${this.$route.params.periodYear}`)
           .then(response => {
@@ -298,8 +299,14 @@
             //   'today > finish': new Date() > new Date(this.endPeriod),
             // })
             this.loaded = true;
+            this.$store.dispatch('stateLoadingFull', false);
           })
           .catch(error => {
+            this.$store.dispatch('stateLoadingFull', false);
+            this.$snotify.error(
+              "Ooops, There's Something Error, Try Again Later",
+              'ERROR'
+            );
             console.log(error);
           });
       },

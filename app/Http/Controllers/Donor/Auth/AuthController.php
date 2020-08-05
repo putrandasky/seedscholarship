@@ -54,16 +54,16 @@ class AuthController extends Controller
         $data['duration_uptolastmonth'] = $duration_uptolastmonth;
         $data['user'] = App\DonorPeriod::where('period_id', $period->id)
             ->with([
-                'period',
+                // 'period',
                 'pco' => function ($query) {
                     $query->select('id', 'name', 'year', 'initial');
                 },
                 'pr' => function ($query) {
                     $query->select('id', 'name', 'year', 'initial');
                 },
-                'donor.donorTransactions' => function ($query) use ($request) {
-                    $query->where('period_year', '=', $request->year);
-                },
+                // 'donor.donorTransactions' => function ($query) use ($request) {
+                //     $query->where('period_year', '=', $request->year);
+                // },
                 'donor.collegeDepartment' => function ($query) {
                     $query->select('id', 'department');
                 },
@@ -92,6 +92,7 @@ class AuthController extends Controller
                     ]);
                 },
             ])
+            ->select('id', 'donor_id', 'period_id', 'pr', 'pco', 'amount', 'donation_category', 'is_contract_agreed')
             ->get();
 
         $data['total_user'] = count($data['user']);

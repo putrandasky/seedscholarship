@@ -317,6 +317,7 @@
       },
       getData() {
         let self = this;
+        this.$store.dispatch('stateLoadingFull', true);
         axios
           .get(
             `api/user-donor/${this.$route.params.userId}?year=${this.$route.params.periodYear}`
@@ -326,8 +327,14 @@
             self.data = response.data.user;
             self.durationPeriod = response.data.duration_period
             this.loaded = true;
+            this.$store.dispatch('stateLoadingFull', false);
           })
           .catch(error => {
+            this.$store.dispatch('stateLoadingFull', false);
+            this.$snotify.error(
+              "Ooops, There's Something Error, Try Again Later",
+              'ERROR'
+            );
             console.log(error);
           });
       }
