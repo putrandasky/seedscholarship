@@ -181,6 +181,10 @@ class ReRegistrationController extends Controller
         $donor_period->donation_token = $donation_token;
         $donor_period->save();
 
+        $donor->name = $request->name;
+        $donor->phone = $request->phone;
+        $donor->address = $request->address;
+        $donor->save();
         // $when = now()->addMinutes(1);
         // $user->notify(new PostRegistered($data));
         // $user->notify((new PostRegistered($data))->delay($when));
