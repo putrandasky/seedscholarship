@@ -1,5 +1,17 @@
 # CHANGE LOG
 
+15 Nov 2020
+2.3
+### ADDED
+- Dashboard Feature
+### FIX
+- Inactive loading state after login
+
+6 Oct 2020
+2.2.6
+### FIX
+- Basic data of donor while Reregistration not change
+
 6 Aug 2020
 2.2.5
 ### ADD

@@ -78,7 +78,7 @@
         this.$store.dispatch('stateLoadingFull', true)
         axios.post('/api/auth/login', params)
           .then((response) => {
-            this.$store.dispatch('stateLoadingFull', false)
+            // this.$store.dispatch('stateLoadingFull', false)
 
             this.$store.dispatch("login", response.data)
             this.$store.dispatch("checkToken")

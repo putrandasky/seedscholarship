@@ -55,6 +55,10 @@ Route::group([
             Route::patch('scholarship/{id}', 'Admin\Setting\ScholarshipController@update');
 
         });
+        Route::group(['prefix' => 'dashboard'], function () {
+            Route::get('index', 'Admin\Dashboard\DashboardController@index');
+
+        });
         Route::group(['prefix' => 'awardee'], function () {
             Route::get('request/index', 'Admin\Awardee\AwardeeIndexController@index');
             Route::post('request/set-status', 'Admin\Awardee\DetailController@setStatus');

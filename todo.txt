@@ -1,5 +1,11 @@
+Next todo
+- apply order while adding role and department
+
+
+CONSIDERED DONE
+
 General Settings
-- Period 
+- Period
 - Head seed name
 - title head seed
 - Head finance
