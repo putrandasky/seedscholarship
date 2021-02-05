@@ -1,5 +1,5 @@
 <template>
-  <div class="app flex-row align-items-center">
+  <div class="app bg-image-full flex-row align-items-center">
     <loading class="text-center" :active="isDisabled" :can-cancel="false" :opacity="0.9" :height="60" loader="dots" transition="fade" background-color="rgba(0,0,0,.85)" color="rgba(255,255,255,.9)" :is-full-page="true">
       <div class="text-center" slot="after" style="color:rgba(255,255,255,.9)">
         Mohon Tunggu...
@@ -14,7 +14,7 @@
         </b-col>
       </b-row>
       <b-row class="justify-content-center" v-if="authorized">
-        <b-col sm="8" v-if="registered">
+        <b-col sm="8" v-if="registered" class="text-white">
           <header class="text-center" id="header">
             <h1><strong>TERIMA KASIH</strong></h1>
           </header>
@@ -84,13 +84,20 @@
           </b-card>
           <!-- <faq-modal /> -->
         </b-col>
+        <faq-modal />
+
       </b-row>
     </div>
   </div>
 </template>
 <script>
+  import FaqModal from '../auth/AuthRegisterFaq.vue'
+
   export default {
     name: 'ReRegistration',
+    components: {
+      FaqModal
+    },
     data: function() {
       return {
         unathorizedMessage: '',
@@ -125,6 +132,15 @@
             type: 'text',
             placeholder: 'Alamat Lengkap'
           },
+          {
+            id: 'zip_code',
+            value: '',
+            errors: null,
+            state: null,
+            icon: '<i class="icon-direction">',
+            type: 'text',
+            placeholder: 'Kode Pos'
+          },
 
           {
             id: 'degree_level',
@@ -156,7 +172,7 @@
           },
           {
             id: 'amount',
-            value: null,
+            value: '',
             errors: null,
             state: null,
             icon: 'Rp',
@@ -206,15 +222,15 @@
           token=${this.$route.query.token}`
           )
           .then(response => {
-            console.log(response.data);
+
             this.isDisabled = false;
             this.authorized = true;
             this.loaded = true;
             this.getFormsValue('name').value = response.data.data.donor.name
             this.getFormsValue('phone').value = response.data.data.donor.phone
             this.getFormsValue('address').value = response.data.data.donor.address
-            this.getFormsValue('degree_level').value = response.data.data.donor.degree_level.id
-            console.log(this.getFormsValue('degree_level').value);
+            this.getFormsValue('zip_code').value = response.data.data.donor.zip_code
+            this.getFormsValue('degree_level').value = response.data.data.donor.degree_level ? response.data.data.donor.degree_level.id : null
             let degreeLevelIndex = this.forms.findIndex(data => data.id == 'degree_level')
             this.forms[degreeLevelIndex].options = this.mutateKey(response.data.data.degree_level)
             // console.log(this.getFormsValue('degree_level').value);
@@ -231,12 +247,12 @@
       },
       postData() {
         this.loaded = true;
-        let formData = new FormData();
+        let formData = {};
         this.forms.forEach(function(item) {
-          formData.append(item.id, item.value);
+          formData[item.id] = item.value
         })
-        formData.append('period', this.info.period);
-        formData.append('year', this.info.year);
+        formData['period'] = this.info.period
+        formData['year'] = this.info.year
         console.log(formData);
         axios
           .post(`api/donor/registration/re-registration?
@@ -256,10 +272,24 @@
             this.$snotify.error(error.response.data.message, 'ERROR');
             this.isDisabled = false;
             let errors = error.response.data.errors;
+            console.log(errors);
+            this.getFormsValue('name').errors = errors.name ? errors.name[0] : 'no-error';
+            this.getFormsValue('phone').errors = errors.phone ? errors.phone[0] : 'no-error';
+            this.getFormsValue('address').errors = errors.address ? errors.address[0] : 'no-error';
+            this.getFormsValue('zip_code').errors = errors.zip_code ? errors.zip_code[0] : 'no-error';
             this.getFormsValue('donation_category').errors = errors.donation_category ?
               errors.donation_category[0] :
               'no-error';
             this.getFormsValue('amount').errors = errors.amount ? errors.amount[0] : 'no-error';
+            this.getFormsValue('degree_level').errors = errors.degree_level ? errors.degree_level[0] : 'no-error';
+
+            this.getFormsValue('accept_term_condition').errors = errors.accept_term_condition ? errors.accept_term_condition[0] :
+              'no-error';
+            let self = this
+            this.forms.forEach(function(item) {
+              self.getFormsValue(item.id).state = item.errors == 'no-error' ? true : item.errors ? false : null
+            })
+
           });
       },
       getFormsValue(key) {
@@ -279,4 +309,14 @@
     }
   };
 </script>
-<style></style>
+<style scoped>
+  .bg-image-full {
+    /* Full height */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(/images/bg-donor-registration.jpg);
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>

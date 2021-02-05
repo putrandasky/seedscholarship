@@ -40,7 +40,7 @@ class ReRegistrationController extends Controller
             'email' => $request->email,
         ])->with([
             'donor' => function ($query) {
-                $query->select('id', 'email', 'name', 'address', 'zip_code', 'phone','degree_level_id');
+                $query->select('id', 'email', 'name', 'address', 'zip_code', 'phone', 'degree_level_id');
             },
             'donor.degreeLevel' => function ($query) {
                 $query->select('id', 'description');
@@ -127,6 +127,26 @@ class ReRegistrationController extends Controller
     }
     public function store(Request $request)
     {
+        $rules = [
+            'name' => 'required|string|min:6',
+            'phone' => 'required|numeric|min:6',
+            'address' => 'required',
+            'zip_code' => 'required|digits:5',
+            'degree_level' => 'required',
+            'donation_category' => 'required',
+            'accept_term_condition' => 'required',
+            'period' => 'required',
+            'amount' => $request->donation_category == 'AKTIF' ? 'required|min:100000|numeric|' : '',
+        ];
+        $messages = [
+            'period.required' => 'The period of seedscholarship must be selected',
+            'degree_level.required' => 'The degree level must be selected',
+            'accept_term_condition.required' => 'You must read & accept the term & condition',
+            'amount.required' => 'Plan amount of monthly donation must be filled by donatur aktif',
+            'amount.min' => 'A minimum of donation for donatur aktif is Rp. 100.000 / month',
+        ];
+        $this->validate($request, $rules, $messages);
+
         if ($this->authorized($request)->status() !== 200) {
             return $this->authorized($request);
         }
