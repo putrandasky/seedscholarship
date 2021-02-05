@@ -1,10 +1,15 @@
+
+
 Next todo
-- apply order while adding role and department
+- Add Table for Degree Levels
+- Add front end  and back end for input degree level in registration donatur
 
 
 CONSIDERED DONE
 
+
 General Settings
+- apply order while adding role and department DONE
 - Period
 - Head seed name
 - title head seed

@@ -42,7 +42,12 @@ class ReRegistrationController extends Controller
             'donor' => function ($query) {
                 $query->select('id', 'email', 'name', 'address', 'zip_code', 'phone');
             },
+            'donor.degree_level' => function ($query) {
+                $query->select('id', 'description');
+            },
+
         ])->first();
+        $degree_level = App\DegreeLevel::get();
         if ($period_data && $donor_registration) {
             return response()->json([
                 'message' => 'Authorized',
@@ -50,6 +55,7 @@ class ReRegistrationController extends Controller
                     'donor' => $donor_registration->donor,
                     'period' => $period->period,
                     'year' => $period->year,
+                    'degree_level' => $degree_level,
                 ],
             ], 200);
         }
@@ -184,6 +190,7 @@ class ReRegistrationController extends Controller
         $donor->name = $request->name;
         $donor->phone = $request->phone;
         $donor->address = $request->address;
+        $donor->degree_level_id = $request->degree_level_id;
         $donor->save();
         // $when = now()->addMinutes(1);
         // $user->notify(new PostRegistered($data));

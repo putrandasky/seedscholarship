@@ -1,6 +1,7 @@
 <template>
   <div class="app bg-image-full flex-row align-items-center">
-    <loading class="text-center" :active="isDisabled" :can-cancel="false" :opacity="0.9" :height="60" loader='dots' transition='fade' background-color="rgba(0,0,0,.85)" color="rgba(255,255,255,.9)" :is-full-page="true">
+    <loading class="text-center" :active="isDisabled" :can-cancel="false" :opacity="0.9" :height="60" loader='dots'
+      transition='fade' background-color="rgba(0,0,0,.85)" color="rgba(255,255,255,.9)" :is-full-page="true">
       <div class="text-center" slot="after" style="color:rgba(255,255,255,.9)">Mohon Tunggu...</div>
     </loading>
     <div class="container text-white" v-if="isClosed">
@@ -64,7 +65,8 @@
               <b-row class="form-group ">
                 <b-col sm="12">
                   <!-- <h3 class="text-center">Daftar Donatur Lama</h3> -->
-                  <p class="text-muted">Silahkan memasukan email yang pernah dimasukan pada periode sebelumnya untuk mendaftar ulang sebagai donatur pada periode ini. </p>
+                  <p class="text-muted">Silahkan memasukan email yang pernah dimasukan pada periode sebelumnya untuk
+                    mendaftar ulang sebagai donatur pada periode ini. </p>
                 </b-col>
                 <b-col sm="12">
                   <b-form-group :invalid-feedback="oldDonorForm.errors.email" :state="stateEmailOldDonor">
@@ -72,20 +74,24 @@
                       <b-input-group-prepend>
                         <b-input-group-text>@</b-input-group-text>
                       </b-input-group-prepend>
-                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Active Email" v-model="oldDonorForm.input.email" :state="stateEmailOldDonor" />
+                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Active Email"
+                        v-model="oldDonorForm.input.email" :state="stateEmailOldDonor" />
                     </b-input-group>
                   </b-form-group>
                 </b-col>
                 <b-col sm="12">
-                  <b-form-group :invalid-feedback="oldDonorForm.errors.accept_term_condition" :state="stateAcceptTermConditionOldDonor">
-                    <b-form-checkbox id="term_condition" v-model="oldDonorForm.input.accept_term_condition" :value="true" :unchecked-value="null" :state="stateAcceptTermConditionOldDonor">
+                  <b-form-group :invalid-feedback="oldDonorForm.errors.accept_term_condition"
+                    :state="stateAcceptTermConditionOldDonor">
+                    <b-form-checkbox id="term_condition" v-model="oldDonorForm.input.accept_term_condition"
+                      :value="true" :unchecked-value="null" :state="stateAcceptTermConditionOldDonor">
                       I already read & accept the terms and conditions.
                     </b-form-checkbox>
                   </b-form-group>
                 </b-col>
                 <b-col cols="12">
 
-                  <b-button :disabled="isDisabled" type="submit" variant="success" block><i v-show="isDisabled" class="fa fa-spinner fa-spin"></i>
+                  <b-button :disabled="isDisabled" type="submit" variant="success" block><i v-show="isDisabled"
+                      class="fa fa-spinner fa-spin"></i>
                     Submit</b-button>
                 </b-col>
               </b-row>
@@ -103,7 +109,8 @@
                       <b-input-group-prepend>
                         <b-input-group-text><i class="icon-user"></i></b-input-group-text>
                       </b-input-group-prepend>
-                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Full Name" v-model="input.name" :state="stateName" />
+                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Full Name"
+                        v-model="input.name" :state="stateName" />
                     </b-input-group>
                   </b-form-group>
                 </b-col>
@@ -113,7 +120,8 @@
                       <b-input-group-prepend>
                         <b-input-group-text>@</b-input-group-text>
                       </b-input-group-prepend>
-                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Active Email" v-model="input.email" :state="stateEmail" />
+                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Active Email"
+                        v-model="input.email" :state="stateEmail" />
                     </b-input-group>
                   </b-form-group>
                 </b-col>
@@ -124,7 +132,8 @@
                       <b-input-group-prepend>
                         <b-input-group-text><i class="icon-phone"></i></b-input-group-text>
                       </b-input-group-prepend>
-                      <b-input autocomplete="off" type="number" class="form-control" placeholder="Phone Number" v-model="input.phone" :state="statePhone" />
+                      <b-input autocomplete="off" type="number" class="form-control" placeholder="Phone Number"
+                        v-model="input.phone" :state="statePhone" />
                     </b-input-group>
                   </b-form-group>
                 </b-col>
@@ -134,7 +143,23 @@
                       <b-input-group-prepend>
                         <b-input-group-text><i class="icon-calendar"></i></b-input-group-text>
                       </b-input-group-prepend>
-                      <b-input autocomplete="off" type="number" min="1950" :max="maxYear" class="form-control" placeholder="Year (Angkatan)" v-model="input.year" :state="stateYear" />
+                      <b-input autocomplete="off" type="number" min="1950" :max="maxYear" class="form-control"
+                        placeholder="Year (Angkatan)" v-model="input.year" :state="stateYear" />
+                    </b-input-group>
+                  </b-form-group>
+                </b-col>
+                <b-col sm="12">
+                  <b-form-group :invalid-feedback="errors.degree_level" :state="stateDegreeLevel">
+                    <b-input-group class="">
+                      <b-input-group-prepend>
+                        <b-input-group-text><i class="icon-list"></i></b-input-group-text>
+                      </b-input-group-prepend>
+                      <b-form-select plain id="degree_level" :options="degreeLevelOptions" v-model="input.degree_level"
+                        :state="stateDegreeLevel">
+                        <template slot="first">
+                          <option :value="null" disabled>-- Please select your degree level --</option>
+                        </template>
+                      </b-form-select>
                     </b-input-group>
                   </b-form-group>
                 </b-col>
@@ -144,7 +169,8 @@
                       <b-input-group-prepend>
                         <b-input-group-text><i class="icon-list"></i></b-input-group-text>
                       </b-input-group-prepend>
-                      <b-form-select plain id="department" :options="departmentOptions" v-model="input.department" :state="stateDepartment">
+                      <b-form-select plain id="department" :options="departmentOptions" v-model="input.department"
+                        :state="stateDepartment">
                         <template slot="first">
                           <option :value="null" disabled>-- Please select your field of study --</option>
                         </template>
@@ -158,7 +184,8 @@
                       <b-input-group-prepend>
                         <b-input-group-text><i class="icon-direction"></i></b-input-group-text>
                       </b-input-group-prepend>
-                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Full Address" v-model="input.address" :state="stateAddress" />
+                      <b-input autocomplete="off" type="text" class="form-control" placeholder="Full Address"
+                        v-model="input.address" :state="stateAddress" />
                     </b-input-group>
                   </b-form-group>
                 </b-col>
@@ -168,9 +195,12 @@
                       <b-input-group-prepend>
                         <b-input-group-text><i class="icon-direction"></i></b-input-group-text>
                       </b-input-group-prepend>
-                      <b-input autocomplete="off" type="number" class="form-control" placeholder="Zip Code (Kode Pos)" v-model="input.zip_code" :state="stateZipCode" v-on:focus.native="isShowCheckZipCode = true" v-on:blur.native="onBlurInputZipCode" />
+                      <b-input autocomplete="off" type="number" class="form-control" placeholder="Zip Code (Kode Pos)"
+                        v-model="input.zip_code" :state="stateZipCode" v-on:focus.native="isShowCheckZipCode = true"
+                        v-on:blur.native="onBlurInputZipCode" />
                     </b-input-group>
-                    <small slot="description" v-show="isShowCheckZipCode"><a href="https://carikodepos.com" target="_blank">cek kode pos</a></small>
+                    <small slot="description" v-show="isShowCheckZipCode"><a href="https://carikodepos.com"
+                        target="_blank">cek kode pos</a></small>
                   </b-form-group>
                 </b-col>
                 <b-col sm="12">
@@ -179,7 +209,8 @@
                       <b-input-group-prepend>
                         <b-input-group-text><i class="icon-list"></i></b-input-group-text>
                       </b-input-group-prepend>
-                      <b-form-select plain id="period" :options="periodOptions" v-model="input.period" :state="statePeriod">
+                      <b-form-select plain id="period" :options="periodOptions" v-model="input.period"
+                        :state="statePeriod">
                         <template slot="first">
                           <option :value="null" disabled>-- Please select seedscholarship period --</option>
                         </template>
@@ -193,7 +224,8 @@
                       <b-input-group-prepend>
                         <b-input-group-text><i class="icon-list"></i></b-input-group-text>
                       </b-input-group-prepend>
-                      <b-form-select plain id="donationCategory" :options="options.donationCategory" v-model="input.donation_category" :state="stateDonationCategory">
+                      <b-form-select plain id="donationCategory" :options="options.donationCategory"
+                        v-model="input.donation_category" :state="stateDonationCategory">
                         <template slot="first">
                           <option :value="null" disabled>-- Please select donation category for this period --</option>
                         </template>
@@ -208,7 +240,8 @@
                         <b-input-group-prepend>
                           <b-input-group-text>Rp</b-input-group-text>
                         </b-input-group-prepend>
-                        <b-input autocomplete="off" type="number" class="form-control" min="0" :placeholder="amountPlaceholder" v-model="input.amount" :state="stateAmount" />
+                        <b-input autocomplete="off" type="number" class="form-control" min="0"
+                          :placeholder="amountPlaceholder" v-model="input.amount" :state="stateAmount" />
                       </b-input-group>
                       <small v-show="input.donation_category == 'AKTIF'" slot="description">Rencana donasi anda akan
                         ditagihkan Rp. {{input.amount|currency}} / bulan</small>
@@ -221,29 +254,35 @@
                 </slide-y-up-transition>
                 <b-col sm="12">
                   <b-form-group :invalid-feedback="errors.accept_term_condition" :state="stateAcceptTermCondition">
-                    <b-form-checkbox id="term_condition" v-model="input.accept_term_condition" :value="true" :unchecked-value="null" :state="stateAcceptTermCondition">
+                    <b-form-checkbox id="term_condition" v-model="input.accept_term_condition" :value="true"
+                      :unchecked-value="null" :state="stateAcceptTermCondition">
                       I already read & accept the terms and conditions.
                     </b-form-checkbox>
                   </b-form-group>
                 </b-col>
                 <b-col cols="12">
 
-                  <b-button :disabled="isDisabled" type="submit" variant="success" block><i v-show="isDisabled" class="fa fa-spinner fa-spin"></i>
+                  <b-button :disabled="isDisabled" type="submit" variant="success" block><i v-show="isDisabled"
+                      class="fa fa-spinner fa-spin"></i>
                     Submit</b-button>
                 </b-col>
               </b-row>
             </form>
           </b-card>
-          <b-modal centered :hide-footer="true" :no-close-on-esc="true" :hide-header-close="false" :no-close-on-backdrop="false" size="sm" title="Pendaftaran Gagal" v-model="errorEmailExistModal">
-            Sepertinya email tersebut sudah pernah didaftarkan pada periode sebelumnya, silahkan mendaftar di form lain dengan menekan tombol "Daftar donatur lama"
+          <b-modal centered :hide-footer="true" :no-close-on-esc="true" :hide-header-close="false"
+            :no-close-on-backdrop="false" size="sm" title="Pendaftaran Gagal" v-model="errorEmailExistModal">
+            Sepertinya email tersebut sudah pernah didaftarkan pada periode sebelumnya, silahkan mendaftar di form lain
+            dengan menekan tombol "Daftar donatur lama"
             <b-btn class="mt-3" variant="success" block @click="handleClickErrorEmailExistModalButton">
               <b>
                 Daftar donatur lama
               </b>
             </b-btn>
           </b-modal>
-          <b-modal centered :hide-footer="true" :no-close-on-esc="true" :hide-header-close="false" :no-close-on-backdrop="false" size="sm" title="Pendaftaran Gagal" v-model="errorEmailUnexistModal">
-            Sepertinya email tersebut belum pernah didaftarkan pada periode sebelumnya, silahkan mendaftar di form lain dengan menekan tombol "Daftar donatur baru"
+          <b-modal centered :hide-footer="true" :no-close-on-esc="true" :hide-header-close="false"
+            :no-close-on-backdrop="false" size="sm" title="Pendaftaran Gagal" v-model="errorEmailUnexistModal">
+            Sepertinya email tersebut belum pernah didaftarkan pada periode sebelumnya, silahkan mendaftar di form lain
+            dengan menekan tombol "Daftar donatur baru"
             <b-btn class="mt-3" variant="success" block @click="handleClickErrorEmailUnexistModalButton">
               <b>
                 Daftar donatur baru
@@ -263,7 +302,7 @@
     components: {
       FaqModal
     },
-    data: function() {
+    data: function () {
       return {
         isShowCheckZipCode: false,
         showTotalAmount: false,
@@ -271,6 +310,7 @@
         registered: false,
         scholarshipOptions: [],
         departmentOptions: [],
+        degreeLevelOptions: [],
         periodOptions: [],
         isClosed: false,
         loaded: false,
@@ -308,6 +348,7 @@
           year: '',
           phone: '',
           email: '',
+          degree_level: '',
           donation_category: '',
           department: '',
           initial: '',
@@ -325,6 +366,7 @@
           donation_category: null,
           department: null,
           email: '',
+          degree_level: null,
           amount: null,
           address: '',
           zip_code: null,
@@ -359,6 +401,9 @@
       stateScholarship() {
         return this.errors.donation_category == 'no-error' ? true : this.errors.donation_category ? false : null
       },
+      stateDegreeLevel() {
+        return this.errors.degree_level == 'no-error' ? true : this.errors.degree_level ? false : null
+      },
       stateYear() {
         return this.errors.year == 'no-error' ? true : this.errors.year ? false : null
       },
@@ -391,7 +436,8 @@
           null
       },
       stateAcceptTermConditionOldDonor() {
-        return this.oldDonorForm.errors.accept_term_condition == 'no-error' ? true : this.oldDonorForm.errors.accept_term_condition ? false :
+        return this.oldDonorForm.errors.accept_term_condition == 'no-error' ? true : this.oldDonorForm.errors
+          .accept_term_condition ? false :
           null
       },
       amountPlaceholder() {
@@ -441,7 +487,7 @@
                 text: 'Donatur Pasif'
               }]
             }
-            response.data.department.forEach(function(obj) {
+            response.data.department.forEach(function (obj) {
               obj.value = obj.id
               obj.text = obj.department
               delete obj.id
@@ -449,13 +495,14 @@
               delete obj.awardees_count
             });
             this.departmentOptions = response.data.department;
-            response.data.period.forEach(function(obj) {
+            response.data.period.forEach(function (obj) {
               obj.value = obj.id
               obj.text = `Seedscholarship #${obj.period} - Year ${obj.year}`
               delete obj.id
               delete obj.period
               delete obj.year
             });
+            this.degreeLevelOptions = this.mutateKey(response.data.degree_level)
             this.periodOptions = response.data.period;
             console.log(this.periodOptions)
             this.loaded = true
@@ -490,7 +537,8 @@
             }
             this.$snotify.error(error.response.data.message, "ERROR");
             this.oldDonorForm.errors.email = errors.email ? errors.email[0] : 'no-error';
-            this.oldDonorForm.errors.accept_term_condition = errors.accept_term_condition ? errors.accept_term_condition[0] :
+            this.oldDonorForm.errors.accept_term_condition = errors.accept_term_condition ? errors
+              .accept_term_condition[0] :
               'no-error';
 
           })
@@ -526,6 +574,7 @@
             this.errors.phone = errors.phone ? errors.phone[0] : 'no-error';
             this.errors.year = errors.year ? errors.year[0] : 'no-error';
             this.errors.donation_category = errors.donation_category ? errors.donation_category[0] : 'no-error';
+            this.errors.degree_level = errors.degree_level ? errors.degree_level[0] : 'no-error';
             this.errors.department = errors.department ? errors.department[0] : 'no-error';
             this.errors.password = errors.password ? errors.password[0] : 'no-error';
             this.errors.amount = errors.amount ? errors.amount[0] : 'no-error';
@@ -535,9 +584,20 @@
             this.errors.accept_term_condition = errors.accept_term_condition ? errors.accept_term_condition[0] :
               'no-error';
           })
+      },
+      mutateKey(data) {
+        let mutateData = data.map(function (item) {
+          return {
+            value: item.id,
+            text: item.range || item.name || item.description,
+            state: false
+          };
+        });
+        return mutateData;
       }
     },
   }
+
 </script>
 <style scoped>
   .bg-image-full {
@@ -549,4 +609,5 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
+
 </style>
