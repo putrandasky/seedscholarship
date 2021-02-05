@@ -8,7 +8,7 @@
 
 Hai <strong>{{$data['donor']['name']}}</strong> !
 
-Dengan ini, kami mengundang kamu kembali untuk menjadi donatur SEEDSCHOLARSHIP.
+Dengan ini, kami mengundang kamu kembali untuk menjadi donatur SEED Scholarship.
 
 @component('mail::panel')
 Periode <strong>{{$data['period']['period']}}</strong> Tahun <strong>#{{$data['period']['year']}}</strong>
@@ -20,7 +20,7 @@ Pendaftaran kembali silahkan klik link dibawah ini
 Daftar Ulang
 @endcomponent
 
-Nb : Email notifikasi ini dikirimkan karena kamu pernah bergabung menjadi donatur SEEDSCHOLARSHIP.
+Nb : Email notifikasi ini dikirimkan karena kamu pernah bergabung menjadi donatur SEED Scholarship.
 
 Terimakasih,<br/>
 

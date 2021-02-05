@@ -112,7 +112,7 @@
     <br />
     <div>Jakarta, {{Carbon\Carbon::parse($data->created_at)->formatLocalized('%d %B %Y')}}</div>
     <div>
-      <img style="max-height:100px; max-width:100%" src="{{ config('app.url').'/images/sign-ketua-biru.jpeg'}}">
+      <img style="max-height:100px; max-width:100%" src="{{ config('app.url').'/images/sign-ketua.jpeg'}}">
     </div>
     <div class="underline">
       {{$general->where('key','Head of Seedscholarship Name')->first()->value}}

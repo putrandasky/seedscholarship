@@ -1,7 +1,6 @@
 <template>
   <div class="app flex-row align-items-center">
-    <loading class="text-center" :active="isDisabled" :can-cancel="false" :opacity="0.9" :height="60" loader="dots"
-      transition="fade" background-color="rgba(0,0,0,.85)" color="rgba(255,255,255,.9)" :is-full-page="true">
+    <loading class="text-center" :active="isDisabled" :can-cancel="false" :opacity="0.9" :height="60" loader="dots" transition="fade" background-color="rgba(0,0,0,.85)" color="rgba(255,255,255,.9)" :is-full-page="true">
       <div class="text-center" slot="after" style="color:rgba(255,255,255,.9)">
         Mohon Tunggu...
       </div>
@@ -40,7 +39,7 @@
                 </b>
               </div>
               <p class="text-muted">
-                Kamu akan mendaftar kembali menjadi donatur SEEDSCHOLARSHIP period <b>{{info.period}}</b> tahun
+                Kamu akan mendaftar kembali menjadi donatur SEED Scholarship period <b>{{info.period}}</b> tahun
                 <b>{{info.year}}</b>.
 
               </p>
@@ -56,12 +55,9 @@
                         <b-input-group-text v-html="v.icon"></b-input-group-text>
                       </b-input-group-prepend>
 
-                      <b-input v-if="v.id == 'donation_category' || v.id == 'accept_term_condition' ? false : true"
-                        autocomplete="off" :type="v.type" class="form-control" :placeholder="v.placeholder"
-                        v-model="v.value" :state="v.state" />
+                      <b-input v-if="v.id == 'donation_category' || v.id == 'accept_term_condition' || v.id == 'degree_level'? false : true" autocomplete="off" :type="v.type" class="form-control" :placeholder="v.placeholder" v-model="v.value" :state="v.state" />
 
-                      <b-form-select v-if="v.id == 'donation_category' || v.id == 'degree_level'" plain
-                        :options="v.options" v-model="v.value" :state="v.state">
+                      <b-form-select v-if="v.id == 'donation_category' || v.id == 'degree_level'" plain :options="v.options" v-model="v.value" :state="v.state">
                         <template slot="first">
                           <option :value="null" disabled>{{v.placeholder}}</option>
                         </template>
@@ -75,16 +71,14 @@
                         {{ amountDonationValue | currency }} /
                         periode</small>
                     </div>
-                    <b-form-checkbox v-if="v.id == 'accept_term_condition'" :id="v.id" v-model="v.value" :value="1"
-                      :unchecked-value="null" :state="v.state">
+                    <b-form-checkbox v-if="v.id == 'accept_term_condition'" :id="v.id" v-model="v.value" :value="1" :unchecked-value="null" :state="v.state">
                       I already read & accept the terms and conditions.
                     </b-form-checkbox>
                   </b-form-group>
                 </b-col>
 
               </b-row>
-              <b-button :disabled="isDisabled" type="submit" variant="success" block><i v-show="isDisabled"
-                  class="fa fa-spinner fa-spin"></i>
+              <b-button :disabled="isDisabled" type="submit" variant="success" block><i v-show="isDisabled" class="fa fa-spinner fa-spin"></i>
                 Submit</b-button>
             </form>
           </b-card>
@@ -97,7 +91,7 @@
 <script>
   export default {
     name: 'ReRegistration',
-    data: function () {
+    data: function() {
       return {
         unathorizedMessage: '',
         isDisabled: true,
@@ -137,7 +131,7 @@
             value: null,
             errors: null,
             state: null,
-            icon: '<i class="icon-list">',
+            icon: '<i class="icon-graduation">',
             type: 'select',
             placeholder: '-- Please select degree level--',
             options: []
@@ -214,16 +208,16 @@
           .then(response => {
             console.log(response.data);
             this.isDisabled = false;
-
-            this.loaded = true;
             this.authorized = true;
+            this.loaded = true;
             this.getFormsValue('name').value = response.data.data.donor.name
             this.getFormsValue('phone').value = response.data.data.donor.phone
             this.getFormsValue('address').value = response.data.data.donor.address
-            this.getFormsValue('degree_level').value = response.data.data.donor.degree_level.description
-
+            this.getFormsValue('degree_level').value = response.data.data.donor.degree_level.id
+            console.log(this.getFormsValue('degree_level').value);
             let degreeLevelIndex = this.forms.findIndex(data => data.id == 'degree_level')
-            this.forms[degreeLevelIndex].options = response.data.data.degree_level
+            this.forms[degreeLevelIndex].options = this.mutateKey(response.data.data.degree_level)
+            // console.log(this.getFormsValue('degree_level').value);
 
             this.info.period = response.data.data.period
             this.info.year = response.data.data.year
@@ -238,7 +232,7 @@
       postData() {
         this.loaded = true;
         let formData = new FormData();
-        this.forms.forEach(function (item) {
+        this.forms.forEach(function(item) {
           formData.append(item.id, item.value);
         })
         formData.append('period', this.info.period);
@@ -271,9 +265,18 @@
       getFormsValue(key) {
         return this.forms.find(data => data.id == key)
 
+      },
+      mutateKey(data) {
+        let mutateData = data.map(function(item) {
+          return {
+            value: item.id,
+            text: item.range || item.name || item.description,
+            state: false
+          };
+        });
+        return mutateData;
       }
     }
   };
-
 </script>
 <style></style>

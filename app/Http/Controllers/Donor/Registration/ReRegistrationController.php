@@ -40,9 +40,9 @@ class ReRegistrationController extends Controller
             'email' => $request->email,
         ])->with([
             'donor' => function ($query) {
-                $query->select('id', 'email', 'name', 'address', 'zip_code', 'phone');
+                $query->select('id', 'email', 'name', 'address', 'zip_code', 'phone','degree_level_id');
             },
-            'donor.degree_level' => function ($query) {
+            'donor.degreeLevel' => function ($query) {
                 $query->select('id', 'description');
             },
 

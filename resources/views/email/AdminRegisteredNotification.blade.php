@@ -6,7 +6,7 @@
 
 Hi {{$data['name']}}!
 
-You've been registered as {{$data['department']}} in Seedscholarship family.
+You've been registered as {{$data['department']}} in SEED Scholarship family.
 
 With account login as below
 @component('mail::panel')<table style="border-spacing:0px">

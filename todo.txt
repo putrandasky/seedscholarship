@@ -3,6 +3,9 @@
 Next todo
 - Add Table for Degree Levels
 - Add front end  and back end for input degree level in registration donatur
+- input data degree level
+- change signature and name for head seeds and head finance
+- Ganti CP
 
 
 CONSIDERED DONE
