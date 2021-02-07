@@ -23,7 +23,8 @@
         Universitas Indonesia,
         bertujuan untuk meringankan dan memotivasi mahasiswa untuk mencapai keunggulan dalam pendidikan serta
         membantu mahasiswa melalui tahun pertama di perguruan tinggi</p>
-      {{-- <button class="btn btn-primary">Mulai Berdonasi</button> --}}
+
+          <a class="btn btn-primary"  href="/daftar-donatur">Mulai Berdonasi</a>
     </div>
   </div>
 </section>

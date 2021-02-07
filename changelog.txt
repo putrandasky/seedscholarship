@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+7 Feb 2021
+2.4.2
+### CHANGE
+-  CTA button on hero main Website
+-  CP on footer main website
+
 5 Feb 2021
 2.4.1
 ### FIXED

@@ -89,8 +89,8 @@
             <div class=" ml-3 ml-lg-0 px-3 border-left">
 
               <P class="h5">CONTACT PERSON</P>
-              <p class="mb-1">Anggit Cahyo S’08 : +6285697274479</p>
-              <p class="mb-1">Janitra Hendra L’08 : +6281290001300</p>
+              <p class="mb-1">Irvan T S’08 : 0898-9873-043</p>
+              <p class="mb-1">Fadhilah S’08 : 0812-9856-8800</p>
             </div>
           </div>
 
@@ -99,7 +99,9 @@
       </div>
     </div>
     <div class="credits text-center py-3 text-secondary">
-      © SEED Scholarship, 2014 - 2020 | Oleh Alumni Department Teknik Sipil UI
+      © SEED Scholarship, 2014 - @php
+          echo date("Y")
+      @endphp | Oleh Alumni Department Teknik Sipil UI
     </div>
   </footer>
   @yield('script')
