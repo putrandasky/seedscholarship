@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Donor\File;
 
+use App;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App;
+
 class AttachmentContractController extends Controller
 {
     public function view()
@@ -27,9 +28,13 @@ class AttachmentContractController extends Controller
             ])
             ->with([
                 'collegeDepartment',
-                'donorPeriods.period' => function ($query) use ($request) {
-                    $query->where('year', '=', $request->year);
+                'donorPeriods' => function ($query) use ($request) {
+                    $query->whereHas('period', function ($query) use ($request) {
+                        $query->where('year', '=', $request->year);
+                    });
                 },
+                'donorPeriods.period',
+
             ])->first();
 
         $newpathToFile = Storage::disk('local')->getDriver()->getAdapter()->applyPathPrefix("contract/donor/{$data->donorPeriods[0]->period->period}/{$userId}/Surat Perjanjian Kerja Sama {$data->name}.pdf");
