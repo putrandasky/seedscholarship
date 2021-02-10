@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+10 Feb 2021
+2.6
+### ADDED
+- Whatsapp button on form registration
+### UPDATE
+-  Statistic data on homepage
+
+
 7 Feb 2021
 2.5
 ### FIX

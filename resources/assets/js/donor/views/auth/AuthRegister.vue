@@ -80,7 +80,8 @@
                 <b-col sm="12">
                   <b-form-group :invalid-feedback="oldDonorForm.errors.accept_term_condition" :state="stateAcceptTermConditionOldDonor">
                     <b-form-checkbox id="term_condition" v-model="oldDonorForm.input.accept_term_condition" :value="true" :unchecked-value="null" :state="stateAcceptTermConditionOldDonor">
-                      I already read & accept the terms and conditions.
+                      I already read & accept the
+                      <faq-link />
                     </b-form-checkbox>
                   </b-form-group>
                 </b-col>
@@ -237,7 +238,8 @@
                 <b-col sm="12">
                   <b-form-group :invalid-feedback="errors.accept_term_condition" :state="stateAcceptTermCondition">
                     <b-form-checkbox id="term_condition" v-model="input.accept_term_condition" :value="true" :unchecked-value="null" :state="stateAcceptTermCondition">
-                      I already read & accept the terms and conditions.
+                      I already read & accept the
+                      <faq-link />
                     </b-form-checkbox>
                   </b-form-group>
                 </b-col>
@@ -267,7 +269,7 @@
               </b>
             </b-btn>
           </b-modal>
-          <faq-modal />
+          <wa-button />
         </b-col>
       </b-row>
     </div>
@@ -275,10 +277,14 @@
 </template>
 <script>
   import FaqModal from './AuthRegisterFaq.vue'
+  import FaqLink from './AuthRegisterFaqLink.vue'
+  import WaButton from '../../../global/components/WaButton.vue'
   export default {
     name: 'AuthRegister',
     components: {
-      FaqModal
+      FaqModal,
+      FaqLink,
+      WaButton
     },
     data: function() {
       return {

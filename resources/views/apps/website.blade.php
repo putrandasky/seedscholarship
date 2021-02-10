@@ -170,19 +170,19 @@ parallax" style="background-image:linear-gradient(rgba(255, 255, 255, 0.7), rgba
     </header>
     <div class="row text-center">
       <div class="col-lg-3 col-6">
-        <h3 class="display-4 text-primary font-weight-bold count">5</h3>
+        <h3 class="display-4 text-primary font-weight-bold count">6</h3>
         <p>Periode</p>
       </div>
       <div class="col-lg-3 col-6">
-        <h3 class="display-4 text-primary font-weight-bold count">200</h3>
+        <h3 class="display-4 text-primary font-weight-bold count">24</h3>
         <p>Pengurus</p>
       </div>
       <div class="col-lg-3 col-6">
-        <h3 class="display-4 text-primary font-weight-bold count">500</h3>
+        <h3 class="display-4 text-primary font-weight-bold count">361</h3>
         <p>Donatur</p>
       </div>
       <div class="col-lg-3 col-6">
-        <h3 class="display-4 text-primary font-weight-bold count">50</h3>
+        <h3 class="display-4 text-primary font-weight-bold count">48</h3>
         <p>Awardee</p>
       </div>
     </div>
@@ -196,26 +196,26 @@ parallax" style="background-image:linear-gradient(rgba(255, 255, 255, 0.7), rgba
       <p>Kontribusi angkatan DTS UI dalam mendukung Seedscholarship.</p>
     </header>
     <div class="progress mb-3" style="height: 35px;">
-      <div class="progress-bar px-3" role="progressbar" style="width: 60%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress-bar px-3" role="progressbar" style="width: 10%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
         <div class="d-flex justify-content-between">
-          <span>1984-2008</span>
-          <span>60%</span>
+          <span>1984-2000</span>
+          <span>10%</span>
+        </div>
+      </div>
+    </div>
+    <div class="progress mb-3" style="height: 35px;">
+      <div class="progress-bar px-3" role="progressbar" style="width: 75%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+        <div class="d-flex justify-content-between">
+          <span>2001-2010</span>
+          <span>75%</span>
         </div>
       </div>
     </div>
     <div class="progress mb-3" style="height: 35px;">
       <div class="progress-bar px-3" role="progressbar" style="width: 15%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
         <div class="d-flex justify-content-between">
-          <span>2009-2010</span>
+          <span>2011-2016</span>
           <span>15%</span>
-        </div>
-      </div>
-    </div>
-    <div class="progress mb-3" style="height: 35px;">
-      <div class="progress-bar px-3" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-        <div class="d-flex justify-content-between">
-          <span>2011-2013</span>
-          <span>25%</span>
         </div>
       </div>
     </div>
