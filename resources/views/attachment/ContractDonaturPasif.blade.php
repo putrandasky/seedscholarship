@@ -164,9 +164,7 @@
       <ol class="alpha">
         <li class="text-justify">Berhak menerima laporan keuangan dan laporan kegiatan pengembangan diri mahasiswa dari Pengurus SEED
           Scholarship</li>
-        <li class="text-justify">Berkewajiban untuk membayarkan donasi minimal sekali dan melakukan konfirmasi pembayaran dengan mengirimkan
-          bukti pembayaran
-          kepada Pengurus SEED Scholarship<</li>
+        <li class="text-justify">Berkewajiban untuk membayarkan donasi minimal sekali dan melakukan konfirmasi pembayaran dengan mengirimkan bukti pembayaran pada website SEEDS melalui link yang dikirimkan via email setiap tanggal 25 dan 3.</li>
       </ol>
       <br/>
     <li class="bold">Hak dan Kewajiban Ketua Pengurus SEED Scholarship</li>

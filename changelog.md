@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+16 Feb 2021
+2.6.1
+### CHANGED
+- Redactional on contract agreed email for donors and contract with "Pengiriman bukti pembayaran dapat diupload di website SEEDS melalui link yang akan kami kirimkan via email setiap tanggal 25 dan 3."
+
+
 10 Feb 2021
 2.6
 ### ADDED

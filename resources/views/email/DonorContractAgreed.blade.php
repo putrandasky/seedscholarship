@@ -14,7 +14,8 @@ Donatur <strong>{{$data->donation_category}}</strong> periode SEED Scholarship
 <strong>#{{$data->period->period}}</strong> untuk tahun
 <strong>{{$data->period->year}}</strong>
 @endcomponent
-Berikut terlampir kontrak kerja sama dari kami
+Berikut terlampir kontrak kerja sama dari kami. <br>
+Pengiriman bukti pembayaran dapat diupload di website SEEDS melalui link yang akan kami kirimkan via email setiap tanggal 25 dan 3. <br>
 
 Kontribusi anda sangat berharga untuk Department Teknik Sipil UI.
 

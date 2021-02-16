@@ -174,8 +174,7 @@
         Pengurus SEED
         Scholarship</li>
       <li class="text-justify">Berkewajiban untuk membayarkan donasi tepat waktu dan melakukan konfirmasi pembayaran
-        dengan mengirimkan bukti pembayaran
-        kepada Ketua Pengurus SEED Scholarship.</li>
+        dengan mengirimkan bukti pembayaran bukti pembayaran pada website SEEDS melalui link yang dikirimkan via email setiap tanggal 25 dan 3.</li>
     </ol>
     <br />
     <li class="bold">Hak dan Kewajiban Ketua Pengurus SEED Scholarship</li>
