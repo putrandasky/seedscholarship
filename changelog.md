@@ -1,5 +1,10 @@
 # CHANGE LOG
 
+17 Feb 2021
+2.6.2
+### FIXED
+- resend email post registered from admin panel
+
 16 Feb 2021
 2.6.1
 ### CHANGED

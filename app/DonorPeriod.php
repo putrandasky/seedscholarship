@@ -2,11 +2,12 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 
 class DonorPeriod extends Model
 {
+
     public function getCreatedAtAttribute($date)
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-M-y');
@@ -18,15 +19,15 @@ class DonorPeriod extends Model
     }
     public function getAgreedAtAttribute($date)
     {
-        return $date?Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-M-y'):null;
+        return $date ? Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-M-y') : null;
     }
     public function pco()
     {
-        return $this->belongsTo('App\Admin','pco');
+        return $this->belongsTo('App\Admin', 'pco');
     }
     public function pr()
     {
-        return $this->belongsTo('App\Admin','pr');
+        return $this->belongsTo('App\Admin', 'pr');
     }
     public function donor()
     {
@@ -36,6 +37,5 @@ class DonorPeriod extends Model
     {
         return $this->belongsTo('App\Period');
     }
-
 
 }
