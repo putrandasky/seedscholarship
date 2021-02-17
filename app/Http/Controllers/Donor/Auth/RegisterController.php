@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs\Donor\ProcessSendEmailDonorContractAgreed;
 use App\Jobs\Donor\ProcessSendEmailDonorRegister;
 use App\Notifications\Donor\ContractAgreed;
-use App\Notifications\Donor\POstRegistered;
+use App\Notifications\Donor\PostRegistered;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
