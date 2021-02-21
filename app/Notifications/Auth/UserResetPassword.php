@@ -2,10 +2,10 @@
 
 namespace App\Notifications\Auth;
 
+use App;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App;
 
 class UserResetPassword extends Notification
 {
@@ -16,7 +16,7 @@ class UserResetPassword extends Notification
      *
      * @return void
      */
-    public function __construct($token,$account_type)
+    public function __construct($token, $account_type)
     {
         $this->token = $token;
         $this->account_type = $account_type;
@@ -41,13 +41,12 @@ class UserResetPassword extends Notification
      */
     public function toMail($notifiable)
     {
-      $general = App\General::get();
-      $cp_email[0] = $general->where('key','Contact Person Email 1')->first()->value;
-      $cp_email[1] = $general->where('key','Contact Person Email 2')->first()->value;
-$url = 'hello@seedscholarship.org';
+        $general = App\General::get();
+        $cp_email[0] = $general->where('key', 'Contact Person Email 1')->first()->value;
+        $cp_email[1] = $general->where('key', 'Contact Person Email 2')->first()->value;
+        $url = 'hello@seedscholarship.org';
         return (new MailMessage)
-            ->from($url,'SEED Scholarship')
-            ->bcc('bcc@seedscholarship.org')
+            ->from($url, 'SEED Scholarship')
             ->subject('Reset Password')
             ->greeting('HI, ' . strtoupper($notifiable->name))
             ->line('You are receiving this email because we received a password reset request for your account.')

@@ -49,7 +49,6 @@ class PostRegistered extends Notification
         $url = 'hello@seedscholarship.org';
         return (new MailMessage)
             ->from($url, 'SEED Scholarship')
-            ->bcc('bcc@seedscholarship.org')
             ->subject("Selamat Bergabung di SEEDS #{$this->data['period']['period']} Tahun {$this->data['period']['year']} ")
             ->markdown('email.DonorPostRegistered2', [
                 'data' => $this->data,

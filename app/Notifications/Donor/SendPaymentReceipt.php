@@ -2,11 +2,10 @@
 
 namespace App\Notifications\Donor;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use App;
+use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class SendPaymentReceipt extends Notification
 {
@@ -41,16 +40,15 @@ class SendPaymentReceipt extends Notification
      */
     public function toMail($notifiable)
     {
-      $general = App\General::get();
-      $cp_email[0] = $general->where('key','Contact Person Email 1')->first()->value;
-      $cp_email[1] = $general->where('key','Contact Person Email 2')->first()->value;
-$url = 'hello@seedscholarship.org';
+        $general = App\General::get();
+        $cp_email[0] = $general->where('key', 'Contact Person Email 1')->first()->value;
+        $cp_email[1] = $general->where('key', 'Contact Person Email 2')->first()->value;
+        $url = 'hello@seedscholarship.org';
         return (new MailMessage)
-            ->from($url,'SEED Scholarship')
-            ->bcc('bcc@seedscholarship.org')
+            ->from($url, 'SEED Scholarship')
             ->subject("Terimakasih Atas Donasinya | Receipt #{$this->data->donor->donorTransactions[0]->invoice_no}")
-            ->markdown('email.DonorPaymentReceipt', ['data' => $this->data, 'cp_email'=>$cp_email])
-            ->attach(storage_path('app')."/transaction/{$this->data->period->year}/{$this->data->donor->id}/{$this->data->donor->donorTransactions[0]->id}/invoice/{$this->data->donor->donorTransactions[0]->invoice_no}.pdf");
+            ->markdown('email.DonorPaymentReceipt', ['data' => $this->data, 'cp_email' => $cp_email])
+            ->attach(storage_path('app') . "/transaction/{$this->data->period->year}/{$this->data->donor->id}/{$this->data->donor->donorTransactions[0]->id}/invoice/{$this->data->donor->donorTransactions[0]->invoice_no}.pdf");
 
     }
 

@@ -2,10 +2,10 @@
 
 namespace App\Notifications\Donor;
 
+use App;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App;
 
 class SendReminderDonation extends Notification
 {
@@ -40,15 +40,14 @@ class SendReminderDonation extends Notification
      */
     public function toMail($notifiable)
     {
-      $general = App\General::get();
-      $cp_email[0] = $general->where('key','Contact Person Email 1')->first()->value;
-      $cp_email[1] = $general->where('key','Contact Person Email 2')->first()->value;
+        $general = App\General::get();
+        $cp_email[0] = $general->where('key', 'Contact Person Email 1')->first()->value;
+        $cp_email[1] = $general->where('key', 'Contact Person Email 2')->first()->value;
         $url = 'hello@seedscholarship.org';
         return (new MailMessage)
             ->from($url, 'SEED Scholarship')
-            ->bcc('bcc@seedscholarship.org')
             ->subject('Reminder Donasi')
-            ->markdown('email.DonorReminderDonation', ['data' => $this->data, 'cp_email'=>$cp_email,'general'=>$general]);
+            ->markdown('email.DonorReminderDonation', ['data' => $this->data, 'cp_email' => $cp_email, 'general' => $general]);
 
     }
 
