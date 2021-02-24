@@ -160,7 +160,7 @@
       });
     },
     watch: {
-      "$route.params.periodYear": "getData"
+      // "$route.params.periodYear": "getData"
     },
     methods: {
       handleClickReinvitation() {

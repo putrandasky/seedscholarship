@@ -1,5 +1,17 @@
 # CHANGE LOG
 
+25 Feb 2021
+2.7
+### FIXED
+- Commands for schedule run reminder donation
+- Job dispatching for reminder donation
+- Remove watch for period year in donor list
+
+21 Feb 2021
+2.6.3
+### CHANGED
+- remove BCC 
+
 17 Feb 2021
 2.6.2
 ### FIXED

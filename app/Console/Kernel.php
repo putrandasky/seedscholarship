@@ -26,14 +26,14 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 
+        // $schedule->command('reminder:donation')
+        //     ->everyMinute();
         $schedule->command('reminder:donation')
-            ->everyMinute();
-        // $schedule->command('reminder:donation')
-        //     ->monthlyOn(25, '10:00')
-        //     ->timezone('Asia/Jakarta');
-        // $schedule->command('reminder:donation')
-        //     ->monthlyOn(3, '10:00')
-        //     ->timezone('Asia/Jakarta');
+            ->monthlyOn(25, '12:00')
+            ->timezone('Asia/Jakarta');
+        $schedule->command('reminder:donation')
+            ->monthlyOn(3, '12:00')
+            ->timezone('Asia/Jakarta');
 
     }
 
