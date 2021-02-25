@@ -1,12 +1,12 @@
 <template>
-  <b-card header-class="text-center" body-class="" :class="variant" style="overflow:hidden">
+  <b-card header-class="text-center" body-class="shadow" :class="variant" style="overflow:hidden">
     <div class="card-icon">
       <i :class="`fa fa-${icon}`"></i>
     </div>
     <div class="text-right">
 
-      <h1 style="font-size:4em">{{data}}</h1>
-      <h5>{{title | uppercase}}</h5>
+      <h3 style="font-size:4em">{{data}}</h3>
+      <h6>{{title | uppercase}}</h6>
     </div>
 
   </b-card>

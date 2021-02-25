@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+26 Feb 2021
+2.7.1
+### FIXED
+- UI BPH in charge dashboard
+- at badge at donation status in dashboard
+
 25 Feb 2021
 2.7
 ### FIXED

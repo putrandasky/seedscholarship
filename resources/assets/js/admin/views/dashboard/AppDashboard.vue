@@ -2,16 +2,16 @@
   <slide-y-up-transition>
 
     <b-row v-show="loaded">
-      <b-col md="2" sm="4">
-        <panel :data="data.awardee_total" title="AWARDEE" icon="graduation-cap" variant="bg-primary"></panel>
+      <b-col lg="2" sm="4">
+        <panel class="shadow" :data="data.awardee_total" title="AWARDEE" icon="graduation-cap" variant="bg-primary"></panel>
       </b-col>
-      <b-col md="2" sm="4">
+      <b-col lg="2" sm="4">
         <panel :data="data.donor_total" title="DONATUR" icon="heart" variant="bg-info"></panel>
       </b-col>
-      <b-col md="2" sm="4">
+      <b-col lg="2" sm="4">
         <panel :data="data.admin_total" title="ADMIN ACTIVE" icon="user" variant="bg-warning"></panel>
       </b-col>
-      <b-col md="6" sm="12">
+      <b-col lg="6" sm="12">
         <panel :data="totalFundData" title="TOTAL FUND RAISED" icon="money" variant="bg-success"></panel>
       </b-col>
       <b-col sm="12">
@@ -35,7 +35,10 @@
                 <span>
                   {{k | _toSpace | ucfirst}}
                 </span>
-                <span class="ml-auto text-right">{{ v }}</span>
+                <span class="ml-auto text-right">
+                  <b-badge :variant="getBadge(i)">{{ v }}</b-badge>
+
+                </span>
               </div>
             </div>
           </b-card-body>
@@ -55,14 +58,23 @@
             <strong>BPH In Charge</strong>
           </b-card-title>
           <b-card-body class="p-0">
-            <div flush class="list-group-small">
+            <b-media v-for="(v, i) in data.bph_in_charge" :key="i" class="mb-1" vertical-align="center">
+              <template #aside>
+                <b-img src="/images/default-user.jpg" width="32" alt="placeholder"></b-img>
+              </template>
+              <strong class="mt-0 mb-1">{{v.roles[0].admins[0].name}}</strong>
+              <p class="mb-0">
+                {{ v.roles[0].name }}
+              </p>
+            </b-media>
+            <!-- <div flush class="list-group-small">
               <div v-for="(v, i) in data.bph_in_charge" :key="i" class="d-flex">
                 <span>
                   {{v.roles[0].admins[0].name}}
                 </span>
                 <span class="ml-auto text-right">{{ v.roles[0].name }}</span>
               </div>
-            </div>
+            </div> -->
           </b-card-body>
         </b-card>
       </b-col>
@@ -122,6 +134,13 @@
           .catch((error) => {
             console.log(error);
           })
+      },
+      getBadge(index) {
+        return index == 0 ? 'primary' :
+          index == 1 ? 'success' :
+          index == 2 ? 'danger' :
+          index == 3 ? 'warning' :
+          index == 4 ? 'warning' : 'secondary'
       }
     },
   }
