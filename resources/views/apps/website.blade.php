@@ -19,7 +19,7 @@
   <div class="jumbotron d-flex justify-content-center align-items-center text-center" style="background-image:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url({{ asset('images/website/main-bg-1.jpeg') }})">
     <div>
       <h2 class="text-white display-4 font-weight-bold">HIDUP UNTUK BELAJAR DAN MENGABDI</h2>
-      <p class="text-white mx-md-5 px-md-5">Seed Scholarship merupakan bentuk kontribusi alumni Departemen Teknik Sipil
+      <p class="text-white mx-md-5 px-md-5">SEED Scholarship merupakan bentuk kontribusi alumni Departemen Teknik Sipil
         Universitas Indonesia,
         bertujuan untuk meringankan dan memotivasi mahasiswa untuk mencapai keunggulan dalam pendidikan serta
         membantu mahasiswa melalui tahun pertama di perguruan tinggi</p>
