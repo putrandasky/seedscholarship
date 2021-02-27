@@ -2,44 +2,50 @@
   <b-card>
     <h4 class="card-title d-flex w-sm-100 justify-content-between">
       <span>Transaction History</span>
-      <b-button v-if="permission(3)" variant="primary"  size="sm" @click="handleNewTransaction"><i class="fa fa-plus"></i>
-        Add Data</b-button>
+      <span class="d-flex">
+        <b-btn v-b-tooltip.top.hover title="Untuk menyalin link upload mandiri donatur" variant="success" size="sm" @click="handleCopyClipboard">
+
+          <b v-html="buttonCopyText">
+
+          </b>
+        </b-btn>
+        <b-button class="ml-1" v-if="permission(3)" variant="primary" size="sm" @click="handleNewTransaction"><i class="fa fa-plus"></i>
+          Add Data</b-button>
+      </span>
     </h4>
     <div style="overflow-y:auto">
-      <b-table stacked="sm" stack small :fields="FieldTableItems" :items="transactions" thead-class="thead-light"
-        @row-clicked="handleRowClicked">
-          <template v-slot:head(created_at)="data">
-            <span>Input Date
-            </span>
-            <i v-b-tooltip.top.hover title="Tanggal submit/penerimaan konfirmasi donasi" style="cursor: pointer" class="fa fa-info-circle">
-            </i>
-          </template>
-          <template v-slot:head(trx_date)="data">
-            <span>Trx Date
-            </span>
-            <i v-b-tooltip.top.hover title="Tanggal actual transaksi" class="fa fa-info-circle" style="cursor: pointer"></i>
-          </template>
-          <template v-slot:head(evidence)="data">
-            <span>Evidence
-            </span>
-            <i v-b-tooltip.top.hover title="Bukti transfer" class="fa fa-info-circle" style="cursor: pointer"></i>
-          </template>
-          <template v-slot:head(verification)="data">
-            <span>Verification
-            </span>
-            <i v-b-tooltip.top.hover title="Status verifikasi transaksi" class="fa fa-info-circle" style="cursor: pointer"></i>
-          </template>
-          <template v-slot:head(invoice_no)="data">
-            <span>Invoice
-            </span>
-            <i v-b-tooltip.top.hover title="Nomor invoice dan bukti penerimaan donasi" class="fa fa-info-circle" style="cursor: pointer"></i>
-          </template>
-          <template v-slot:head(status_invoice)="data">
-            <span>Status
-            </span>
-            <i v-b-tooltip.top.hover title="Untuk menginformasikan status bukti penerimaan donasi sudah terkirim ke donatur atau belum"
-              class="fa fa-info-circle" style="cursor: pointer"></i>
-          </template>
+      <b-table stacked="sm" stack small :fields="FieldTableItems" :items="transactions" thead-class="thead-light" @row-clicked="handleRowClicked">
+        <template v-slot:head(created_at)="data">
+          <span>Input Date
+          </span>
+          <i v-b-tooltip.top.hover title="Tanggal submit/penerimaan konfirmasi donasi" style="cursor: pointer" class="fa fa-info-circle">
+          </i>
+        </template>
+        <template v-slot:head(trx_date)="data">
+          <span>Trx Date
+          </span>
+          <i v-b-tooltip.top.hover title="Tanggal actual transaksi" class="fa fa-info-circle" style="cursor: pointer"></i>
+        </template>
+        <template v-slot:head(evidence)="data">
+          <span>Evidence
+          </span>
+          <i v-b-tooltip.top.hover title="Bukti transfer" class="fa fa-info-circle" style="cursor: pointer"></i>
+        </template>
+        <template v-slot:head(verification)="data">
+          <span>Verification
+          </span>
+          <i v-b-tooltip.top.hover title="Status verifikasi transaksi" class="fa fa-info-circle" style="cursor: pointer"></i>
+        </template>
+        <template v-slot:head(invoice_no)="data">
+          <span>Invoice
+          </span>
+          <i v-b-tooltip.top.hover title="Nomor invoice dan bukti penerimaan donasi" class="fa fa-info-circle" style="cursor: pointer"></i>
+        </template>
+        <template v-slot:head(status_invoice)="data">
+          <span>Status
+          </span>
+          <i v-b-tooltip.top.hover title="Untuk menginformasikan status bukti penerimaan donasi sudah terkirim ke donatur atau belum" class="fa fa-info-circle" style="cursor: pointer"></i>
+        </template>
         <template v-slot:cell(no)="data">
           {{data.index+1}}
         </template>
@@ -55,8 +61,7 @@
           </b-badge>
         </template>
         <template v-slot:cell(invoice_no)="data">
-          <invoice :invoiceNo="data.item.invoice_no" :dataId="data.item.id" :index="data.index" :hasInvoice="data.item.has_invoice" :userId="$route.params.userId"
-            @hasInvoice=" data.item.has_invoice = $event " />
+          <invoice :invoiceNo="data.item.invoice_no" :dataId="data.item.id" :index="data.index" :hasInvoice="data.item.has_invoice" :userId="$route.params.userId" @hasInvoice=" data.item.has_invoice = $event " />
         </template>
         <template v-slot:cell(status_invoice)="data">
           <b-badge :variant="getBadgeStatus(data.item.status_invoice)">
@@ -68,15 +73,13 @@
             <b-btn variant="primary" size="sm" v-b-tooltip.hover="'Edit'" @click="handleEditTransaction(data.index)">
               <i class="fa fa-edit"></i>
             </b-btn>
-            <b-btn v-if="permission(5) && sendInvoiceAvailable(data.index)" variant="success" size="sm" v-b-tooltip.hover="'Send Payment Receipt'"
-              @click="triggerConfirmModal(
+            <b-btn v-if="permission(5) && sendInvoiceAvailable(data.index)" variant="success" size="sm" v-b-tooltip.hover="'Send Payment Receipt'" @click="triggerConfirmModal(
             'Send Payment Receipt',
             'Are You Sure To Send Payment Receipt for This Transaction?',
             'sendInvoice',
             {id:data.item.id,index:data.index}
-             )"><i
-                class="fa fa-send"></i></b-btn>
-            <b-btn v-if="permission(5)"  variant="danger" size="sm" v-b-tooltip.hover="'Delete'" @click="triggerConfirmModal(
+             )"><i class="fa fa-send"></i></b-btn>
+            <b-btn v-if="permission(5)" variant="danger" size="sm" v-b-tooltip.hover="'Delete'" @click="triggerConfirmModal(
             'Delete Transaction',
             'Are You Sure To Delete This Transaction? All related data, inc evidence and invoice, will be deleted',
             'deleteTransaction',
@@ -89,17 +92,13 @@
       </b-table>
       <strong>Total Verified Donations: Rp. {{ total | currency}}</strong>
     </div>
-    <b-modal :title="transactionModalTitle" :no-close-on-esc="true" :hide-header-close="false" :no-close-on-backdrop="false"
-      @hidden="handleHiddenModal" size="md" v-model="transactionModal" @ok="sendTransactionData"
-      :ok-disabled="!(permission(3) || permission(4))">
+    <b-modal :title="transactionModalTitle" :no-close-on-esc="true" :hide-header-close="false" :no-close-on-backdrop="false" @hidden="handleHiddenModal" size="md" v-model="transactionModal" @ok="sendTransactionData" :ok-disabled="!(permission(3) || permission(4))">
       <b-form-group :invalid-feedback="errors.trx_date" :state="stateTrxDate">
         <b-input-group>
           <b-input-group-prepend>
             <b-input-group-text><i class="icon-calendar"></i></b-input-group-text>
           </b-input-group-prepend>
-          <flat-pickr placeholder="Transaction Date" id="date" v-b-tooltip.hover title="Click To Edit" class="form-control"
-            v-bind:class="{'is-invalid':stateTrxDate==false,'is-valid':stateTrxDate==true}" style="background-color:white"
-            :config="configCalendar" v-model="input.trx_date" />
+          <flat-pickr placeholder="Transaction Date" id="date" v-b-tooltip.hover title="Click To Edit" class="form-control" v-bind:class="{'is-invalid':stateTrxDate==false,'is-valid':stateTrxDate==true}" style="background-color:white" :config="configCalendar" v-model="input.trx_date" />
         </b-input-group>
       </b-form-group>
       <b-form-group :invalid-feedback="errors.amount" :state="stateAmount">
@@ -107,8 +106,7 @@
           <b-input-group-prepend>
             <b-input-group-text>Rp</b-input-group-text>
           </b-input-group-prepend>
-          <b-input :disabled="!permission(3)"
- type="number" class="form-control" placeholder="Transaction Amount" v-model="input.amount" :state="stateAmount" />
+          <b-input :disabled="!permission(3)" type="number" class="form-control" placeholder="Transaction Amount" v-model="input.amount" :state="stateAmount" />
         </b-input-group>
       </b-form-group>
       <b-form-group v-if="transactionModalState == 'editTransaction'" :invalid-feedback="errors.verification" :state="stateVerification">
@@ -116,12 +114,9 @@
           <b-input-group-prepend>
             <b-input-group-text><i class="icon-check"></i></b-input-group-text>
           </b-input-group-prepend>
-          <b-form-select 
-             :disabled="!permission(4)"
- plain id="verfication" :options="[
+          <b-form-select :disabled="!permission(4)" plain id="verfication" :options="[
             {value:'UNVERIFIED',text:'UNVERIFIED'},
-            {value:'VERIFIED',text:'VERIFIED'}]"
-            v-model="input.verification" :state="stateVerification">
+            {value:'VERIFIED',text:'VERIFIED'}]" v-model="input.verification" :state="stateVerification">
             <template slot="first">
               <option :value="null" disabled>-- Is It Verified? --</option>
             </template>
@@ -133,10 +128,9 @@
           <b-input-group-prepend>
             <b-input-group-text><i class="icon-doc"></i></b-input-group-text>
           </b-input-group-prepend>
-    <!--       <b-input type="text" class="form-control" placeholder="Invoice Number (If Ready)" v-model="input.invoice_no"
+          <!--       <b-input type="text" class="form-control" placeholder="Invoice Number (If Ready)" v-model="input.invoice_no"
             :state="stateInvoiceNumber" /> -->
-          <b-input :disabled="!permission(3) || transactions[transactionTableIndex].has_invoice?true:false" type="text" class="form-control" placeholder="Invoice Number (If Ready)" v-model="input.invoice_no"
-            :state="stateInvoiceNumber" />
+          <b-input :disabled="!permission(3) || transactions[transactionTableIndex].has_invoice?true:false" type="text" class="form-control" placeholder="Invoice Number (If Ready)" v-model="input.invoice_no" :state="stateInvoiceNumber" />
         </b-input-group>
       </b-form-group>
       <!-- <b-form-group v-if="transactionModalState == 'editTransaction'" :invalid-feedback="errors.status_invoice" :state="stateStatusInvoice">
@@ -155,8 +149,7 @@
         </b-input-group>
       </b-form-group> -->
     </b-modal>
-    <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" :title="confirmModalTitle"
-      v-model="confirmModal" @ok="onConfirmModal">
+    <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" :title="confirmModalTitle" v-model="confirmModal" @ok="onConfirmModal">
       {{confirmModalBody}}
     </b-modal>
   </b-card>
@@ -171,14 +164,14 @@
   } from "./DetailDonorTransactionFieldTableData."
   export default {
     name: 'DetailDonorTransactionHistory',
-    props: ['transactions'],
+    props: ['transactions', 'donationToken', 'donorEmail'],
     components: {
       flatPickr,
       Evidence,
       Invoice
     },
     mixins: [FieldTableData],
-    data: function () {
+    data: function() {
       return {
         confirmModal: false,
         confirmModalTitle: '',
@@ -191,7 +184,7 @@
         transactionModalState: '',
         configCalendar: {
           dateFormat: 'd-M-y',
-          clickOpens:this.permission(3)
+          clickOpens: this.permission(3)
 
         },
         input: {
@@ -209,6 +202,7 @@
           invoice_no: '',
           status_invoice: null
         },
+        buttonCopyText: '<i class="fa fa-link"></i> Copy Link',
 
       }
     },
@@ -234,13 +228,13 @@
           index].verification == 'VERIFIED' ? true : false
       },
       total() {
-      let sum = 0;
-      for(let i = 0; i < this.transactions.length; i++){
+        let sum = 0;
+        for (let i = 0; i < this.transactions.length; i++) {
 
-        sum += this.transactions[i].verification == 'VERIFIED'? (parseFloat(this.transactions[i].amount) ) : 0;
-      }
+          sum += this.transactions[i].verification == 'VERIFIED' ? (parseFloat(this.transactions[i].amount)) : 0;
+        }
 
-     return sum;
+        return sum;
       }
     },
     methods: {
@@ -258,10 +252,10 @@
       handleEditTransaction(index) {
         console.log(this.transactions[index]);
         this.input.trx_date = this.transactions[index].trx_date,
-        this.input.amount = this.transactions[index].amount,
-        this.input.verification = this.transactions[index].verification,
-        this.input.invoice_no = this.transactions[index].invoice_no,
-        this.input.status_invoice = this.transactions[index].status_invoice
+          this.input.amount = this.transactions[index].amount,
+          this.input.verification = this.transactions[index].verification,
+          this.input.invoice_no = this.transactions[index].invoice_no,
+          this.input.status_invoice = this.transactions[index].status_invoice
         this.input.id = this.transactions[index].id
         this.transactionTableIndex = index
         console.log(this.input.id);
@@ -303,7 +297,7 @@
                 trx_date: self.input.trx_date,
                 amount: self.input.amount,
                 verification: 'UNVERIFIED',
-                has_invoice:null,
+                has_invoice: null,
                 invoice_no: '',
                 status_invoice: 'NOT SENT',
                 id: response.data.id,
@@ -329,11 +323,11 @@
             .then((response) => {
               console.log(response.data)
               self.transactions[self.transactionTableIndex].trx_date = self.input.trx_date,
-              self.transactions[self.transactionTableIndex].amount = self.input.amount,
-              self.transactions[self.transactionTableIndex].verification = self.input.verification,
-              self.transactions[self.transactionTableIndex].invoice_no = self.input.invoice_no,
-              // self.transactions[self.transactionTableIndex].has_invoice = self.input.has_invoice,
-              self.transactions[self.transactionTableIndex].status_invoice = self.input.status_invoice
+                self.transactions[self.transactionTableIndex].amount = self.input.amount,
+                self.transactions[self.transactionTableIndex].verification = self.input.verification,
+                self.transactions[self.transactionTableIndex].invoice_no = self.input.invoice_no,
+                // self.transactions[self.transactionTableIndex].has_invoice = self.input.has_invoice,
+                self.transactions[self.transactionTableIndex].status_invoice = self.input.status_invoice
               // console.log(self.transactions[self.transactionTableIndex]);
 
               self.$snotify.success(response.data.message, "SUCCESS");
@@ -403,9 +397,53 @@
         return status === 'SENT' ? 'success' :
           status === 'NOT SENT' ? 'secondary' : 'primary'
       },
+
+      fallbackCopyTextToClipboard(text) {
+        var textArea = document.createElement("textarea");
+        textArea.value = text;
+
+        // Avoid scrolling to bottom
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.position = "fixed";
+
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'successful' : 'unsuccessful';
+          console.log('Fallback: Copying text command was ' + msg);
+        } catch (err) {
+          console.error('Fallback: Oops, unable to copy', err);
+        }
+
+        document.body.removeChild(textArea);
+      },
+
+      copyTextToClipboard(text) {
+        if (!navigator.clipboard) {
+          this.fallbackCopyTextToClipboard(text);
+          return;
+        }
+        navigator.clipboard.writeText(text).then(function() {
+          console.log('Async: Copying to clipboard was successful!');
+        }, function(err) {
+          console.error('Async: Could not copy text: ', err);
+        });
+      },
+      handleCopyClipboard() {
+        let host = window.location.host
+        let pathname = '/donor#/donation-confirmation?'
+        this.copyTextToClipboard(`https://${host}${pathname}id=${this.$route.params.userId}&year=${this.$route.params.periodYear}&email=${this.donorEmail}&donation_token=${this.donationToken}`)
+        this.buttonCopyText = '<i class="fa fa-check"></i> Copied!'
+        setTimeout(() => {
+          this.buttonCopyText = `<i class="fa fa-link"></i> Copy Link`
+        }, 500);
+      },
     },
   }
-
 </script>
 <style>
 </style>

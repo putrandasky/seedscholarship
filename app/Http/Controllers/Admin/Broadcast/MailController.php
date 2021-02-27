@@ -79,8 +79,17 @@ class MailController extends Controller
     }
     public function composeData()
     {
-        $data['periods'] = App\Period::withCount('donorPeriods', 'awardeePeriods')->get();
-        $data['scholarship'] = App\Scholarship::withCount('awardeeNonregScholarship')->get();
+        $data['periods'] = App\Period::withCount([
+            'awardeePeriods' => function ($query) {
+                $query->where('status', 'APPROVED');
+            }, 'donorPeriods',
+        ]
+        )->get();
+        $data['scholarship'] = App\Scholarship::withCount([
+            'awardeeNonregScholarship' => function ($query) {
+                $query->where('status', 'APPROVED');
+            },
+        ])->get();
         return $data;
     }
     public function postBroadcast(Request $request)
@@ -110,11 +119,13 @@ class MailController extends Controller
         if ($item['groups'] == 1) { // group 1 is Awardee
             $users = App\Awardee::whereHas('awardeePeriods', function ($query) use ($item) {
                 $query->where('period_id', $item['periods']);
+                $query->where('status', 'APPROVED');
             })->get(['id', 'email', 'name']);
         }
         if ($item['groups'] == 3) { // group 3 is Nonreg
             $users = App\AwardeeNonreg::whereHas('awardeeNonregScholarships', function ($query) use ($item) {
                 $query->where('scholarship_id', $item['periods']);
+                $query->where('status', 'APPROVED');
             })->get(['id', 'email', 'name']);
         }
         $data['broadcast_id'] = $broadcast->id;

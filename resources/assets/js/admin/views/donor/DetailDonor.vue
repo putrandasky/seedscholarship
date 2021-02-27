@@ -208,7 +208,7 @@
         </b-card>
       </b-col>
       <b-col sm="12">
-        <transaction-history :transactions="data.donor.donor_transactions" />
+        <transaction-history :donationToken="data.donation_token" :donorEmail="data.donor.email" :transactions="data.donor.donor_transactions" />
       </b-col>
       <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" :title="editProfileModalTitle" v-model="editProfileModal" @ok="onConfirmEditProfileModal">
         <b-form-group :invalid-feedback="selectedEditProfileData.error" :state="selectedEditProfileData.state">

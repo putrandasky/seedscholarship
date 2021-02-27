@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+27 Feb 2021
+2.8
+### ADDED
+- Copy link for self upload donation in donor detail
+
+### FIXED
+- broadcast for approved awardee only
+
 26 Feb 2021
 2.7.1
 ### FIXED
