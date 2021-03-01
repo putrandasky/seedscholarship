@@ -8,6 +8,6 @@ class Redirection extends Model
 {
     public function admin()
     {
-        return $this->belongsTo('App\admin');
+        return $this->belongsTo('App\Admin');
     }
 }
