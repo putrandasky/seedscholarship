@@ -145,14 +145,14 @@ if ($nilai < 0) { $hasil="minus " . trim(penyebut($nilai)); } else { $hasil=trim
       <table style="width:200px">
         <tbody>
           <tr>
-            <td class="text-center">Kepala Keuangan</td>
+            <td class="text-center">{{$finance_head_title}}</td>
           </tr>
           <tr>
             <td style="height:80px;text-align:center">
               <img style="height:100px" src="{{ config('app.url').'/images/sign-hf.png'}}"> </td>
           </tr>
           <tr>
-            <td class="text-center">Zoraya Rachmi Pratiwi</td>
+            <td class="text-center">{{$finance_head_name}}</td>
           </tr>
         </tbody>
       </table>

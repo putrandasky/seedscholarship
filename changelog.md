@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+1 Maret 2021
+2.8.1
+### FIXED
+- Not dynamic head finance name and title in payment slip
+- tooltip hover on left for generate payment slip
+### ADDED
+- depedencies unit testing jest
+
 27 Feb 2021
 2.8
 ### ADDED

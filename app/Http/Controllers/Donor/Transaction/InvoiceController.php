@@ -42,21 +42,26 @@ class InvoiceController extends Controller
         //             $query->where('id', '=', $request->id);
         //         },
         //     ])->first();
+        $general = App\General::get();
+
         $period = App\Period::where('year', $request->periodYear)->first();
         $data = App\DonorPeriod::where([
             'period_id' => $period->id,
             'donor_id' => $request->userId,
         ])
             ->with([
-              'donor.collegeDepartment',
+                'donor.collegeDepartment',
                 'period',
                 'donor.donorTransactions' => function ($query) use ($request) {
                     $query->where('id', '=', $request->id);
                 },
             ])->first();
+        $finance_head_name = $general->where('key', 'Head of Finance Name')->first()->value;
+        $finance_head_title = $general->where('key', 'Head of Finance Title')->first()->value;
+
         $pdf = app('dompdf.wrapper');
         $pdf->getDomPDF()->set_option("enable_php", true);
-        $pdf->loadView('pdf.PaymentReceipt', compact('data'));
+        $pdf->loadView('pdf.PaymentReceipt', compact('data', 'finance_head_name', 'finance_head_title'));
         $pdf->setPaper('b5', 'landscape');
 
         Storage::put("transaction/{$request->periodYear}/{$request->userId}/{$request->id}/invoice/{$request->invoice_no}.pdf", $pdf->output());

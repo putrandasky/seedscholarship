@@ -1,16 +1,15 @@
 <template>
   <div>
     <template v-if="invoiceNo && !hasInvoice">
-      <span v-if="permission(3)" @click="createInvoice"><i class="fa fa-refresh" :class="{'fa-spin':isDisabled}" v-b-tooltip.hover="'Create Payment Receipt'"
-          style="color:blue;cursor:pointer"></i>
+      <span v-if="permission(3)" @click="createInvoice"><i class="fa fa-refresh" :class="{'fa-spin':isDisabled}" v-b-tooltip.hover.left="'Create Payment Receipt'" style="color:blue;cursor:pointer"></i>
       </span>
       <span>
         {{invoiceNo}}
       </span>
     </template>
     <template v-if="hasInvoice">
-      <span  v-if="permission(3)"  @click="deleteInvoice">
-        <i class="fa fa-trash" v-b-tooltip.hover="'Delete Payment Receipt'" style="color:red;cursor:pointer"></i>
+      <span v-if="permission(3)" @click="deleteInvoice">
+        <i class="fa fa-trash" v-b-tooltip.hover.left="'Delete Payment Receipt'" style="color:red;cursor:pointer"></i>
       </span>
       <b-link href="#" @click.stop="openInvoice">{{invoiceNo}}</b-link>
     </template>
@@ -19,8 +18,8 @@
 <script>
   export default {
     name: 'DetailDonorTransactionHistoryInvoice',
-    props: ['invoiceNo', 'dataId', 'index', 'hasInvoice','userId'],
-    data: function () {
+    props: ['invoiceNo', 'dataId', 'index', 'hasInvoice', 'userId'],
+    data: function() {
       return {
 
         isDisabled: false,
@@ -118,7 +117,6 @@
       },
     },
   }
-
 </script>
 <style>
 </style>
