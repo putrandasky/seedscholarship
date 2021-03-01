@@ -52,7 +52,11 @@ class Admin extends Authenticatable implements JWTSubject
     }
     public function donorPeriods()
     {
-        return $this->hasMany('App\DonorPeriods','pco');
+        return $this->hasMany('App\DonorPeriods', 'pco');
+    }
+    public function redirections()
+    {
+        return $this->hasMany('App\Redirection');
     }
     public function periods()
     {

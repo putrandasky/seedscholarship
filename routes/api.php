@@ -54,6 +54,11 @@ Route::group([
             Route::patch('scholarship/open/{id}', 'Admin\Setting\ScholarshipController@open');
             Route::patch('scholarship/{id}', 'Admin\Setting\ScholarshipController@update');
 
+            Route::get('redirection', 'Admin\Setting\UrlRedirectionController@index');
+            Route::post('redirection', 'Admin\Setting\UrlRedirectionController@addLink');
+            Route::patch('redirection/{redirection_id}', 'Admin\Setting\UrlRedirectionController@updateLink');
+            Route::delete('redirection/{redirection_id}', 'Admin\Setting\UrlRedirectionController@deleteLink');
+
         });
         Route::group(['prefix' => 'dashboard'], function () {
             Route::get('index', 'Admin\Dashboard\DashboardController@index');

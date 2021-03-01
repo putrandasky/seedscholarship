@@ -1,6 +1,7 @@
 import AppGeneralSettings from '../../views/settings/AppGeneral.vue';
 import AppPeriodSettings from '../../views/settings/AppPeriod.vue';
 import AppScholarshipSettings from '../../views/settings/AppScholarship.vue';
+import AppLinkRedirectionSettings from '../../views/settings/AppLinkRedirection.vue';
 import Full from '../../container/Full.vue';
 
 export default {
@@ -26,6 +27,14 @@ export default {
       path: 'scholarship',
       component: AppScholarshipSettings,
       name: 'ScholarshipSettings',
+      meta: {
+        auth: true
+      }
+    },
+    {
+      path: 'link-redirection',
+      component: AppLinkRedirectionSettings,
+      name: 'LinkRedirectionSettings',
       meta: {
         auth: true
       }

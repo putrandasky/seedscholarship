@@ -1,6 +1,13 @@
 # CHANGE LOG
 
 1 Maret 2021
+2.9
+### ADDED
+- link redirection on settings in admin panel
+
+### FIXED 
+- refactoring/mixins copyclipboard function
+
 2.8.1
 ### FIXED
 - Not dynamic head finance name and title in payment slip

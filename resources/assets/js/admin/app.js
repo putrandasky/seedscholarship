@@ -7,16 +7,26 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
-import { store } from './store';
+import {
+  store
+} from './store';
 import App from './components/App';
 import router from './router';
-import { sync } from 'vuex-router-sync';
+import {
+  sync
+} from 'vuex-router-sync';
 import BootstrapVue from 'bootstrap-vue';
 import InterceptorSetup from './interceptor';
 import './filter/filter';
 import VueFilter from 'vue-filter';
-import Snotify, { SnotifyPosition, showProgressBar } from 'vue-snotify';
-import { routerHistory, writeHistory } from 'vue-router-back-button';
+import Snotify, {
+  SnotifyPosition,
+  showProgressBar
+} from 'vue-snotify';
+import {
+  routerHistory,
+  writeHistory
+} from 'vue-router-back-button';
 import FileSaver from 'file-saver';
 // import Loading from 'vue-loading-overlay';
 import VuePellEditor from 'vue-pell-editor';
@@ -44,7 +54,7 @@ const options = {
   toast: {
     position: SnotifyPosition.rightTop,
     showProgressBar: true,
-    timeout: 4000
+    timeout: 2000
   }
 };
 Vue.use(Snotify, options);

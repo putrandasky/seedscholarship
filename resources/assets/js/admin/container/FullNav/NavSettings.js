@@ -8,6 +8,11 @@ export default {
       url: `/settings/general`
     },
     {
+      name: 'Link Redirection',
+      icon: '',
+      url: `/settings/link-redirection`
+    },
+    {
       name: 'Period',
       icon: '',
       url: `/settings/period`
