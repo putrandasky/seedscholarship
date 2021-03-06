@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <div class="float-button" v-b-tooltip.hover.left="'Term Conditions & FAQ'" @click="faqModal = true">
-      <i class="fa fa-question"></i>
-    </div>
+  <span>
+    <b-link href="#" @click="faqModal = true">terms and conditions.</b-link>
+
     <b-modal :hide-footer="true" :no-close-on-esc="true" :hide-header-close="false" :no-close-on-backdrop="false" size="xl" title="Term, Conditions, & Frequently Asked Question" v-model="faqModal">
       <strong>Pastikan kamu memenuhi persyaratan dibawah ini</strong>
       <ol>
@@ -12,9 +11,8 @@
       </ol>
       <strong>Kemudian, siapkan berkas pendaftaran</strong>
       <ol>
-        <li>Formulir pendaftaran SEED Scholarship yang sudah diisi (Bisa diunduh setelah regitrasi)</li>
+        <li>Formulir pendaftaran SEED Scholarship yang sudah diisi (Bisa diunduh setelah registrasi)</li>
         <li>Essai dengan topik : Mengapa saya pantas mendapatkan beasiswa SEED (300-500 kata)</li>
-        <li>Kartu Tanda Penduduk</li>
         <li>Salinan slip gaji orangtua</li>
         <li>Rekening listrik 3 bulan terakhir</li>
         <li>Print out halaman ringkasan dan riwayat SIAKNG</li>
@@ -37,7 +35,7 @@
       <strong>Q : Kapan beasiswa diberikan kepada Penerima Beasiswa?</strong>
       <p>A : Beasiswa akan diberikan pada bulan pertama atau paling lambat bulan kedua dari awal semester berjalan</p>
     </b-modal>
-  </div>
+  </span>
 </template>
 <script>
   export default {

@@ -32,12 +32,13 @@ Department : {{$data->collegeDepartment->department}}<br />
 Segera siapkan file berikut ini :
 @component('mail::panel')
 <ol>
-    <li>CV / Riwayat Hidup : format bebas dengan informasi yang wajib ada yaitu: data diri, riwayat pendidikan,
-        kemampuan bahasa, pengalaman kerja,
-        status pekerjaan/pendidikan anggota keluarga</li>
-    <li>Essay : dengan topik "Mengapa saya pantas mendapatkan beasiswa SEED" sebanyak 300-500 kata</li>
-    <li>Slip gaji Orang tua / Rekening Listrik</li>
-    <li>SiakNG : Printout Halaman ringkasan dan riwayat</li>
+  <li>Formulir pendaftaran SEED Scholarship yang sudah diisi (Unduh pada halaman melalui link "Upload Disini" dibawah)</li>
+  <li>Essai : dengan topik "Mengapa saya pantas mendapatkan beasiswa SEED" sebanyak (300-500 kata)</li>
+  <li>Salinan slip gaji orangtua</li>
+  <li>Rekening listrik 3 bulan terakhir</li>
+  <li>SiakNG : Printout Halaman ringkasan dan riwayat</li>
+  <li>Foto close up casual 3x4</li>
+  <li>Surat keterangan bukan perokok aktif</li>
 </ol>
 @endcomponent
 

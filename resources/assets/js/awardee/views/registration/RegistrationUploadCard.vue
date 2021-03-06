@@ -1,7 +1,7 @@
 <template>
   <b-card no-body>
     <div slot="header" class="text-center">
-      <strong>{{title}}  <i class="fa fa-info-circle" v-b-tooltip.hover="information"></i></strong>
+      <strong>{{title}} <i class="fa fa-info-circle" v-b-tooltip.hover="information"></i></strong>
     </div>
     <!-- <b-card-img src="/images/default-file.png" style="border-radius:unset" /> -->
     <!-- <b-card-body class="" style="height:30vh;display:grid;align-content:center;align-self:center">
@@ -43,26 +43,21 @@
       </div>
     </b-card-body>
     <b-card-body v-if="!data.name && !(uploadPercentage>0 ) ">
-      <b-form-file accept="image/jpeg, image/png, image/gif, application/pdf" ref="upload" placeholder="Choose a file..."
-        v-model="file" @change="onFileChange" />
+      <b-form-file accept="image/jpeg, image/png, image/gif, application/pdf" ref="upload" placeholder="Choose a file..." v-model="file" @change="onFileChange" />
     </b-card-body>
-    <b-button :disabled="file.length == 0" v-if="!data.name && !(uploadPercentage>0 ) " block fluid class="mt-0" variant="success"
-      style="border-top-left-radius:unset;border-top-right-radius:unset" @click="uploadFile"><i class="fa fa-paper-plane"></i>
+    <b-button :disabled="file.length == 0" v-if="!data.name && !(uploadPercentage>0 ) " block fluid class="mt-0" variant="success" style="border-top-left-radius:unset;border-top-right-radius:unset" @click="uploadFile"><i class="fa fa-paper-plane"></i>
       Upload
       File</b-button>
     <b-button v-if="data.name" block fluid variant="primary" style="border-radius:unset" @click="openFile"><i class="fa fa-search"></i>
       See File
     </b-button>
-    <b-button v-if="data.name" block fluid class="mt-0" variant="danger" style="border-top-left-radius:unset;border-top-right-radius:unset"
-      @click="trigerConfirmModal(
+    <b-button v-if="data.name" block fluid class="mt-0" variant="danger" style="border-top-left-radius:unset;border-top-right-radius:unset" @click="trigerConfirmModal(
               `Delete ${title}`,
               `Are you sure want to delete this file?`,
               'deleteFile'
-            )"><i
-        class="fa fa-trash"></i> Delete File
+            )"><i class="fa fa-trash"></i> Delete File
     </b-button>
-    <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" :title="confirmModalTitle"
-      v-model="confirmModal" @ok="deleteFile">
+    <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" :title="confirmModalTitle" v-model="confirmModal" @ok="deleteFile">
       {{confirmModalBody}}
     </b-modal>
   </b-card>
@@ -73,7 +68,7 @@
     props: [
       'title', 'folder'
     ],
-    data: function () {
+    data: function() {
       return {
         confirmModal: false,
         confirmModalTitle: '',
@@ -96,12 +91,17 @@
     created() {
       this.checkFile()
     },
-    computed:{
-      information(){
-        return this.folder == 'cv'? 'Riwayat hidup dengan format bebas dengan informasi wajib berupa data diri dan riwayat pendidikan':
-        this.folder == 'essay'? 'Esai dengan topik : Mengapa saya pantas mendapatkan beasiswa SEED (300-500 kata)':
-        this.folder == 'slip'? 'Salinan slip gaji orangtua dan/atau rekening listrik':
-        this.folder == 'siakng'? 'Print Out Ringkasan / Riwayat Akademis  SIAK NG': ''
+    computed: {
+      information() {
+        return this.folder == 'ktp' ? 'Melampirkan scan Kartu Tanda Penduduk (KTP)' :
+          this.folder == 'essay' ? 'Essay dengan topik : Mengapa saya pantas mendapatkan beasiswa SEED (300-500 kata)' :
+          this.folder == 'form' ? 'Formulir pendaftaran SEED Scholarship yang sudah diisi' :
+          this.folder == 'slip' ? 'Salinan slip gaji orangtua 3 bulan terakhir' :
+          this.folder == 'photo' ? 'Melampirkan foto close-up ukuran 3x4' :
+          this.folder == 'nosmoke' ? 'Melampirkan surat keterangan bukan perokok aktif.' :
+          this.folder == 'pln' ? 'Melampirkan slip pembayaran PLN 3 bulan terakhir' :
+          this.folder == 'cv' ? 'Riwayat hidup dengan format bebas dengan informasi wajib berupa data diri dan riwayat pendidikan' :
+          this.folder == 'siakng' ? 'Print Out Ringkasan / Riwayat Akademis SIAK NG' : ''
       }
     },
     methods: {
@@ -154,13 +154,13 @@
             params: {
               id: this.$route.query.id,
               folder: this.folder,
-              registration_code:this.$route.query.registration_code,
-              period_id:this.$route.query.period_id
+              registration_code: this.$route.query.registration_code,
+              period_id: this.$route.query.period_id
             },
             headers: {
               'Content-Type': 'multipart/form-data'
             },
-            onUploadProgress: function (progressEvent) {
+            onUploadProgress: function(progressEvent) {
               this.uploadPercentage = parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total));
             }.bind(this)
           })
@@ -177,7 +177,7 @@
             self.uploadPercentage = 0
             self.old_file = self.new_file
             self.new_file = null
-          this.$refs.upload.reset()
+            this.$refs.upload.reset()
             this.$snotify.danger(`Ooops! Somethings Wrong, Try Again Later`, "ERROR");
           })
 
@@ -204,7 +204,6 @@
       },
     },
   }
-
 </script>
 <style>
 </style>

@@ -66,6 +66,10 @@ Route::group([
         });
         Route::group(['prefix' => 'awardee'], function () {
             Route::get('request/index', 'Admin\Awardee\AwardeeIndexController@index');
+            Route::get('attachment', 'Admin\Awardee\AttachmentRequestController@index');
+            Route::post('attachment', 'Admin\Awardee\AttachmentRequestController@store');
+            Route::delete('attachment', 'Admin\Awardee\AttachmentRequestController@delete');
+            Route::get('attachment/download', 'Admin\Awardee\AttachmentRequestController@download');
             Route::post('request/set-status', 'Admin\Awardee\DetailController@setStatus');
 
         });
@@ -186,6 +190,7 @@ Route::get('scholarship-active', 'Common\ScholarshipController@active');
 Route::get('get-scholarship-open-registration', 'Common\ScholarshipController@open_registration');
 Route::apiResource('scholarship', 'Common\ScholarshipController');
 Route::get('registration-awardee/upload/authorized', 'Awardee\Registration\RegistrationUploadController@authorized');
+Route::get('registration-awardee/attachment/download', 'Awardee\Registration\RegistrationUploadController@download');
 Route::apiResource('registration-awardee/upload', 'Awardee\Registration\RegistrationUploadController');
 Route::apiResource('registration-awardee', 'Awardee\Registration\UserController');
 Route::get('registration-awardee-nonreg/upload/authorized', 'AwardeeNonreg\Registration\RegistrationUploadController@authorized');

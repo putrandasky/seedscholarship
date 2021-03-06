@@ -85,18 +85,28 @@
       </b-col>
       <b-col cols="12">
         <b-row>
+          <b-col v-for="(v,i) in files" :key="i" lg="3" sm="6">
+            <file-card :title="setTitle(v.folder)" :folder="v.folder" :periodId="data.period_id" :registrationCode="data.registration_code" :data="v" />
+          </b-col>
+          <!--
           <b-col lg="3" sm="6">
-            <file-card title="Curriculum Vitae" :periodId="data.period_id" :registrationCode="data.registration_code" folder="cv" :data="files.cv" />
+            <file-card title="KTP" :periodId="data.period_id" :registrationCode="data.registration_code" folder="ktp" :data="files.ktp" />
+          </b-col>
+          <b-col lg="3" sm="6">
+            <file-card title="Pas Photo" :periodId="data.period_id" :registrationCode="data.registration_code" folder="photo" :data="files.photo" />
           </b-col>
           <b-col lg="3" sm="6">
             <file-card title="Essay" folder="essay" :periodId="data.period_id" :registrationCode="data.registration_code" :data="files.essay" />
           </b-col>
           <b-col lg="3" sm="6">
-            <file-card title="Slip Gaji/Rekening Listrik" :periodId="data.period_id" :registrationCode="data.registration_code" folder="slip" :data="files.slip" />
+            <file-card title="Slip Gaji" :periodId="data.period_id" :registrationCode="data.registration_code" folder="slip" :data="files.slip" />
           </b-col>
           <b-col lg="3" sm="6">
-            <file-card title="SiakNG" folder="siakng" :periodId="data.period_id" :registrationCode="data.registration_code" :data="files.siakng" />
+            <file-card title="Rekening Listrik" :periodId="data.period_id" :registrationCode="data.registration_code" folder="pln" :data="files.pln" />
           </b-col>
+          <b-col lg="3" sm="6">
+            <file-card title="Surat Bukan Perokok Aktif" :periodId="data.period_id" :registrationCode="data.registration_code" folder="nosmoke" :data="files.nosmoke" />
+          </b-col> -->
         </b-row>
         <b-row v-if="data.status == 'SUBMITTED' && permission(20)">
           <b-col cols="12" class="text-right">
@@ -203,6 +213,16 @@
           .catch(error => {
             console.log(error);
           });
+      },
+      setTitle(title) {
+        return title == 'ktp' ? 'KTP' :
+          title == 'essay' ? 'Essay' :
+          title == 'slip' ? 'Slip Gaji' :
+          title == 'form' ? 'Formulir Pendaftaran' :
+          title == 'photo' ? 'Pas Photo' :
+          title == 'nosmoke' ? 'Surat Bukan Perokok Aktif' :
+          title == 'pln' ? 'Rekening Listrik' :
+          title == 'siakng' ? 'SiakNG' : ''
       },
       getData() {
         let self = this;

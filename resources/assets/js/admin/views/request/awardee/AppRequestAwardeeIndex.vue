@@ -5,8 +5,10 @@
         <b-alert show variant="info">
           <h4 class="alert-heading">Belum Ada Awardee</h4>
           <p>
-            Masih belum ada awardee yang mendaftar untuk periode ini
+            Masih belum ada awardee yang mendaftar untuk periode ini.
           </p>
+          <hr>
+          <attachment />
         </b-alert>
       </div>
       <div class="mt-3" v-if="itemsData.length !== 0">
@@ -45,6 +47,7 @@
   </slide-y-up-transition>
 </template>
 <script>
+  import Attachment from './AppRequestAwardeeIndexAttachment'
   import {
     AppRequestAwardeeFieldTableData
   } from "./AppRequestAwardeeFieldTableData";
@@ -56,6 +59,9 @@
   } from "../../_share/mixins/OperationPage";
   export default {
     name: "AppRequestAwardeeIndex",
+    components: {
+      Attachment
+    },
     mixins: [AppRequestAwardeeFieldTableData, instantSearch, OperationPage],
     data: function() {
       return {
@@ -82,6 +88,7 @@
           }
         });
       },
+
       getData() {
         this.loaded = false;
         this.$store.dispatch('stateLoadingFull', true);

@@ -55,9 +55,14 @@
     created() {},
     computed: {
       information() {
-        return this.folder == 'cv' ? 'Riwayat hidup dengan format bebas dengan informasi wajib berupa data diri dan riwayat pendidikan' :
-          this.folder == 'essay' ? 'Esai dengan topik : Mengapa saya pantas mendapatkan beasiswa SEED (300-500 kata)' :
-          this.folder == 'slip' ? 'Salinan slip gaji orangtua dan/atau rekening listrik' :
+        return this.folder == 'ktp' ? 'Melampirkan scan Kartu Tanda Penduduk (KTP)' :
+          this.folder == 'essay' ? 'Essay dengan topik : Mengapa saya pantas mendapatkan beasiswa SEED (300-500 kata)' :
+          this.folder == 'form' ? 'Formulir pendaftaran SEED Scholarship yang sudah diisi' :
+          this.folder == 'slip' ? 'Salinan slip gaji orangtua 3 bulan terakhir' :
+          this.folder == 'photo' ? 'Melampirkan foto close-up ukuran 3x4' :
+          this.folder == 'nosmoke' ? 'Melampirkan surat keterangan bukan perokok aktif.' :
+          this.folder == 'pln' ? 'Melampirkan slip pembayaran PLN 3 bulan terakhir' :
+          this.folder == 'cv' ? 'Riwayat hidup dengan format bebas dengan informasi wajib berupa data diri dan riwayat pendidikan' :
           this.folder == 'siakng' ? 'Print Out Ringkasan / Riwayat Akademis  SIAK NG' : ''
       }
     },

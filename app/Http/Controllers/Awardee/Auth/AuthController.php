@@ -41,24 +41,24 @@ class AuthController extends Controller
         //             $query->where('year', '=', $request->year);
         //         }])
         //     ->orderBy('created_at', 'desc')->get();
-            $period = App\Period::where('year',$request->year)->first();
-            $user = App\AwardeePeriod::where('period_id',$period->id)
+        $period = App\Period::where('year', $request->year)->first();
+        $user = App\AwardeePeriod::where('period_id', $period->id)
             ->with([
-              'awardee'=>function($query)
-              {
-                $query->select('id','name','email','year','college_department_id','created_at');
-              },
-              'awardee.collegeDepartment',
-              'period'])
-              ->select('id','awardee_id','period_id','created_at','status')
-              ->orderBy('created_at', 'desc')->get();
+                'awardee' => function ($query) {
+                    $query->select('id', 'name', 'email', 'year', 'college_department_id', 'created_at');
+                },
+                'awardee.collegeDepartment',
+                'period'])
+            ->select('id', 'awardee_id', 'period_id', 'created_at', 'status')
+            ->orderBy('created_at', 'desc')->get();
         return $user;
     }
     public function register(Request $request)
     {
         $rules = [
             'name' => 'required|string',
-            'email' => 'required|email|unique:awardees',
+            // 'email' => 'required|email|unique:awardees',
+            'email' => 'required|email',
             // 'password' => 'required|confirmed|min:6',
             'phone' => 'required|numeric|min:6',
             'year' => 'required|numeric|min:4',
@@ -71,6 +71,15 @@ class AuthController extends Controller
         ];
 
         $this->validate($request, $rules, $messages);
+
+        $check_exist = App\AwardeePeriod::whereHas('awardee', function ($query) use ($request) {
+            $query->where('email', $request->email);
+        })->where('period_id', $request->period_id)->exists();
+
+        if ($check_exist) {
+            return response()->json(['status' => 'ERROR', 'message' => 'You already registerd on this period'], 403);
+        }
+
         $user = new App\Awardee();
         $user->name = ucwords($request->name);
         $user->email = $request->email;
@@ -99,8 +108,8 @@ class AuthController extends Controller
                     'awardeePeriods.period' => function ($query) use ($request) {
                         $query->where('id', '=', $request->period_id);
 
-                      },
-                      'awardeePeriods' => function ($query) use ($registration_code) {
+                    },
+                    'awardeePeriods' => function ($query) use ($registration_code) {
                         $query->where('registration_code', $registration_code);
 
                     },
@@ -109,10 +118,14 @@ class AuthController extends Controller
             $user->notify(new PostRegistered($data));
             // $user->notify((new PostRegistered($data))->delay($when));
         });
-        Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/cv");
+        Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/form");
+        Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/siakng");
+        Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/ktp");
+        Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/photo");
         Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/essay");
         Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/slip");
-        Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/siakng");
+        Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/pln");
+        Storage::makeDirectory("registration/awardee/{$request->period_id}/{$user->id}/nosmoke");
 
         return response()->json([
             'status' => 'Successfully register new awardee',

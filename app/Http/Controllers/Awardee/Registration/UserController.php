@@ -25,17 +25,17 @@ class UserController extends Controller
 
         $period = App\Period::where('year', $request->year)->first();
         $data['user'] = App\AwardeePeriod::where([
-          'period_id'=> $period->id,
-          'awardee_id'=> $id,
+            'period_id' => $period->id,
+            'awardee_id' => $id,
         ])
             ->with([
                 'awardee' => function ($query) {
-                    $query->select('id', 'name', 'email', 'year', 'college_department_id', 'created_at','phone');
+                    $query->select('id', 'name', 'email', 'year', 'college_department_id', 'created_at', 'phone');
                 },
                 'awardee.collegeDepartment',
                 'period'])
 
-            // ->select('id', 'awardee_id', 'period_id', 'created_at', 'status')
+        // ->select('id', 'awardee_id', 'period_id', 'created_at', 'status')
             ->orderBy('created_at', 'desc')->first();
 
         if (!$data['user']) {
@@ -45,6 +45,7 @@ class UserController extends Controller
 
         $folders = Storage::directories("registration/awardee/{$period->id}/{$id}");
         // return $folders;
+        $data['files'] = array();
         for ($i = 0; $i < count($folders); $i++) {
             # code...
             $filesInFolder = Storage::files($folders[$i]);
@@ -55,15 +56,15 @@ class UserController extends Controller
                 $files = pathinfo($filesInFolder[0]);
                 $dirname = $files['dirname'];
                 $basename = $files['basename'];
-                $data['files'][$folder_name]['folder'] = $folder_name;
-                $data['files'][$folder_name]['size'] = Storage::size($dirname . '/' . $basename);
-                $data['files'][$folder_name]['name'] = $basename;
-                $data['files'][$folder_name]['date'] = Carbon::createFromTimestamp(Storage::lastModified($dirname . '/' . $basename))->format('d-M-y');
+                $data['files'][$i]['folder'] = $folder_name;
+                $data['files'][$i]['size'] = Storage::size($dirname . '/' . $basename);
+                $data['files'][$i]['name'] = $basename;
+                $data['files'][$i]['date'] = Carbon::createFromTimestamp(Storage::lastModified($dirname . '/' . $basename))->format('d-M-y');
             } else {
-                $data['files'][$folder_name]['folder'] = $folder_name;
-                $data['files'][$folder_name]['size'] = null;
-                $data['files'][$folder_name]['name'] = '';
-                $data['files'][$folder_name]['date'] = '';
+                $data['files'][$i]['folder'] = $folder_name;
+                $data['files'][$i]['size'] = null;
+                $data['files'][$i]['name'] = '';
+                $data['files'][$i]['date'] = '';
             }
         }
 
