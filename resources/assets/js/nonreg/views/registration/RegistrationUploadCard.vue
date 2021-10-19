@@ -43,26 +43,21 @@
       </div>
     </b-card-body>
     <b-card-body v-if="!data.name && !(uploadPercentage>0 ) ">
-      <b-form-file accept="image/jpeg, image/png, image/gif, application/pdf" ref="upload" placeholder="Choose a file..."
-        v-model="file" @change="onFileChange" />
+      <b-form-file accept="image/jpeg, image/png, image/gif, application/pdf" ref="upload" placeholder="Choose a file..." v-model="file" @change="onFileChange" />
     </b-card-body>
-    <b-button :disabled="file.length == 0" v-if="!data.name && !(uploadPercentage>0 ) " block fluid class="mt-0" variant="success"
-      style="border-top-left-radius:unset;border-top-right-radius:unset" @click="uploadFile"><i class="fa fa-upload"></i>
+    <b-button :disabled="file.length == 0" v-if="!data.name && !(uploadPercentage>0 ) " block fluid class="mt-0" variant="success" style="border-top-left-radius:unset;border-top-right-radius:unset" @click="uploadFile"><i class="fa fa-upload"></i>
       Upload
       File</b-button>
     <b-button v-if="data.name" block fluid variant="primary" style="border-radius:unset" @click="openFile"><i class="fa fa-search"></i>
       See File
     </b-button>
-    <b-button v-if="data.name" block fluid class="mt-0" variant="danger" style="border-top-left-radius:unset;border-top-right-radius:unset"
-      @click="trigerConfirmModal(
+    <b-button v-if="data.name" block fluid class="mt-0" variant="danger" style="border-top-left-radius:unset;border-top-right-radius:unset" @click="trigerConfirmModal(
               `Delete ${title}`,
               `Are you sure want to delete this file?`,
               'deleteFile'
-            )"><i
-        class="fa fa-trash"></i> Delete File
+            )"><i class="fa fa-trash"></i> Delete File
     </b-button>
-    <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" :title="confirmModalTitle"
-      v-model="confirmModal" @ok="deleteFile">
+    <b-modal :no-close-on-esc="true" :hide-header-close="true" :no-close-on-backdrop="true" :title="confirmModalTitle" v-model="confirmModal" @ok="deleteFile">
       {{confirmModalBody}}
     </b-modal>
   </b-card>
@@ -73,9 +68,9 @@
     props: [
       'title', 'folder'
     ],
-    data: function () {
+    data: function() {
       return {
-        loaded:false,
+        loaded: false,
         confirmModal: false,
         confirmModalTitle: '',
         confirmModalBody: '',
@@ -97,12 +92,14 @@
     created() {
       this.checkFile()
     },
-    computed:{
-      information(){
-        return this.folder == 'cv'? 'Riwayat hidup dengan format bebas dengan informasi wajib berupa data diri dan riwayat pendidikan':
-        this.folder == 'proposal'? 'Proposal penelitan dengan isi; latar belakang, tujuan, metodologi, RAB, dan referensi':
-        this.folder == 'sktmb'? 'Surat keterangan yang menyatakan tidak menerima beasiswa riset lainnya':
-        this.folder == 'siakng'? 'Print Out Ringkasan / Riwayat Akademis  SIAK NG': ''
+    computed: {
+      information() {
+        return this.folder == 'cv' ? 'Riwayat hidup dengan format bebas dengan informasi wajib berupa data diri dan riwayat pendidikan' :
+          this.folder == 'proposal' ? 'Proposal penelitan dengan isi; latar belakang, tujuan, metodologi,dan referensi' :
+          this.folder == 'srta' ? 'Surat rekomendari dosen/pembimbing Tugas Akhir ' :
+          this.folder == 'rab' ? 'Rincian kebutuhan dana penelitian ' :
+          this.folder == 'sktmb' ? 'Surat keterangan yang menyatakan tidak menerima beasiswa riset lainnya' :
+          this.folder == 'siakng' ? 'Print Out Ringkasan / Riwayat Akademis  SIAK NG' : ''
       }
     },
     methods: {
@@ -157,13 +154,13 @@
             params: {
               id: this.$route.query.id,
               folder: this.folder,
-              registration_code:this.$route.query.registration_code,
-              scholarship_id:this.$route.query.scholarship_id
+              registration_code: this.$route.query.registration_code,
+              scholarship_id: this.$route.query.scholarship_id
             },
             headers: {
               'Content-Type': 'multipart/form-data'
             },
-            onUploadProgress: function (progressEvent) {
+            onUploadProgress: function(progressEvent) {
               this.uploadPercentage = parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total));
             }.bind(this)
           })
@@ -179,7 +176,7 @@
             self.uploadPercentage = 0
             self.old_file = self.new_file
             self.new_file = null
-          this.$refs.upload.reset()
+            this.$refs.upload.reset()
             console.log(error);
             this.$snotify.danger(`Ooops! Somethings Wrong, Try Again Later`, "ERROR");
           })
@@ -207,7 +204,6 @@
       },
     },
   }
-
 </script>
 <style>
 </style>

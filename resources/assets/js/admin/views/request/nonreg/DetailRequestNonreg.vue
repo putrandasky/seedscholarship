@@ -85,7 +85,10 @@
       </b-col>
       <b-col cols="12">
         <b-row>
-          <b-col lg="3" sm="6">
+          <b-col v-for="(v,i) in files" :key="i" lg="3" sm="6">
+            <file-card :title="setTitle(v.folder)" :folder="v.folder" :scholarshipId="data.scholarship_id" :registrationCode="data.registration_code" :data="v" />
+          </b-col>
+          <!-- <b-col lg="3" sm="6">
             <file-card title="Curriculum Vitae" :scholarshipId="
                 data.scholarship_id
               " :registrationCode="
@@ -112,7 +115,7 @@
               " :registrationCode="
                 data.registration_code
               " :data="files.siakng" />
-          </b-col>
+          </b-col> -->
         </b-row>
       </b-col>
       <b-col cols="12">
@@ -223,6 +226,14 @@
           .catch(error => {
             console.log(error);
           });
+      },
+      setTitle(title) {
+        return title == 'cv' ? 'Curriculum Vitae' :
+          title == 'proposal' ? 'Proposal' :
+          title == 'siakng' ? 'SiakNg' :
+          title == 'srta' ? 'Surat Rekomendasi' :
+          title == 'rab' ? 'Rincian Kebutuhan Dana Penelitian' :
+          title == 'sktmb' ? 'Surat keterangan' : ''
       },
       getData() {
         let self = this;

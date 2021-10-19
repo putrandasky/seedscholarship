@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Storage;
 
 class RegistrationUploadController extends Controller
 {
+    public function __construct()
+    {
+        $this->attachment_file_path = "registration/attachment/nonreg";
+        $this->uploaded_file_path = "registration/nonreg";
+    }
     public function authorized(Request $request)
     {
         $RegisterExist = App\AwardeeNonregScholarship::where([
@@ -20,6 +25,56 @@ class RegistrationUploadController extends Controller
         if (!$RegisterExist) {
             return response()->json(['error' => 'Unauthorized', 'message' => 'You are not allowed to access this page'], 401);
         }
+        $folders = Storage::directories("{$this->uploaded_file_path}/{$request->scholarship_id}/{$request->id}");
+        $data['uploaded_files'] = array();
+
+        for ($i = 0; $i < count($folders); $i++) {
+            # code...
+            $filesInFolder = Storage::files($folders[$i]);
+            $folder = pathinfo($folders[$i]);
+            $folder_name = $folder['basename'];
+            if (count($filesInFolder) > 0) {
+                # code...
+                $files = pathinfo($filesInFolder[0]);
+                $dirname = $files['dirname'];
+                $basename = $files['basename'];
+                $data['uploaded_files'][$i]['folder'] = $folder_name;
+                $data['uploaded_files'][$i]['size'] = Storage::size($dirname . '/' . $basename);
+                $data['uploaded_files'][$i]['name'] = $basename;
+                $data['uploaded_files'][$i]['date'] = Carbon::createFromTimestamp(Storage::lastModified($dirname . '/' . $basename))->format('d-M-y');
+            } else {
+                $data['uploaded_files'][$i]['folder'] = $folder_name;
+                $data['uploaded_files'][$i]['size'] = null;
+                $data['uploaded_files'][$i]['name'] = '';
+                $data['uploaded_files'][$i]['date'] = '';
+            }
+        }
+        $data['attachment_files'] = array();
+
+        $filesInFolder = Storage::files("{$this->attachment_file_path}/{$request->scholarship_id}");
+        for ($a = 0; $a < count($filesInFolder); $a++) {
+            # code...
+            if (count($filesInFolder) > 0) {
+                # code...
+                $files = pathinfo($filesInFolder[$a]);
+                $dirname = $files['dirname'];
+                $basename = $files['basename'];
+                $data['attachment_files'][$a]['size'] = Storage::size($dirname . '/' . $basename);
+                $data['attachment_files'][$a]['name'] = $basename;
+                $data['attachment_files'][$a]['date'] = Carbon::createFromTimestamp(Storage::lastModified($dirname . '/' . $basename))->format('d-M-y');
+            } else {
+                $data['attachment_files'][$a]['size'] = null;
+                $data['attachment_files'][$a]['name'] = '';
+                $data['attachment_files'][$a]['date'] = '';
+            }
+        }
+
+        return $data;
+
+    }
+    public function download(Request $request)
+    {
+        return Storage::download("{$this->attachment_file_path}/{$request->scholarship_id}/{$request->filename}");
 
     }
     public function index(Request $request)
@@ -62,12 +117,14 @@ class RegistrationUploadController extends Controller
 
         $save = $request->file('file')->storeAs("registration/nonreg/$request->scholarship_id/{$request->id}/{$request->folder}", $request->file('file')->getClientOriginalName());
 
-        $cv = Storage::files("registration/nonreg/{$request->scholarship_id}/{$request->id}/cv");
+        // $cv = Storage::files("registration/nonreg/{$request->scholarship_id}/{$request->id}/cv");
         $siakng = Storage::files("registration/nonreg/{$request->scholarship_id}/{$request->id}/siakng");
         $proposal = Storage::files("registration/nonreg/{$request->scholarship_id}/{$request->id}/proposal");
-        $sktmb = Storage::files("registration/nonreg/{$request->scholarship_id}/{$request->id}/sktmb");
+        $srta = Storage::files("registration/nonreg/{$request->scholarship_id}/{$request->id}/srta");
+        $rab = Storage::files("registration/nonreg/{$request->scholarship_id}/{$request->id}/rab");
+        // $sktmb = Storage::files("registration/nonreg/{$request->scholarship_id}/{$request->id}/sktmb");
 
-        if ($cv && $siakng && $proposal && $sktmb) {
+        if ($rab && $siakng && $proposal && $srta) {
             $data = App\AwardeeNonregScholarship::where([
                 'awardee_nonreg_id' => $request->id,
                 'scholarship_id' => $request->scholarship_id,

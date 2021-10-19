@@ -75,6 +75,11 @@ Route::group([
         });
         Route::group(['prefix' => 'scholarship'], function () {
             Route::get('request/index', 'Admin\Scholarship\ScholarshipIndexController@index');
+            Route::get('attachment', 'Admin\Scholarship\AttachmentRequestController@index');
+            Route::post('attachment', 'Admin\Scholarship\AttachmentRequestController@store');
+            Route::delete('attachment', 'Admin\Scholarship\AttachmentRequestController@delete');
+            Route::get('attachment/download', 'Admin\Scholarship\AttachmentRequestController@download');
+
             Route::post('request/set-status', 'Admin\Scholarship\DetailController@setStatus');
 
         });
@@ -194,5 +199,7 @@ Route::get('registration-awardee/attachment/download', 'Awardee\Registration\Reg
 Route::apiResource('registration-awardee/upload', 'Awardee\Registration\RegistrationUploadController');
 Route::apiResource('registration-awardee', 'Awardee\Registration\UserController');
 Route::get('registration-awardee-nonreg/upload/authorized', 'AwardeeNonreg\Registration\RegistrationUploadController@authorized');
+Route::get('registration-awardee-nonreg/attachment/download', 'AwardeeNonreg\Registration\RegistrationUploadController@download');
+
 Route::apiResource('registration-awardee-nonreg/upload', 'AwardeeNonreg\Registration\RegistrationUploadController');
 Route::apiResource('registration-awardee-nonreg', 'AwardeeNonreg\Registration\UserController');

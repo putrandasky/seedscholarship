@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Notifications\Nonreg;
+namespace App\Notifications\Admin;
 
 use App;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class PostRegistered extends Notification
+class SendEmailAcceptanceAwardeeNonreg extends Notification
 {
     use Queueable;
 
@@ -41,15 +41,24 @@ class PostRegistered extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = 'hello@seedscholarship.org';
         $general = App\General::get();
         $cp_email[0] = $general->where('key', 'Contact Person Email 1')->first()->value;
         $cp_email[1] = $general->where('key', 'Contact Person Email 2')->first()->value;
-
-        return (new MailMessage)
-            ->from($url, 'SEED Scholarship ')
-            ->subject("Hai Calon Awardee {$this->data->awardeeNonregScholarships[0]->scholarship->name} #{$this->data->awardeeNonregScholarships[0]->scholarship->year}")
-            ->markdown('email.NonregPostRegistered', ['data' => $this->data, 'cp_email' => $cp_email]);
+        $url = 'hello@seedscholarship.org';
+        if ($this->data['status'] == 'APPROVED') {
+            # code...
+            return (new MailMessage)
+                ->from($url, 'SEED Scholarship')
+                ->subject("Congratulations {$this->data['awardee_nonreg']['name']}!")
+                ->markdown('email.AcceptanceAwardeeReguler', ['data' => $this->data, 'cp_email' => $cp_email]);
+        }
+        if ($this->data['status'] == 'NOT APPROVED') {
+            # code...
+            return (new MailMessage)
+                ->from($url, 'SEED Scholarship')
+                ->subject("Regret From Us")
+                ->markdown('email.RejectionAwardeeReguler', ['data' => $this->data, 'cp_email' => $cp_email]);
+        }
 
     }
 

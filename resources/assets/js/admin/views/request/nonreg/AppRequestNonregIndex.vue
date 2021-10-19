@@ -7,8 +7,9 @@
           <p>
             Masih belum ada awardee yang mendaftar untuk beasiswa ini
           </p>
+          <hr>
+          <attachment />
         </b-alert>
-
       </div>
       <div class="mt-3" v-if="itemsData.length !== 0">
         <b-row>
@@ -50,6 +51,8 @@
   </slide-y-up-transition>
 </template>
 <script>
+  import Attachment from './AppRequestNonregIndexAttachment'
+
   import {
     AppRequestNonregFieldTableData
   } from './AppRequestNonregFieldTableData';
@@ -62,6 +65,9 @@
   export default {
     name: 'AppDetailRequestNonreg',
     mixins: [AppRequestNonregFieldTableData, instantSearch, OperationPage],
+    components: {
+      Attachment
+    },
     data: function() {
       return {
         routeName: 'RequestNonregIndex',

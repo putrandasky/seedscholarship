@@ -101,6 +101,10 @@
                     </b-input-group>
                   </b-form-group>
                 </b-col>
+                <b-col sm="12">
+                  I already read & accept the
+                  <faq-link />
+                </b-col>
                 <!-- <b-col sm="12">
                   <b-form-file v-model="file" placeholder="Choose a file..."></b-form-file>
                 </b-col> -->
@@ -129,15 +133,19 @@
         </b-col>
       </b-row>
     </div>
-    <faq-modal />
+    <wa-button />
   </div>
 </template>
 <script>
-  import FaqModal from './AuthRegisterFaq.vue';
+  import FaqLink from './AuthRegisterFaqLink.vue'
+  import WaButton from '../../../global/components/WaButton.vue'
+
   export default {
     name: 'AuthRegister',
     components: {
-      FaqModal
+      FaqLink,
+      WaButton
+
     },
     data: function() {
       return {

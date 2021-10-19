@@ -110,10 +110,12 @@ class AuthController extends Controller
             $user->notify(new PostRegistered($data));
             // $user->notify((new PostRegistered($data))->delay($when));
         });
-        Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/cv");
+        // Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/cv");
         Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/proposal");
-        Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/sktmb");
+        // Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/sktmb");
         Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/siakng");
+        Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/srta");
+        Storage::makeDirectory("registration/nonreg/{$request->scholarship_id}/{$user->id}/rab");
         return response()->json([
             'status' => 'Successfully register new awardee',
             'registration_code' => $registration_code,

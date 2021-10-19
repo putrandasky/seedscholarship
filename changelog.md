@@ -1,11 +1,17 @@
 # CHANGE LOG
 
+19 Okt 2021
+2.11
+### FIXED
+- Scholarship Awardee form fixed
+- upload attachment from admin panel for awardee registration
+
 6 Maret 2021
 2.10
 ### ADDED
 - Upload attachment for awardee
 - acceptance and regret letter for awardee by email by set status approval
-- add requirement awardee for form, photo, ktp, nosmokk 
+- add nwe requirement awardee for form, photo, ktp, nosmoke
 
 1 Maret 2021
 2.9
